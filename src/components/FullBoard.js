@@ -11,8 +11,8 @@ const FullBoard = () => {
 
     // Items
     const [items, setItems] = useState([]);
-    const [itemText, setItemText] = useState('');
-    const [itemColor, setItemColor] = useState('');
+    const [itemText, setItemText] = useState('Text');
+    const [itemColor, setItemColor] = useState('#aabbcc');
     const [selectedItem, setSelectedItem] = useState(null)
     const [editing, setEditing] = useState(null)
     const [draggingItem, setDraggingItem] = useState(false);
@@ -25,8 +25,8 @@ const FullBoard = () => {
         const newY = event.clientY - event.currentTarget.getBoundingClientRect().top;
         const newBox = { id: itemId, x: newX, y: newY, text: itemText, color: itemColor, type: "box" };
         setItems([...items, newBox]);
-        setItemText('');
-        setItemColor('');
+        setItemText('Text');
+        setItemColor('#aabbcc');
     };
 
     const handleImageUpload = (event) => {
@@ -41,10 +41,8 @@ const FullBoard = () => {
                 y: 0,
                 type: "image"
             };
-
             setItems((prevImages) => [...prevImages, newImage]);
         };
-
         reader.readAsDataURL(file);
     };
 
@@ -111,6 +109,7 @@ const FullBoard = () => {
 
     const handleDeleteItem = (id) => {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        setEditing(null)
     };
 
     {/* Text box create methods */ }
@@ -124,7 +123,7 @@ const FullBoard = () => {
     const handleEditBox = (id) => {
         setEditing({ status: true, id: id })
     }
-    const handleStopEditBox = (id) => {
+    const handleStopEditBox = () => {
         setEditing(null)
     }
 
@@ -185,6 +184,7 @@ const FullBoard = () => {
                 onMouseUp={handleMouseUp}
                 ref={svgRef}
                 style={{ width: '800px', height: '600px', border: '1px solid black' }}
+                cursor={isDrawing ? "crosshair" : "move"}
             >
                 {items.map(item => (
                     <g
@@ -197,8 +197,8 @@ const FullBoard = () => {
                         {item.type === "box" && (
                             <>
                                 <rect
-                                    width="100"
-                                    height="100"
+                                    width="200"
+                                    height="50"
                                     fill={item.color}
                                     stroke="blue"
                                     strokeWidth="1"
@@ -209,8 +209,8 @@ const FullBoard = () => {
                                     onMouseUp={handleMouseUp}
                                 />
                                 <text
-                                    x="50"
-                                    y="50"
+                                    x="60"
+                                    y="25"
                                     textAnchor="middle"
                                     dominantBaseline="middle"
                                     style={{ pointerEvents: 'none' }}
@@ -218,12 +218,15 @@ const FullBoard = () => {
                                     {item.text}
                                 </text>
                                 <text
+                                    x="5"
+                                    y="15"
+                                    fill="white"
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => handleDeleteItem(item.id)}>
-                                    X
+                                    &times;
                                 </text>
-                                {!editing && <circle
-                                    cx="95"
+                                <circle
+                                    cx="195"
                                     cy="5"
                                     r="8"
                                     fill="red"
@@ -231,8 +234,8 @@ const FullBoard = () => {
                                     strokeWidth="2"
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => handleEditBox(item.id)}
-                                />}
-                                {editing && <circle
+                                />
+                                {editing && editing.id === item.id && <circle
                                     cx="95"
                                     cy="5"
                                     r="8"
@@ -240,7 +243,7 @@ const FullBoard = () => {
                                     stroke="white"
                                     strokeWidth="2"
                                     style={{ cursor: 'pointer' }}
-                                    onClick={() => handleStopEditBox(item.id)}
+                                    onClick={handleStopEditBox}
                                 />}
                             </>
                         )}
@@ -280,8 +283,9 @@ const FullBoard = () => {
                         d={path.path}
                         stroke={path.color}
                         fill="none"
-                        strokeWidth="2"
-                        onMouseUp={erasing ? (() => handleDeletePath(path)) : null}
+                        strokeWidth="4"
+                        onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
+                        cursor={erasing && "grab"}
                     />
                 ))}
                 {currentPath && (
