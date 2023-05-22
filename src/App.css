@@ -32,7 +32,59 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.app {
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard {
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr); */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.moodboard {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-moodboard {
+  display: block;
+}
+
+.dropzone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.moodboard-2 {
+  min-height: 200px;
+}
+
+.color-box {
+  width: 100%;
+  height: 80px;
 }

@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+// import Moodboard from './components/Moodboard';
+import Moodboard from './components/Moodboard';
+import Moody from './components/Moody';
+import Canvas from './components/Canvas';
+import Canvaslink from './components/Canvaslink';
+import Drawing from './components/Drawing';
+import TextBoard from './components/TextBoard';
+import ColoredTextBox from './components/ColoredTextBox';
+import DragImage from './components/DragImage';
+import Boxes from './components/Boxes';
+import FullBoard from './components/FullBoard';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {/* <h1>Moodboard App</h1> */}
+
+      <h1>Moodboard</h1>
+      <div className='dashboard'>
+        <FullBoard />
+        {/* <Moodboard />
+        <Drawing />
+        <Moody />
+        <Boxes /> */}
+      </div>
+      {/* <DragImage /> */}
+
     </div>
   );
 }
