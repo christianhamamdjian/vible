@@ -5,7 +5,8 @@ const FullBoard = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     const [paths, setPaths] = useState([]);
-    const [color, setColor] = useState('#000');
+    const [erasing, setErasing] = useState(false);
+    const [color, setColor] = useState('#aabbcc');
     const svgRef = useRef(null);
 
     // Items
@@ -47,15 +48,15 @@ const FullBoard = () => {
         reader.readAsDataURL(file);
     };
 
-    const handleMouseDown = (event, id) => {
+    const handleMouseDown = (event, itemId) => {
         {/* Items */ }
-        if (id) {
+        if (itemId) {
             setDraggingItem(true);
 
             const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
             const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
 
-            const selectedItem = items.find(item => item.id === id)
+            const selectedItem = items.find(item => item.id === itemId)
 
             setSelectedItem(selectedItem)
 
@@ -63,7 +64,7 @@ const FullBoard = () => {
         }
 
         {/* Drawing */ }
-        if (!id) {
+        if (!itemId) {
             setIsDrawing(true);
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
@@ -89,7 +90,7 @@ const FullBoard = () => {
 
         {/* Drawing */ }
         if (!isDrawing) return;
-        if (isDrawing && !selectedItem) {
+        if (isDrawing && !erasing && !selectedItem) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
@@ -126,6 +127,7 @@ const FullBoard = () => {
     const handleStopEditBox = (id) => {
         setEditing(null)
     }
+
     {/* Edit text box */ }
     const handleItemTextChange = (event, id) => {
         setItems(prevItems =>
@@ -156,7 +158,13 @@ const FullBoard = () => {
         const y = event.clientY - top;
         return { x, y };
     };
-
+    const handleEraser = () => {
+        setErasing(erasing => !erasing);
+        setIsDrawing(isDrawing => !isDrawing)
+    }
+    const handleDeletePath = (erased) => {
+        setPaths((prevPaths) => prevPaths.filter((path) => path.path !== erased.path));
+    }
     const handleDownload = () => {
         const svgBlob = new Blob([svgRef.current.outerHTML], { type: 'image/svg+xml' });
         const svgURL = URL.createObjectURL(svgBlob);
@@ -184,6 +192,7 @@ const FullBoard = () => {
                         draggable="true"
                         transform={`translate(${item.x},${item.y})`}
                     >
+
                         {/* Boxes */}
                         {item.type === "box" && (
                             <>
@@ -266,13 +275,26 @@ const FullBoard = () => {
 
                 {/* Drawing */}
                 {paths.map((path, index) => (
-                    <path key={index} d={path.path} stroke={path.color} fill="none" strokeWidth="2" />
+                    <path
+                        key={index}
+                        d={path.path}
+                        stroke={path.color}
+                        fill="none"
+                        strokeWidth="2"
+                        onMouseUp={erasing ? (() => handleDeletePath(path)) : null}
+                    />
                 ))}
                 {currentPath && (
-                    <path d={currentPath} stroke={color} fill="none" strokeWidth="2" />
+                    <path
+                        d={currentPath}
+                        stroke={color}
+                        fill="none"
+                        strokeWidth="2"
+                    />
                 )}
 
             </svg>
+
             {/* Boxes form */}
             <form onSubmit={handleAddBox}>
                 <label>
@@ -316,12 +338,14 @@ const FullBoard = () => {
 
             )
             }
+
             {/* Images form */}
             <input type="file" accept="image/*" onChange={handleImageUpload} />
 
             {/* Drawing form */}
             <div>
                 <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
+                <button style={erasing ? { backgroundColor: "#aabbcc" } : null} onClick={handleEraser}>Delete lines</button>
                 <button onClick={handleDownload}>Download SVG</button>
             </div>
 
