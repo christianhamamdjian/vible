@@ -7,23 +7,25 @@ const FullBoard = () => {
     const [paths, setPaths] = useState([]);
     const [erasing, setErasing] = useState(false);
     const [color, setColor] = useState('#aabbcc');
+    const [line, setLine] = useState(2);
     const svgRef = useRef(null);
 
     // Items
     const [items, setItems] = useState([]);
     const [itemText, setItemText] = useState('Text');
     const [itemColor, setItemColor] = useState('#aabbcc');
-    const [selectedItem, setSelectedItem] = useState(null)
-    const [editing, setEditing] = useState(null)
+    const [itemLink, setItemLink] = useState('');
+    const [itemUrl, setItemUrl] = useState('');
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [editingText, setEditingText] = useState(null);
+    const [editingImage, setEditingImage] = useState(null);
     const [draggingItem, setDraggingItem] = useState(false);
     const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 });
 
     const handleAddBox = (event) => {
         event.preventDefault();
         const itemId = Date.now();
-        const newX = event.clientX - event.currentTarget.getBoundingClientRect().left;
-        const newY = event.clientY - event.currentTarget.getBoundingClientRect().top;
-        const newBox = { id: itemId, x: newX, y: newY, text: itemText, color: itemColor, type: "box" };
+        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: itemColor, link: itemLink, url: itemUrl, type: "box" };
         setItems([...items, newBox]);
         setItemText('Text');
         setItemColor('#aabbcc');
@@ -39,6 +41,7 @@ const FullBoard = () => {
                 src: e.target.result,
                 x: 0,
                 y: 0,
+                width: "100",
                 type: "image"
             };
             setItems((prevImages) => [...prevImages, newImage]);
@@ -103,13 +106,13 @@ const FullBoard = () => {
 
         {/* Drawing */ }
         setIsDrawing(false);
-        setPaths((prevPaths) => [...prevPaths, { path: currentPath, color }]);
+        setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
         setCurrentPath('');
     };
 
     const handleDeleteItem = (id) => {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-        setEditing(null)
+        setEditingText(null)
     };
 
     {/* Text box create methods */ }
@@ -119,15 +122,19 @@ const FullBoard = () => {
     const handleItemColor = (event) => {
         setItemColor(event.target.value);
     };
-
+    const handleItemLink = (event) => {
+        setItemLink(event.target.value);
+    };
+    const handleItemUrl = (event) => {
+        setItemUrl(event.target.value);
+    };
+    {/* Edit text box */ }
     const handleEditBox = (id) => {
-        setEditing({ status: true, id: id })
+        setEditingText({ status: true, id: id })
     }
     const handleStopEditBox = () => {
-        setEditing(null)
+        setEditingText(null)
     }
-
-    {/* Edit text box */ }
     const handleItemTextChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -144,6 +151,43 @@ const FullBoard = () => {
             prevItems.map(item => {
                 if (item.id === id) {
                     return { ...item, color: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
+    const handleItemLinkChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, link: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
+    const handleItemUrlChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, url: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
+    {/* Edit image */ }
+    const handleEditImage = (id) => {
+        setEditingImage({ status: true, id: id })
+    }
+    const handleStopEditImage = () => {
+        setEditingImage(null)
+    }
+    const handleImageChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, width: event.target.value };
                 }
                 return item;
             })
@@ -183,8 +227,9 @@ const FullBoard = () => {
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 ref={svgRef}
-                style={{ width: '800px', height: '600px', border: '1px solid black' }}
+                style={{ width: '80vw', height: '60vh', border: '1px solid black' }}
                 cursor={isDrawing ? "crosshair" : "move"}
+                xmlnsXlink="http://www.w3.org/1999/xlink"
             >
                 {items.map(item => (
                     <g
@@ -217,6 +262,7 @@ const FullBoard = () => {
                                 >
                                     {item.text}
                                 </text>
+
                                 <text
                                     x="5"
                                     y="15"
@@ -225,6 +271,11 @@ const FullBoard = () => {
                                     onClick={() => handleDeleteItem(item.id)}>
                                     &times;
                                 </text>
+                                <a
+                                    xlinkHref={item.url}
+                                    target="__blank">
+                                    <text x="120" y="40" fill="blue">{item.link}</text>
+                                </a>
                                 <circle
                                     cx="195"
                                     cy="5"
@@ -235,8 +286,8 @@ const FullBoard = () => {
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => handleEditBox(item.id)}
                                 />
-                                {editing && editing.id === item.id && <circle
-                                    cx="95"
+                                {editingText && editingText.id === item.id && <circle
+                                    cx="175"
                                     cy="5"
                                     r="8"
                                     fill="green"
@@ -255,12 +306,15 @@ const FullBoard = () => {
                                     <rect
                                         width="120"
                                         height="120"
-                                        style={{ border: '1px solid black', cursor: 'move' }}
+                                        fill="transparent"
+                                        style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
                                     />
 
                                     <image href={item.src}
-                                        width="100"
-                                        height="100"
+                                        x={-item.width / 5}
+                                        y="0"
+                                        width={item.width}
+                                        height={item.width * 2}
                                         onMouseDown={e => {
                                             handleMouseDown(e, item.id)
                                         }}
@@ -270,9 +324,31 @@ const FullBoard = () => {
                                         onClick={() => handleDeleteItem(item.id)}>
                                         X
                                     </text>
+                                    <circle
+                                        cx="120"
+                                        cy="5"
+                                        r="8"
+                                        fill="red"
+                                        stroke="white"
+                                        strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleEditImage(item.id)}
+                                    />
+                                    {editingImage && editingImage.id === item.id && <circle
+                                        cx="95"
+                                        cy="5"
+                                        r="8"
+                                        fill="green"
+                                        stroke="white"
+                                        strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={handleStopEditImage}
+                                    />}
                                 </>
                             )
                         }
+
+
                     </g>
                 ))}
 
@@ -283,9 +359,9 @@ const FullBoard = () => {
                         d={path.path}
                         stroke={path.color}
                         fill="none"
-                        strokeWidth="4"
+                        strokeWidth={path.line}
                         onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
-                        cursor={erasing && "grab"}
+                        cursor={erasing ? "grab" : "move"}
                     />
                 ))}
                 {currentPath && (
@@ -293,7 +369,7 @@ const FullBoard = () => {
                         d={currentPath}
                         stroke={color}
                         fill="none"
-                        strokeWidth="2"
+                        strokeWidth={line}
                     />
                 )}
 
@@ -309,48 +385,101 @@ const FullBoard = () => {
                     Color:
                     <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
                 </label>
+                <label>
+                    Link text:
+                    <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
+                </label>
+                <label>
+                    Link url:
+                    <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
+                </label>
                 <button type="submit">Add Box</button>
             </form>
-            {items.length > 0 && editing && (
+            {
+                items.length > 0 && editingText && (
 
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column"
-                }}
-                >
-                    <label>
-                        Change text:
-                        <input
-                            type="text"
-                            value={items.find(item => item.id === editing.id).text}
-                            onChange={(event) =>
-                                handleItemTextChange(event, editing.id)
-                            }
-                        />
-                    </label>
-                    <label>
-                        Change color:
-                        <input
-                            type="color"
-                            name="color"
-                            value={items.find(item => item.id === editing.id).color}
-                            onChange={(event) =>
-                                handleItemColorChange(event, editing.id)
-                            } />
-                    </label>
-                </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column"
+                    }}
+                    >
+                        <label>
+                            Change text:
+                            <input
+                                type="text"
+                                value={items.find(item => item.id === editingText.id).text}
+                                onChange={(event) =>
+                                    handleItemTextChange(event, editingText.id)
+                                }
+                            />
+                        </label>
+                        <label>
+                            Change color:
+                            <input
+                                type="color"
+                                name="color"
+                                value={items.find(item => item.id === editingText.id).color}
+                                onChange={(event) =>
+                                    handleItemColorChange(event, editingText.id)
+                                } />
+                        </label>
+                        <label>
+                            Change link:
+                            <input
+                                type="text"
+                                name="link"
+                                value={items.find(item => item.id === editingText.id).link}
+                                onChange={(event) =>
+                                    handleItemLinkChange(event, editingText.id)
+                                } />
+                        </label>
+                        <label>
+                            Change url:
+                            <input
+                                type="text"
+                                name="url"
+                                value={items.find(item => item.id === editingText.id).url}
+                                onChange={(event) =>
+                                    handleItemUrlChange(event, editingText.id)
+                                } />
+                        </label>
+                    </div>
 
-            )
+                )
             }
 
             {/* Images form */}
-            <input type="file" accept="image/*" onChange={handleImageUpload} />
-
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload} />
+            {
+                items.length > 0 && editingImage && (
+                    <label>
+                        Change image width:
+                        <input
+                            type="number"
+                            min="40"
+                            value={items.find(item => item.id === editingImage.id).width}
+                            onChange={(event) => handleImageChange(event, editingImage.id)}
+                        />
+                    </label>)
+            }
             {/* Drawing form */}
             <div>
-                <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
-                <button style={erasing ? { backgroundColor: "#aabbcc" } : null} onClick={handleEraser}>Delete lines</button>
-                <button onClick={handleDownload}>Download SVG</button>
+                <input
+                    type="color"
+                    value={color}
+                    onChange={(event) => setColor(event.target.value)} />
+                <input
+                    type="number"
+                    value={line}
+                    onChange={(event) => setLine(event.target.value)} />
+                <button
+                    style={erasing ? { backgroundColor: "#aabbcc" } : null}
+                    onClick={handleEraser}>Delete lines</button>
+                <button
+                    onClick={handleDownload}>Download SVG</button>
             </div>
 
         </div >
