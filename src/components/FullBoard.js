@@ -224,79 +224,86 @@ const FullBoard = () => {
         <div className='dashboard'>
             <div className='sidebar'>
                 {/* Boxes form */}
-                <h2>Boxes:</h2>
+
                 <div>
-                    <form className='inputs' onSubmit={handleAddBox}>
-                        <label>
-                            Text:
-                            <input type="text" value={itemText} onChange={handleItemText} />
-                        </label>
-                        <label>
-                            Color:
-                            <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
-                        </label>
-                        <label>
-                            Link text:
-                            <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
-                        </label>
-                        <label>
-                            Link url:
-                            <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
-                        </label>
-                        <button type="submit">Add Box</button>
-                    </form>
-                    {
-                        items.length > 0 && editingText && (
+                    {!editingText && (
+                        <>
+                            <h2>Boxes:</h2>
+                            <form className='inputs' onSubmit={handleAddBox}>
+                                <label>
+                                    Text:
+                                    <input type="text" value={itemText} onChange={handleItemText} />
+                                </label>
+                                <label>
+                                    Color:
+                                    <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
+                                </label>
+                                <label>
+                                    Link text:
+                                    <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
+                                </label>
+                                <label>
+                                    Link url:
+                                    <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
+                                </label>
+                                <button type="submit">Add Box</button>
+                            </form>
+                        </>
+                    )
+                    }
+                    {items.length > 0 && editingText && (
 
-                            <div className='inputs'>
-                                <label>
-                                    Change text:
-                                    <input
-                                        type="text"
-                                        value={items.find(item => item.id === editingText.id).text}
-                                        onChange={(event) =>
-                                            handleItemTextChange(event, editingText.id)
-                                        }
-                                    />
-                                </label>
-                                <label>
-                                    Change color:
-                                    <input
-                                        type="color"
-                                        name="color"
-                                        value={items.find(item => item.id === editingText.id).color}
-                                        onChange={(event) =>
-                                            handleItemColorChange(event, editingText.id)
-                                        } />
-                                </label>
-                                <label>
-                                    Change link:
-                                    <input
-                                        type="text"
-                                        name="link"
-                                        value={items.find(item => item.id === editingText.id).link}
-                                        onChange={(event) =>
-                                            handleItemLinkChange(event, editingText.id)
-                                        } />
-                                </label>
-                                <label>
-                                    Change url:
-                                    <input
-                                        type="text"
-                                        name="url"
-                                        value={items.find(item => item.id === editingText.id).url}
-                                        onChange={(event) =>
-                                            handleItemUrlChange(event, editingText.id)
-                                        } />
-                                </label>
-                            </div>
+                        <div className='inputs'>
+                            <h2>Edit Box:</h2>
+                            <label>
+                                Change text:
+                                <input
+                                    type="text"
+                                    value={items.find(item => item.id === editingText.id).text}
+                                    onChange={(event) =>
+                                        handleItemTextChange(event, editingText.id)
+                                    }
+                                />
+                            </label>
+                            <label>
+                                Change color:
+                                <input
+                                    type="color"
+                                    name="color"
+                                    value={items.find(item => item.id === editingText.id).color}
+                                    onChange={(event) =>
+                                        handleItemColorChange(event, editingText.id)
+                                    } />
+                            </label>
+                            <label>
+                                Change link:
+                                <input
+                                    type="text"
+                                    name="link"
+                                    value={items.find(item => item.id === editingText.id).link}
+                                    onChange={(event) =>
+                                        handleItemLinkChange(event, editingText.id)
+                                    } />
+                            </label>
+                            <label>
+                                Change url:
+                                <input
+                                    type="text"
+                                    name="url"
+                                    value={items.find(item => item.id === editingText.id).url}
+                                    onChange={(event) =>
+                                        handleItemUrlChange(event, editingText.id)
+                                    } />
+                            </label>
+                        </div>
 
-                        )
+                    )
                     }
                 </div>
                 {/* Images form */}
                 <h2>Images:</h2>
                 <div className='inputs'>
+                    <h3>Add an image:</h3>
                     <input
                         type="file"
                         accept="image/*"
