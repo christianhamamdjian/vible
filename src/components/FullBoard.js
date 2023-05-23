@@ -221,268 +221,272 @@ const FullBoard = () => {
     };
 
     return (
-        <div>
-            <svg
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                ref={svgRef}
-                style={{ width: '80vw', height: '60vh', border: '1px solid black' }}
-                cursor={isDrawing ? "crosshair" : "move"}
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-            >
-                {items.map(item => (
-                    <g
-                        key={item.id}
-                        draggable="true"
-                        transform={`translate(${item.x},${item.y})`}
-                    >
+        <div className='dashboard'>
+            <div className='sidebar'>
+                {/* Boxes form */}
+                <h2>Boxes:</h2>
+                <div>
+                    <form className='inputs' onSubmit={handleAddBox}>
+                        <label>
+                            Text:
+                            <input type="text" value={itemText} onChange={handleItemText} />
+                        </label>
+                        <label>
+                            Color:
+                            <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
+                        </label>
+                        <label>
+                            Link text:
+                            <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
+                        </label>
+                        <label>
+                            Link url:
+                            <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
+                        </label>
+                        <button type="submit">Add Box</button>
+                    </form>
+                    {
+                        items.length > 0 && editingText && (
 
-                        {/* Boxes */}
-                        {item.type === "box" && (
-                            <>
-                                <rect
-                                    width="200"
-                                    height="50"
-                                    fill={item.color}
-                                    stroke="blue"
-                                    strokeWidth="1"
-                                    rx="5"
-                                    ry="5"
-                                    style={{ cursor: 'move' }}
-                                    onMouseDown={(e) => handleMouseDown(e, item.id)}
-                                    onMouseUp={handleMouseUp}
+                            <div className='inputs'>
+                                <label>
+                                    Change text:
+                                    <input
+                                        type="text"
+                                        value={items.find(item => item.id === editingText.id).text}
+                                        onChange={(event) =>
+                                            handleItemTextChange(event, editingText.id)
+                                        }
+                                    />
+                                </label>
+                                <label>
+                                    Change color:
+                                    <input
+                                        type="color"
+                                        name="color"
+                                        value={items.find(item => item.id === editingText.id).color}
+                                        onChange={(event) =>
+                                            handleItemColorChange(event, editingText.id)
+                                        } />
+                                </label>
+                                <label>
+                                    Change link:
+                                    <input
+                                        type="text"
+                                        name="link"
+                                        value={items.find(item => item.id === editingText.id).link}
+                                        onChange={(event) =>
+                                            handleItemLinkChange(event, editingText.id)
+                                        } />
+                                </label>
+                                <label>
+                                    Change url:
+                                    <input
+                                        type="text"
+                                        name="url"
+                                        value={items.find(item => item.id === editingText.id).url}
+                                        onChange={(event) =>
+                                            handleItemUrlChange(event, editingText.id)
+                                        } />
+                                </label>
+                            </div>
+
+                        )
+                    }
+                </div>
+                {/* Images form */}
+                <h2>Images:</h2>
+                <div className='inputs'>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload} />
+                    {
+                        items.length > 0 && editingImage && (
+                            <label>
+                                Change image width:
+                                <input
+                                    type="number"
+                                    min="40"
+                                    value={items.find(item => item.id === editingImage.id).width}
+                                    onChange={(event) => handleImageChange(event, editingImage.id)}
                                 />
-                                <text
-                                    x="60"
-                                    y="25"
-                                    textAnchor="middle"
-                                    dominantBaseline="middle"
-                                    style={{ pointerEvents: 'none' }}
-                                >
-                                    {item.text}
-                                </text>
+                            </label>)
+                    }
+                </div>
+                {/* Drawing form */}
+                <h2>Drawing:</h2>
+                <div className='inputs'>
+                    <input
+                        type="color"
+                        value={color}
+                        onChange={(event) => setColor(event.target.value)} />
+                    <input
+                        type="number"
+                        value={line}
+                        onChange={(event) => setLine(event.target.value)} />
+                    <button
+                        style={erasing ? { backgroundColor: "#aabbcc" } : null}
+                        onClick={handleEraser}>Delete lines</button>
+                    <button
+                        onClick={handleDownload}>Download SVG</button>
+                </div>
+            </div >
+            <div className="frame">
+                <svg
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    ref={svgRef}
+                    style={{ width: '2000', height: '1200', border: '1px solid transparent', backgroundColor: "gold", }}
+                    cursor={isDrawing ? "crosshair" : "move"}
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                >
+                    {items.map(item => (
+                        <g
+                            key={item.id}
+                            draggable="true"
+                            transform={`translate(${item.x},${item.y})`}
+                        >
 
-                                <text
-                                    x="5"
-                                    y="15"
-                                    fill="white"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => handleDeleteItem(item.id)}>
-                                    &times;
-                                </text>
-                                <a
-                                    xlinkHref={item.url}
-                                    target="__blank">
-                                    <text x="120" y="40" fill="blue">{item.link}</text>
-                                </a>
-                                <circle
-                                    cx="195"
-                                    cy="5"
-                                    r="8"
-                                    fill="red"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => handleEditBox(item.id)}
-                                />
-                                {editingText && editingText.id === item.id && <circle
-                                    cx="175"
-                                    cy="5"
-                                    r="8"
-                                    fill="green"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={handleStopEditBox}
-                                />}
-                            </>
-                        )}
-
-                        {/* Images */}
-                        {item.type === "image" &&
-                            (
+                            {/* Boxes */}
+                            {item.type === "box" && (
                                 <>
                                     <rect
-                                        width="120"
-                                        height="120"
-                                        fill="transparent"
-                                        style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
+                                        width="200"
+                                        height="50"
+                                        fill={item.color}
+                                        stroke="white"
+                                        strokeWidth="6"
+                                        rx="5"
+                                        ry="5"
+                                        style={{ cursor: 'move' }}
+                                        onMouseDown={(e) => handleMouseDown(e, item.id)}
+                                        onMouseUp={handleMouseUp}
                                     />
-
-                                    <image href={item.src}
-                                        x={-item.width / 5}
-                                        y="0"
-                                        width={item.width}
-                                        height={item.width * 2}
-                                        onMouseDown={e => {
-                                            handleMouseDown(e, item.id)
-                                        }}
-                                        style={{ cursor: 'move' }} />
                                     <text
+                                        x="60"
+                                        y="25"
+                                        textAnchor="middle"
+                                        dominantBaseline="middle"
+                                        style={{ pointerEvents: 'none' }}
+                                    >
+                                        {item.text}
+                                    </text>
+
+                                    <text
+                                        x="5"
+                                        y="15"
+                                        fill="white"
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleDeleteItem(item.id)}>
-                                        X
+                                        &times;
                                     </text>
+                                    <a
+                                        xlinkHref={item.url}
+                                        target="__blank">
+                                        <text x="120" y="40" fill="blue">{item.link}</text>
+                                    </a>
                                     <circle
-                                        cx="120"
+                                        cx="195"
                                         cy="5"
                                         r="8"
                                         fill="red"
                                         stroke="white"
                                         strokeWidth="2"
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => handleEditImage(item.id)}
+                                        onClick={() => handleEditBox(item.id)}
                                     />
-                                    {editingImage && editingImage.id === item.id && <circle
-                                        cx="95"
+                                    {editingText && editingText.id === item.id && <circle
+                                        cx="175"
                                         cy="5"
                                         r="8"
                                         fill="green"
                                         stroke="white"
                                         strokeWidth="2"
                                         style={{ cursor: 'pointer' }}
-                                        onClick={handleStopEditImage}
+                                        onClick={handleStopEditBox}
                                     />}
                                 </>
-                            )
-                        }
+                            )}
+
+                            {/* Images */}
+                            {item.type === "image" &&
+                                (
+                                    <>
+                                        <rect
+                                            width="120"
+                                            height="120"
+                                            fill="transparent"
+                                            style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
+                                        />
+
+                                        <image href={item.src}
+                                            x={-item.width / 5}
+                                            y="0"
+                                            width={item.width}
+                                            height={item.width * 2}
+                                            onMouseDown={e => {
+                                                handleMouseDown(e, item.id)
+                                            }}
+                                            style={{ cursor: 'move' }} />
+                                        <text
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleDeleteItem(item.id)}>
+                                            X
+                                        </text>
+                                        <circle
+                                            cx="120"
+                                            cy="5"
+                                            r="8"
+                                            fill="red"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleEditImage(item.id)}
+                                        />
+                                        {editingImage && editingImage.id === item.id && <circle
+                                            cx="95"
+                                            cy="5"
+                                            r="8"
+                                            fill="green"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={handleStopEditImage}
+                                        />}
+                                    </>
+                                )
+                            }
 
 
-                    </g>
-                ))}
+                        </g>
+                    ))}
 
-                {/* Drawing */}
-                {paths.map((path, index) => (
-                    <path
-                        key={index}
-                        d={path.path}
-                        stroke={path.color}
-                        fill="none"
-                        strokeWidth={path.line}
-                        onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
-                        cursor={erasing ? "grab" : "move"}
-                    />
-                ))}
-                {currentPath && (
-                    <path
-                        d={currentPath}
-                        stroke={color}
-                        fill="none"
-                        strokeWidth={line}
-                    />
-                )}
-
-            </svg>
-
-            {/* Boxes form */}
-            <form onSubmit={handleAddBox}>
-                <label>
-                    Text:
-                    <input type="text" value={itemText} onChange={handleItemText} />
-                </label>
-                <label>
-                    Color:
-                    <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
-                </label>
-                <label>
-                    Link text:
-                    <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
-                </label>
-                <label>
-                    Link url:
-                    <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
-                </label>
-                <button type="submit">Add Box</button>
-            </form>
-            {
-                items.length > 0 && editingText && (
-
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column"
-                    }}
-                    >
-                        <label>
-                            Change text:
-                            <input
-                                type="text"
-                                value={items.find(item => item.id === editingText.id).text}
-                                onChange={(event) =>
-                                    handleItemTextChange(event, editingText.id)
-                                }
-                            />
-                        </label>
-                        <label>
-                            Change color:
-                            <input
-                                type="color"
-                                name="color"
-                                value={items.find(item => item.id === editingText.id).color}
-                                onChange={(event) =>
-                                    handleItemColorChange(event, editingText.id)
-                                } />
-                        </label>
-                        <label>
-                            Change link:
-                            <input
-                                type="text"
-                                name="link"
-                                value={items.find(item => item.id === editingText.id).link}
-                                onChange={(event) =>
-                                    handleItemLinkChange(event, editingText.id)
-                                } />
-                        </label>
-                        <label>
-                            Change url:
-                            <input
-                                type="text"
-                                name="url"
-                                value={items.find(item => item.id === editingText.id).url}
-                                onChange={(event) =>
-                                    handleItemUrlChange(event, editingText.id)
-                                } />
-                        </label>
-                    </div>
-
-                )
-            }
-
-            {/* Images form */}
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload} />
-            {
-                items.length > 0 && editingImage && (
-                    <label>
-                        Change image width:
-                        <input
-                            type="number"
-                            min="40"
-                            value={items.find(item => item.id === editingImage.id).width}
-                            onChange={(event) => handleImageChange(event, editingImage.id)}
+                    {/* Drawing */}
+                    {paths.map((path, index) => (
+                        <path
+                            key={index}
+                            d={path.path}
+                            stroke={path.color}
+                            fill="none"
+                            strokeWidth={path.line}
+                            onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
+                            cursor={erasing ? "grab" : "move"}
                         />
-                    </label>)
-            }
-            {/* Drawing form */}
-            <div>
-                <input
-                    type="color"
-                    value={color}
-                    onChange={(event) => setColor(event.target.value)} />
-                <input
-                    type="number"
-                    value={line}
-                    onChange={(event) => setLine(event.target.value)} />
-                <button
-                    style={erasing ? { backgroundColor: "#aabbcc" } : null}
-                    onClick={handleEraser}>Delete lines</button>
-                <button
-                    onClick={handleDownload}>Download SVG</button>
-            </div>
+                    ))}
+                    {currentPath && (
+                        <path
+                            d={currentPath}
+                            stroke={color}
+                            fill="none"
+                            strokeWidth={line}
+                        />
+                    )}
 
-        </div >
+                </svg>
+            </div>
+        </div>
     )
 }
 
