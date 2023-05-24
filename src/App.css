@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(66, 68, 138);
+  background-color: rgb(14 14 14);
 }
 
 .app {
@@ -64,7 +64,9 @@ button,
 }
 
 .frame {
-  max-width: 70vw;
+  width: 70vw;
+  height: 90vw;
+  background-color: rgb(232 231 231);
   border: 8px solid white;
   border-radius: 12px;
   overflow: auto;
@@ -78,26 +80,56 @@ button,
   align-items: center;
 }
 
-.add-moodboard {
-  display: block;
+
+/* File upload form */
+#form-file-upload {
+  height: 8rem;
+  width: 16rem;
+  max-width: 100%;
+  text-align: center;
+  position: relative;
 }
 
-.dropzone {
+#input-file-upload {
+  display: none;
+}
+
+#label-file-upload {
+  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  border-radius: 1rem;
+  border-style: dashed;
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+#label-file-upload.drag-active {
+  background-color: #ffffff;
 }
 
-.moodboard-2 {
-  min-height: 200px;
+.upload-button {
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  background-color: transparent;
 }
 
-.color-box {
+.upload-button:hover {
+  text-decoration-line: underline;
+}
+
+#drag-file-element {
+  position: absolute;
   width: 100%;
-  height: 80px;
+  height: 100%;
+  border-radius: 1rem;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
