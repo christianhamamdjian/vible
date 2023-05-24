@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import DragDropFile from "./DragDropUpload"
 
 const FullBoard = () => {
-    // Drawing Board
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     const [paths, setPaths] = useState([]);
@@ -10,13 +9,12 @@ const FullBoard = () => {
     const [color, setColor] = useState('#aabbcc');
     const [line, setLine] = useState(2);
     const svgRef = useRef(null);
-
-    // Items
     const [items, setItems] = useState([]);
     const [itemText, setItemText] = useState('Text');
     const [itemColor, setItemColor] = useState('#aabbcc');
     const [itemLink, setItemLink] = useState('');
     const [itemUrl, setItemUrl] = useState('');
+    const [itemVideoUrl, setItemVideoUrl] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
     const [editingText, setEditingText] = useState(null);
     const [editingImage, setEditingImage] = useState(null);
@@ -31,13 +29,11 @@ const FullBoard = () => {
         setItemText('Text');
         setItemColor('#aabbcc');
     };
-
     const handleImageUpload = (e) => {
         const file = e;
         const reader = new FileReader();
-
         reader.onload = (e) => {
-            const newImage = {
+            const newItem = {
                 id: Date.now(),
                 src: e.target.result,
                 x: 0,
@@ -45,13 +41,23 @@ const FullBoard = () => {
                 width: "100",
                 type: "image"
             };
-            setItems((prevImages) => [...prevImages, newImage]);
+            setItems((prevItems) => [...prevItems, newItem]);
         };
         reader.readAsDataURL(file);
     };
+    const handleAddVideo = (e) => {
+        e.preventDefault();
+        const newItem = {
+            id: Date.now(),
+            videoUrl: itemVideoUrl,
+            x: 0,
+            y: 0,
+            type: "video"
+        }
 
+        setItems((prevItems) => [...prevItems, newItem]);
+    }
     const handleMouseDown = (event, itemId) => {
-        {/* Items */ }
         if (itemId) {
             setDraggingItem(true);
 
@@ -65,7 +71,6 @@ const FullBoard = () => {
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
         }
 
-        {/* Drawing */ }
         if (!itemId) {
             setIsDrawing(true);
             const { x, y } = getCursorPositionDrawing(event);
@@ -73,10 +78,7 @@ const FullBoard = () => {
         }
 
     };
-
     const handleMouseMove = (event) => {
-
-        {/* Items */ }
         if (selectedItem) {
             event.preventDefault();
             if (!draggingItem) return;
@@ -90,33 +92,25 @@ const FullBoard = () => {
             );
         }
 
-        {/* Drawing */ }
         if (!isDrawing) return;
         if (isDrawing && !erasing && !selectedItem) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
     };
-
     const handleMouseUp = () => {
-
-        {/* Items */ }
         setSelectedItem(null)
         setDraggingItem(false);
         setDragOffsetItem({ x: 0, y: 0 });
 
-        {/* Drawing */ }
         setIsDrawing(false);
         setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
         setCurrentPath('');
     };
-
     const handleDeleteItem = (id) => {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         setEditingText(null)
     };
-
-    {/* Text box create methods */ }
     const handleItemText = (event) => {
         setItemText(event.target.value);
     };
@@ -129,7 +123,9 @@ const FullBoard = () => {
     const handleItemUrl = (event) => {
         setItemUrl(event.target.value);
     };
-    {/* Edit text box */ }
+    const handleItemVideoUrl = (event) => {
+        setItemVideoUrl(event.target.value);
+    };
     const handleEditBox = (id) => {
         setEditingText({ status: true, id: id })
     }
@@ -144,9 +140,8 @@ const FullBoard = () => {
                 }
                 return item;
             })
-        );
+        )
     };
-
     const handleItemColorChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -177,7 +172,6 @@ const FullBoard = () => {
             })
         );
     };
-    {/* Edit image */ }
     const handleEditImage = (id) => {
         setEditingImage({ status: true, id: id })
     }
@@ -194,8 +188,6 @@ const FullBoard = () => {
             })
         );
     };
-
-    {/* Draw */ }
     const getCursorPositionDrawing = (event) => {
         const { left, top } = svgRef.current.getBoundingClientRect();
         const x = event.clientX - left;
@@ -223,7 +215,6 @@ const FullBoard = () => {
     return (
         <div className='dashboard'>
             <div className='sidebar'>
-                {/* Boxes form */}
 
                 <div>
                     {!editingText && (
@@ -248,7 +239,6 @@ const FullBoard = () => {
                     )
                     }
                     {items.length > 0 && editingText && (
-
                         <div className='inputs'>
                             <h2>Edit Box:</h2>
                             <label>Change text:</label>
@@ -258,7 +248,6 @@ const FullBoard = () => {
                                     handleItemTextChange(event, editingText.id)
                                 }
                             />
-
                             <label>Change color:</label>
                             <input
                                 type="color"
@@ -267,7 +256,6 @@ const FullBoard = () => {
                                 onChange={(event) =>
                                     handleItemColorChange(event, editingText.id)
                                 } />
-
                             <label>Change link:</label>
                             <input
                                 type="text"
@@ -287,11 +275,9 @@ const FullBoard = () => {
                                 } />
 
                         </div>
-
                     )
                     }
                 </div>
-                {/* Images form */}
                 <h2>Images:</h2>
                 <div className='inputs'>
                     <label className='custom-file-upload'>
@@ -302,20 +288,25 @@ const FullBoard = () => {
                             onChange={handleImageUpload} />
                     </label>
                     <DragDropFile handleImageUpload={handleImageUpload} />
-                    {
-                        items.length > 0 && editingImage && (
-                            <label>
-                                Change image width:
-                                <input
-                                    type="number"
-                                    min="40"
-                                    value={items.find(item => item.id === editingImage.id).width}
-                                    onChange={(event) => handleImageChange(event, editingImage.id)}
-                                />
-                            </label>)
+                    {items.length > 0 && editingImage && (
+                        <label>
+                            Change image width:
+                            <input
+                                type="number"
+                                min="40"
+                                value={items.find(item => item.id === editingImage.id).width}
+                                onChange={(event) => handleImageChange(event, editingImage.id)}
+                            />
+                        </label>)
                     }
                 </div>
-                {/* Drawing form */}
+                <h2>Videos:</h2>
+                <form className='inputs' onSubmit={handleAddVideo}>
+                    <div className='inputs'>
+                        <label>Add an Youtube video link:</label>
+                        <input type="text" name="videourl" value={itemVideoUrl} onChange={handleItemVideoUrl} />
+                        <button type="submit">Add video</button>
+                    </div> </form>
                 <h2>Drawing:</h2>
                 <div className='inputs'>
                     <input
@@ -343,14 +334,27 @@ const FullBoard = () => {
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
+
                     {items.map(item => (
                         <g
                             key={item.id}
                             draggable="true"
                             transform={`translate(${item.x},${item.y})`}
                         >
-
-                            {/* Boxes */}
+                            {item.type === "video" && (
+                                <>
+                                    <foreignObject width="560" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
+                                        onMouseUp={handleMouseUp} >
+                                        <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
+                                        <iframe draggable="true" width="560" height="315" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+                                    </foreignObject>
+                                    <text
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}>
+                                        X
+                                    </text>
+                                </>
+                            )}
                             {item.type === "box" && (
                                 <>
                                     <foreignObject
@@ -402,7 +406,6 @@ const FullBoard = () => {
                                 </>
                             )}
 
-                            {/* Images */}
                             {item.type === "image" &&
                                 (
                                     <>
@@ -455,7 +458,6 @@ const FullBoard = () => {
                         </g>
                     ))}
 
-                    {/* Drawing */}
                     {paths.map((path, index) => (
                         <path
                             key={index}
@@ -463,7 +465,9 @@ const FullBoard = () => {
                             stroke={path.color}
                             fill="none"
                             strokeWidth={path.line}
+                            draggable="true"
                             onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
+                            onDragOver={erasing ? (() => handleDeletePath(path)) : null}
                             cursor={erasing ? "grab" : "move"}
                         />
                     ))}
