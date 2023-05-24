@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(89, 92, 186);
+  background-color: rgb(14 14 14);
   color: whitesmoke;
 }
 
@@ -35,6 +35,21 @@ body {
 
 input {
   margin: 10px;
+}
+
+.text {
+  color: white;
+  font: 18px serif;
+  height: 100%;
+  overflow: auto;
+}
+
+svg text {
+  fill: blue;
+  stroke: red;
+  stroke-width: 0.3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
 button,

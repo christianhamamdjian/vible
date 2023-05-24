@@ -9,6 +9,8 @@ const FullBoard = () => {
     const [color, setColor] = useState('#aabbcc');
     const [line, setLine] = useState(2);
     const svgRef = useRef(null);
+    const textRef = useRef(null);
+    const processingRef = useRef(null);
 
     // Items
     const [items, setItems] = useState([]);
@@ -219,7 +221,48 @@ const FullBoard = () => {
         document.body.removeChild(downloadLink);
         URL.revokeObjectURL(svgURL);
     };
+    // const textMultiline = (text, id) => {
 
+    //     let x = 0;
+    //     let y = 20;
+    //     let width = 200;
+    //     let lineHeight = 10;
+
+    //     /* get the text */
+    //     let element = textRef.current;
+    //     // let newText = text;
+    //     // let tspanContent = newText
+    //     // console.log(newText)
+
+    //     /* split the words into array */
+    //     let words = text.split(' ');
+    //     let line = '';
+
+    //     for (let n = 0; n < words.length; n++) {
+
+    //         let testLine = line + words[n] + ' ';
+
+    //         let testElem = processingRef.current;
+
+    //         /*  Add line in testElement */
+    //         testElem.innerHTML = testLine;
+
+    //         /* Measure textElement */
+    //         let metrics = testElem.getBoundingClientRect();
+    //         let testWidth = metrics.width;
+
+    //         if (testWidth > width && n > 0) {
+    //             element.innerHTML += '<tspan x="0" dy="' + y + '">' + line + '</tspan>';
+    //             line = words[n] + ' ';
+    //         } else {
+    //             line = testLine;
+    //         }
+    //     }
+    //     //textRef.current.remove();
+    //     // textRef.current.innerHTML += '<tspan x="0" dy="' + y + '">' + line + '</tspan>';
+
+
+    // }
     return (
         <div className='dashboard'>
             <div className='sidebar'>
@@ -230,22 +273,18 @@ const FullBoard = () => {
                         <>
                             <h2>Boxes:</h2>
                             <form className='inputs' onSubmit={handleAddBox}>
-                                <label>
-                                    Text:
-                                    <input type="text" value={itemText} onChange={handleItemText} />
-                                </label>
-                                <label>
-                                    Color:
-                                    <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
-                                </label>
-                                <label>
-                                    Link text:
-                                    <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
-                                </label>
-                                <label>
-                                    Link url:
-                                    <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
-                                </label>
+                                <label>Text:</label>
+                                <textarea value={itemText} onChange={handleItemText} />
+
+                                <label>Color:</label>
+                                <input type="color" name="color" value={itemColor} onChange={handleItemColor} />
+
+                                <label>Link text:</label>
+                                <input type="text" name="link" value={itemLink} onChange={handleItemLink} />
+
+                                <label>Link url:</label>
+                                <input type="text" name="url" value={itemUrl} onChange={handleItemUrl} />
+
                                 <button type="submit">Add Box</button>
                             </form>
                         </>
@@ -255,46 +294,41 @@ const FullBoard = () => {
 
                         <div className='inputs'>
                             <h2>Edit Box:</h2>
-                            <label>
-                                Change text:
-                                <input
-                                    type="text"
-                                    value={items.find(item => item.id === editingText.id).text}
-                                    onChange={(event) =>
-                                        handleItemTextChange(event, editingText.id)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Change color:
-                                <input
-                                    type="color"
-                                    name="color"
-                                    value={items.find(item => item.id === editingText.id).color}
-                                    onChange={(event) =>
-                                        handleItemColorChange(event, editingText.id)
-                                    } />
-                            </label>
-                            <label>
-                                Change link:
-                                <input
-                                    type="text"
-                                    name="link"
-                                    value={items.find(item => item.id === editingText.id).link}
-                                    onChange={(event) =>
-                                        handleItemLinkChange(event, editingText.id)
-                                    } />
-                            </label>
-                            <label>
-                                Change url:
-                                <input
-                                    type="text"
-                                    name="url"
-                                    value={items.find(item => item.id === editingText.id).url}
-                                    onChange={(event) =>
-                                        handleItemUrlChange(event, editingText.id)
-                                    } />
-                            </label>
+                            <label>Change text:</label>
+                            <textarea
+                                value={items.find(item => item.id === editingText.id).text}
+                                onChange={(event) =>
+                                    handleItemTextChange(event, editingText.id)
+                                }
+                            />
+
+                            <label>Change color:</label>
+                            <input
+                                type="color"
+                                name="color"
+                                value={items.find(item => item.id === editingText.id).color}
+                                onChange={(event) =>
+                                    handleItemColorChange(event, editingText.id)
+                                } />
+
+                            <label>Change link:</label>
+                            <input
+                                type="text"
+                                name="link"
+                                value={items.find(item => item.id === editingText.id).link}
+                                onChange={(event) =>
+                                    handleItemLinkChange(event, editingText.id)
+                                } />
+
+                            <label>Change url:</label>
+                            <input
+                                type="text"
+                                name="url"
+                                value={items.find(item => item.id === editingText.id).url}
+                                onChange={(event) =>
+                                    handleItemUrlChange(event, editingText.id)
+                                } />
+
                         </div>
 
                     )
@@ -347,7 +381,7 @@ const FullBoard = () => {
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     ref={svgRef}
-                    style={{ width: '2000', height: '1200', border: '1px solid transparent', backgroundColor: "gold", }}
+                    style={{ width: '2000', height: '1200', border: '1px solid transparent', backgroundColor: "rgb(232 231 231)", }}
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
@@ -363,7 +397,7 @@ const FullBoard = () => {
                                 <>
                                     <rect
                                         width="200"
-                                        height="50"
+                                        height="250"
                                         fill={item.color}
                                         stroke="white"
                                         strokeWidth="6"
@@ -373,7 +407,7 @@ const FullBoard = () => {
                                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                                         onMouseUp={handleMouseUp}
                                     />
-                                    <text
+                                    {/* <text
                                         x="60"
                                         y="25"
                                         textAnchor="middle"
@@ -381,8 +415,21 @@ const FullBoard = () => {
                                         style={{ pointerEvents: 'none' }}
                                     >
                                         {item.text}
-                                    </text>
+                                    </text> */}
+                                    <foreignObject x="20" y="20" width="160" height="160">
+                                        <p className="text">
+                                            {item.text}
+                                        </p>
+                                    </foreignObject>
 
+                                    {/* <text
+                                        className="text-box"
+                                        ref={textRef}
+                                        x="60"
+                                        y="25"
+                                        textAnchor="middle"
+                                        dominantBaseline="middle"
+                                        style={{ pointerEvents: 'none' }}><tspan ref={processingRef}>{item.text}</tspan ></text> */}
                                     <text
                                         x="5"
                                         y="15"
