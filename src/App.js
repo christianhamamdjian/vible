@@ -1,11 +1,11 @@
-import FullBoard from './components/FullBoard';
+import MoodBoard from './components/MoodBoard';
 import './App.css';
 
 function App() {
   return (
     <div className="app">
       <div className='dashboard'>
-        <FullBoard />
+        <MoodBoard />
       </div>
     </div>
   );

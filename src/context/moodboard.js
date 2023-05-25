@@ -1,15 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocalStorage } from "../components/utils/useLocalStorage";
 
 const MoodboardContext = React.createContext();
 // Provider,Consumer,useContext
 export default function MoodboardProvider({ children }) {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
-    const [paths, setPaths] = useState([]);
+    const [paths, setPaths] = useLocalStorage("paths", []);
     const [erasing, setErasing] = useState(false);
     const [color, setColor] = useState('#aabbcc');
     const [line, setLine] = useState(2);
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useLocalStorage("items", []);
     const [itemText, setItemText] = useState('Text');
     const [itemColor, setItemColor] = useState('#aabbcc');
     const [itemLink, setItemLink] = useState('');
@@ -22,13 +23,27 @@ export default function MoodboardProvider({ children }) {
     const [editingImage, setEditingImage] = useState(null);
     const [draggingItem, setDraggingItem] = useState(false);
     const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 });
-    const [galleryItems, setGalleryItems] = useState([]);
+    const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", []);
     const [galleryType, setGalleryType] = useState('color');
     const [galleryContent, setGalleryContent] = useState('');
     const [galleryLink, seGalleryLink] = useState('');
     const [galleryError, setGalleryError] = useState('');
     const svgRef = useRef(null);
 
+
+    // useEffect(() => {
+    //     const savedItems = localStorage.getItem("items");
+    //     const initialValue = JSON.parse(savedItems);
+    //     return initialValue || "";
+    // }, [])
+
+    // useEffect(() => {
+    //     localStorage.setItem("items", JSON.stringify(items));
+    // }, [items])
+
+    // useEffect(() => {
+    //     localStorage.setItem("paths", JSON.stringify(paths));
+    // }, [paths])
 
     const handleAddBox = (event) => {
         event.preventDefault();
@@ -38,6 +53,23 @@ export default function MoodboardProvider({ children }) {
         setItemText('Text');
         setItemColor('#aabbcc');
     };
+    const handleAddGalleryBox = (color) => {
+        const itemId = Date.now();
+        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: color, link: itemLink, url: itemUrl, type: "box" };
+        setItems([...items, newBox]);
+        setItemText('Text');
+        setItemColor('#aabbcc');
+    };
+    const handleAddGalleryImage = (image) => {
+        setItems([...items, image]);
+    }
+    const handleAddGalleryLink = (link) => {
+        const itemId = Date.now();
+        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: color, link: link.content, url: link.link, type: "box" };
+        setItems([...items, newBox]);
+        setItemText('Text');
+        setItemColor('#aabbcc');
+    }
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -330,7 +362,17 @@ export default function MoodboardProvider({ children }) {
     const handleGalleryTypeChange = (event) => {
         setGalleryType(event.target.value)
     }
-    const handleGalleryAddToBoard = () => {
+    const handleGalleryAddToBoard = (item) => {
+        if (item.type === "color") {
+            handleAddGalleryBox(item.content)
+        }
+        if (item.type === "image") {
+            const imageObject = { id: Date.now(), src: item.content, type: "image", width: "100", x: 0, y: 0 }
+            handleAddGalleryImage(imageObject)
+        }
+        if (item.type === "link") {
+            handleAddGalleryLink(item)
+        }
 
     }
 

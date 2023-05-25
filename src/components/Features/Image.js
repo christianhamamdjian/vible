@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../../context/moodboard";
 
 const Image = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
@@ -11,7 +11,7 @@ const Image = ({ item }) => {
                     <rect
                         width="120"
                         height="120"
-                        fill="red"
+                        fill="transparent"
                         style={{ border: '1px solid black', backgroundColor: "red", cursor: 'move' }}
                     />
                     <image href={item.src}

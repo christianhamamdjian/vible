@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../../context/moodboard";
 
 const Map = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleMouseUp } = React.useContext(MoodboardContext);

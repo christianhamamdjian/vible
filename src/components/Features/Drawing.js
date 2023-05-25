@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../../context/moodboard";
 
 const Drawing = () => {
     const { paths, currentPath, color, line, erasing, handleDeletePath } = React.useContext(MoodboardContext);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../../context/moodboard";
 
 const Image = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox } = React.useContext(MoodboardContext);

@@ -1,9 +1,8 @@
 import React from 'react';
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../../context/moodboard";
 
 const Gallery = () => {
     const { galleryItems, galleryType, galleryError, deleteGalleryItem, handleGallerySubmit, handleGalleryTypeChange, handleGalleryAddToBoard, galleryContent, handleGalleryContentChange, galleryLink, handleGalleryLinkChange, handleGalleryImageUpload } = React.useContext(MoodboardContext);
-    console.log(galleryItems);
     return (
         <div className='itemForms'>
             <div className='moodboard-2'>
@@ -48,19 +47,19 @@ const Gallery = () => {
                         let display;
                         if (item.type === 'color') {
                             display = (
-                                <li key={index} className="color-box" style={{ backgroundColor: item.content || "#ffffff" }}>{item.content || "#ffffff"} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(index)}>Add to board</button></li>
+                                <li key={index} className="color-box" style={{ backgroundColor: item.content || "#ffffff" }}>{item.content || "#ffffff"} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
                             return display;
                         }
                         if (item.type === 'image') {
                             display = (
-                                <li key={index} className="color-box" ><img width="120" alt="" src={item.content}></img> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(index)}>Add to board</button></li>
+                                <li key={index} className="color-box" ><img width="120" alt="" src={item.content}></img> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
                             return display;
                         }
                         if (item.type === 'link') {
                             display = (
-                                <li key={index} className="color-box" ><a target="_blank" rel="noreferrer" href={item.link}>{item.content}</a> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(index)}>Add to board</button></li>
+                                <li key={index} className="color-box" ><a target="_blank" rel="noreferrer" href={item.link}>{item.content}</a> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
                             return display;
                         }
