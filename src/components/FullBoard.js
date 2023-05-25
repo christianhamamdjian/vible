@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import DragDropFile from "./DragDropUpload"
+import Moodboard from "./Moodboard"
 
 const FullBoard = () => {
     const [isDrawing, setIsDrawing] = useState(false);
@@ -15,6 +16,8 @@ const FullBoard = () => {
     const [itemLink, setItemLink] = useState('');
     const [itemUrl, setItemUrl] = useState('');
     const [itemVideoUrl, setItemVideoUrl] = useState('');
+    const [itemImageUrl, setItemImageUrl] = useState('');
+    const [itemMapUrl, setItemMapUrl] = useState('');
     const [selectedItem, setSelectedItem] = useState(null);
     const [editingText, setEditingText] = useState(null);
     const [editingImage, setEditingImage] = useState(null);
@@ -54,7 +57,29 @@ const FullBoard = () => {
             y: 0,
             type: "video"
         }
-
+        setItems((prevItems) => [...prevItems, newItem]);
+    }
+    const handleAddImage = (e) => {
+        e.preventDefault();
+        const newItem = {
+            id: Date.now(),
+            imageUrl: itemImageUrl,
+            x: 0,
+            y: 0,
+            width: "100",
+            type: "imageUrl"
+        }
+        setItems((prevItems) => [...prevItems, newItem]);
+    }
+    const handleAddMap = (e) => {
+        e.preventDefault();
+        const newItem = {
+            id: Date.now(),
+            mapUrl: itemMapUrl,
+            x: 0,
+            y: 0,
+            type: "mapUrl"
+        }
         setItems((prevItems) => [...prevItems, newItem]);
     }
     const handleMouseDown = (event, itemId) => {
@@ -71,8 +96,8 @@ const FullBoard = () => {
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
         }
 
-        if (!itemId) {
-            setIsDrawing(true);
+        if (!itemId && isDrawing) {
+            // setIsDrawing(true);
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
         }
@@ -103,13 +128,14 @@ const FullBoard = () => {
         setDraggingItem(false);
         setDragOffsetItem({ x: 0, y: 0 });
 
-        setIsDrawing(false);
+        //setIsDrawing(false);
         setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
         setCurrentPath('');
     };
     const handleDeleteItem = (id) => {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         setEditingText(null)
+        setEditingImage(null)
     };
     const handleItemText = (event) => {
         setItemText(event.target.value);
@@ -125,6 +151,12 @@ const FullBoard = () => {
     };
     const handleItemVideoUrl = (event) => {
         setItemVideoUrl(event.target.value);
+    };
+    const handleItemImageUrl = (event) => {
+        setItemImageUrl(event.target.value);
+    };
+    const handleItemMapUrl = (event) => {
+        setItemMapUrl(event.target.value);
     };
     const handleEditBox = (id) => {
         setEditingText({ status: true, id: id })
@@ -194,6 +226,10 @@ const FullBoard = () => {
         const y = event.clientY - top;
         return { x, y };
     };
+    const handleDraw = () => {
+        setIsDrawing(isDrawing => !isDrawing)
+        // setErasing(erasing => !erasing);
+    }
     const handleEraser = () => {
         setErasing(erasing => !erasing);
         setIsDrawing(isDrawing => !isDrawing)
@@ -216,7 +252,7 @@ const FullBoard = () => {
         <div className='dashboard'>
             <div className='sidebar'>
 
-                <div>
+                <div className='itemForms'>
                     {!editingText && (
                         <>
                             <h2>Boxes:</h2>
@@ -273,55 +309,82 @@ const FullBoard = () => {
                                 onChange={(event) =>
                                     handleItemUrlChange(event, editingText.id)
                                 } />
-
                         </div>
                     )
                     }
                 </div>
-                <h2>Images:</h2>
-                <div className='inputs'>
-                    <label className='custom-file-upload'>
-                        Add an image:
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload} />
-                    </label>
-                    <DragDropFile handleImageUpload={handleImageUpload} />
-                    {items.length > 0 && editingImage && (
-                        <label>
-                            Change image width:
-                            <input
-                                type="number"
-                                min="40"
-                                value={items.find(item => item.id === editingImage.id).width}
-                                onChange={(event) => handleImageChange(event, editingImage.id)}
-                            />
-                        </label>)
-                    }
-                </div>
-                <h2>Videos:</h2>
-                <form className='inputs' onSubmit={handleAddVideo}>
+                <div className='itemForms'>
+                    <h2>Images:</h2>
                     <div className='inputs'>
-                        <label>Add an Youtube video link:</label>
-                        <input type="text" name="videourl" value={itemVideoUrl} onChange={handleItemVideoUrl} />
-                        <button type="submit">Add video</button>
-                    </div> </form>
-                <h2>Drawing:</h2>
-                <div className='inputs'>
-                    <input
-                        type="color"
-                        value={color}
-                        onChange={(event) => setColor(event.target.value)} />
-                    <input
-                        type="number"
-                        value={line}
-                        onChange={(event) => setLine(event.target.value)} />
-                    <button
-                        style={erasing ? { backgroundColor: "#aabbcc" } : null}
-                        onClick={handleEraser}>Delete lines</button>
-                    <button
-                        onClick={handleDownload}>Download SVG</button>
+                        <label className='custom-file-upload'>
+                            Add an image:
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload} />
+                        </label>
+                        <DragDropFile handleImageUpload={handleImageUpload} />
+                        {items.length > 0 && editingImage && (
+                            <label>
+                                Change image width:
+                                <input
+                                    type="number"
+                                    min="40"
+                                    value={items.find(item => item.id === editingImage.id).width}
+                                    onChange={(event) => handleImageChange(event, editingImage.id)}
+                                />
+                            </label>)
+                        }
+                    </div>
+                </div>
+                <div className='itemForms'>
+                    <h2>Videos:</h2>
+                    <form className='inputs' onSubmit={handleAddVideo}>
+                        <div className='inputs'>
+                            <label>Add a Youtube video link:</label>
+                            <input type="text" name="videourl" value={itemVideoUrl} onChange={handleItemVideoUrl} />
+                            <button type="submit">Add video</button>
+                        </div> </form></div>
+                <div className='itemForms'>
+                    <h2>Image link:</h2>
+                    <form className='inputs' onSubmit={handleAddImage}>
+                        <div className='inputs'>
+                            <label>Add an image link:</label>
+                            <input type="text" name="imageurl" value={itemImageUrl} onChange={handleItemImageUrl} />
+                            <button type="submit">Add image</button>
+                        </div>
+                    </form>
+                </div>
+                <div className='itemForms'>
+                    <h2>Map:</h2>
+                    <form className='inputs' onSubmit={handleAddMap}>
+                        <div className='inputs'>
+                            <label>Add a map link:</label>
+                            <input type="text" name="mapurl" value={itemMapUrl} onChange={handleItemMapUrl} />
+                            <button type="submit">Add map</button>
+                        </div>
+                    </form>
+                </div>
+                <div className='itemForms'>
+                    <h2>Drawing:</h2>
+                    <div className='inputs'>
+                        <input
+                            type="color"
+                            value={color}
+                            onChange={(event) => setColor(event.target.value)} />
+                        <input
+                            type="number"
+                            value={line}
+                            onChange={(event) => setLine(event.target.value)} />
+                        <button
+                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
+                            onClick={handleDraw}>Add drawing</button>
+                        <button
+                            style={erasing ? { backgroundColor: "#aabbcc" } : null}
+                            onClick={handleEraser}>Delete lines</button>
+                        <button
+                            onClick={handleDownload}>Download SVG</button>
+                    </div>
                 </div>
             </div >
             <div className="frame">
@@ -334,27 +397,20 @@ const FullBoard = () => {
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
+                    <g>
+                        <clippath id="my-clippath">
+                            <path d="M 50 15, 100 25, 100 100, 50 100, 0 100, 0 25Z"></path>
+                        </clippath>
 
+
+                    </g>
                     {items.map(item => (
                         <g
                             key={item.id}
                             draggable="true"
                             transform={`translate(${item.x},${item.y})`}
                         >
-                            {item.type === "video" && (
-                                <>
-                                    <foreignObject width="560" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
-                                        onMouseUp={handleMouseUp} >
-                                        <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
-                                        <iframe draggable="true" width="560" height="315" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
-                                    </foreignObject>
-                                    <text
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleDeleteItem(item.id)}>
-                                        X
-                                    </text>
-                                </>
-                            )}
+
                             {item.type === "box" && (
                                 <>
                                     <foreignObject
@@ -405,7 +461,6 @@ const FullBoard = () => {
                                     />}
                                 </>
                             )}
-
                             {item.type === "image" &&
                                 (
                                     <>
@@ -417,10 +472,10 @@ const FullBoard = () => {
                                         />
 
                                         <image href={item.src}
-                                            x={-item.width / 5}
+                                            x="0"
                                             y="0"
-                                            width={item.width}
-                                            height={item.width * 2}
+                                            width={item.width || "100"}
+                                            height={item.width || "100"}
                                             onMouseDown={e => {
                                                 handleMouseDown(e, item.id)
                                             }}
@@ -453,11 +508,86 @@ const FullBoard = () => {
                                     </>
                                 )
                             }
+                            {item.type === "video" && (
+                                <>
+                                    <foreignObject width="560" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
+                                        onMouseUp={handleMouseUp} >
+                                        <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
+                                        <iframe draggable="true" width="560" height="315" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+                                    </foreignObject>
+                                    <text
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}>
+                                        X
+                                    </text>
+                                </>
+                            )}
+                            {item.type === "mapUrl" &&
+                                <g style={{ width: "300", height: "200" }} clipPath="url(#my-clippath)">
+                                    <foreignObject width="560" x="0" y="0" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
+                                        onMouseUp={handleMouseUp}>
+                                        <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
+                                        <iframe draggable="true" src={item.mapUrl} width="600" height="450" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                                    </foreignObject>
+                                    <text
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}>
+                                        X
+                                    </text>
+                                </g>
+                            }
+                            {item.type === "imageUrl" &&
+                                (
+                                    <>
+                                        <rect
+                                            width="120"
+                                            height="120"
+                                            fill="transparent"
+                                            style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
+                                        />
+
+                                        <image href={item.imageUrl}
+                                            x="0"
+                                            y="0"
+                                            width={item.width || "100"}
+                                            height={item.width || "100"}
+                                            onMouseDown={e => {
+                                                handleMouseDown(e, item.id)
+                                            }}
+                                            style={{ cursor: 'move' }} />
+                                        <text
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleDeleteItem(item.id)}>
+                                            X
+                                        </text>
+                                        <circle
+                                            cx="120"
+                                            cy="5"
+                                            r="8"
+                                            fill="red"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleEditImage(item.id)}
+                                        />
+                                        {editingImage && editingImage.id === item.id && <circle
+                                            cx="95"
+                                            cy="5"
+                                            r="8"
+                                            fill="green"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={handleStopEditImage}
+                                        />}
+
+                                    </>
+                                )
+                            }
 
 
                         </g>
                     ))}
-
                     {paths.map((path, index) => (
                         <path
                             key={index}
@@ -481,6 +611,9 @@ const FullBoard = () => {
                     )}
 
                 </svg>
+            </div>
+            <div className='itemForms'>
+                <Moodboard />
             </div>
         </div>
     )
