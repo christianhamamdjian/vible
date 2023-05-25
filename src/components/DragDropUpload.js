@@ -1,7 +1,7 @@
 import React from 'react';
 
 // drag drop file component
-function DragDropFile({ handleImageUpload }) {
+function DragDropFile({ handleImageDropUpload }) {
     // drag state
     const [dragActive, setDragActive] = React.useState(false);
     // ref
@@ -24,7 +24,7 @@ function DragDropFile({ handleImageUpload }) {
         e.stopPropagation();
         setDragActive(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleImageUpload(e.dataTransfer.files[0]);
+            handleImageDropUpload(e.dataTransfer.files[0]);
         }
     };
 
@@ -32,7 +32,7 @@ function DragDropFile({ handleImageUpload }) {
     const handleChange = function (e) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            handleImageUpload(e.target.files[0]);
+            handleImageDropUpload(e.target.files[0]);
         }
     };
 

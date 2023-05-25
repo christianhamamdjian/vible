@@ -90,7 +90,7 @@ export default function Moodboard() {
 
     return (
         <div className='moodboard-2'>
-            <h1>Mood Board</h1>
+            <h2>Gallery:</h2>
             <form onSubmit={handleSubmit}>
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="color">Color</option>

@@ -2,6 +2,15 @@ import React, { useState, useRef } from 'react';
 import DragDropFile from "./DragDropUpload"
 import Moodboard from "./Moodboard"
 
+const Svg = () => {
+    return (<rect
+        width="120"
+        height="120"
+        fill="red"
+        style={{ border: '1px solid black', backgroundColor: "red", cursor: 'move' }}
+    />)
+}
+
 const FullBoard = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
@@ -33,6 +42,22 @@ const FullBoard = () => {
         setItemColor('#aabbcc');
     };
     const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const newItem = {
+                id: Date.now(),
+                src: e.target.result,
+                x: 0,
+                y: 0,
+                width: "100",
+                type: "image"
+            };
+            setItems((prevItems) => [...prevItems, newItem]);
+        };
+        reader.readAsDataURL(file);
+    };
+    const handleImageDropUpload = (e) => {
         const file = e;
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -85,23 +110,16 @@ const FullBoard = () => {
     const handleMouseDown = (event, itemId) => {
         if (itemId) {
             setDraggingItem(true);
-
             const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
             const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
-
             const selectedItem = items.find(item => item.id === itemId)
-
             setSelectedItem(selectedItem)
-
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
         }
-
         if (!itemId && isDrawing) {
-            // setIsDrawing(true);
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
         }
-
     };
     const handleMouseMove = (event) => {
         if (selectedItem) {
@@ -109,14 +127,12 @@ const FullBoard = () => {
             if (!draggingItem) return;
             const newItemX = event.clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
             const newItemY = event.clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
-
             setItems((prevItems) =>
                 prevItems.map((item) => {
                     return item.id === selectedItem.id ? { ...item, x: newItemX, y: newItemY } : item
                 })
             );
         }
-
         if (!isDrawing) return;
         if (isDrawing && !erasing && !selectedItem) {
             const { x, y } = getCursorPositionDrawing(event);
@@ -127,8 +143,6 @@ const FullBoard = () => {
         setSelectedItem(null)
         setDraggingItem(false);
         setDragOffsetItem({ x: 0, y: 0 });
-
-        //setIsDrawing(false);
         setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
         setCurrentPath('');
     };
@@ -228,7 +242,6 @@ const FullBoard = () => {
     };
     const handleDraw = () => {
         setIsDrawing(isDrawing => !isDrawing)
-        // setErasing(erasing => !erasing);
     }
     const handleEraser = () => {
         setErasing(erasing => !erasing);
@@ -251,7 +264,6 @@ const FullBoard = () => {
     return (
         <div className='dashboard'>
             <div className='sidebar'>
-
                 <div className='itemForms'>
                     {!editingText && (
                         <>
@@ -323,7 +335,6 @@ const FullBoard = () => {
                                 accept="image/*"
                                 onChange={handleImageUpload} />
                         </label>
-                        <DragDropFile handleImageUpload={handleImageUpload} />
                         {items.length > 0 && editingImage && (
                             <label>
                                 Change image width:
@@ -335,6 +346,7 @@ const FullBoard = () => {
                                 />
                             </label>)
                         }
+                        <DragDropFile handleImageDropUpload={handleImageDropUpload} />
                     </div>
                 </div>
                 <div className='itemForms'>
@@ -365,28 +377,8 @@ const FullBoard = () => {
                         </div>
                     </form>
                 </div>
-                <div className='itemForms'>
-                    <h2>Drawing:</h2>
-                    <div className='inputs'>
-                        <input
-                            type="color"
-                            value={color}
-                            onChange={(event) => setColor(event.target.value)} />
-                        <input
-                            type="number"
-                            value={line}
-                            onChange={(event) => setLine(event.target.value)} />
-                        <button
-                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleDraw}>Add drawing</button>
-                        <button
-                            style={erasing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleEraser}>Delete lines</button>
-                        <button
-                            onClick={handleDownload}>Download SVG</button>
-                    </div>
-                </div>
-            </div >
+
+            </div>
             <div className="frame">
                 <svg
                     onMouseDown={handleMouseDown}
@@ -401,8 +393,6 @@ const FullBoard = () => {
                         <clippath id="my-clippath">
                             <path d="M 50 15, 100 25, 100 100, 50 100, 0 100, 0 25Z"></path>
                         </clippath>
-
-
                     </g>
                     {items.map(item => (
                         <g
@@ -410,7 +400,6 @@ const FullBoard = () => {
                             draggable="true"
                             transform={`translate(${item.x},${item.y})`}
                         >
-
                             {item.type === "box" && (
                                 <>
                                     <foreignObject
@@ -426,32 +415,34 @@ const FullBoard = () => {
                                             {item.text}
                                         </p>
                                     </foreignObject>
-                                    <text
-                                        x="5"
-                                        y="15"
-                                        fill="white"
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleDeleteItem(item.id)}>
-                                        &times;
-                                    </text>
                                     <a
                                         xlinkHref={item.url}
                                         target="__blank">
                                         <text x="120" y="40" fill="blue">{item.link}</text>
                                     </a>
                                     <circle
-                                        cx="195"
-                                        cy="5"
+                                        cx="0"
+                                        cy="0"
                                         r="8"
                                         fill="red"
+                                        stroke="white"
+                                        strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}
+                                    />
+                                    <circle
+                                        cx="40"
+                                        cy="0"
+                                        r="8"
+                                        fill="orange"
                                         stroke="white"
                                         strokeWidth="2"
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleEditBox(item.id)}
                                     />
                                     {editingText && editingText.id === item.id && <circle
-                                        cx="175"
-                                        cy="5"
+                                        cx="20"
+                                        cy="0"
                                         r="8"
                                         fill="green"
                                         stroke="white"
@@ -464,13 +455,13 @@ const FullBoard = () => {
                             {item.type === "image" &&
                                 (
                                     <>
-                                        <rect
+                                        {/* <rect
                                             width="120"
                                             height="120"
                                             fill="transparent"
                                             style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
-                                        />
-
+                                        /> */}
+                                        <Svg />
                                         <image href={item.src}
                                             x="0"
                                             y="0"
@@ -480,24 +471,29 @@ const FullBoard = () => {
                                                 handleMouseDown(e, item.id)
                                             }}
                                             style={{ cursor: 'move' }} />
-                                        <text
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handleDeleteItem(item.id)}>
-                                            X
-                                        </text>
                                         <circle
-                                            cx="120"
-                                            cy="5"
+                                            cx="0"
+                                            cy="0"
                                             r="8"
                                             fill="red"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleDeleteItem(item.id)}
+                                        />
+                                        <circle
+                                            cx="40"
+                                            cy="0"
+                                            r="8"
+                                            fill="orange"
                                             stroke="white"
                                             strokeWidth="2"
                                             style={{ cursor: 'pointer' }}
                                             onClick={() => handleEditImage(item.id)}
                                         />
                                         {editingImage && editingImage.id === item.id && <circle
-                                            cx="95"
-                                            cy="5"
+                                            cx="20"
+                                            cy="0"
                                             r="8"
                                             fill="green"
                                             stroke="white"
@@ -515,11 +511,21 @@ const FullBoard = () => {
                                         <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
                                         <iframe draggable="true" width="560" height="315" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
                                     </foreignObject>
-                                    <text
+                                    <circle
+                                        cx="0"
+                                        cy="0"
+                                        r="8"
+                                        fill="red"
+                                        stroke="white"
+                                        strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}
+                                    />
+                                    {/* <text
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleDeleteItem(item.id)}>
                                         X
-                                    </text>
+                                    </text> */}
                                 </>
                             )}
                             {item.type === "mapUrl" &&
@@ -529,11 +535,21 @@ const FullBoard = () => {
                                         <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
                                         <iframe draggable="true" src={item.mapUrl} width="600" height="450" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                                     </foreignObject>
-                                    <text
+                                    <circle
+                                        cx="0"
+                                        cy="0"
+                                        r="8"
+                                        fill="red"
+                                        stroke="white"
+                                        strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleDeleteItem(item.id)}
+                                    />
+                                    {/* <text
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleDeleteItem(item.id)}>
                                         X
-                                    </text>
+                                    </text> */}
                                 </g>
                             }
                             {item.type === "imageUrl" &&
@@ -545,7 +561,6 @@ const FullBoard = () => {
                                             fill="transparent"
                                             style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
                                         />
-
                                         <image href={item.imageUrl}
                                             x="0"
                                             y="0"
@@ -555,24 +570,29 @@ const FullBoard = () => {
                                                 handleMouseDown(e, item.id)
                                             }}
                                             style={{ cursor: 'move' }} />
-                                        <text
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handleDeleteItem(item.id)}>
-                                            X
-                                        </text>
                                         <circle
-                                            cx="120"
-                                            cy="5"
+                                            cx="0"
+                                            cy="0"
                                             r="8"
                                             fill="red"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleDeleteItem(item.id)}
+                                        />
+                                        <circle
+                                            cx="40"
+                                            cy="0"
+                                            r="8"
+                                            fill="orange"
                                             stroke="white"
                                             strokeWidth="2"
                                             style={{ cursor: 'pointer' }}
                                             onClick={() => handleEditImage(item.id)}
                                         />
                                         {editingImage && editingImage.id === item.id && <circle
-                                            cx="95"
-                                            cy="5"
+                                            cx="20"
+                                            cy="0"
                                             r="8"
                                             fill="green"
                                             stroke="white"
@@ -584,8 +604,6 @@ const FullBoard = () => {
                                     </>
                                 )
                             }
-
-
                         </g>
                     ))}
                     {paths.map((path, index) => (
@@ -612,8 +630,32 @@ const FullBoard = () => {
 
                 </svg>
             </div>
-            <div className='itemForms'>
-                <Moodboard />
+            <div className='sidebar'>
+
+                <div className='itemForms'>
+                    <h2>Drawing:</h2>
+                    <div className='inputs'>
+                        <input
+                            type="color"
+                            value={color}
+                            onChange={(event) => setColor(event.target.value)} />
+                        <input
+                            type="number"
+                            value={line}
+                            onChange={(event) => setLine(event.target.value)} />
+                        <button
+                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
+                            onClick={handleDraw}>Add drawing</button>
+                        <button
+                            style={erasing ? { backgroundColor: "#aabbcc" } : null}
+                            onClick={handleEraser}>Delete lines</button>
+                        <button
+                            onClick={handleDownload}>Download SVG</button>
+                    </div>
+                </div>
+                <div className='itemForms'>
+                    <Moodboard />
+                </div>
             </div>
         </div>
     )
