@@ -1,266 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import DragDropFile from "./DragDropUpload"
 import Moodboard from "./Moodboard"
-
-const Svg = () => {
-    return (<rect
-        width="120"
-        height="120"
-        fill="red"
-        style={{ border: '1px solid black', backgroundColor: "red", cursor: 'move' }}
-    />)
-}
+import { MoodboardContext } from "../context/moodboard";
+import Image from "./Image"
 
 const FullBoard = () => {
-    const [isDrawing, setIsDrawing] = useState(false);
-    const [currentPath, setCurrentPath] = useState('');
-    const [paths, setPaths] = useState([]);
-    const [erasing, setErasing] = useState(false);
-    const [color, setColor] = useState('#aabbcc');
-    const [line, setLine] = useState(2);
-    const svgRef = useRef(null);
-    const [items, setItems] = useState([]);
-    const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('#aabbcc');
-    const [itemLink, setItemLink] = useState('');
-    const [itemUrl, setItemUrl] = useState('');
-    const [itemVideoUrl, setItemVideoUrl] = useState('');
-    const [itemImageUrl, setItemImageUrl] = useState('');
-    const [itemMapUrl, setItemMapUrl] = useState('');
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [editingText, setEditingText] = useState(null);
-    const [editingImage, setEditingImage] = useState(null);
-    const [draggingItem, setDraggingItem] = useState(false);
-    const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 });
+    const { isDrawing, currentPath, paths, erasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, editingText, editingImage, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, handleDraw, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload } = React.useContext(MoodboardContext);
 
-    const handleAddBox = (event) => {
-        event.preventDefault();
-        const itemId = Date.now();
-        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: itemColor, link: itemLink, url: itemUrl, type: "box" };
-        setItems([...items, newBox]);
-        setItemText('Text');
-        setItemColor('#aabbcc');
-    };
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const newItem = {
-                id: Date.now(),
-                src: e.target.result,
-                x: 0,
-                y: 0,
-                width: "100",
-                type: "image"
-            };
-            setItems((prevItems) => [...prevItems, newItem]);
-        };
-        reader.readAsDataURL(file);
-    };
-    const handleImageDropUpload = (e) => {
-        const file = e;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const newItem = {
-                id: Date.now(),
-                src: e.target.result,
-                x: 0,
-                y: 0,
-                width: "100",
-                type: "image"
-            };
-            setItems((prevItems) => [...prevItems, newItem]);
-        };
-        reader.readAsDataURL(file);
-    };
-    const handleAddVideo = (e) => {
-        e.preventDefault();
-        const newItem = {
-            id: Date.now(),
-            videoUrl: itemVideoUrl,
-            x: 0,
-            y: 0,
-            type: "video"
-        }
-        setItems((prevItems) => [...prevItems, newItem]);
-    }
-    const handleAddImage = (e) => {
-        e.preventDefault();
-        const newItem = {
-            id: Date.now(),
-            imageUrl: itemImageUrl,
-            x: 0,
-            y: 0,
-            width: "100",
-            type: "imageUrl"
-        }
-        setItems((prevItems) => [...prevItems, newItem]);
-    }
-    const handleAddMap = (e) => {
-        e.preventDefault();
-        const newItem = {
-            id: Date.now(),
-            mapUrl: itemMapUrl,
-            x: 0,
-            y: 0,
-            type: "mapUrl"
-        }
-        setItems((prevItems) => [...prevItems, newItem]);
-    }
-    const handleMouseDown = (event, itemId) => {
-        if (itemId) {
-            setDraggingItem(true);
-            const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
-            const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
-            const selectedItem = items.find(item => item.id === itemId)
-            setSelectedItem(selectedItem)
-            setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
-        }
-        if (!itemId && isDrawing) {
-            const { x, y } = getCursorPositionDrawing(event);
-            setCurrentPath(`M${x} ${y}`);
-        }
-    };
-    const handleMouseMove = (event) => {
-        if (selectedItem) {
-            event.preventDefault();
-            if (!draggingItem) return;
-            const newItemX = event.clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
-            const newItemY = event.clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
-            setItems((prevItems) =>
-                prevItems.map((item) => {
-                    return item.id === selectedItem.id ? { ...item, x: newItemX, y: newItemY } : item
-                })
-            );
-        }
-        if (!isDrawing) return;
-        if (isDrawing && !erasing && !selectedItem) {
-            const { x, y } = getCursorPositionDrawing(event);
-            setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
-        }
-    };
-    const handleMouseUp = () => {
-        setSelectedItem(null)
-        setDraggingItem(false);
-        setDragOffsetItem({ x: 0, y: 0 });
-        setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
-        setCurrentPath('');
-    };
-    const handleDeleteItem = (id) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-        setEditingText(null)
-        setEditingImage(null)
-    };
-    const handleItemText = (event) => {
-        setItemText(event.target.value);
-    };
-    const handleItemColor = (event) => {
-        setItemColor(event.target.value);
-    };
-    const handleItemLink = (event) => {
-        setItemLink(event.target.value);
-    };
-    const handleItemUrl = (event) => {
-        setItemUrl(event.target.value);
-    };
-    const handleItemVideoUrl = (event) => {
-        setItemVideoUrl(event.target.value);
-    };
-    const handleItemImageUrl = (event) => {
-        setItemImageUrl(event.target.value);
-    };
-    const handleItemMapUrl = (event) => {
-        setItemMapUrl(event.target.value);
-    };
-    const handleEditBox = (id) => {
-        setEditingText({ status: true, id: id })
-    }
-    const handleStopEditBox = () => {
-        setEditingText(null)
-    }
-    const handleItemTextChange = (event, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, text: event.target.value };
-                }
-                return item;
-            })
-        )
-    };
-    const handleItemColorChange = (event, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, color: event.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemLinkChange = (event, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, link: event.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemUrlChange = (event, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, url: event.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleEditImage = (id) => {
-        setEditingImage({ status: true, id: id })
-    }
-    const handleStopEditImage = () => {
-        setEditingImage(null)
-    }
-    const handleImageChange = (event, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, width: event.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const getCursorPositionDrawing = (event) => {
-        const { left, top } = svgRef.current.getBoundingClientRect();
-        const x = event.clientX - left;
-        const y = event.clientY - top;
-        return { x, y };
-    };
-    const handleDraw = () => {
-        setIsDrawing(isDrawing => !isDrawing)
-    }
-    const handleEraser = () => {
-        setErasing(erasing => !erasing);
-        setIsDrawing(isDrawing => !isDrawing)
-    }
-    const handleDeletePath = (erased) => {
-        setPaths((prevPaths) => prevPaths.filter((path) => path.path !== erased.path));
-    }
-    const handleDownload = () => {
-        const svgBlob = new Blob([svgRef.current.outerHTML], { type: 'image/svg+xml' });
-        const svgURL = URL.createObjectURL(svgBlob);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = svgURL;
-        downloadLink.download = 'drawing.svg';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        URL.revokeObjectURL(svgURL);
-    };
     return (
         <div className='dashboard'>
             <div className='sidebar'>
@@ -452,58 +198,7 @@ const FullBoard = () => {
                                     />}
                                 </>
                             )}
-                            {item.type === "image" &&
-                                (
-                                    <>
-                                        {/* <rect
-                                            width="120"
-                                            height="120"
-                                            fill="transparent"
-                                            style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
-                                        /> */}
-                                        <Svg />
-                                        <image href={item.src}
-                                            x="0"
-                                            y="0"
-                                            width={item.width || "100"}
-                                            height={item.width || "100"}
-                                            onMouseDown={e => {
-                                                handleMouseDown(e, item.id)
-                                            }}
-                                            style={{ cursor: 'move' }} />
-                                        <circle
-                                            cx="0"
-                                            cy="0"
-                                            r="8"
-                                            fill="red"
-                                            stroke="white"
-                                            strokeWidth="2"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handleDeleteItem(item.id)}
-                                        />
-                                        <circle
-                                            cx="40"
-                                            cy="0"
-                                            r="8"
-                                            fill="orange"
-                                            stroke="white"
-                                            strokeWidth="2"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handleEditImage(item.id)}
-                                        />
-                                        {editingImage && editingImage.id === item.id && <circle
-                                            cx="20"
-                                            cy="0"
-                                            r="8"
-                                            fill="green"
-                                            stroke="white"
-                                            strokeWidth="2"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={handleStopEditImage}
-                                        />}
-                                    </>
-                                )
-                            }
+                            {item.type === "image" && <Image item={item} />}
                             {item.type === "video" && (
                                 <>
                                     <foreignObject width="560" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
@@ -521,11 +216,6 @@ const FullBoard = () => {
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleDeleteItem(item.id)}
                                     />
-                                    {/* <text
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleDeleteItem(item.id)}>
-                                        X
-                                    </text> */}
                                 </>
                             )}
                             {item.type === "mapUrl" &&
@@ -545,11 +235,6 @@ const FullBoard = () => {
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => handleDeleteItem(item.id)}
                                     />
-                                    {/* <text
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleDeleteItem(item.id)}>
-                                        X
-                                    </text> */}
                                 </g>
                             }
                             {item.type === "imageUrl" &&
@@ -638,11 +323,11 @@ const FullBoard = () => {
                         <input
                             type="color"
                             value={color}
-                            onChange={(event) => setColor(event.target.value)} />
+                            onChange={(event) => handelLineColor(event)} />
                         <input
                             type="number"
                             value={line}
-                            onChange={(event) => setLine(event.target.value)} />
+                            onChange={(event) => handelLineWidth(event)} />
                         <button
                             style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                             onClick={handleDraw}>Add drawing</button>
