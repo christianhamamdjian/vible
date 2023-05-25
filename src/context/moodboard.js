@@ -9,7 +9,6 @@ export default function MoodboardProvider({ children }) {
     const [erasing, setErasing] = useState(false);
     const [color, setColor] = useState('#aabbcc');
     const [line, setLine] = useState(2);
-    const svgRef = useRef(null);
     const [items, setItems] = useState([]);
     const [itemText, setItemText] = useState('Text');
     const [itemColor, setItemColor] = useState('#aabbcc');
@@ -23,6 +22,13 @@ export default function MoodboardProvider({ children }) {
     const [editingImage, setEditingImage] = useState(null);
     const [draggingItem, setDraggingItem] = useState(false);
     const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 });
+    const [galleryItems, setGalleryItems] = useState([]);
+    const [galleryType, setGalleryType] = useState('color');
+    const [galleryContent, setGalleryContent] = useState('');
+    const [galleryLink, seGalleryLink] = useState('');
+    const [galleryError, setGalleryError] = useState('');
+    const svgRef = useRef(null);
+
 
     const handleAddBox = (event) => {
         event.preventDefault();
@@ -258,8 +264,80 @@ export default function MoodboardProvider({ children }) {
         document.body.removeChild(downloadLink);
         URL.revokeObjectURL(svgURL);
     };
+
+    const addGalleryItem = (item) => {
+        setGalleryItems([...galleryItems, item]);
+    };
+
+    const deleteGalleryItem = (index) => {
+        const newItems = [...galleryItems];
+        newItems.splice(index, 1);
+        setGalleryItems(newItems);
+    };
+    const modelGalleryItem = {
+        type: galleryType,
+        content: galleryContent,
+        link: galleryLink
+    };
+    const handleGallerySubmit = (e) => {
+        e.preventDefault();
+        setGalleryError('');
+        let newItem;
+        switch (galleryType) {
+            case 'color':
+                newItem = { ...modelGalleryItem };
+                break;
+            case 'image':
+                if (!galleryContent.startsWith('data:image/')) {
+                    setGalleryError('Please select a valid image file (png, jpg, jpeg).');
+                    return;
+                }
+                newItem = { ...modelGalleryItem };
+                break;
+            case 'link':
+                if (!/^https?:\/\//i.test(galleryLink)) {
+                    setGalleryError('Please enter a valid URL (include http:// or https://).');
+                    return;
+                }
+                newItem = { ...modelGalleryItem };
+                break;
+            default:
+                break;
+        }
+        addGalleryItem(newItem);
+        setGalleryType('color');
+        setGalleryContent('');
+        seGalleryLink('');
+    };
+
+    const handleGalleryContentChange = (e) => {
+        setGalleryContent(e.target.value);
+        setGalleryError('');
+    };
+
+    const handleGalleryLinkChange = (e) => {
+        seGalleryLink(e.target.value);
+        setGalleryError('');
+    };
+
+    const handleGalleryImageUpload = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setGalleryContent(reader.result);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+    const handleGalleryTypeChange = (event) => {
+        setGalleryType(event.target.value)
+    }
+    const handleGalleryAddToBoard = () => {
+
+    }
+
     return (
-        <MoodboardContext.Provider value={{ isDrawing, currentPath, paths, erasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDraw, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload }}>
+        <MoodboardContext.Provider value={{
+            isDrawing, currentPath, paths, erasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDraw, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard
+        }}>
             {children}
         </MoodboardContext.Provider>
     );

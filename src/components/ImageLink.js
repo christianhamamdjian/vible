@@ -1,20 +1,19 @@
 import React from 'react';
 import { MoodboardContext } from "../context/moodboard";
 
-const Image = ({ item }) => {
+const ImageLink = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
-
     return (
         <>
-            {item.type === "image" &&
+            {item.type === "imageUrl" &&
                 <>
                     <rect
                         width="120"
                         height="120"
-                        fill="red"
-                        style={{ border: '1px solid black', backgroundColor: "red", cursor: 'move' }}
+                        fill="transparent"
+                        style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
                     />
-                    <image href={item.src}
+                    <image href={item.imageUrl}
                         x="0"
                         y="0"
                         width={item.width || "100"}
@@ -52,11 +51,9 @@ const Image = ({ item }) => {
                         strokeWidth="2"
                         style={{ cursor: 'pointer' }}
                         onClick={handleStopEditImage}
-                    />
-                    }
-                </>
-            }
+                    />}
+                </>}
         </>
     )
 }
-export default Image
+export default ImageLink

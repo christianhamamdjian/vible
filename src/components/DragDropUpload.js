@@ -1,13 +1,9 @@
 import React from 'react';
 
-// drag drop file component
 function DragDropFile({ handleImageDropUpload }) {
-    // drag state
     const [dragActive, setDragActive] = React.useState(false);
-    // ref
     const inputRef = React.useRef(null);
 
-    // handle drag events
     const handleDrag = function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -18,7 +14,6 @@ function DragDropFile({ handleImageDropUpload }) {
         }
     };
 
-    // triggers when file is dropped
     const handleDrop = function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -28,7 +23,6 @@ function DragDropFile({ handleImageDropUpload }) {
         }
     };
 
-    // triggers when file is selected with click
     const handleChange = function (e) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
@@ -36,7 +30,6 @@ function DragDropFile({ handleImageDropUpload }) {
         }
     };
 
-    // triggers the input when the button is clicked
     const onButtonClick = () => {
         inputRef.current.click();
     };
