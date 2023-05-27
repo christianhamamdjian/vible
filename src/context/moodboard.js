@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocalStorage } from "../components/utils/useLocalStorage";
 
 const MoodboardContext = React.createContext();
-// Provider,Consumer,useContext
 export default function MoodboardProvider({ children }) {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
@@ -29,21 +28,6 @@ export default function MoodboardProvider({ children }) {
     const [galleryLink, seGalleryLink] = useState('');
     const [galleryError, setGalleryError] = useState('');
     const svgRef = useRef(null);
-
-
-    // useEffect(() => {
-    //     const savedItems = localStorage.getItem("items");
-    //     const initialValue = JSON.parse(savedItems);
-    //     return initialValue || "";
-    // }, [])
-
-    // useEffect(() => {
-    //     localStorage.setItem("items", JSON.stringify(items));
-    // }, [items])
-
-    // useEffect(() => {
-    //     localStorage.setItem("paths", JSON.stringify(paths));
-    // }, [paths])
 
     const handleAddBox = (event) => {
         event.preventDefault();
@@ -136,23 +120,32 @@ export default function MoodboardProvider({ children }) {
         }
         setItems((prevItems) => [...prevItems, newItem]);
     }
-    const handleMouseDown = (event, itemId) => {
-        if (itemId) {
+    const handleMouseDown = (event, element) => {
+        if (element) {
             setDraggingItem(true);
             const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
             const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
-            const selectedItem = items.find(item => item.id === itemId)
+            const selectedItem = items.find(item => item.id === element)
             setSelectedItem(selectedItem)
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
         }
-        if (!itemId && isDrawing) {
+        // if (!element && !isDrawing && !erasing) {
+        //     setDraggingItem(true);
+        //     console.log(element);
+        //     // const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
+        //     // const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
+        //     // const selectedItem = paths.find(item => item.id === event.id)
+        //     // setSelectedItem(selectedItem)
+        //     // setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
+        // }
+        if (isDrawing) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
         }
     };
     const handleMouseMove = (event) => {
+        event.preventDefault();
         if (selectedItem) {
-            event.preventDefault();
             if (!draggingItem) return;
             const newItemX = event.clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
             const newItemY = event.clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
@@ -172,7 +165,11 @@ export default function MoodboardProvider({ children }) {
         setSelectedItem(null)
         setDraggingItem(false);
         setDragOffsetItem({ x: 0, y: 0 });
-        setPaths((prevPaths) => [...prevPaths, { path: currentPath, color, line }]);
+        if (isDrawing) {
+            setPaths((prevPaths) => [...prevPaths, {
+                id: Date.now(), path: currentPath, color, line
+            }]);
+        }
         setCurrentPath('');
     };
     const handleDeleteItem = (id) => {
@@ -271,10 +268,11 @@ export default function MoodboardProvider({ children }) {
     };
     const handleDraw = () => {
         setIsDrawing(isDrawing => !isDrawing)
+        setErasing(false);
     }
     const handleEraser = () => {
         setErasing(erasing => !erasing);
-        setIsDrawing(isDrawing => !isDrawing)
+        setIsDrawing(false)
     }
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.path !== erased.path));

@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboard";
 
 const Drawing = () => {
-    const { paths, currentPath, color, line, erasing, handleDeletePath } = React.useContext(MoodboardContext);
+    const { paths, currentPath, color, line, erasing, handleDeletePath, handleMouseDown } = React.useContext(MoodboardContext);
     return (
         <>
             {paths.map((path, index) => (
@@ -13,9 +13,8 @@ const Drawing = () => {
                     fill="none"
                     strokeWidth={path.line}
                     draggable="true"
-                    onMouseDown={erasing ? (() => handleDeletePath(path)) : null}
-                    onDragOver={erasing ? (() => handleDeletePath(path)) : null}
-                    cursor={erasing ? "grab" : "move"}
+                    onMouseDown={erasing ? (() => handleDeletePath(path)) : ((e) => handleMouseDown(e, path))}
+                    cursor={"grab"}
                 />
             ))}
             {currentPath && (
