@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingForm = () => {
-    const { isDrawing, isPathMoving, handleMovePath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth, handleDownload } = React.useContext(MoodboardContext);
+    const { isDrawing, isPathMoving, handleMovePath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth, handleDownload, handlePdfDownload } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms'>
             <h2>Drawing:</h2>
@@ -24,8 +24,9 @@ const DrawingForm = () => {
                 <button
                     style={isErasing ? { backgroundColor: "#aabbcc" } : null}
                     onClick={handleEraser}>Delete lines</button>
-                <button
-                    onClick={handleDownload}>Download SVG</button>
+                {/* <button
+                    onClick={handleDownload}>Download SVG</button> */}
+                {/* <button onClick={handlePdfDownload}>Download as PDF</button> */}
             </div>
         </div>
     )
