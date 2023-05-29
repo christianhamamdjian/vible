@@ -1,6 +1,6 @@
 import React from 'react';
 import DragDropUpload from "../Helpers/DragDropUpload"
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const VideoForm = () => {
     const { items, handleImageUpload, editingImage, handleImageChange, handleImageDropUpload } = React.useContext(MoodboardContext);

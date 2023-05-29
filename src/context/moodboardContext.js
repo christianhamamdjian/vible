@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocalStorage } from "../components/utils/useLocalStorage";
+import { useLocalStorage } from "../components/hooks/useLocalStorage";
 
 const MoodboardContext = React.createContext();
 export default function MoodboardProvider({ children }) {
@@ -28,6 +28,15 @@ export default function MoodboardProvider({ children }) {
     const [galleryLink, seGalleryLink] = useState('');
     const [galleryError, setGalleryError] = useState('');
     const svgRef = useRef(null);
+
+    const [selectedPath, setSelectedPath] = useState(null);
+    const [draggingPath, setDraggingPath] = useState(false);
+    const [startPathX, setStartPathX] = useState(0);
+    const [startPathY, setStartPathY] = useState(0);
+    const [pathStartX, setPathStartX] = useState(0);
+    const [pathStartY, setPathStartY] = useState(0);
+
+    // Add Elements
 
     const handleAddBox = (event) => {
         event.preventDefault();
@@ -120,38 +129,74 @@ export default function MoodboardProvider({ children }) {
         }
         setItems((prevItems) => [...prevItems, newItem]);
     }
+
+    // Dragging
+
     const handleMouseDown = (event, element) => {
-        if (element) {
+        if (element && !isDrawing) {
             setDraggingItem(true);
+
             const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
             const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
+
             const selectedItem = items.find(item => item.id === element)
+
             setSelectedItem(selectedItem)
+
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
         }
-        // if (!element && !isDrawing && !erasing) {
-        //     setDraggingItem(true);
-        //     console.log(element);
-        //     // const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
-        //     // const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
-        //     // const selectedItem = paths.find(item => item.id === event.id)
-        //     // setSelectedItem(selectedItem)
-        //     // setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
-        // }
+
+        if (!isDrawing && !erasing && element && element.type === "path") {
+            setDraggingPath(true);
+
+            setStartPathX(event.clientX);
+            setStartPathY(event.clientY);
+
+            const bbox = event.target.getBBox();
+
+            setPathStartX(bbox.x);
+            setPathStartY(bbox.y);
+            const selectedPath = paths.find(path => path.id === element.id)
+            setSelectedPath(selectedPath)
+        }
         if (isDrawing) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
         }
+        // if (erasing) {
+        //     paths.forEach((path) => {
+        //         const line = path.path
+        //         line.addEventListener("mouseleave", handleDeletePath(path))
+        //     }
+        //     )
+        // }
     };
     const handleMouseMove = (event) => {
-        event.preventDefault();
-        if (selectedItem) {
+
+
+        if (selectedItem && !selectedPath) {
+            event.preventDefault();
             if (!draggingItem) return;
             const newItemX = event.clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
             const newItemY = event.clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
             setItems((prevItems) =>
                 prevItems.map((item) => {
                     return item.id === selectedItem.id ? { ...item, x: newItemX, y: newItemY } : item
+                })
+            );
+        }
+
+        if (selectedPath && !selectedItem) {
+            event.preventDefault();
+            if (!draggingPath) return;
+
+            const dx = event.clientX - startPathX;
+            const dy = event.clientY - startPathY;
+
+            event.target.setAttribute('transform', `translate(${pathStartX + dx} ${pathStartY + dy})`);
+            setPaths((prevPaths) =>
+                prevPaths.map((path) => {
+                    return path.id === selectedPath.id ? { ...path, x: pathStartX + dx, y: pathStartY + dy } : path
                 })
             );
         }
@@ -163,15 +208,26 @@ export default function MoodboardProvider({ children }) {
     };
     const handleMouseUp = () => {
         setSelectedItem(null)
+        setSelectedPath(null)
         setDraggingItem(false);
+        setDraggingPath(false);
         setDragOffsetItem({ x: 0, y: 0 });
         if (isDrawing) {
             setPaths((prevPaths) => [...prevPaths, {
-                id: Date.now(), path: currentPath, color, line
+                id: Date.now(), type: "path", path: currentPath, color, line
             }]);
         }
+        // if (erasing) {
+        //     paths.forEach((path) => {
+        //         const line = path.path
+        //         line.removeEventListener("mouseleave", handleDeletePath(path))
+        //     })
+        // }
         setCurrentPath('');
     };
+
+    // Helper functions
+
     const handleDeleteItem = (id) => {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         setEditingText(null)
@@ -204,6 +260,9 @@ export default function MoodboardProvider({ children }) {
     const handleStopEditBox = () => {
         setEditingText(null)
     }
+
+    // Text Box
+
     const handleItemTextChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -234,6 +293,9 @@ export default function MoodboardProvider({ children }) {
             })
         );
     };
+
+    // Image
+
     const handleItemUrlChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -260,6 +322,9 @@ export default function MoodboardProvider({ children }) {
             })
         );
     };
+
+    // Drawing
+
     const getCursorPositionDrawing = (event) => {
         const { left, top } = svgRef.current.getBoundingClientRect();
         const x = event.clientX - left;
@@ -294,6 +359,8 @@ export default function MoodboardProvider({ children }) {
         document.body.removeChild(downloadLink);
         URL.revokeObjectURL(svgURL);
     };
+
+    // Gallery
 
     const addGalleryItem = (item) => {
         setGalleryItems([...galleryItems, item]);

@@ -13,9 +13,9 @@ import VideoForm from "./forms/VideoForm"
 import MapForm from "./forms/MapForm"
 import ImageLinkForm from "./forms/ImageLinkForm"
 
-import { MoodboardContext } from "../context/moodboard";
+import { MoodboardContext } from "../context/moodboardContext";
 
-const FullBoard = () => {
+const MoodBoard = () => {
     const { isDrawing, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp } = React.useContext(MoodboardContext);
 
     return (
@@ -26,6 +26,10 @@ const FullBoard = () => {
                 <VideoForm />
                 <ImageLinkForm />
                 <MapForm />
+            </div>
+            <div className='sidebar'>
+                <DrawingForm />
+                <Gallery />
             </div>
             <div className="frame">
                 <svg
@@ -58,12 +62,9 @@ const FullBoard = () => {
                     <Drawing />
                 </svg>
             </div>
-            <div className='sidebar'>
-                <DrawingForm />
-                <Gallery />
-            </div>
+
         </div>
     )
 }
 
-export default FullBoard
+export default MoodBoard

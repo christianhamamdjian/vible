@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const Gallery = () => {
     const { galleryItems, galleryType, galleryError, deleteGalleryItem, handleGallerySubmit, handleGalleryTypeChange, handleGalleryAddToBoard, galleryContent, handleGalleryContentChange, galleryLink, handleGalleryLinkChange, handleGalleryImageUpload } = React.useContext(MoodboardContext);

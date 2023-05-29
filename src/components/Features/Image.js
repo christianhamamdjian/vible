@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
@@ -18,7 +18,6 @@ const Image = ({ item }) => {
                         x="0"
                         y="0"
                         width={item.width || "100"}
-                        height={item.width || "100"}
                         onMouseDown={e => {
                             handleMouseDown(e, item.id)
                         }}

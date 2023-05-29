@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxForm = () => {
     const { items, itemText, itemColor, itemLink, itemUrl, editingText, handleAddBox, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange } = React.useContext(MoodboardContext);

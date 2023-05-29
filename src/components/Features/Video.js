@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleMouseUp } = React.useContext(MoodboardContext);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const MapForm = () => {
     const { handleItemMapUrl, itemMapUrl, handleAddMap } = React.useContext(MoodboardContext);

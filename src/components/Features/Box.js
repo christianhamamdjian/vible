@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoodboardContext } from "../../context/moodboard";
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
     const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox } = React.useContext(MoodboardContext);
@@ -9,8 +9,8 @@ const Image = ({ item }) => {
             {item.type === "box" && (
                 <>
                     <foreignObject
-                        x="20"
-                        y="20"
+                        x="00"
+                        y="0"
                         width="160"
                         height="160"
                         style={{ cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "12px" }}
