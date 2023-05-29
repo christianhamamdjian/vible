@@ -16,20 +16,23 @@ import ImageLinkForm from "./forms/ImageLinkForm"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp } = React.useContext(MoodboardContext);
+    const { isDrawing, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw } = React.useContext(MoodboardContext);
 
     return (
         <div className='dashboard'>
             <div className='sidebar'>
-                <BoxForm />
-                <ImageForm />
-                <VideoForm />
-                <ImageLinkForm />
-                <MapForm />
-            </div>
-            <div className='sidebar'>
-                <DrawingForm />
-                <Gallery />
+                <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
+                {draw && <DrawingForm />}
+                <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
+                {write && <BoxForm />}
+                <button style={image ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImage}>Image</button>
+                {image && <ImageForm />}
+                <button style={imageLink ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImageLink}>Image link</button>
+                {imageLink && <ImageLinkForm />}
+                <button style={video ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleVideo}>Video</button>
+                {video && <VideoForm />}
+                <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
+                {map && <MapForm />}
             </div>
             <div className="frame">
                 <svg
@@ -41,14 +44,8 @@ const MoodBoard = () => {
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
-                    <g>
-                        <clippath id="my-clippath">
-                            <path d="M 50 15, 100 25, 100 100, 50 100, 0 100, 0 25Z"></path>
-                        </clippath>
-                    </g>
                     {items.map(item => (
-                        <g
-                            key={item.id}
+                        <g key={item.id}
                             draggable="true"
                             transform={`translate(${item.x},${item.y})`}
                         >
@@ -62,7 +59,9 @@ const MoodBoard = () => {
                     <Drawing />
                 </svg>
             </div>
-
+            <div className='sidebar'>
+                <Gallery />
+            </div>
         </div>
     )
 }

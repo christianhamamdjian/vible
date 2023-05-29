@@ -36,6 +36,14 @@ export default function MoodboardProvider({ children }) {
     const [draggingPath, setDraggingPath] = useState(false);
     const [dragOffsetPath, setDragOffsetPath] = useState({ x: 0, y: 0 });
     const [isPathMoving, setIsPathMoving] = useState(false)
+
+    const [draw, setDraw] = useState(false)
+    const [write, setWrite] = useState(false)
+    const [image, setImage] = useState(false)
+    const [imageLink, setImageLink] = useState(false)
+    const [video, setVideo] = useState(false)
+    const [map, setMap] = useState(false)
+
     const svgRef = useRef(null);
 
     // Add Elements
@@ -189,7 +197,7 @@ export default function MoodboardProvider({ children }) {
 
             const newPathX = event.clientX - event.currentTarget.getBBox().x - dragOffsetPath.x;
             const newPathY = event.clientY - event.currentTarget.getBBox().y - dragOffsetPath.y;
-
+            console.log(dragOffsetPath);
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
                     return path.id === selectedPath.id ? { ...path, x: newPathX, y: newPathY } : path
@@ -330,7 +338,7 @@ export default function MoodboardProvider({ children }) {
         const y = event.clientY - top;
         return { x, y };
     };
-    const handleDraw = () => {
+    const handleDrawing = () => {
         setIsDrawing(isDrawing => !isDrawing)
         setIsErasing(false);
         setIsPathMoving(false)
@@ -446,10 +454,34 @@ export default function MoodboardProvider({ children }) {
         }
 
     }
+    const handleDraw = () => {
+        setDraw(draw => !draw);
+    }
+
+
+    const handleWrite = () => {
+        setWrite(write => !write);
+    }
+
+    const handleImage = () => {
+        setImage(image => !image);
+    }
+
+    const handleImageLink = () => {
+        setImageLink(imageLink => !imageLink);
+    }
+
+    const handleVideo = () => {
+        setVideo(video => !video);
+    }
+    const handleMap = () => {
+        setMap(map => !map);
+    }
+
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDraw, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw
         }}>
             {children}
         </MoodboardContext.Provider>
