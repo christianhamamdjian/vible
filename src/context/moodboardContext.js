@@ -29,7 +29,7 @@ export default function MoodboardProvider({ children }) {
 
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", []);
     const [galleryType, setGalleryType] = useState('color');
-    const [galleryContent, setGalleryContent] = useState('');
+    const [galleryContent, setGalleryContent] = useState("#000000");
     const [galleryLink, seGalleryLink] = useState('');
     const [galleryError, setGalleryError] = useState('');
 
@@ -163,7 +163,7 @@ export default function MoodboardProvider({ children }) {
             setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
 
             const selectedPath = paths.find(path => path.id === element.id)
-            console.log(selectedPath);
+
             setSelectedPath(selectedPath)
         }
 
@@ -203,7 +203,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (!isDrawing) return;
-        if (isDrawing && !isErasing && !selectedItem) {
+        if (isDrawing && currentPath && !isErasing && !selectedItem) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
@@ -361,17 +361,7 @@ export default function MoodboardProvider({ children }) {
     const handelLineWidth = (event) => {
         setLine(event.target.value)
     }
-    const handleDownload = () => {
-        const svgBlob = new Blob([svgRef.current.outerHTML], { type: 'image/svg+xml' });
-        const svgURL = URL.createObjectURL(svgBlob);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = svgURL;
-        downloadLink.download = 'drawing.svg';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        URL.revokeObjectURL(svgURL);
-    };
+
     const handlePdfDownload = () => {
         const svgElement = document.getElementById('my-svg');
         const fileName = 'my-file.pdf';
@@ -446,7 +436,7 @@ export default function MoodboardProvider({ children }) {
         }
         addGalleryItem(newItem);
         setGalleryType('color');
-        setGalleryContent('');
+        setGalleryContent("")
         seGalleryLink('');
     };
 
@@ -512,7 +502,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, handleDownload, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard
         }}>
             {children}
         </MoodboardContext.Provider>
