@@ -147,8 +147,8 @@ export default function MoodboardProvider({ children }) {
         if (element && !isDrawing) {
             setDraggingItem(true);
 
-            const offsetItemX = event.clientX - event.currentTarget.getBoundingClientRect().left;
-            const offsetItemY = event.clientY - event.currentTarget.getBoundingClientRect().top;
+            const offsetItemX = event.clientX || event.touches[0].clientX - event.currentTarget.getBoundingClientRect().left;
+            const offsetItemY = event.clientY || event.touches[0].clientY - event.currentTarget.getBoundingClientRect().top;
             setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
 
             const selectedItem = items.find(item => item.id === element)
@@ -158,8 +158,8 @@ export default function MoodboardProvider({ children }) {
         if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
 
-            const offsetPathX = event.clientX - event.currentTarget.getBBox().x;
-            const offsetPathY = event.clientY - event.currentTarget.getBBox().y;
+            const offsetPathX = event.clientX || event.touches[0].clientX - event.currentTarget.getBBox().x;
+            const offsetPathY = event.clientY || event.touches[0].clientY - event.currentTarget.getBBox().y;
             setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
 
             const selectedPath = paths.find(path => path.id === element.id)
@@ -181,8 +181,8 @@ export default function MoodboardProvider({ children }) {
 
             if (!draggingItem) return;
 
-            const newItemX = event.clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
-            const newItemY = event.clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
+            const newItemX = event.clientX || event.touches[0].clientX - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
+            const newItemY = event.clientY || event.touches[0].clientY - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
 
             setItems((prevItems) =>
                 prevItems.map((item) => {
@@ -196,8 +196,8 @@ export default function MoodboardProvider({ children }) {
 
             if (!draggingPath) return;
 
-            const newPathX = event.clientX - event.currentTarget.getBBox().x - dragOffsetPath.x;
-            const newPathY = event.clientY - event.currentTarget.getBBox().y - dragOffsetPath.y;
+            const newPathX = event.clientX || event.touches[0].clientX - event.currentTarget.getBBox().x - dragOffsetPath.x;
+            const newPathY = event.clientY || event.touches[0].clientY - event.currentTarget.getBBox().y - dragOffsetPath.y;
             console.log(dragOffsetPath);
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
