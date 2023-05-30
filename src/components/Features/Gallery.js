@@ -47,7 +47,7 @@ const Gallery = () => {
                         let display;
                         if (item.type === 'color') {
                             display = (
-                                <li key={index} className="color-box" style={{ backgroundColor: item.content || "#ffffff" }}>{item.content || "#ffffff"} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
+                                <li key={index} className="color-box" style={{ backgroundColor: item.content }}>{item.content} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
                             return display;
                         }

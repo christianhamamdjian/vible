@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useLocalStorage } from "../components/hooks/useLocalStorage";
 import jsPDF from "jspdf"
 
@@ -144,8 +144,7 @@ export default function MoodboardProvider({ children }) {
     // Dragging
 
     const handleMouseDown = (event, element) => {
-        event.stopPropagation();
-        event.preventDefault();
+
         if (element && !isDrawing) {
             setDraggingItem(true);
             const offsetItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left;
@@ -158,17 +157,16 @@ export default function MoodboardProvider({ children }) {
 
         if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
+
             const offsetPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x;
             const offsetPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y;
             setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
 
             const selectedPath = paths.find(path => path.id === element.id)
+            console.log(selectedPath);
             setSelectedPath(selectedPath)
         }
-        if (!isDrawing || !isPathMoving || !isErasing) {
-            window.removeEventListener("touchstart", e => e.preventDefault(), { passive: false });
-            window.removeEventListener("touchmove", e => e.preventDefault(), { passive: false });
-        }
+
         if (isDrawing) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
@@ -178,8 +176,6 @@ export default function MoodboardProvider({ children }) {
     // Moving
 
     const handleMouseMove = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
 
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
@@ -216,8 +212,6 @@ export default function MoodboardProvider({ children }) {
     // Mouse Up
 
     const handleMouseUp = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
 
         setSelectedItem(null)
         setSelectedPath(null)
@@ -337,8 +331,6 @@ export default function MoodboardProvider({ children }) {
     // Drawing
 
     const getCursorPositionDrawing = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
 
         const { left, top } = svgRef.current.getBoundingClientRect();
         const x = (event.clientX || event.touches[0].clientX) - left;
@@ -347,22 +339,16 @@ export default function MoodboardProvider({ children }) {
     };
     const handleDrawing = () => {
         setIsDrawing(isDrawing => !isDrawing)
-        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
-        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsErasing(false);
         setIsPathMoving(false)
     }
     const handleMovePath = () => {
         setIsPathMoving(isPathMoving => !isPathMoving)
-        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
-        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsErasing(false);
         setIsDrawing(false)
     }
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing);
-        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
-        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsDrawing(false)
         setIsPathMoving(false)
     }
@@ -435,6 +421,10 @@ export default function MoodboardProvider({ children }) {
         let newItem;
         switch (galleryType) {
             case 'color':
+                if (!galleryContent.startsWith('#')) {
+                    setGalleryError('Please select a valid color.');
+                    return;
+                }
                 newItem = { ...modelGalleryItem };
                 break;
             case 'image':
@@ -496,7 +486,6 @@ export default function MoodboardProvider({ children }) {
     const handleDraw = () => {
         setDraw(draw => !draw);
     }
-
 
     const handleWrite = () => {
         setWrite(write => !write);
