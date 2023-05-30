@@ -205,6 +205,9 @@ export default function MoodboardProvider({ children }) {
 
         if (!isDrawing) return;
         if (isDrawing && !isErasing && !selectedItem) {
+            document.addEventListener('touchmove', function (e) {
+                e.preventDefault();
+            }, { passive: false });
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
@@ -215,7 +218,9 @@ export default function MoodboardProvider({ children }) {
     const handleMouseUp = (event) => {
         event.stopPropagation();
         event.preventDefault();
-
+        document.removeEventListener('touchmove', function (e) {
+            e.preventDefault();
+        }, { passive: false });
         setSelectedItem(null)
         setSelectedPath(null)
         setDraggingItem(false);
