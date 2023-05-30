@@ -16,6 +16,8 @@ const Image = ({ item }) => {
                         style={{ cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "12px" }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                         onMouseUp={handleMouseUp}
+                        onTouchStart={(e) => handleMouseDown(e, item.id)}
+                        onTouchEnd={handleMouseUp}
                     >
                         <p className="text" fill={item.color} draggable="true">
                             {item.text}

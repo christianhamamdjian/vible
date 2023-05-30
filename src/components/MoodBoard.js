@@ -40,6 +40,9 @@ const MoodBoard = () => {
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
+                    onTouchStart={handleMouseDown}
+                    onTouchMove={handleMouseMove}
+                    onTouchEnd={handleMouseUp}
                     ref={svgRef}
                     style={{ width: '2000', height: '2000', border: '1px solid transparent' }}
                     cursor={isDrawing ? "crosshair" : "move"}

@@ -158,7 +158,6 @@ export default function MoodboardProvider({ children }) {
 
         if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
-            console.log(event.type)
             const offsetPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x;
             const offsetPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y;
             setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
@@ -196,7 +195,6 @@ export default function MoodboardProvider({ children }) {
 
             const newPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x - dragOffsetPath.x;
             const newPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y - dragOffsetPath.y;
-            console.log(dragOffsetPath);
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
                     return path.id === selectedPath.id ? { ...path, x: newPathX, y: newPathY } : path
@@ -375,8 +373,8 @@ export default function MoodboardProvider({ children }) {
         URL.revokeObjectURL(svgURL);
     };
     const handlePdfDownload = () => {
-        const svgElement = document.getElementById('my-svg'); // Replace with the ID of your SVG element
-        const fileName = 'my-file.pdf'; // Replace with the desired file name
+        const svgElement = document.getElementById('my-svg');
+        const fileName = 'my-file.pdf';
 
         const svgData = new XMLSerializer().serializeToString(svgElement);
         const canvas = document.createElement('canvas');
