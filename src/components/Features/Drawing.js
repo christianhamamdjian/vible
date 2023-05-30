@@ -14,7 +14,7 @@ const Drawing = () => {
                     fill="none"
                     strokeWidth={path.line}
                     draggable="true"
-                    transform={`translate(${path.x},${path.y})`}
+                    transform={`translate(${path.x || 0},${path.y || 0})`}
                     onMouseDown={isErasing ? (() => handleDeletePath(path)) : ((e) => handleMouseDown(e, path))}
                     cursor={"grab"}
                 />
