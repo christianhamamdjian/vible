@@ -165,7 +165,10 @@ export default function MoodboardProvider({ children }) {
             const selectedPath = paths.find(path => path.id === element.id)
             setSelectedPath(selectedPath)
         }
-
+        if (!isDrawing || !isPathMoving || !isErasing) {
+            window.removeEventListener("touchstart", e => e.preventDefault(), { passive: false });
+            window.removeEventListener("touchmove", e => e.preventDefault(), { passive: false });
+        }
         if (isDrawing) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
@@ -205,9 +208,6 @@ export default function MoodboardProvider({ children }) {
 
         if (!isDrawing) return;
         if (isDrawing && !isErasing && !selectedItem) {
-            document.addEventListener('touchmove', function (e) {
-                e.preventDefault();
-            }, { passive: false });
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
@@ -218,9 +218,7 @@ export default function MoodboardProvider({ children }) {
     const handleMouseUp = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        document.removeEventListener('touchmove', function (e) {
-            e.preventDefault();
-        }, { passive: false });
+
         setSelectedItem(null)
         setSelectedPath(null)
         setDraggingItem(false);
@@ -349,16 +347,22 @@ export default function MoodboardProvider({ children }) {
     };
     const handleDrawing = () => {
         setIsDrawing(isDrawing => !isDrawing)
+        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
+        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsErasing(false);
         setIsPathMoving(false)
     }
     const handleMovePath = () => {
         setIsPathMoving(isPathMoving => !isPathMoving)
+        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
+        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsErasing(false);
         setIsDrawing(false)
     }
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing);
+        window.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
+        window.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
         setIsDrawing(false)
         setIsPathMoving(false)
     }
