@@ -333,8 +333,8 @@ export default function MoodboardProvider({ children }) {
 
     const getCursorPositionDrawing = (event) => {
         const { left, top } = svgRef.current.getBoundingClientRect();
-        const x = event.clientX - left;
-        const y = event.clientY - top;
+        const x = (event.clientX || event.touches[0].clientX) - left;
+        const y = (event.clientY || event.touches[0].clientY) - top;
         return { x, y };
     };
     const handleDrawing = () => {
