@@ -16,7 +16,7 @@ import ImageLinkForm from "./forms/ImageLinkForm"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isPathMoving, isErasing, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard } = React.useContext(MoodboardContext);
+    const { isDrawing, isPathMoving, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard } = React.useContext(MoodboardContext);
 
     return (
         <div className='dashboard'>
@@ -35,8 +35,8 @@ const MoodBoard = () => {
                 {map && <MapForm />}
             </div>
             <div className="frame" style={{
-                overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem)) ? "hidden" : "auto"}`,
-                touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem)) ? "none" : "auto"}`
+                overflow: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem || isMovingObjects) ? "hidden" : "auto"}`,
+                touchAction: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects ? "none" : "auto"}`
             }}>
                 <svg
                     id="my-svg"
@@ -69,6 +69,7 @@ const MoodBoard = () => {
             <div className='sidebar'>
                 <button onClick={handlePdfDownload}>Download as PDF</button>
                 <button onClick={handleClearBoard}>Clear board</button>
+                <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button>
                 <Gallery />
             </div>
         </div>

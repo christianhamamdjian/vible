@@ -91,9 +91,13 @@ button,
   color: white;
   padding: .5rem 1.5rem;
   border-radius: .4rem;
+  cursor: pointer;
 }
 
-
+button:hover,
+::file-selector-button:hover {
+  background-color: rgb(70, 70, 186);
+}
 
 .moodboard {
   display: flex;
