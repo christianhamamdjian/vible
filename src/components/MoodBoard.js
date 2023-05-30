@@ -16,7 +16,7 @@ import ImageLinkForm from "./forms/ImageLinkForm"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload } = React.useContext(MoodboardContext);
+    const { isDrawing, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard } = React.useContext(MoodboardContext);
 
     return (
         <div className='dashboard'>
@@ -65,6 +65,7 @@ const MoodBoard = () => {
             </div>
             <div className='sidebar'>
                 <button onClick={handlePdfDownload}>Download as PDF</button>
+                <button onClick={handleClearBoard}>Clear board</button>
                 <Gallery />
             </div>
         </div>
