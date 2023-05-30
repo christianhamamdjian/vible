@@ -35,8 +35,8 @@ const MoodBoard = () => {
                 {map && <MapForm />}
             </div>
             <div className="frame" style={{
-                overflow: `${(isDrawing || isPathMoving || isErasing || selectedItem || draggingItem) ? "hidden" : "auto"}`,
-                touchAction: `${(isDrawing || isPathMoving || isErasing || selectedItem || draggingItem) ? "none" : "auto"}`
+                overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem)) ? "hidden" : "auto"}`,
+                touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem)) ? "none" : "auto"}`
             }}>
                 <svg
                     id="my-svg"
