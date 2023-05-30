@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, currentPath, color, line, isErasing, isDrawing, handleDeletePath, handleMouseDown } = React.useContext(MoodboardContext);
+    const { paths, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown } = React.useContext(MoodboardContext);
     return (
         <>
             {paths.map((path, index) => (
