@@ -177,6 +177,7 @@ export default function MoodboardProvider({ children }) {
     const handleMouseMove = (event) => {
         event.stopPropagation();
         event.preventDefault();
+
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
 
@@ -335,6 +336,7 @@ export default function MoodboardProvider({ children }) {
     const getCursorPositionDrawing = (event) => {
         event.stopPropagation();
         event.preventDefault();
+
         const { left, top } = svgRef.current.getBoundingClientRect();
         const x = (event.clientX || event.touches[0].clientX) - left;
         const y = (event.clientY || event.touches[0].clientY) - top;

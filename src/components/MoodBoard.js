@@ -34,7 +34,7 @@ const MoodBoard = () => {
                 <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
                 {map && <MapForm />}
             </div>
-            <div className="frame">
+            <div className="frame" style={{ overflow: `${isDrawing ? "hidden" : "auto"}` }}>
                 <svg
                     id="my-svg"
                     onMouseDown={handleMouseDown}
