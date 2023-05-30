@@ -16,6 +16,8 @@ const Drawing = () => {
                     draggable="true"
                     transform={`translate(${path.x || 0},${path.y || 0})`}
                     onMouseDown={isErasing ? (() => handleDeletePath(path)) : ((e) => handleMouseDown(e, path))}
+                    onTouchStart={(e) => handleMouseDown(e, path)}
+                    onTouchEnd={isErasing ? (() => handleDeletePath(path)) : null}
                     cursor={"grab"}
                 />
             ))}
