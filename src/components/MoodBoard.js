@@ -12,15 +12,17 @@ import ImageForm from "./forms/ImageForm"
 import VideoForm from "./forms/VideoForm"
 import MapForm from "./forms/MapForm"
 import ImageLinkForm from "./forms/ImageLinkForm"
+import ThemeSwitcher from './ThemeSwitcher';
 
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isPathMoving, makeDraggable, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard } = React.useContext(MoodboardContext);
+    const { isDrawing, isPathMoving, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, handleZoomIn, handleZoomOut, zoom } = React.useContext(MoodboardContext);
 
     return (
         <div className='dashboard'>
             <div className='sidebar'>
+                <ThemeSwitcher />
                 <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
                 {draw && <DrawingForm />}
                 <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
@@ -47,6 +49,7 @@ const MoodBoard = () => {
                     onTouchMove={handleMouseMove}
                     onTouchEnd={handleMouseUp}
                     ref={svgRef}
+                    viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     style={{ width: '2000', height: '2000', border: '1px solid transparent' }}
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -69,9 +72,12 @@ const MoodBoard = () => {
             <div className='sidebar'>
                 <button onClick={handlePdfDownload}>Download as PDF</button>
                 <button onClick={handleClearBoard}>Clear board</button>
+                <button onClick={handleZoomIn}>Zoom in</button>
+                <button onClick={handleZoomOut}>Zoom out</button>
                 <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button>
                 <Gallery />
             </div>
+
         </div>
     )
 }

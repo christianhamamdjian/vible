@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -19,7 +19,11 @@ const Image = ({ item }) => {
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
                         onTouchEnd={handleMouseUp}
                     >
-                        <p className="text" fill={item.color} draggable="true">
+                        <p
+                            className="text"
+                            fill={item.color}
+                            style={{ color: getTextColor(item.color) }}
+                            draggable="true">
                             {item.text}
                         </p>
                     </foreignObject>

@@ -47,6 +47,8 @@ export default function MoodboardProvider({ children }) {
     const [isMovingObjects, setIsMovingObjects] = useState(false)
     const svgRef = useRef(null);
 
+    const [zoom, setZoom] = useState(2000)
+
     // Add Elements
 
     const handleAddBox = (event) => {
@@ -508,9 +510,51 @@ export default function MoodboardProvider({ children }) {
     const handleMoveObjects = () => {
         setIsMovingObjects(isMovingObjects => !isMovingObjects)
     }
+
+    // Text Contrast
+    const getRGB = (c) => {
+        return parseInt(c, 16) || c
+    }
+
+    const getsRGB = (c) => {
+        return getRGB(c) / 255 <= 0.03928
+            ? getRGB(c) / 255 / 12.92
+            : Math.pow((getRGB(c) / 255 + 0.055) / 1.055, 2.4)
+    }
+
+    const getLuminance = (hexColor) => {
+        return (
+            0.2126 * getsRGB(hexColor.substr(1, 2)) +
+            0.7152 * getsRGB(hexColor.substr(3, 2)) +
+            0.0722 * getsRGB(hexColor.substr(-2))
+        )
+    }
+
+    const getContrast = (f, b) => {
+        const L1 = getLuminance(f)
+        const L2 = getLuminance(b)
+        return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)
+    }
+
+    const getTextColor = (bgColor) => {
+
+        const whiteContrast = getContrast(bgColor, '#ffffff')
+        const blackContrast = getContrast(bgColor, '#000000')
+        console.log(whiteContrast, blackContrast);
+        return whiteContrast > blackContrast ? '#ffffff' : '#000000'
+    }
+
+    const handleZoomIn = () => {
+        setZoom(zoom => zoom -= 100)
+    }
+
+    const handleZoomOut = () => {
+        setZoom(zoom => zoom += 100)
+    }
+
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom
         }}>
             {children}
         </MoodboardContext.Provider>

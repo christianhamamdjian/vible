@@ -10,7 +10,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
+  background: transparent;
   color: rgb(72, 49, 49);
 }
 
@@ -24,6 +25,7 @@ body {
 .frame {
   width: 70vw;
   height: 70vw;
+  background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
   border-radius: 12px;
@@ -68,12 +70,12 @@ li button {
   color: #cbd5e1;
 }
 
-.text {
+/* .text {
   color: white;
   font: 18px serif;
   height: 100%;
   overflow: auto;
-}
+} */
 
 svg text {
   fill: blue;
@@ -176,4 +178,20 @@ button:hover,
 
 .draggable {
   cursor: move;
+}
+
+
+
+#switcher {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+#switcher li {
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  border-radius: 2%;
 }

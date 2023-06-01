@@ -5,7 +5,6 @@ const Drawing = () => {
     const { paths, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown } = React.useContext(MoodboardContext);
     return (
         <>
-
             {paths.map((path, index) => (
                 <g key={index} transform={`translate(${path.x},${path.y})`}>
                     <path
@@ -14,8 +13,8 @@ const Drawing = () => {
                         stroke={path.color}
                         fill="none"
                         strokeWidth={path.line}
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         draggable="true"
                         onMouseDown={isErasing ? (() => handleDeletePath(path)) : ((e) => handleMouseDown(e, path))}
                         onTouchStart={(e) => handleMouseDown(e, path)}
