@@ -161,3 +161,19 @@ button:hover,
   bottom: 0px;
   left: 0px;
 }
+
+
+
+
+
+.background {
+  fill: #eee;
+}
+
+.static {
+  cursor: not-allowed;
+}
+
+.draggable {
+  cursor: move;
+}

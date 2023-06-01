@@ -157,14 +157,17 @@ export default function MoodboardProvider({ children }) {
 
         if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
-
-            const offsetPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x;
-            const offsetPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y;
+            let svg = event.target
+            let CTM = svg.getScreenCTM();
+            const offsetPathX = ((event.clientX || event.touches[0].clientX) - CTM.e) / CTM.a;
+            const offsetPathY = ((event.clientY || event.touches[0].clientY) - CTM.f) / CTM.d;
+            // const offsetPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x;
+            // const offsetPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y;
             setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
 
-            const selectedPath = paths.find(path => path.id === element.id)
+            const selected = paths.find(path => path.id === element.id)
 
-            setSelectedPath(selectedPath)
+            setSelectedPath(selected)
         }
 
         if (isDrawing) {
@@ -192,9 +195,12 @@ export default function MoodboardProvider({ children }) {
 
         if (isPathMoving && selectedPath && !selectedItem) {
             if (!draggingPath) return;
-
-            const newPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x - dragOffsetPath.x;
-            const newPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y - dragOffsetPath.y;
+            let svg = event.target
+            let CTM = svg.getScreenCTM();
+            const newPathX = (((event.clientX || event.touches[0].clientX) - CTM.e) / CTM.a) - dragOffsetPath.x;
+            const newPathY = (((event.clientY || event.touches[0].clientY) - CTM.f) / CTM.d) - dragOffsetPath.y;
+            // const newPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x - dragOffsetPath.x;
+            // const newPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y - dragOffsetPath.y;
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
                     return path.id === selectedPath.id ? { ...path, x: newPathX, y: newPathY } : path
