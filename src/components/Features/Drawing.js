@@ -14,6 +14,8 @@ const Drawing = () => {
                         stroke={path.color}
                         fill="none"
                         strokeWidth={path.line}
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                         draggable="true"
                         onMouseDown={isErasing ? (() => handleDeletePath(path)) : ((e) => handleMouseDown(e, path))}
                         onTouchStart={(e) => handleMouseDown(e, path)}
