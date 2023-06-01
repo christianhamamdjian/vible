@@ -7,8 +7,12 @@ const Video = ({ item }) => {
     return (
         <>
             {item.type === "video" && <>
-                <foreignObject width="560" height="349" onMouseDown={(e) => handleMouseDown(e, item.id)}
-                    onMouseUp={handleMouseUp} >
+                <foreignObject width="560" height="349"
+                    onMouseDown={(e) => handleMouseDown(e, item.id)}
+                    onMouseUp={handleMouseUp}
+                    onTouchStart={(e) => handleMouseDown(e, item.id)}
+                    onTouchEnd={handleMouseUp}
+                >
                     <div style={{ width: '100%', height: '40px', backgroundColor: "#000000" }} draggable="true"></div>
                     <iframe draggable="true" width="560" height="315" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
                 </foreignObject>

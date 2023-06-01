@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
     return (
         <>
             {item.type === "imageUrl" &&
@@ -17,9 +17,10 @@ const ImageLink = ({ item }) => {
                         x="0"
                         y="0"
                         width={item.width || "100"}
-                        onMouseDown={e => {
-                            handleMouseDown(e, item.id)
-                        }}
+                        onMouseDown={e => { handleMouseDown(e, item.id) }}
+                        onMouseUp={handleMouseUp}
+                        onTouchStart={(e) => handleMouseDown(e, item.id)}
+                        onTouchEnd={handleMouseUp}
                         style={{ cursor: 'move' }} />
                     <circle
                         cx="0"
