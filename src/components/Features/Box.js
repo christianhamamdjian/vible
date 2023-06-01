@@ -22,7 +22,7 @@ const Image = ({ item }) => {
                         <p
                             className="text"
                             fill={item.color}
-                            style={{ color: getTextColor(item.color) }}
+                            style={{ color: getTextColor(item.color), userSelect: "none" }}
                             draggable="true">
                             {item.text}
                         </p>
