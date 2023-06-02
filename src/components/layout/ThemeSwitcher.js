@@ -1,6 +1,6 @@
 import React from "react";
 
-const ColorListItem = ({ colors, button, color }) => {
+const ColorListItem = ({ button, color }) => {
     return (
         <li
             style={{
@@ -27,7 +27,7 @@ const ColorList = ({ colors, buttons }) => {
 
 const ThemeSwitcher = () => {
     const colors = ["orange", "gray", "lightblue", "Moccasin"];
-    const buttons = ["gray", "orange", "Moccasin", "lightblue"];
+    const buttons = ["gray", "orange", "gray", "orange"];
     return (
         <section>
             <ColorList colors={colors} buttons={buttons} />

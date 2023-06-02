@@ -50,8 +50,6 @@ export default function MoodboardProvider({ children }) {
 
     const [zoom, setZoom] = useState(2000)
     const [editingBoard, setEditingBoard] = useState(false)
-    // const [isOpen, setIsOpen] = useState(false)
-    // const [side, setSide] = useState("")
 
     // Add Elements
 
@@ -544,7 +542,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const getTextColor = (bgColor) => {
-
         const whiteContrast = getContrast(bgColor, '#ffffff')
         const blackContrast = getContrast(bgColor, '#000000')
         console.log(whiteContrast, blackContrast);
@@ -566,11 +563,6 @@ export default function MoodboardProvider({ children }) {
         console.log("galleryShow")
         setGalleryShow(galleryShow => !galleryShow)
     }
-
-    // const toggleDrawer = ({ side }) => {
-    //     setIsOpen(!isOpen)
-    //     setSide(side)
-    // }
 
     return (
         <MoodboardContext.Provider value={{

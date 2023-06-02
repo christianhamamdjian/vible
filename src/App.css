@@ -84,6 +84,7 @@ body {
   top: 0;
   right: 0;
   z-index: 99;
+  border-radius: 0px 0px 0px 12px;
 }
 
 .Drawer__toggle-left {
@@ -91,12 +92,14 @@ body {
   top: 0;
   left: 0;
   z-index: 99;
+  border-radius: 0px 0px 12px 0px;
 }
 
 .toggle-gallery {
   position: absolute;
   top: -2rem;
   justify-self: start;
+  border-radius: 12px 12px 0px 0px;
 }
 
 .gallery-show {
@@ -108,7 +111,9 @@ body {
 }
 
 .gallery {
+  padding: 1rem;
   position: fixed;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 100%;
   left: 0;
   display: flex;
@@ -280,8 +285,10 @@ button:hover,
 }
 
 #switcher li {
-  width: 10px;
-  height: 10px;
-  margin: 5px;
+  width: 50px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: none;
   border-radius: 2%;
 }

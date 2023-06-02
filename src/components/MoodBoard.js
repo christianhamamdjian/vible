@@ -12,7 +12,7 @@ import ImageForm from "./forms/ImageForm"
 import VideoForm from "./forms/VideoForm"
 import MapForm from "./forms/MapForm"
 import ImageLinkForm from "./forms/ImageLinkForm"
-import ThemeSwitcher from './ThemeSwitcher';
+import ThemeSwitcher from './layout/ThemeSwitcher';
 
 
 import { MoodboardContext } from "../context/moodboardContext";

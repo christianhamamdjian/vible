@@ -6,7 +6,7 @@ const Gallery = () => {
     return (
         <>
 
-            <div className={`itemForms gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
+            <div className={` gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
                 <button
                     className="toggle-gallery"
                     onClick={handleGalleryToggle}

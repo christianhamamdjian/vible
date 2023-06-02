@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import LeftSideBar from "../layout/LeftSideBar"
-import RightSideBar from "../layout/RightSideBar"
-// import { MoodboardContext } from "../../context/moodboardContext";
+import LeftSideBar from "./LeftSideBar"
+import RightSideBar from "./RightSideBar"
 
 const SidebarDrawer = ({ side }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => setIsOpen(!isOpen);
-  // const { toggleDrawer, isOpen, side } = React.useContext(MoodboardContext);
+
   return (
     <>
       <DrawerButton side={side} onClick={toggleDrawer} />
