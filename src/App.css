@@ -22,6 +22,7 @@ body {
 }
 
 .left-sidebar {
+  padding: 3rem 0;
   display: flex;
   flex-direction: column;
   gap: .8rem;
@@ -37,12 +38,13 @@ body {
 .itemForms {
   background-color: #ffffff;
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  border: 1px solid rgb(221, 221, 221);
-  padding: .8rem 1.2rem;
+  /* border: 1px solid rgb(221, 221, 221); */
+  padding: .8rem .4rem;
+  border-radius: 12px;
 }
 
 .Drawer__Container--left {
-  padding: 4rem 1rem 0;
+  padding: 0 1rem;
   height: 100vh;
   width: 12rem;
   /* background-color: #ffffff; */
