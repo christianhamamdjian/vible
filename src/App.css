@@ -5,14 +5,15 @@ body {
 .app {
   max-width: 100vw;
   margin: 0 auto;
-  padding: 40px;
+  /* padding: 40px;*/
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center;  */
   /* background-color: rgb(255, 255, 255); */
   background: transparent;
   color: rgb(72, 49, 49);
+  overflow-y: hidden;
 }
 
 .dashboard {
@@ -32,17 +33,75 @@ body {
   /* overflow: auto; */
 }
 
-.sidebar {
+.left-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+.right-sidebar {
   display: flex;
   flex-direction: column;
   gap: .8rem;
 }
 
 .itemForms {
+  background-color: #ffffff;
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
   padding: .8rem 1.2rem;
   border-radius: .6rem;
+}
+
+.Drawer__Container--left {
+  padding-top: 8rem;
+  height: 100vh;
+  width: 200px;
+  background-color: #2e2e2e;
+  transition: all 0.3s ease-in-out;
+  transform: translate(-200px);
+  position: fixed;
+  box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
+  z-index: 98;
+}
+
+.Drawer__Container--right {
+  padding-top: 8rem;
+  height: 100vh;
+  width: 200px;
+  background-color: #2e2e2e;
+  transition: all 0.3s ease-in-out;
+  transform: translate(calc(100vw + 200px));
+  position: relative;
+  right: 0px;
+  box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
+  z-index: 98;
+}
+
+.Drawer__right--isOpen {
+  transform: translate(calc(100vw - 200px));
+  /* box-shadow: unset;
+  box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
+}
+
+.Drawer__left--isOpen {
+  transform: translate(0);
+  /* box-shadow: unset;
+  box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
+}
+
+.Drawer__toggle-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.Drawer__toggle-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
 }
 
 .inputs {
@@ -70,12 +129,12 @@ li button {
   color: #cbd5e1;
 }
 
-/* .text {
+.text {
   color: white;
   font: 18px serif;
   height: 100%;
   overflow: auto;
-} */
+}
 
 svg text {
   fill: blue;

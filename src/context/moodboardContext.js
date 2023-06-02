@@ -48,7 +48,7 @@ export default function MoodboardProvider({ children }) {
     const svgRef = useRef(null);
 
     const [zoom, setZoom] = useState(2000)
-
+    const [editingBoard, setEditingBoard] = useState(false)
     // Add Elements
 
     const handleAddBox = (event) => {
@@ -157,7 +157,8 @@ export default function MoodboardProvider({ children }) {
             setSelectedItem(selectedItem)
         }
 
-        if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
+        // if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
+        if (!isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
             let svg = event.target
             let CTM = svg.getScreenCTM();
@@ -195,7 +196,8 @@ export default function MoodboardProvider({ children }) {
             );
         }
 
-        if (isPathMoving && selectedPath && !selectedItem) {
+        //if (isPathMoving && selectedPath && !selectedItem) {
+        if (selectedPath && !selectedItem) {
             if (!draggingPath) return;
             let svg = event.target
             let CTM = svg.getScreenCTM();
@@ -551,10 +553,12 @@ export default function MoodboardProvider({ children }) {
     const handleZoomOut = () => {
         setZoom(zoom => zoom += 100)
     }
-
+    const handleEditingBoard = () => {
+        setEditingBoard(editingBoard => !editingBoard)
+    }
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard
         }}>
             {children}
         </MoodboardContext.Provider>

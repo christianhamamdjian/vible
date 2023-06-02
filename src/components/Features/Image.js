@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, editingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -23,7 +23,7 @@ const Image = ({ item }) => {
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
                         onTouchEnd={handleMouseUp}
                         style={{ cursor: 'move' }} />
-                    <circle
+                    {editingBoard && <><circle
                         cx="0"
                         cy="0"
                         r="8"
@@ -33,27 +33,27 @@ const Image = ({ item }) => {
                         style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteItem(item.id)}
                     />
-                    <circle
-                        cx="40"
-                        cy="0"
-                        r="8"
-                        fill="orange"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleEditImage(item.id)}
-                    />
-                    {editingImage && editingImage.id === item.id && <circle
-                        cx="20"
-                        cy="0"
-                        r="8"
-                        fill="green"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={handleStopEditImage}
-                    />
-                    }
+                        <circle
+                            cx="40"
+                            cy="0"
+                            r="8"
+                            fill="orange"
+                            stroke="white"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleEditImage(item.id)}
+                        />
+                        {editingImage && editingImage.id === item.id && <circle
+                            cx="20"
+                            cy="0"
+                            r="8"
+                            fill="green"
+                            stroke="white"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={handleStopEditImage}
+                        />
+                        }</>}
                 </>
             }
         </>

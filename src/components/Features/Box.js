@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, editingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -13,6 +13,7 @@ const Image = ({ item }) => {
                         y="0"
                         width="160"
                         height="160"
+                        draggable="true"
                         style={{ cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "12px" }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                         onMouseUp={handleMouseUp}
@@ -22,8 +23,11 @@ const Image = ({ item }) => {
                         <p
                             className="text"
                             fill={item.color}
-                            style={{ color: getTextColor(item.color), userSelect: "none" }}
-                            draggable="true">
+                            style={{
+                                color: getTextColor(item.color),
+                                //  userSelect: "none" 
+                            }}
+                        >
                             {item.text}
                         </p>
                     </foreignObject>
@@ -32,7 +36,7 @@ const Image = ({ item }) => {
                         target="__blank">
                         <text x="120" y="40" fill="blue">{item.link}</text>
                     </a>
-                    <circle
+                    {editingBoard && <><circle
                         cx="0"
                         cy="0"
                         r="8"
@@ -42,26 +46,26 @@ const Image = ({ item }) => {
                         style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteItem(item.id)}
                     />
-                    <circle
-                        cx="40"
-                        cy="0"
-                        r="8"
-                        fill="orange"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleEditBox(item.id)}
-                    />
-                    {editingText && editingText.id === item.id && <circle
-                        cx="20"
-                        cy="0"
-                        r="8"
-                        fill="green"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={handleStopEditBox}
-                    />}
+                        <circle
+                            cx="40"
+                            cy="0"
+                            r="8"
+                            fill="orange"
+                            stroke="white"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleEditBox(item.id)}
+                        />
+                        {editingText && (editingText.id === item.id) && <circle
+                            cx="20"
+                            cy="0"
+                            r="8"
+                            fill="green"
+                            stroke="white"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={handleStopEditBox}
+                        />}</>}
                 </>)}
         </>
     )

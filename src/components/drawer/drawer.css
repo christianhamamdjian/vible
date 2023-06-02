@@ -1,69 +1,50 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-
-.noSelect {
-    user-select: none;
-    /* Simply disables the ability to highlight text */
-}
-
-.App__Container {
-    font-family: "Roboto Condensed", sans-serif;
-    /* background-color: #1f3c88; */
-    /* height: 100vh; */
-    width: 100vw;
-}
-
-.App__TitleBar {
-    width: 100vw;
-    /* background-color: #5893d4; */
-    padding: 5px;
-}
-
-.DrawerButton_Container:active {
-    transform: translateY(5px);
-}
-
-.DrawerButton_Container {
-    height: 50px;
-    width: 100px;
-    background-color: #5893d4;
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #1f3c88;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.Drawer__Container {
+.Drawer__Container--left {
+    padding-top: 8rem;
     height: 100vh;
     width: 200px;
-    background-color: #f7b633;
+    background-color: #2e2e2e;
     transition: all 0.3s ease-in-out;
     transform: translate(-200px);
     position: fixed;
     box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
+    z-index: 98;
 }
 
-.Drawer__Container--isOpen {
+.Drawer__Container--right {
+    padding-top: 8rem;
+    height: 100vh;
+    width: 200px;
+    background-color: #2e2e2e;
+    transition: all 0.3s ease-in-out;
+    transform: translate(calc(100vw + 200px));
+    position: relative;
+    right: 0px;
+    box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
+    z-index: 98;
+}
+
+.Drawer__right--isOpen {
+    transform: translate(calc(100vw - 200px));
+    /* box-shadow: unset;
+    box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
+}
+
+.Drawer__left--isOpen {
     transform: translate(0);
-    box-shadow: unset;
-    box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7);
+    /* box-shadow: unset;
+    box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
 }
 
-.PageContents__Container {
-    color: #d8d8d8;
-    padding: 10px;
+.Drawer__toggle-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
 }
 
-.DrawerItem__Container {
-    font-size: 2em;
-    padding-top: 10px;
-    padding-left: 20px;
-    color: black;
-    transition: all 0.1s ease-in-out;
-}
-
-.DrawerItem__Container:hover {
-    color: white;
+.Drawer__toggle-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
 }

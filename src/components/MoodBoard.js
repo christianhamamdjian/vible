@@ -14,14 +14,15 @@ import MapForm from "./forms/MapForm"
 import ImageLinkForm from "./forms/ImageLinkForm"
 import ThemeSwitcher from './ThemeSwitcher';
 
+
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isPathMoving, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, handleZoomIn, handleZoomOut, zoom } = React.useContext(MoodboardContext);
+    const { isDrawing, isPathMoving, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, handleZoomIn, handleZoomOut, zoom, handleEditingBoard } = React.useContext(MoodboardContext);
 
     return (
-        <div className='dashboard'>
-            <div className='sidebar'>
+        <>
+            {/* <div className='sidebar'>
                 <ThemeSwitcher />
                 <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
                 {draw && <DrawingForm />}
@@ -35,7 +36,7 @@ const MoodBoard = () => {
                 {video && <VideoForm />}
                 <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
                 {map && <MapForm />}
-            </div>
+            </div> */}
             <div className="frame" style={{
                 overflow: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem || isMovingObjects) ? "hidden" : "auto"}`,
                 touchAction: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects ? "none" : "auto"}`
@@ -69,16 +70,17 @@ const MoodBoard = () => {
                     <Drawing />
                 </svg>
             </div>
-            <div className='sidebar'>
+            {/* <div className='sidebar'>
                 <button onClick={handlePdfDownload}>Download as PDF</button>
                 <button onClick={handleClearBoard}>Clear board</button>
+                <button onClick={handleEditingBoard}>Edit</button>
                 <button onClick={handleZoomIn}>Zoom in</button>
                 <button onClick={handleZoomOut}>Zoom out</button>
                 <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button>
                 <Gallery />
-            </div>
+            </div> */}
 
-        </div>
+        </>
     )
 }
 
