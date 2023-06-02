@@ -18,9 +18,9 @@ const DrawingForm = () => {
                 <button
                     style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                     onClick={handleDrawing}>Add drawing</button>
-                <button
+                {/* <button
                     style={isPathMoving ? { backgroundColor: "#aabbcc" } : null}
-                    onClick={handleMovePath}>Move lines</button>
+                    onClick={handleMovePath}>Move lines</button> */}
                 <button
                     style={isErasing ? { backgroundColor: "#aabbcc" } : null}
                     onClick={handleEraser}>Delete lines</button>

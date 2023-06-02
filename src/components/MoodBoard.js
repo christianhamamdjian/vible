@@ -79,7 +79,7 @@ const MoodBoard = () => {
                 <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button>
                 <Gallery />
             </div> */}
-
+            <Gallery />
         </>
     )
 }

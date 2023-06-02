@@ -20,7 +20,7 @@ const DrawerButton = ({ onClick, side }) => (
     className={`Drawer__toggle-${side}`}
     onClick={onClick}
   >
-    Toggle Drawer
+    {side === "left" ? "Tools" : "Controls"}
   </button >
 );
 

@@ -32,6 +32,7 @@ export default function MoodboardProvider({ children }) {
     const [galleryContent, setGalleryContent] = useState("#000000");
     const [galleryLink, seGalleryLink] = useState('');
     const [galleryError, setGalleryError] = useState('');
+    const [galleryShow, setGalleryShow] = useState(false)
 
     const [selectedPath, setSelectedPath] = useState(null);
     const [draggingPath, setDraggingPath] = useState(false);
@@ -485,6 +486,8 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDraw = () => {
         setDraw(draw => !draw);
+        isDrawing && setIsDrawing(false);
+        isErasing && setIsErasing(false);
     }
 
     const handleWrite = () => {
@@ -556,9 +559,13 @@ export default function MoodboardProvider({ children }) {
     const handleEditingBoard = () => {
         setEditingBoard(editingBoard => !editingBoard)
     }
+    const handleGalleryToggle = () => {
+        console.log("galleryShow")
+        setGalleryShow(galleryShow => !galleryShow)
+    }
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow
         }}>
             {children}
         </MoodboardContext.Provider>

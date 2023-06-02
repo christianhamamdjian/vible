@@ -2,47 +2,56 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Gallery = () => {
-    const { galleryItems, galleryType, galleryError, deleteGalleryItem, handleGallerySubmit, handleGalleryTypeChange, handleGalleryAddToBoard, galleryContent, handleGalleryContentChange, galleryLink, handleGalleryLinkChange, handleGalleryImageUpload } = React.useContext(MoodboardContext);
+    const { galleryItems, galleryType, galleryError, deleteGalleryItem, handleGallerySubmit, handleGalleryTypeChange, handleGalleryAddToBoard, galleryContent, handleGalleryContentChange, galleryLink, handleGalleryLinkChange, handleGalleryImageUpload, handleGalleryToggle, galleryShow } = React.useContext(MoodboardContext);
     return (
-        <div className='itemForms'>
-            <div className='moodboard-2'>
-                <h2>Gallery:</h2>
-                <form onSubmit={handleGallerySubmit}>
-                    <select value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
-                        <option value="color">Color</option>
-                        <option value="image">Image</option>
-                        <option value="link">Link</option>
-                    </select>
-                    {galleryType === 'color' &&
-                        <input
-                            type="color"
-                            value={galleryContent}
-                            onChange={handleGalleryContentChange}
-                        />
-                    }
-                    {galleryType === 'image' &&
-                        <input
-                            type="file"
-                            accept="image/png,image/jpeg"
-                            onChange={handleGalleryImageUpload}
-                        />}
-                    {galleryType === 'link' && <>
-                        <input
-                            type="text"
-                            value={galleryContent}
-                            onChange={(e) => handleGalleryContentChange(e)}
-                            placeholder="Add content"
-                        />
-                        <input
-                            type="text"
-                            value={galleryLink}
-                            onChange={(e) => handleGalleryLinkChange(e)}
-                            placeholder="Add link" />
-                    </>}
-                    <button type="submit">Add</button>
-                </form>
-                {galleryError && <div className="error">{galleryError}</div>}
-                <ul>
+        <>
+
+            <div className={`itemForms gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
+                <button
+                    className="toggle-gallery"
+                    onClick={handleGalleryToggle}
+                >
+                    Gallery
+                </button >
+                <div>
+                    <h2>Gallery:</h2>
+                    <form onSubmit={handleGallerySubmit}>
+                        <select value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
+                            <option value="color">Color</option>
+                            <option value="image">Image</option>
+                            <option value="link">Link</option>
+                        </select>
+                        {galleryType === 'color' &&
+                            <input
+                                type="color"
+                                value={galleryContent}
+                                onChange={handleGalleryContentChange}
+                            />
+                        }
+                        {galleryType === 'image' &&
+                            <input
+                                type="file"
+                                accept="image/png,image/jpeg"
+                                onChange={handleGalleryImageUpload}
+                            />}
+                        {galleryType === 'link' && <>
+                            <input
+                                type="text"
+                                value={galleryContent}
+                                onChange={(e) => handleGalleryContentChange(e)}
+                                placeholder="Add content"
+                            />
+                            <input
+                                type="text"
+                                value={galleryLink}
+                                onChange={(e) => handleGalleryLinkChange(e)}
+                                placeholder="Add link" />
+                        </>}
+                        <button type="submit">Add</button>
+                    </form>
+                    {galleryError && <div className="error">{galleryError}</div>}
+                </div>
+                <ul className='gallery-list'>
                     {galleryItems.map((item, index) => {
                         let display;
                         if (item.type === 'color') {
@@ -67,7 +76,7 @@ const Gallery = () => {
                     }
                 </ul>
             </div>
-        </div>
+        </>
     )
 }
 export default Gallery

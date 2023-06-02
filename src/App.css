@@ -2,35 +2,32 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
 .app {
-  max-width: 100vw;
   margin: 0 auto;
-  /* padding: 40px;*/
   display: flex;
-  /* flex-direction: column;
-  justify-content: center;
-  align-items: center;  */
-  /* background-color: rgb(255, 255, 255); */
   background: transparent;
   color: rgb(72, 49, 49);
   overflow-y: hidden;
 }
 
-.dashboard {
+/* .dashboard {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
-}
+} */
 
 .frame {
-  width: 70vw;
-  height: 70vw;
+  width: 100vw;
+  height: 100vw;
+  position: fixed;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
-  border-radius: 12px;
-  /* overflow: auto; */
 }
 
 .left-sidebar {
@@ -42,52 +39,56 @@ body {
 .right-sidebar {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: .8rem;
 }
 
 .itemForms {
   background-color: #ffffff;
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  border: 2px solid rgb(221, 221, 221);
+  border: 1px solid rgb(221, 221, 221);
   padding: .8rem 1.2rem;
-  border-radius: .6rem;
 }
 
 .Drawer__Container--left {
-  padding-top: 8rem;
+  padding-top: 4rem;
   height: 100vh;
-  width: 200px;
-  background-color: #2e2e2e;
+  width: 12rem;
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  transform: translate(-200px);
+  transform: translate(-12rem);
   position: fixed;
-  box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
   z-index: 98;
+  overflow-y: auto;
 }
 
 .Drawer__Container--right {
-  padding-top: 8rem;
+  padding-top: 4rem;
   height: 100vh;
-  width: 200px;
-  background-color: #2e2e2e;
+  width: 12rem;
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  transform: translate(calc(100vw + 200px));
+  transform: translate(calc(100vw + 12rem));
   position: relative;
   right: 0px;
-  box-shadow: 5px 0px 18px rgb(0, 0, 0, 0);
   z-index: 98;
+  overflow-y: auto;
 }
 
 .Drawer__right--isOpen {
-  transform: translate(calc(100vw - 200px));
-  /* box-shadow: unset;
-  box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
+  transform: translate(calc(100vw - 12rem));
 }
 
 .Drawer__left--isOpen {
   transform: translate(0);
-  /* box-shadow: unset;
-  box-shadow: 5px 8px 18px rgb(0, 0, 0, 0.7); */
+}
+
+.toggle-gallery {
+  position: absolute;
+  top: -2rem;
+  justify-self: start;
 }
 
 .Drawer__toggle-right {
@@ -104,11 +105,37 @@ body {
   z-index: 99;
 }
 
+.gallery-show {
+  bottom: 0;
+}
+
+.gallery-hide {
+  bottom: -10rem;
+}
+
+.gallery {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  z-index: 99;
+  transition: all 0.3s ease-in-out;
+}
+
+.gallery-list {
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  gap: 3rem;
+}
+
 .inputs {
   display: flex;
   flex-direction: column;
   gap: .2rem;
-  ;
 }
 
 input,
@@ -120,9 +147,21 @@ select {
 
 li {
   padding: .2rem .4rem;
+  width: 16rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   list-style: none;
   color: #cbd5e1;
+  border: 2px solid rgb(221, 221, 221);
+  padding: 1rem;
   border-radius: .2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+}
+
+.gallery-list img {
+  max-height: 6rem;
 }
 
 li button {
@@ -132,16 +171,8 @@ li button {
 .text {
   color: white;
   font: 18px serif;
-  height: 100%;
-  overflow: auto;
-}
-
-svg text {
-  fill: blue;
-  stroke: red;
-  stroke-width: 0.3;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+  height: 90%;
+  overflow: hidden auto;
 }
 
 button,
@@ -150,7 +181,7 @@ button,
   outline: none;
   border: none;
   color: white;
-  padding: .5rem 1.5rem;
+  padding: .5rem 1rem;
   border-radius: .4rem;
   cursor: pointer;
 }
@@ -160,13 +191,13 @@ button:hover,
   background-color: rgb(70, 70, 186);
 }
 
-.moodboard {
+/* .moodboard {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
+} */
 
 
 /* File upload form */
