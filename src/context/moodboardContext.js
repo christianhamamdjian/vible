@@ -50,6 +50,9 @@ export default function MoodboardProvider({ children }) {
 
     const [zoom, setZoom] = useState(2000)
     const [editingBoard, setEditingBoard] = useState(false)
+    // const [isOpen, setIsOpen] = useState(false)
+    // const [side, setSide] = useState("")
+
     // Add Elements
 
     const handleAddBox = (event) => {
@@ -342,7 +345,6 @@ export default function MoodboardProvider({ children }) {
     // Drawing
 
     const getCursorPositionDrawing = (event) => {
-
         const { left, top } = svgRef.current.getBoundingClientRect();
         const x = (event.clientX || event.touches[0].clientX) - left;
         const y = (event.clientY || event.touches[0].clientY) - top;
@@ -558,11 +560,18 @@ export default function MoodboardProvider({ children }) {
     }
     const handleEditingBoard = () => {
         setEditingBoard(editingBoard => !editingBoard)
+        setZoom(2000)
     }
     const handleGalleryToggle = () => {
         console.log("galleryShow")
         setGalleryShow(galleryShow => !galleryShow)
     }
+
+    // const toggleDrawer = ({ side }) => {
+    //     setIsOpen(!isOpen)
+    //     setSide(side)
+    // }
+
     return (
         <MoodboardContext.Provider value={{
             isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow

@@ -2,9 +2,7 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
+
 
 .app {
   margin: 0 auto;
@@ -14,16 +12,9 @@ body::-webkit-scrollbar-track {
   overflow-y: hidden;
 }
 
-/* .dashboard {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 1rem;
-} */
 
 .frame {
   width: 100vw;
-  height: 100vw;
   position: fixed;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
@@ -39,8 +30,8 @@ body::-webkit-scrollbar-track {
 .right-sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: .8rem;
+  overflow: hidden;
 }
 
 .itemForms {
@@ -51,44 +42,41 @@ body::-webkit-scrollbar-track {
 }
 
 .Drawer__Container--left {
-  padding-top: 4rem;
+  padding: 4rem 1rem 0;
   height: 100vh;
   width: 12rem;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  transform: translate(-12rem);
+  transform: translate(-14rem);
   position: fixed;
   z-index: 98;
   overflow-y: auto;
 }
 
 .Drawer__Container--right {
-  padding-top: 4rem;
+  padding: 4rem 1rem 0;
   height: 100vh;
   width: 12rem;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  transform: translate(calc(100vw + 12rem));
+  transform: translate(calc(100vw + 14rem));
   position: relative;
   right: 0px;
   z-index: 98;
-  overflow-y: auto;
+}
+
+.Drawer__Container--right button {
+  background-color: rgb(215, 85, 156);
 }
 
 .Drawer__right--isOpen {
-  transform: translate(calc(100vw - 12rem));
+  transform: translate(calc(100vw - 14rem));
 }
 
 .Drawer__left--isOpen {
   transform: translate(0);
-}
-
-.toggle-gallery {
-  position: absolute;
-  top: -2rem;
-  justify-self: start;
 }
 
 .Drawer__toggle-right {
@@ -105,12 +93,18 @@ body::-webkit-scrollbar-track {
   z-index: 99;
 }
 
+.toggle-gallery {
+  position: absolute;
+  top: -2rem;
+  justify-self: start;
+}
+
 .gallery-show {
   bottom: 0;
 }
 
 .gallery-hide {
-  bottom: -10rem;
+  bottom: -11rem;
 }
 
 .gallery {
@@ -125,11 +119,24 @@ body::-webkit-scrollbar-track {
   transition: all 0.3s ease-in-out;
 }
 
+.gallery form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: .5rem;
+  border: 1px solid rgb(221, 221, 221);
+}
+
 .gallery-list {
   width: 100%;
   overflow: auto;
   display: flex;
   gap: 3rem;
+}
+
+.gallery-list img {
+  max-height: 6rem;
 }
 
 .inputs {
@@ -141,8 +148,9 @@ body::-webkit-scrollbar-track {
 input,
 textarea,
 select {
-  padding: .2rem .4rem;
-  margin: .2rem;
+  padding: .2rem 0;
+  margin: .2rem 0;
+  font-size: .7rem;
 }
 
 li {
@@ -160,9 +168,6 @@ li {
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
 }
 
-.gallery-list img {
-  max-height: 6rem;
-}
 
 li button {
   color: #cbd5e1;
@@ -173,6 +178,10 @@ li button {
   font: 18px serif;
   height: 90%;
   overflow: hidden auto;
+}
+
+#form-file-upload {
+  font-size: .8rem;
 }
 
 button,
@@ -190,15 +199,6 @@ button:hover,
 ::file-selector-button:hover {
   background-color: rgb(70, 70, 186);
 }
-
-/* .moodboard {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-} */
-
 
 /* File upload form */
 #form-file-upload {
