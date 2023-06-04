@@ -6,40 +6,17 @@ import Video from "./Features/Video"
 import Map from "./Features/Map"
 import ImageLink from "./Features/ImageLink"
 import Drawing from "./Features/Drawing"
-import DrawingForm from "./forms/DrawingForm"
-import BoxForm from "./forms/BoxForm"
-import ImageForm from "./forms/ImageForm"
-import VideoForm from "./forms/VideoForm"
-import MapForm from "./forms/MapForm"
-import ImageLinkForm from "./forms/ImageLinkForm"
-import ThemeSwitcher from './layout/ThemeSwitcher';
-
 
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isPathMoving, isErasing, isMovingObjects, handleMoveObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, handleZoomIn, handleZoomOut, zoom, handleEditingBoard } = React.useContext(MoodboardContext);
+    const { isDrawing, isPathMoving, isErasing, isMovingObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
 
     return (
         <>
-            {/* <div className='sidebar'>
-                <ThemeSwitcher />
-                <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
-                {draw && <DrawingForm />}
-                <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
-                {write && <BoxForm />}
-                <button style={image ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImage}>Image</button>
-                {image && <ImageForm />}
-                <button style={imageLink ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImageLink}>Image link</button>
-                {imageLink && <ImageLinkForm />}
-                <button style={video ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleVideo}>Video</button>
-                {video && <VideoForm />}
-                <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
-                {map && <MapForm />}
-            </div> */}
             <div className="frame" style={{
-                overflow: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem || isMovingObjects) ? "hidden" : "auto"}`,
-                touchAction: `${isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects ? "none" : "auto"}`
+                overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "auto"}`,
+                touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "auto"}`
             }}>
                 <svg
                     id="my-svg"
@@ -70,15 +47,6 @@ const MoodBoard = () => {
                     <Drawing />
                 </svg>
             </div>
-            {/* <div className='sidebar'>
-                <button onClick={handlePdfDownload}>Download as PDF</button>
-                <button onClick={handleClearBoard}>Clear board</button>
-                <button onClick={handleEditingBoard}>Edit</button>
-                <button onClick={handleZoomIn}>Zoom in</button>
-                <button onClick={handleZoomOut}>Zoom out</button>
-                <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button>
-                <Gallery />
-            </div> */}
             <Gallery />
         </>
     )

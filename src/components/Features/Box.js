@@ -14,7 +14,10 @@ const Image = ({ item }) => {
                         width="160"
                         height="160"
                         draggable="true"
-                        style={{ cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "12px" }}
+                        style={{
+                            cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px",
+                            //  transform: 'rotate(15deg)' 
+                        }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                         onMouseUp={handleMouseUp}
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
@@ -22,9 +25,11 @@ const Image = ({ item }) => {
                     >
                         <p
                             className="text"
+                            // contentEditable="true"
                             fill={item.color}
                             style={{
                                 color: getTextColor(item.color),
+                                //contentEditable: "true"
                                 //  userSelect: "none" 
                             }}
                         >

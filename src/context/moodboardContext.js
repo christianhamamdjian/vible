@@ -8,6 +8,7 @@ export default function MoodboardProvider({ children }) {
     const [isDrawing, setIsDrawing] = useState(false);
     const [currentPath, setCurrentPath] = useState('');
     const [paths, setPaths] = useLocalStorage("paths", []);
+    const [newPathPostion, setNewPathPosition] = useState({})
     const [isErasing, setIsErasing] = useState(false);
     const [color, setColor] = useState('#aabbcc');
     const [line, setLine] = useState(2);
@@ -148,7 +149,7 @@ export default function MoodboardProvider({ children }) {
     // Dragging
 
     const handleMouseDown = (event, element) => {
-
+        event.preventDefault();
         if (element && !isDrawing) {
             setDraggingItem(true);
             const offsetItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left;
@@ -159,20 +160,18 @@ export default function MoodboardProvider({ children }) {
             setSelectedItem(selectedItem)
         }
 
-        // if (isPathMoving && !isDrawing && !isErasing && element && element.type === "path") {
         if (!isDrawing && !isErasing && element && element.type === "path") {
             setDraggingPath(true);
             let svg = event.target
             let CTM = svg.getScreenCTM();
-            const offsetPathX = ((event.clientX || event.touches[0].clientX) - CTM.e) / CTM.a;
-            const offsetPathY = ((event.clientY || event.touches[0].clientY) - CTM.f) / CTM.d;
-            // const offsetPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x;
-            // const offsetPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y;
-            setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
-
-            const selected = paths.find(path => path.id === element.id)
-
-            setSelectedPath(selected)
+            const { left, top } = svgRef.current.getBoundingClientRect();
+            const x = (event.clientX || event.touches[0].clientX) - left + 5 - (CTM.e / CTM.a);
+            const y = (event.clientY || event.touches[0].clientY) - top + 5 - (CTM.f / CTM.d);
+            // const offsetPathX = (x || event.touches[0].clientX) - (CTM.e / CTM.a);
+            // const offsetPathY = (y || event.touches[0].clientY) - (CTM.f / CTM.d);
+            setDragOffsetPath({ x: x, y: y });
+            // const selected = paths.find(path => path.id === element.id)
+            setSelectedPath(element)
         }
 
         if (isDrawing) {
@@ -184,13 +183,11 @@ export default function MoodboardProvider({ children }) {
     // Moving
 
     const handleMouseMove = (event) => {
-
+        event.preventDefault();
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
-
             const newItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
             const newItemY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
-
             setItems((prevItems) =>
                 prevItems.map((item) => {
                     return item.id === selectedItem.id ? { ...item, x: newItemX, y: newItemY } : item
@@ -198,20 +195,22 @@ export default function MoodboardProvider({ children }) {
             );
         }
 
-        //if (isPathMoving && selectedPath && !selectedItem) {
         if (selectedPath && !selectedItem) {
             if (!draggingPath) return;
             let svg = event.target
             let CTM = svg.getScreenCTM();
-            const newPathX = (((event.clientX || event.touches[0].clientX) - CTM.e) / CTM.a) - dragOffsetPath.x;
-            const newPathY = (((event.clientY || event.touches[0].clientY) - CTM.f) / CTM.d) - dragOffsetPath.y;
-            // const newPathX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBBox().x - dragOffsetPath.x;
-            // const newPathY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBBox().y - dragOffsetPath.y;
+            let offsetPath = { x: dragOffsetPath.x, y: dragOffsetPath.y }
+
+            const newPathX = (event.clientX || event.touches[0].clientX - CTM.e / CTM.a) - offsetPath.x;
+            const newPathY = (event.clientY || event.touches[0].clientY - CTM.f / CTM.d) - offsetPath.y;
+
+            setNewPathPosition({ x: newPathX, y: newPathY })
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
-                    return path.id === selectedPath.id ? { ...path, x: newPathX, y: newPathY } : path
+                    return (path.id === selectedPath.id) ? { ...path, x: newPathX, y: newPathY } : path
                 })
             );
+
         }
 
         if (!isDrawing) return;
@@ -224,22 +223,25 @@ export default function MoodboardProvider({ children }) {
     // Mouse Up
 
     const handleMouseUp = (event) => {
-
-        setSelectedItem(null)
-        setSelectedPath(null)
-        setDraggingItem(false);
-        setDraggingPath(false);
-
-        setDragOffsetItem({ x: 0, y: 0 });
-
-        setDragOffsetPath({ x: 0, y: 0 });
-
+        event.preventDefault();
         if (isDrawing) {
             setPaths((prevPaths) => [...prevPaths, {
                 id: Date.now(), type: "path", path: currentPath, color, line
             }]);
         }
-
+        if (selectedPath && !selectedItem) {
+            setPaths((prevPaths) =>
+                prevPaths.map((path) => {
+                    return (path.id === selectedPath.id) ? { ...path } : path
+                })
+            );
+        }
+        setSelectedItem(null)
+        setSelectedPath(null)
+        setDraggingItem(false);
+        setDraggingPath(false);
+        setDragOffsetItem({ x: 0, y: 0 });
+        setDragOffsetPath({ x: 0, y: 0 });
         setCurrentPath('');
     };
 
@@ -375,7 +377,7 @@ export default function MoodboardProvider({ children }) {
 
     const handlePdfDownload = () => {
         const svgElement = document.getElementById('my-svg');
-        const fileName = 'my-file.pdf';
+        const fileName = 'vible-file.pdf';
 
         const svgData = new XMLSerializer().serializeToString(svgElement);
         const canvas = document.createElement('canvas');
@@ -544,7 +546,6 @@ export default function MoodboardProvider({ children }) {
     const getTextColor = (bgColor) => {
         const whiteContrast = getContrast(bgColor, '#ffffff')
         const blackContrast = getContrast(bgColor, '#000000')
-        console.log(whiteContrast, blackContrast);
         return whiteContrast > blackContrast ? '#ffffff' : '#000000'
     }
 

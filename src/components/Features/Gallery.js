@@ -53,25 +53,25 @@ const Gallery = () => {
                 </div>
                 <ul className='gallery-list'>
                     {galleryItems.map((item, index) => {
-                        let display;
                         if (item.type === 'color') {
-                            display = (
+                            return (
                                 <li key={index} className="color-box" style={{ backgroundColor: item.content }}>{item.content} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
-                            return display;
+
                         }
                         if (item.type === 'image') {
-                            display = (
+                            return (
                                 <li key={index} className="color-box" ><img width="120" alt="" src={item.content}></img> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
-                            return display;
+
                         }
                         if (item.type === 'link') {
-                            display = (
+                            return (
                                 <li key={index} className="color-box" ><a target="_blank" rel="noreferrer" href={item.link}>{item.content}</a> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
                             )
-                            return display;
+
                         }
+                        return
                     })
                     }
                 </ul>
