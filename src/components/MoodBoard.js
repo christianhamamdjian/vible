@@ -10,7 +10,7 @@ import Drawing from "./Features/Drawing"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isPathMoving, isErasing, isMovingObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
+    const { isDrawing, editingText, isPathMoving, isErasing, isMovingObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -34,7 +34,7 @@ const MoodBoard = () => {
                 >
                     {items.map(item => (
                         <g key={item.id}
-                            draggable="true"
+                            draggable={editingText ? "false" : "true"}
                             transform={`translate(${item.x},${item.y})`}
                         >
                             <Box item={item} />
@@ -46,7 +46,7 @@ const MoodBoard = () => {
                     ))}
                     <Drawing />
                 </svg>
-            </div>
+            </div >
             <Gallery />
         </>
     )

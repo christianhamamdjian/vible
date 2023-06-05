@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, editingBoard } = React.useContext(MoodboardContext);
+    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, editingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -13,9 +13,10 @@ const Image = ({ item }) => {
                         y="0"
                         width="160"
                         height="160"
-                        draggable="true"
+                        draggable={editingText ? "false" : "true"}
+                        contenteditable={editingText ? "false" : "true"}
                         style={{
-                            cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px",
+                            cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px"
                             //  transform: 'rotate(15deg)' 
                         }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
@@ -23,18 +24,30 @@ const Image = ({ item }) => {
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
                         onTouchEnd={handleMouseUp}
                     >
+                        {/* {editingText && (editingText.id === item.id) ? (
+                        <textarea
+                            draggable={editingText ? "false" : "true"}
+                            style={{ width: "80" }}
+                            value={items.find(item => item.id === editingText.id).text}
+                            onChange={(event) =>
+                                handleItemTextChange(event, editingText.id)
+                            }
+                        />)
+                        : ( */}
                         <p
                             className="text"
-                            // contentEditable="true"
+                            draggable={editingText ? "false" : "true"}
+
                             fill={item.color}
                             style={{
-                                color: getTextColor(item.color),
-                                //contentEditable: "true"
+                                color: getTextColor(item.color), fontFamily: "sans-serif"
+                                //contenteditable: "true"
                                 //  userSelect: "none" 
                             }}
                         >
                             {item.text}
                         </p>
+                        // )}
                     </foreignObject>
                     <a
                         xlinkHref={item.url}
