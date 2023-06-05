@@ -9,7 +9,7 @@ const Image = ({ item }) => {
             {item.type === "box" && (
                 <>
                     <foreignObject
-                        x="00"
+                        x="0"
                         y="0"
                         width="160"
                         height="160"
