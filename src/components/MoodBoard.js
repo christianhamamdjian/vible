@@ -6,7 +6,6 @@ import Video from "./Features/Video"
 import Map from "./Features/Map"
 import ImageLink from "./Features/ImageLink"
 import Drawing from "./Features/Drawing"
-import DrawingForm from "./forms/DrawingForm"
 
 import { MoodboardContext } from "../context/moodboardContext";
 
@@ -17,8 +16,8 @@ const MoodBoard = () => {
         <>
 
             <div className="frame" style={{
-                overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "auto"}`,
-                touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "auto"}`
+                //overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "auto"}`,
+                //touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "auto"}`
             }}>
                 <svg
                     id="my-svg"
@@ -34,17 +33,6 @@ const MoodBoard = () => {
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
-                    <foreignObject
-                        x="200"
-                        y="0"
-                        width="160"
-                        height="80"
-                        draggable={editingText ? "false" : "true"}
-                    >
-                        <button
-                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleDrawing}>Add drawing</button>
-                    </foreignObject>
                     {items.map(item => (
                         <g key={item.id}
                             draggable={editingText ? "false" : "true"}

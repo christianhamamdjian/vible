@@ -9,7 +9,7 @@ body {
   display: flex;
   background: transparent;
   color: rgb(72, 49, 49);
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 
@@ -19,6 +19,7 @@ body {
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
+  overflow-y: auto;
 }
 
 .left-sidebar {
@@ -36,18 +37,46 @@ body {
 }
 
 .itemForms {
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   /* border: 1px solid rgb(221, 221, 221); */
   padding: .8rem .4rem;
   border-radius: 12px;
+  z-index: 100;
 }
+
+.itemForms-top {
+  position: fixed;
+  top: 0;
+  left: 200px;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  background: rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  /* border: 1px solid rgb(221, 221, 221); */
+  padding: .8rem .4rem;
+  /* border-radius: 12px; */
+  z-index: 100;
+}
+
+@media only screen and (max-width: 600px) {
+  .itemForms-top {
+    top: 30px;
+    left: 80px;
+    padding: 0;
+    gap: 0;
+    flex-direction: column;
+  }
+}
+
 
 .Drawer__Container--left {
   padding: 0 1rem;
   height: 100vh;
   width: 12rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
   transform: translate(-14rem);
@@ -60,13 +89,14 @@ body {
   padding: 4rem 1rem 0;
   height: 100vh;
   width: 12rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
   transform: translate(calc(100vw + 14rem));
   position: relative;
   right: 0px;
   z-index: 98;
+  overflow-y: hidden;
 }
 
 .Drawer__Container--right button {
@@ -119,6 +149,7 @@ body {
 .gallery {
   padding: 1rem;
   position: fixed;
+  background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 100%;
   left: 0;
@@ -154,6 +185,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: .2rem;
+}
+
+.inputs-top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .8rem;
 }
 
 input,

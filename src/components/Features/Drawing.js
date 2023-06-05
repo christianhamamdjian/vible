@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp } = React.useContext(MoodboardContext);
-    const [pathClicked, setPathClicked] = useState(null)
-    const [rotation, setRotation] = useState("220")
-    const [circlePosition, setCirclePosition] = useState({})
-    const handlePathClicked = (event, path) => {
-        let svg = event.target
-        let CTM = svg.getScreenCTM();
-        setCirclePosition({ x: ((event.clientX - CTM.e)), y: ((event.clientY - CTM.f)) })
-        setPathClicked(path)
-    }
+    const { paths, handleEditPath, isEditingPath, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp } = React.useContext(MoodboardContext);
+    //const [pathClicked, setPathClicked] = useState(null)
+    //const [rotation, setRotation] = useState("220")
+    //const [circlePosition, setCirclePosition] = useState({})
+    //const handlePathClicked = (event, path) => {
+    //     let svg = event.target
+    //     let CTM = svg.getScreenCTM();
+    //     setCirclePosition({ x: ((event.clientX - CTM.e)), y: ((event.clientY - CTM.f)) })
+    //     setPathClicked(path)
+    // }
     return (
         <>
             {paths.map((path, index) => (
@@ -20,7 +20,7 @@ const Drawing = () => {
                     transform={`translate(${path.x},${path.y})`}
                     cursor={"crosshair"}
                 >
-                    {pathClicked && pathClicked.id === path.id ?
+                    {/* {pathClicked && pathClicked.id === path.id ?
                         <>
                             <circle
                                 cx={circlePosition.x}
@@ -40,7 +40,8 @@ const Drawing = () => {
                                 stroke="white"
                                 strokeWidth="2"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => setPathClicked(null)}
+                                //onMouseDown={() => setPathClicked(null)}
+                                onClick={(event) => handleEditPath(event, path.id)}
                             />
                             <circle
                                 cx={circlePosition.x + 40}
@@ -54,13 +55,14 @@ const Drawing = () => {
                                 onMouseDown={(event) => handleMouseDown(event, path)}
                                 onTouchStart={(e) => handleMouseDown(e, path)}
                             />
-                        </> : null}
+                        </> : null} */}
                     <path
                         className='draggable'
                         x={path.x}
                         y={path.y}
                         d={path.path}
-                        stroke={`${pathClicked && pathClicked.id === path.id ? "red" : path.color}`}
+                        //stroke={`${pathClicked && pathClicked.id === path.id ? "red" : path.color}`}
+                        stroke={path.color}
                         fill="none"
                         strokeWidth={path.line}
                         strokeLinecap="round"
@@ -68,10 +70,11 @@ const Drawing = () => {
                         draggable="true"
                         onMouseDown={isErasing ? (() => handleDeletePath(path)) : ((event) => handleMouseDown(event, path))}
                         onMouseUp={handleMouseUp}
-                        onTouchStart={pathClicked && ((e) => handleMouseDown(e, path))}
+                        onTouchStart={(e) => handleMouseDown(e, path)}
                         onTouchEnd={isErasing ? (() => handleDeletePath(path)) : null}
-                        onClick={(e) => handlePathClicked(e, path)}
-                        style={{ cursor: 'crosshair', transform: `rotate(${0}deg)`, transformOrigin: '50% 50% ' }}
+                        onClick={(event) => handleEditPath(event, path.id)}
+                        //onClick={(e) => handlePathClicked(e, path)}
+                        style={{ cursor: 'crosshair', transform: `rotate(${path.angle}deg)`, transformOrigin: `center` }}
                     ></path>
                 </g>
             ))}

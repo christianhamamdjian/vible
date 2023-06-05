@@ -5,39 +5,40 @@ import jsPDF from "jspdf"
 const MoodboardContext = React.createContext();
 export default function MoodboardProvider({ children }) {
 
-    const [isDrawing, setIsDrawing] = useState(false);
-    const [currentPath, setCurrentPath] = useState('');
-    const [paths, setPaths] = useLocalStorage("paths", []);
+    const [isDrawing, setIsDrawing] = useState(false)
+    const [currentPath, setCurrentPath] = useState('')
+    const [paths, setPaths] = useLocalStorage("paths", [])
     const [newPathPostion, setNewPathPosition] = useState({})
-    const [isErasing, setIsErasing] = useState(false);
-    const [color, setColor] = useState('#aabbcc');
-    const [line, setLine] = useState(2);
+    const [isEditingPath, setIsEditingPath] = useState(null)
+    const [isErasing, setIsErasing] = useState(false)
+    const [color, setColor] = useState('#aabbcc')
+    const [line, setLine] = useState(2)
 
-    const [items, setItems] = useLocalStorage("items", []);
+    const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('#aabbcc');
-    const [itemLink, setItemLink] = useState('');
-    const [itemUrl, setItemUrl] = useState('');
-    const [itemVideoUrl, setItemVideoUrl] = useState('');
-    const [itemImageUrl, setItemImageUrl] = useState('');
-    const [itemMapUrl, setItemMapUrl] = useState('');
+    const [itemColor, setItemColor] = useState('#aabbcc')
+    const [itemLink, setItemLink] = useState('')
+    const [itemUrl, setItemUrl] = useState('')
+    const [itemVideoUrl, setItemVideoUrl] = useState('')
+    const [itemImageUrl, setItemImageUrl] = useState('')
+    const [itemMapUrl, setItemMapUrl] = useState('')
 
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [editingText, setEditingText] = useState(null);
-    const [editingImage, setEditingImage] = useState(null);
-    const [draggingItem, setDraggingItem] = useState(false);
-    const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 });
+    const [selectedItem, setSelectedItem] = useState(null)
+    const [editingText, setEditingText] = useState(null)
+    const [editingImage, setEditingImage] = useState(null)
+    const [draggingItem, setDraggingItem] = useState(false)
+    const [dragOffsetItem, setDragOffsetItem] = useState({ x: 0, y: 0 })
 
-    const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", []);
-    const [galleryType, setGalleryType] = useState('color');
-    const [galleryContent, setGalleryContent] = useState("#000000");
-    const [galleryLink, seGalleryLink] = useState('');
-    const [galleryError, setGalleryError] = useState('');
+    const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
+    const [galleryType, setGalleryType] = useState('color')
+    const [galleryContent, setGalleryContent] = useState("#000000")
+    const [galleryLink, seGalleryLink] = useState('')
+    const [galleryError, setGalleryError] = useState('')
     const [galleryShow, setGalleryShow] = useState(false)
 
     const [selectedPath, setSelectedPath] = useState(null);
     const [draggingPath, setDraggingPath] = useState(false);
-    const [dragOffsetPath, setDragOffsetPath] = useState({ x: 0, y: 0 });
+    const [dragOffsetPath, setDragOffsetPath] = useState({ x: 0, y: 0 })
     const [isPathMoving, setIsPathMoving] = useState(false)
 
     const [draw, setDraw] = useState(false)
@@ -47,7 +48,7 @@ export default function MoodboardProvider({ children }) {
     const [video, setVideo] = useState(false)
     const [map, setMap] = useState(false)
     const [isMovingObjects, setIsMovingObjects] = useState(false)
-    const svgRef = useRef(null);
+    const svgRef = useRef(null)
 
     const [zoom, setZoom] = useState(2000)
     const [editingBoard, setEditingBoard] = useState(false)
@@ -226,7 +227,7 @@ export default function MoodboardProvider({ children }) {
         event.preventDefault();
         if (isDrawing) {
             setPaths((prevPaths) => [...prevPaths, {
-                id: Date.now(), type: "path", path: currentPath, color, line
+                id: Date.now(), type: "path", path: currentPath, color, line, angle: "0"
             }]);
         }
         if (selectedPath && !selectedItem) {
@@ -373,6 +374,42 @@ export default function MoodboardProvider({ children }) {
     }
     const handelLineWidth = (event) => {
         setLine(event.target.value)
+    }
+    const handleEditPath = (event, id) => {
+        setIsEditingPath({ status: true, id: id })
+    }
+    const handelLineWidthChange = (event, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, line: event.target.value };
+                }
+                return path;
+            })
+        )
+    };
+    const handelLineColorChange = (event, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, color: event.target.value };
+                }
+                return path;
+            })
+        )
+    };
+    const handelLineAngleChange = (event, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, angle: event.target.value };
+                }
+                return path;
+            })
+        )
+    };
+    const stopLineEditing = () => {
+        setIsEditingPath(null)
     }
 
     const handlePdfDownload = () => {
@@ -567,7 +604,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange
         }}>
             {children}
         </MoodboardContext.Provider>
