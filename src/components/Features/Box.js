@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, editingBoard } = React.useContext(MoodboardContext);
+    const { items, isDrawing, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, editingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>

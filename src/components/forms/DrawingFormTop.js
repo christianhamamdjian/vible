@@ -14,7 +14,7 @@ const DrawingFormTop = () => {
                             type="color"
                             value={color}
                             onChange={(event) => handelLineColor(event)} />
-                        <label>Link thickness:</label>
+                        <label>Line width:</label>
                         <input
                             type="number"
                             value={line}

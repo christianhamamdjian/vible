@@ -96,6 +96,43 @@ export default function MoodboardProvider({ children }) {
         };
         reader.readAsDataURL(file);
     };
+    // const handlePdfUpload = (e) => {
+    //     const file = e.target.files[0];
+    //     const reader = new FileReader();
+    //     reader.onload = (e) => {
+    //         const newItem = {
+    //             id: Date.now(),
+    //             src: e.target.result,
+    //             x: 0,
+    //             y: 0,
+    //             width: "100",
+    //             type: "pdf"
+    //         };
+    //         setItems((prevItems) => [...prevItems, newItem]);
+    //     };
+    //     reader.readAsDataURL(file);
+    // };
+    function handlePdfUpload(event) {
+        const file = event.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const pdfData = e.target.result;
+                const newItem = {
+                    id: Date.now(),
+                    data: pdfData,
+                    x: 0,
+                    y: 0,
+                    width: "100",
+                    type: "pdf"
+                };
+                setItems((prevItems) => [...prevItems, newItem]);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log('Please select a PDF file.');
+        }
+    }
     const handleImageDropUpload = (e) => {
         const file = e;
         const reader = new FileReader();
@@ -150,8 +187,6 @@ export default function MoodboardProvider({ children }) {
     // Dragging
 
     const handleMouseDown = (event, element) => {
-        event.preventDefault();
-        event.stopPropagation();
         if (element && !isDrawing) {
             setDraggingItem(true);
             const offsetItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left;
@@ -185,8 +220,7 @@ export default function MoodboardProvider({ children }) {
     // Moving
 
     const handleMouseMove = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
             const newItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
@@ -226,12 +260,16 @@ export default function MoodboardProvider({ children }) {
     // Mouse Up
 
     const handleMouseUp = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
         if (isDrawing) {
-            const dimensions = event.target.lastChild.getBBox()
+            // const dimensions = event.target.lastChild.getBBox()
             setPaths((prevPaths) => [...prevPaths, {
-                id: Date.now(), type: "path", path: currentPath, color, line, angle: "0", width: dimensions.width, height: dimensions.height
+                id: Date.now(),
+                type: "path",
+                path: currentPath,
+                color, line,
+                angle: "0",
+                // width: dimensions.width,
+                // height: dimensions.height
             }]);
         }
         if (selectedPath && !selectedItem) {
@@ -608,7 +646,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange, dragOffsetPath
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange, dragOffsetPath, handlePdfUpload
         }}>
             {children}
         </MoodboardContext.Provider>

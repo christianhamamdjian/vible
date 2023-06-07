@@ -4,6 +4,7 @@ import Box from "./Features/Box"
 import Image from "./Features/Image"
 import Video from "./Features/Video"
 import Map from "./Features/Map"
+import Pdf from "./Features/Pdf"
 import ImageLink from "./Features/ImageLink"
 import Drawing from "./Features/Drawing"
 
@@ -43,6 +44,7 @@ const MoodBoard = () => {
                             <Video item={item} />
                             <Map item={item} />
                             <ImageLink item={item} />
+                            <Pdf item={item} />
                         </g>
                     ))}
                     <Drawing />

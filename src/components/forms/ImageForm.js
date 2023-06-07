@@ -2,7 +2,7 @@ import React from 'react';
 import DragDropUpload from "../Helpers/DragDropUpload"
 import { MoodboardContext } from "../../context/moodboardContext";
 
-const VideoForm = () => {
+const ImageForm = () => {
     const { items, handleImageUpload, editingImage, handleImageChange, handleImageDropUpload } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms'>
@@ -31,4 +31,4 @@ const VideoForm = () => {
         </div>
     )
 }
-export default VideoForm
+export default ImageForm
