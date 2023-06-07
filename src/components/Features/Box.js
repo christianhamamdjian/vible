@@ -14,7 +14,7 @@ const Image = ({ item }) => {
                         width="160"
                         height="160"
                         draggable={editingText ? "false" : "true"}
-                        contenteditable={editingText ? "false" : "true"}
+                        //contenteditable={editingText ? "false" : "true"}
                         style={{
                             cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px"
                             //  transform: 'rotate(15deg)' 
@@ -33,7 +33,7 @@ const Image = ({ item }) => {
                                 handleItemTextChange(event, editingText.id)
                             }
                         />)
-                        : ( */}
+                        : ()} */}
                         <p
                             className="text"
                             draggable={editingText ? "false" : "true"}
@@ -47,7 +47,7 @@ const Image = ({ item }) => {
                         >
                             {item.text}
                         </p>
-                        // )}
+
                     </foreignObject>
                     <a
                         xlinkHref={item.url}

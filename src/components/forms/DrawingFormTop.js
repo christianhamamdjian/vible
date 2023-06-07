@@ -41,11 +41,13 @@ const DrawingFormTop = () => {
                         <label>Line width:</label>
                         <input
                             type="number"
-                            value={paths.find(path => path.id === isEditingPath.id).width}
+                            value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handelLineWidthChange(event, isEditingPath.id)} />
                         <label>Line angle:</label>
                         <input
-                            type="number"
+                            type="range"
+                            min="0"
+                            max="360"
                             value={paths.find(path => path.id === isEditingPath.id).angle}
                             onChange={(event) => handelLineAngleChange(event, isEditingPath.id)} />
                         <button
