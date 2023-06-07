@@ -18,7 +18,6 @@ const Drawing = () => {
         const pathBBox = path.getBBox();
         const centerX = pathBBox.x + pathBBox.width / 2;
         const centerY = pathBBox.y + pathBBox.height / 2;
-        console.log(centerX, centerY);
         return { x: centerX, y: centerY };
     };
     return (
