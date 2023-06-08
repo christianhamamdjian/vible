@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, handleEditPath, dragOffsetPath, isEditingPath, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp } = React.useContext(MoodboardContext);
+    const { paths, handleEditPath, getDrawingCenter, dragOffsetPath, isEditingPath, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp } = React.useContext(MoodboardContext);
     //const [pathClicked, setPathClicked] = useState(null)
     //const [rotation, setRotation] = useState("220")
     //const [circlePosition, setCirclePosition] = useState({})
@@ -13,13 +13,7 @@ const Drawing = () => {
     //     setPathClicked(path)
     // }
     const pathRef = useRef();
-    const getDrawingCenter = (path) => {
-        if (!path) return
-        const pathBBox = path.getBBox();
-        const centerX = pathBBox.x + pathBBox.width / 2;
-        const centerY = pathBBox.y + pathBBox.height / 2;
-        return { x: centerX, y: centerY };
-    };
+
     return (
         <>
             {paths.map((path, index) => (

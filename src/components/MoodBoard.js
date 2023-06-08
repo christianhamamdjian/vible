@@ -11,14 +11,16 @@ import Drawing from "./Features/Drawing"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, handleDrawing, editingText, isPathMoving, isErasing, isMovingObjects, selectedItem, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
+    const { isDrawing, freezeScreen, handleDrawing, editingText, isPathMoving, isErasing, isMovingObjects, selectedItem, selectedPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
 
     return (
         <>
 
             <div className="frame" style={{
-                //overflow: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "auto"}`,
-                //touchAction: `${(isDrawing || isPathMoving || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "auto"}`
+                // overflow: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "scroll"}`,
+                // touchAction: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "scroll"}`'
+                //overflow: `${(!freezeScreen) ? "visible" : "hidden"}`,
+                // touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
             }}>
                 <svg
                     id="my-svg"

@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
+    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, angle, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (

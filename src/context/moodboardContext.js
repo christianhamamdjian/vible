@@ -8,11 +8,14 @@ export default function MoodboardProvider({ children }) {
     const [isDrawing, setIsDrawing] = useState(false)
     const [currentPath, setCurrentPath] = useState('')
     const [paths, setPaths] = useLocalStorage("paths", [])
-    const [newPathPostion, setNewPathPosition] = useState({})
+    const [newPathPosition, setNewPathPosition] = useState({})
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isErasing, setIsErasing] = useState(false)
     const [color, setColor] = useState('#aabbcc')
     const [line, setLine] = useState(2)
+    const [rotation, setRotation] = useState(0)
+    const [freezeScreen, setFreezeScreen] = useState(false)
+
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
@@ -187,7 +190,9 @@ export default function MoodboardProvider({ children }) {
     // Dragging
 
     const handleMouseDown = (event, element) => {
-        if (element && !isDrawing) {
+        // event.stopPropagation();
+
+        if (element && !isDrawing && element.type !== "path") {
             setDraggingItem(true);
             const offsetItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left;
             const offsetItemY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBoundingClientRect().top;
@@ -201,17 +206,24 @@ export default function MoodboardProvider({ children }) {
             setDraggingPath(true);
             let svg = event.target
             let CTM = svg.getScreenCTM();
-            const { left, top } = svgRef.current.getBoundingClientRect();
-            const x = (event.clientX || event.touches[0].clientX) - left + 5 - (CTM.e / CTM.a);
-            const y = (event.clientY || event.touches[0].clientY) - top + 5 - (CTM.f / CTM.d);
-            // const offsetPathX = (x || event.touches[0].clientX) - (CTM.e / CTM.a);
-            // const offsetPathY = (y || event.touches[0].clientY) - (CTM.f / CTM.d);
-            setDragOffsetPath({ x: x, y: y });
+            // const { left, top } = svgRef.current.getBoundingClientRect();
+            // const x = (event.clientX || event.touches[0].clientX) - left;
+            // const y = (event.clientY || event.touches[0].clientY) - top;
+            const offsetPathX = (event.clientX || event.touches[0].clientX) - (CTM.e / CTM.a);
+            const offsetPathY = (event.clientY || event.touches[0].clientY) - (CTM.f / CTM.d);
+            // if (element.angle > 0) {
+            //     setDragOffsetPath({ x: x + element.x, y: y + element.y });
+            // } else {
+            setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
+            // }
             // const selected = paths.find(path => path.id === element.id)
             setSelectedPath(element)
+
+            // console.log("Element: ", element)
         }
 
         if (isDrawing) {
+            event.stopPropagation();
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath(`M${x} ${y}`);
         }
@@ -220,7 +232,7 @@ export default function MoodboardProvider({ children }) {
     // Moving
 
     const handleMouseMove = (event) => {
-
+        //event.preventDefault()
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
             const newItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
@@ -234,14 +246,15 @@ export default function MoodboardProvider({ children }) {
 
         if (selectedPath && !selectedItem) {
             if (!draggingPath) return;
-            let svg = event.target
-            let CTM = svg.getScreenCTM();
+            // let svg = event.target
+            // let CTM = svg.getScreenCTM();
             let offsetPath = { x: dragOffsetPath.x, y: dragOffsetPath.y }
 
-            const newPathX = (event.clientX || event.touches[0].clientX - CTM.e / CTM.a) - offsetPath.x;
-            const newPathY = (event.clientY || event.touches[0].clientY - CTM.f / CTM.d) - offsetPath.y;
+            const newPathX = (event.clientX || event.touches[0].clientX) - offsetPath.x;
+            const newPathY = (event.clientY || event.touches[0].clientY) - offsetPath.y;
 
             setNewPathPosition({ x: newPathX, y: newPathY })
+            // console.log("Selected Path: ", { x: newPathX, y: newPathY })
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
                     return (path.id === selectedPath.id) ? { ...path, x: newPathX, y: newPathY } : path
@@ -255,30 +268,38 @@ export default function MoodboardProvider({ children }) {
             const { x, y } = getCursorPositionDrawing(event);
             setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
         }
+        if (selectedItem || selectedPath || isDrawing) {
+            setFreezeScreen(true)
+        }
     };
 
     // Mouse Up
 
     const handleMouseUp = (event) => {
+        event.stopPropagation();
+        console.log("New Path Position: ", newPathPosition)
         if (isDrawing) {
-            // const dimensions = event.target.lastChild.getBBox()
+            const dimensions = event.target.lastChild.getBBox()
             setPaths((prevPaths) => [...prevPaths, {
                 id: Date.now(),
                 type: "path",
                 path: currentPath,
                 color, line,
-                angle: "0",
-                // width: dimensions.width,
-                // height: dimensions.height
+                angle: 0,
+                x: 0,
+                y: 0,
+                width: dimensions.width,
+                height: dimensions.height
             }]);
         }
         if (selectedPath && !selectedItem) {
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
-                    return (path.id === selectedPath.id) ? { ...path } : path
+                    return (path.id === selectedPath.id) ? { ...path, x: newPathPosition.x, y: newPathPosition.y, angle: rotation } : path
                 })
             );
         }
+        setFreezeScreen(false)
         setSelectedItem(null)
         setSelectedPath(null)
         setDraggingItem(false);
@@ -286,8 +307,16 @@ export default function MoodboardProvider({ children }) {
         setDragOffsetItem({ x: 0, y: 0 });
         setDragOffsetPath({ x: 0, y: 0 });
         setCurrentPath('');
+        setNewPathPosition(null)
+        setRotation(0)
     };
-
+    const getDrawingCenter = (path) => {
+        if (!path) return
+        const pathBBox = path.getBBox();
+        const centerX = pathBBox.x + pathBBox.width / 2;
+        const centerY = pathBBox.y + pathBBox.height / 2;
+        return { x: centerX, y: centerY };
+    };
     // Helper functions
 
     const handleDeleteItem = (id) => {
@@ -418,6 +447,7 @@ export default function MoodboardProvider({ children }) {
         setLine(event.target.value)
     }
     const handleEditPath = (event, id) => {
+        event.stopPropagation();
         setIsEditingPath({ status: true, id: id })
     }
     const handelLineWidthChange = (event, id) => {
@@ -449,6 +479,7 @@ export default function MoodboardProvider({ children }) {
                 return path;
             })
         )
+        setRotation(event.target.value)
     };
     const stopLineEditing = () => {
         setIsEditingPath(null)
@@ -646,7 +677,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange, dragOffsetPath, handlePdfUpload
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, draggingPath, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange, dragOffsetPath, handlePdfUpload, freezeScreen, getDrawingCenter
         }}>
             {children}
         </MoodboardContext.Provider>

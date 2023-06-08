@@ -1,83 +1,82 @@
 import React, { useState, useRef } from 'react';
 
 const RotatingPath = () => {
-    const [drawing, setDrawing] = useState('');
-    const [rotation, setRotation] = useState(0);
-    const svgRef = useRef();
-    const drawingRef = useRef();
+    const svgRef = useRef(null);
+    const [paths, setPaths] = useState([]);
+    const [selectedPath, setSelectedPath] = useState(null);
+    const [dragging, setDragging] = useState(false);
+    const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
-    const handleMouseDown = (event) => {
-        const { clientX, clientY } = event;
-        const svg = svgRef.current;
-        const pt = svg.createSVGPoint();
-        pt.x = clientX;
-        pt.y = clientY;
-        const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const handleMouseDown = (event, index) => {
+        event.stopPropagation();
 
-        setDrawing(`M${svgPoint.x},${svgPoint.y}`);
+        if (index !== selectedPath) {
+            setSelectedPath(index);
+            setDragging(false);
+            return;
+        }
+
+        setDragging(true);
+
+        const svgRect = svgRef.current.getBoundingClientRect();
+        const offsetX = event.clientX - svgRect.left;
+        const offsetY = event.clientY - svgRect.top;
+        const path = paths[selectedPath];
+
+        setDragOffset({ x: offsetX - path.x, y: offsetY - path.y });
     };
 
     const handleMouseMove = (event) => {
-        if (event.buttons !== 1) return; // Only draw when mouse button is pressed
+        if (!dragging || selectedPath === null) return;
 
-        const { clientX, clientY } = event;
-        const svg = svgRef.current;
-        const pt = svg.createSVGPoint();
-        pt.x = clientX;
-        pt.y = clientY;
-        const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+        const svgRect = svgRef.current.getBoundingClientRect();
+        const offsetX = event.clientX - svgRect.left;
+        const offsetY = event.clientY - svgRect.top;
 
-        setDrawing((prevDrawing) => `${prevDrawing} L${svgPoint.x},${svgPoint.y}`);
+        const updatedPaths = [...paths];
+        const path = updatedPaths[selectedPath];
+        path.x = offsetX - dragOffset.x;
+        path.y = offsetY - dragOffset.y;
+
+        setPaths(updatedPaths);
     };
 
     const handleMouseUp = () => {
-        setDrawing((prevDrawing) => `${prevDrawing} Z`);
+        setDragging(false);
     };
 
-    const handleRotationChange = (event) => {
-        setRotation(parseInt(event.target.value));
-    };
-
-    const getDrawingCenter = () => {
-        const path = drawingRef.current;
-        if (!path) return { x: 0, y: 0 };
-
-        const pathBBox = path.getBBox();
-        const centerX = pathBBox.x + pathBBox.width / 2;
-        const centerY = pathBBox.y + pathBBox.height / 2;
-        return { x: centerX, y: centerY };
+    const handlePathClick = (index) => {
+        setSelectedPath(index);
     };
 
     return (
         <div>
-            <input
-                type="range"
-                min="0"
-                max="360"
-                value={rotation}
-                onChange={handleRotationChange}
-            />
-
             <svg
                 ref={svgRef}
-                width="400"
-                height="400"
-                onMouseDown={handleMouseDown}
+                width="500"
+                height="500"
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
             >
-                <g transform={`rotate(${rotation} ${getDrawingCenter().x} ${getDrawingCenter().y})`}>
-                    <path
-                        ref={drawingRef}
-                        d={drawing}
-                        fill="none"
-                        stroke="black"
-                    />
-                </g>
+                {paths.map((path, index) => (
+                    <g
+                        key={index}
+                        onClick={() => handlePathClick(index)}
+                        transform={`translate(${path.x}, ${path.y})`}
+                    >
+                        <path
+                            d={path.d}
+                            fill="none"
+                            stroke="black"
+                            onMouseDown={(event) => handleMouseDown(event, index)}
+                            style={{ cursor: 'move' }}
+                        />
+                    </g>
+                ))}
             </svg>
         </div>
     );
-};
+}
 
 
 export default RotatingPath;
