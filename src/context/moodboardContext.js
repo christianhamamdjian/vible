@@ -13,9 +13,7 @@ export default function MoodboardProvider({ children }) {
     const [isErasing, setIsErasing] = useState(false)
     const [color, setColor] = useState('#aabbcc')
     const [line, setLine] = useState(2)
-    const [rotation, setRotation] = useState(0)
     const [freezeScreen, setFreezeScreen] = useState(false)
-
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
@@ -99,22 +97,6 @@ export default function MoodboardProvider({ children }) {
         };
         reader.readAsDataURL(file);
     };
-    // const handlePdfUpload = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //     reader.onload = (e) => {
-    //         const newItem = {
-    //             id: Date.now(),
-    //             src: e.target.result,
-    //             x: 0,
-    //             y: 0,
-    //             width: "100",
-    //             type: "pdf"
-    //         };
-    //         setItems((prevItems) => [...prevItems, newItem]);
-    //     };
-    //     reader.readAsDataURL(file);
-    // };
     function handlePdfUpload(event) {
         const file = event.target.files[0];
         if (file && file.type === 'application/pdf') {
@@ -209,13 +191,14 @@ export default function MoodboardProvider({ children }) {
             // const { left, top } = svgRef.current.getBoundingClientRect();
             // const x = (event.clientX || event.touches[0].clientX) - left;
             // const y = (event.clientY || event.touches[0].clientY) - top;
-            const offsetPathX = (event.clientX || event.touches[0].clientX) - (CTM.e / CTM.a);
-            const offsetPathY = (event.clientY || event.touches[0].clientY) - (CTM.f / CTM.d);
-            // if (element.angle > 0) {
-            //     setDragOffsetPath({ x: x + element.x, y: y + element.y });
-            // } else {
-            setDragOffsetPath({ x: offsetPathX, y: offsetPathY });
-            // }
+            const offsetPathX = (event.clientX || event.touches[0].clientX) - (CTM.e / CTM.a) / 2;
+            const offsetPathY = (event.clientY || event.touches[0].clientY) - (CTM.f / CTM.d) / 2;
+            console.log(element.angle)
+            if (element.angle > 0) {
+                setDragOffsetPath({ x: element.x, y: element.y });
+            } else {
+                setDragOffsetPath({ x: parseInt(offsetPathX), y: parseInt(offsetPathY) });
+            }
             // const selected = paths.find(path => path.id === element.id)
             setSelectedPath(element)
 
@@ -295,7 +278,7 @@ export default function MoodboardProvider({ children }) {
         if (selectedPath && !selectedItem) {
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
-                    return (path.id === selectedPath.id) ? { ...path, x: newPathPosition.x, y: newPathPosition.y, angle: rotation } : path
+                    return (path.id === selectedPath.id) ? { ...path, x: newPathPosition.x, y: newPathPosition.y } : path
                 })
             );
         }
@@ -308,7 +291,6 @@ export default function MoodboardProvider({ children }) {
         setDragOffsetPath({ x: 0, y: 0 });
         setCurrentPath('');
         setNewPathPosition(null)
-        setRotation(0)
     };
     const getDrawingCenter = (path) => {
         if (!path) return
@@ -474,12 +456,11 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, angle: event.target.value };
+                    return { ...path, angle: +event.target.value };
                 }
                 return path;
             })
         )
-        setRotation(event.target.value)
     };
     const stopLineEditing = () => {
         setIsEditingPath(null)
