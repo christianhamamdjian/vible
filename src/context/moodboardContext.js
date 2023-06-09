@@ -271,8 +271,8 @@ export default function MoodboardProvider({ children }) {
                 angle: 0,
                 x: 0,
                 y: 0,
-                width: dimensions.width,
-                height: dimensions.height
+                width: dimensions.width || 0,
+                height: dimensions.height || 0
             }]);
         }
         if (selectedPath && !selectedItem) {
