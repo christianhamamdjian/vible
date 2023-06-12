@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, angle, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
+    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, handleScaleChange, angle, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (
@@ -48,16 +48,22 @@ const DrawingFormTop = () => {
                             type="range"
                             min="0"
                             max="360"
-                            value={paths.find(path => path.id === isEditingPath.id).angle}
+                            // value={paths.find(path => path.id === isEditingPath.id).angle}
+                            value={angle}
                             onChange={(event) => handelLineAngleChange(event, isEditingPath.id)} />
+                        <label>Scale:</label>
+                        <input
+                            type="range"
+                            min="0.01"
+                            max="10"
+                            step="0.01"
+                            value={scale}
+                            onChange={(event) => handleScaleChange(event, isEditingPath.id)}
+                        />
                         <button
-                            onClick={stopLineEditing}>Done</button>
-                        {/* <button
-                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleDrawing}>Add drawing</button>
-                        <button
-                            style={isErasing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleEraser}>Delete lines</button> */}
+                            onClick={stopLineEditing}>
+                            Done
+                        </button>
                     </div>
                 </>
             )}

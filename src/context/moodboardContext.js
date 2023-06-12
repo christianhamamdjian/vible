@@ -6,7 +6,7 @@ const MoodboardContext = React.createContext();
 export default function MoodboardProvider({ children }) {
 
     const [isDrawing, setIsDrawing] = useState(false)
-    const [currentPath, setCurrentPath] = useState('')
+    const [currentPath, setCurrentPath] = useState({ x: 0, y: 0 })
     const [paths, setPaths] = useLocalStorage("paths", [])
     const [newPathPosition, setNewPathPosition] = useState({})
     const [isEditingPath, setIsEditingPath] = useState(null)
@@ -14,6 +14,8 @@ export default function MoodboardProvider({ children }) {
     const [color, setColor] = useState('#aabbcc')
     const [line, setLine] = useState(2)
     const [freezeScreen, setFreezeScreen] = useState(false)
+    const [rotation, setRotation] = useState(0);
+    const [scale, setScale] = useState(1);
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
@@ -49,7 +51,9 @@ export default function MoodboardProvider({ children }) {
     const [video, setVideo] = useState(false)
     const [map, setMap] = useState(false)
     const [isMovingObjects, setIsMovingObjects] = useState(false)
+
     const svgRef = useRef(null)
+    const pathRef = useRef(null)
 
     const [zoom, setZoom] = useState(2000)
     const [editingBoard, setEditingBoard] = useState(false)
@@ -169,119 +173,152 @@ export default function MoodboardProvider({ children }) {
         setItems((prevItems) => [...prevItems, newItem]);
     }
 
-    // Dragging
 
+
+    // Mouse Down
     const handleMouseDown = (event, element) => {
         // event.stopPropagation();
 
+        // Start dragging objects
         if (element && !isDrawing && element.type !== "path") {
             setDraggingItem(true);
-            const offsetItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left;
-            const offsetItemY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBoundingClientRect().top;
-            setDragOffsetItem({ x: offsetItemX, y: offsetItemY });
-
+            const { clientX, clientY } = event.touches ? event.touches[0] : event;
+            const { left, top } = event.currentTarget.getBoundingClientRect()
+            setDragOffsetItem({ x: clientX - left, y: clientY - top });
             const selectedItem = items.find(item => item.id === element)
             setSelectedItem(selectedItem)
         }
 
+        //Start dragging path
         if (!isDrawing && !isErasing && element && element.type === "path") {
+            // event.stopPropagation();
+            //setSelectedPath(element)
             setDraggingPath(true);
+            setIsEditingPath({ status: true, id: element.id })
+            // let svg = svgRef.current
             let svg = event.target
             let CTM = svg.getScreenCTM();
-            // const { left, top } = svgRef.current.getBoundingClientRect();
-            // const x = (event.clientX || event.touches[0].clientX) - left;
-            // const y = (event.clientY || event.touches[0].clientY) - top;
-            const offsetPathX = (event.clientX || event.touches[0].clientX) - (CTM.e / CTM.a) / 2;
-            const offsetPathY = (event.clientY || event.touches[0].clientY) - (CTM.f / CTM.d) / 2;
-            console.log(element.angle)
+            let x = CTM.e / CTM.a
+            let y = CTM.f / CTM.d
+            const { clientX, clientY } = event.touches ? event.touches[0] : event;
+            //let currentPath = pathRef.current
+            //setSelectedPathTag(paths.find(path => path.id === path.id))
+            //const { x, y } = pathRef.current.getBBox();
+            //or
+            setSelectedPath(paths.find(path => path.id === element.id))
             if (element.angle > 0) {
                 setDragOffsetPath({ x: element.x, y: element.y });
             } else {
-                setDragOffsetPath({ x: parseInt(offsetPathX), y: parseInt(offsetPathY) });
+                setDragOffsetPath({ x: parseInt(clientX - x), y: parseInt(clientY - y) });
             }
-            // const selected = paths.find(path => path.id === element.id)
-            setSelectedPath(element)
-
-            // console.log("Element: ", element)
         }
 
+        // Start drawing
         if (isDrawing) {
-            event.stopPropagation();
-            const { x, y } = getCursorPositionDrawing(event);
-            setCurrentPath(`M${x} ${y}`);
+            const { clientX, clientY } = event;
+            const svg = svgRef.current;
+            const pt = svg.createSVGPoint();
+            pt.x = clientX;
+            pt.y = clientY;
+            const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+            setCurrentPath(`M${svgPoint.x},${svgPoint.y}`);
         }
     };
-
-    // Moving
-
+    // Différence entre selectedPath, currentPath, selectedPathTag et newPathPosition
+    // Mouse Moving
     const handleMouseMove = (event) => {
-        //event.preventDefault()
+        // Moving objects
         if (selectedItem && !selectedPath) {
             if (!draggingItem) return;
-            const newItemX = (event.clientX || event.touches[0].clientX) - event.currentTarget.getBoundingClientRect().left - dragOffsetItem.x;
-            const newItemY = (event.clientY || event.touches[0].clientY) - event.currentTarget.getBoundingClientRect().top - dragOffsetItem.y;
+            const { x, y } = dragOffsetItem
+            const { left, top } = event.currentTarget.getBoundingClientRect()
+            const { clientX, clientY } = event.touches ? event.touches[0] : event;
             setItems((prevItems) =>
                 prevItems.map((item) => {
-                    return item.id === selectedItem.id ? { ...item, x: newItemX, y: newItemY } : item
+                    return item.id === selectedItem.id ? { ...item, x: clientX - left - x, y: clientY - top - y } : item
                 })
             );
         }
 
+        // Moving selected path
         if (selectedPath && !selectedItem) {
             if (!draggingPath) return;
+            // console.log(selectedPath)
             // let svg = event.target
+            // let path = pathRef.current
             // let CTM = svg.getScreenCTM();
-            let offsetPath = { x: dragOffsetPath.x, y: dragOffsetPath.y }
-
-            const newPathX = (event.clientX || event.touches[0].clientX) - offsetPath.x;
-            const newPathY = (event.clientY || event.touches[0].clientY) - offsetPath.y;
-
-            setNewPathPosition({ x: newPathX, y: newPathY })
-            // console.log("Selected Path: ", { x: newPathX, y: newPathY })
+            const { clientX, clientY } = event.touches ? event.touches[0] : event;
+            const { x: offsetX, y: offsetY } = dragOffsetPath;
+            const newX = clientX - offsetX;
+            const newY = clientY - offsetY;
+            setNewPathPosition({ x: newX, y: newY })
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
-                    return (path.id === selectedPath.id) ? { ...path, x: newPathX, y: newPathY } : path
+                    return (path.id === selectedPath.id) ? { ...path, x: newX, y: newY } : path
                 })
             );
 
         }
 
+        // Drawing
         if (!isDrawing) return;
         if (isDrawing && currentPath && !isErasing && !selectedItem) {
-            const { x, y } = getCursorPositionDrawing(event);
-            setCurrentPath((prevPath) => `${prevPath} L${x} ${y}`);
+            if (event.buttons !== 1) return;
+            const { clientX, clientY } = event;
+            const svg = svgRef.current;
+            const pt = svg.createSVGPoint();
+            pt.x = clientX;
+            pt.y = clientY;
+            const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+            setCurrentPath((prevDrawing) => `${prevDrawing} L${svgPoint.x},${svgPoint.y}`);
         }
+
+        // prevent screen from scrolling when in action
         if (selectedItem || selectedPath || isDrawing) {
             setFreezeScreen(true)
         }
     };
 
     // Mouse Up
-
     const handleMouseUp = (event) => {
         event.stopPropagation();
-        console.log("New Path Position: ", newPathPosition)
+
+        // Creating the path and storing it
         if (isDrawing) {
-            const dimensions = event.target.lastChild.getBBox()
             setPaths((prevPaths) => [...prevPaths, {
                 id: Date.now(),
                 type: "path",
                 path: currentPath,
                 color, line,
                 angle: 0,
+                scale: 1,
                 x: 0,
                 y: 0,
-                width: dimensions.width || 0,
-                height: dimensions.height || 0
             }]);
         }
+
+        // Saving the modifications on a selected path
         if (selectedPath && !selectedItem) {
+            const { width, height } = pathRef.current.getBBox()
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
-                    return (path.id === selectedPath.id) ? { ...path, x: newPathPosition.x, y: newPathPosition.y } : path
+                    return (
+                        path.id === selectedPath.id) ?
+                        {
+                            ...path,
+                            x: newPathPosition.x,
+                            y: newPathPosition.y,
+                            scale: scale,
+                            angle: rotation,
+                            width,
+                            height
+                        } :
+                        path
                 })
             );
         }
+
+        // Resetting everything
         setFreezeScreen(false)
         setSelectedItem(null)
         setSelectedPath(null)
@@ -289,16 +326,22 @@ export default function MoodboardProvider({ children }) {
         setDraggingPath(false);
         setDragOffsetItem({ x: 0, y: 0 });
         setDragOffsetPath({ x: 0, y: 0 });
-        setCurrentPath('');
+        setCurrentPath(null);
         setNewPathPosition(null)
+        setScale(1)
+        setRotation(0)
     };
-    const getDrawingCenter = (path) => {
-        if (!path) return
+
+    // Center coordinates for rotation and scaling
+    const getDrawingCenter = () => {
+        const path = pathRef.current;
+        if (!path) return { x: 0, y: 0 };
         const pathBBox = path.getBBox();
-        const centerX = pathBBox.x + pathBBox.width / 2;
-        const centerY = pathBBox.y + pathBBox.height / 2;
+        const centerX = scale > 1 ? (pathBBox.x + pathBBox.width / 2) * scale : pathBBox.x + pathBBox.width / 2;
+        const centerY = scale > 1 ? (pathBBox.y + pathBBox.height / 2) * scale : pathBBox.y + pathBBox.height / 2;
         return { x: centerX, y: centerY };
     };
+
     // Helper functions
 
     const handleDeleteItem = (id) => {
@@ -398,12 +441,12 @@ export default function MoodboardProvider({ children }) {
 
     // Drawing
 
-    const getCursorPositionDrawing = (event) => {
-        const { left, top } = svgRef.current.getBoundingClientRect();
-        const x = (event.clientX || event.touches[0].clientX) - left;
-        const y = (event.clientY || event.touches[0].clientY) - top;
-        return { x, y };
-    };
+    // const getCursorPositionDrawing = (event) => {
+    //     const { left, top } = svgRef.current.getBoundingClientRect();
+    //     const x = (event.clientX || event.touches[0].clientX) - left;
+    //     const y = (event.clientY || event.touches[0].clientY) - top;
+    //     return { x, y };
+    // };
     const handleDrawing = () => {
         setIsDrawing(isDrawing => !isDrawing)
         setIsErasing(false);
@@ -427,10 +470,6 @@ export default function MoodboardProvider({ children }) {
     }
     const handelLineWidth = (event) => {
         setLine(event.target.value)
-    }
-    const handleEditPath = (event, id) => {
-        event.stopPropagation();
-        setIsEditingPath({ status: true, id: id })
     }
     const handelLineWidthChange = (event, id) => {
         setPaths(prevPaths =>
@@ -456,13 +495,42 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, angle: +event.target.value };
+                    return { ...path, angle: parseInt(event.target.value) };
                 }
                 return path;
             })
         )
+        setRotation(parseInt(event.target.value));
+    };
+    const handleScaleChange = (event, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, scale: parseInt(event.target.value) };
+                }
+                return path;
+            })
+        )
+        setScale(parseInt(event.target.value))
     };
     const stopLineEditing = () => {
+        const { width, height } = pathRef.current.getBBox()
+        setPaths((prevPaths) =>
+            prevPaths.map((path) => {
+                return (
+                    path.id === pathRef.current.id) ?
+                    {
+                        ...path,
+                        x: newPathPosition.x,
+                        y: newPathPosition.y,
+                        scale: scale,
+                        angle: rotation,
+                        width,
+                        height
+                    } :
+                    path
+            })
+        );
         setIsEditingPath(null)
     }
 
@@ -658,7 +726,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, draggingPath, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, getCursorPositionDrawing, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, handleEditPath, stopLineEditing, handelLineAngleChange, dragOffsetPath, handlePdfUpload, freezeScreen, getDrawingCenter
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, pathRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, draggingPath, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, handleDrawing, handleEraser, handleDeletePath, handelLineColor, handelLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handelLineWidthChange, handelLineColorChange, isEditingPath, stopLineEditing, handelLineAngleChange, dragOffsetPath, handlePdfUpload, freezeScreen, getDrawingCenter, handleScaleChange, scale, rotation
         }}>
             {children}
         </MoodboardContext.Provider>

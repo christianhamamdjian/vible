@@ -3,7 +3,8 @@ import MoodBoard from './components/MoodBoard';
 import './App.css';
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
-import RotatingPath from "./components/RotatingPath"
+// import RotatingPath from "./components/RotatingPath"
+// import DraggSample from "./components/DraggSample"
 import { MoodboardContext } from "./context/moodboardContext";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <SidebarDrawer side="right" />
       <MoodBoard />
       {/* <RotatingPath /> */}
+      {/* <DraggSample /> */}
     </div >
   );
 }
