@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useLocalStorage } from "../components/hooks/useLocalStorage";
+import getTextColor from "../components/utils/getTextColor";
 import jsPDF from "jspdf"
 
 const MoodboardContext = React.createContext();
@@ -11,7 +12,7 @@ export default function MoodboardProvider({ children }) {
     const [newPathPosition, setNewPathPosition] = useState({})
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isErasing, setIsErasing] = useState(false)
-    const [color, setColor] = useState('#aabbcc')
+    const [color, setColor] = useState('#000000')
     const [line, setLine] = useState(2)
     const [freezeScreen, setFreezeScreen] = useState(false)
     const [rotation, setRotation] = useState(0);
@@ -19,7 +20,7 @@ export default function MoodboardProvider({ children }) {
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('#aabbcc')
+    const [itemColor, setItemColor] = useState('#000000')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
     const [itemVideoUrl, setItemVideoUrl] = useState('')
@@ -59,7 +60,6 @@ export default function MoodboardProvider({ children }) {
     const [editingBoard, setEditingBoard] = useState(false)
 
     // Add Elements
-
     const handleAddBox = (event) => {
         event.preventDefault();
         const itemId = Date.now();
@@ -173,12 +173,13 @@ export default function MoodboardProvider({ children }) {
         setItems((prevItems) => [...prevItems, newItem]);
     }
 
-
-
     // Mouse Down
     const handleMouseDown = (event, element) => {
         // event.stopPropagation();
-
+        if (isEditingPath) {
+            setIsEditingPath(null)
+            setIsEditingPath(null)
+        }
         // Start dragging objects
         if (element && !isDrawing && element.type !== "path") {
             setDraggingItem(true);
@@ -281,7 +282,7 @@ export default function MoodboardProvider({ children }) {
 
     // Mouse Up
     const handleMouseUp = (event) => {
-        event.stopPropagation();
+        //event.stopPropagation();
 
         // Creating the path and storing it
         if (isDrawing) {
@@ -297,8 +298,8 @@ export default function MoodboardProvider({ children }) {
             }]);
         }
 
-        // Saving the modifications on a selected path
-        if (selectedPath && !selectedItem) {
+        // Save modifications on selected path
+        if (newPathPosition && selectedPath && !selectedItem) {
             const { width, height } = pathRef.current.getBBox()
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
@@ -321,7 +322,7 @@ export default function MoodboardProvider({ children }) {
         // Resetting everything
         setFreezeScreen(false)
         setSelectedItem(null)
-        setSelectedPath(null)
+        // setSelectedPath(null)
         setDraggingItem(false);
         setDraggingPath(false);
         setDragOffsetItem({ x: 0, y: 0 });
@@ -342,43 +343,9 @@ export default function MoodboardProvider({ children }) {
         return { x: centerX, y: centerY };
     };
 
-    // Helper functions
 
-    const handleDeleteItem = (id) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-        setEditingText(null)
-        setEditingImage(null)
-    };
-    const handleItemText = (event) => {
-        setItemText(event.target.value);
-    };
-    const handleItemColor = (event) => {
-        setItemColor(event.target.value);
-    };
-    const handleItemLink = (event) => {
-        setItemLink(event.target.value);
-    };
-    const handleItemUrl = (event) => {
-        setItemUrl(event.target.value);
-    };
-    const handleItemVideoUrl = (event) => {
-        setItemVideoUrl(event.target.value);
-    };
-    const handleItemImageUrl = (event) => {
-        setItemImageUrl(event.target.value);
-    };
-    const handleItemMapUrl = (event) => {
-        setItemMapUrl(event.target.value);
-    };
-    const handleEditBox = (id) => {
-        setEditingText({ status: true, id: id })
-    }
-    const handleStopEditBox = () => {
-        setEditingText(null)
-    }
 
     // Text Box
-
     const handleItemTextChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -411,7 +378,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Image
-
     const handleItemUrlChange = (event, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
@@ -440,13 +406,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Drawing
-
-    // const getCursorPositionDrawing = (event) => {
-    //     const { left, top } = svgRef.current.getBoundingClientRect();
-    //     const x = (event.clientX || event.touches[0].clientX) - left;
-    //     const y = (event.clientY || event.touches[0].clientY) - top;
-    //     return { x, y };
-    // };
     const handleDrawing = () => {
         setIsDrawing(isDrawing => !isDrawing)
         setIsErasing(false);
@@ -515,8 +474,10 @@ export default function MoodboardProvider({ children }) {
     };
     const stopLineEditing = () => {
         const { width, height } = pathRef.current.getBBox()
+
         setPaths((prevPaths) =>
             prevPaths.map((path) => {
+                console.log(path.id, selectedPath.id)
                 return (
                     path.id === pathRef.current.id) ?
                     {
@@ -532,8 +493,10 @@ export default function MoodboardProvider({ children }) {
             })
         );
         setIsEditingPath(null)
+        setSelectedPath(null)
     }
 
+    // Pdf Download
     const handlePdfDownload = () => {
         const svgElement = document.getElementById('my-svg');
         const fileName = 'vible-file.pdf';
@@ -562,11 +525,9 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Gallery
-
     const addGalleryItem = (item) => {
         setGalleryItems([...galleryItems, item]);
     };
-
     const deleteGalleryItem = (index) => {
         const newItems = [...galleryItems];
         newItems.splice(index, 1);
@@ -629,9 +590,11 @@ export default function MoodboardProvider({ children }) {
         };
         reader.readAsDataURL(e.target.files[0]);
     };
+
     const handleGalleryTypeChange = (event) => {
         setGalleryType(event.target.value)
     }
+
     const handleGalleryAddToBoard = (item) => {
         if (item.type === "color") {
             handleAddGalleryBox(item.content)
@@ -645,24 +608,56 @@ export default function MoodboardProvider({ children }) {
         }
 
     }
+
+    // Helper functions
+    const handleDeleteItem = (id) => {
+        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        setEditingText(null)
+        setEditingImage(null)
+    };
+    const handleItemText = (event) => {
+        setItemText(event.target.value);
+    };
+    const handleItemColor = (event) => {
+        setItemColor(event.target.value);
+    };
+    const handleItemLink = (event) => {
+        setItemLink(event.target.value);
+    };
+    const handleItemUrl = (event) => {
+        setItemUrl(event.target.value);
+    };
+    const handleItemVideoUrl = (event) => {
+        setItemVideoUrl(event.target.value);
+    };
+    const handleItemImageUrl = (event) => {
+        setItemImageUrl(event.target.value);
+    };
+    const handleItemMapUrl = (event) => {
+        setItemMapUrl(event.target.value);
+    };
+    const handleEditBox = (id) => {
+        setEditingText({ status: true, id: id })
+    }
+    const handleStopEditBox = () => {
+        setEditingText(null)
+    }
+
+    // Toggle functions
     const handleDraw = () => {
         setDraw(draw => !draw);
         isDrawing && setIsDrawing(false);
         isErasing && setIsErasing(false);
     }
-
     const handleWrite = () => {
         setWrite(write => !write);
     }
-
     const handleImage = () => {
         setImage(image => !image);
     }
-
     const handleImageLink = () => {
         setImageLink(imageLink => !imageLink);
     }
-
     const handleVideo = () => {
         setVideo(video => !video);
     }
@@ -676,42 +671,9 @@ export default function MoodboardProvider({ children }) {
     const handleMoveObjects = () => {
         setIsMovingObjects(isMovingObjects => !isMovingObjects)
     }
-
-    // Text Contrast
-    const getRGB = (c) => {
-        return parseInt(c, 16) || c
-    }
-
-    const getsRGB = (c) => {
-        return getRGB(c) / 255 <= 0.03928
-            ? getRGB(c) / 255 / 12.92
-            : Math.pow((getRGB(c) / 255 + 0.055) / 1.055, 2.4)
-    }
-
-    const getLuminance = (hexColor) => {
-        return (
-            0.2126 * getsRGB(hexColor.substr(1, 2)) +
-            0.7152 * getsRGB(hexColor.substr(3, 2)) +
-            0.0722 * getsRGB(hexColor.substr(-2))
-        )
-    }
-
-    const getContrast = (f, b) => {
-        const L1 = getLuminance(f)
-        const L2 = getLuminance(b)
-        return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)
-    }
-
-    const getTextColor = (bgColor) => {
-        const whiteContrast = getContrast(bgColor, '#ffffff')
-        const blackContrast = getContrast(bgColor, '#000000')
-        return whiteContrast > blackContrast ? '#ffffff' : '#000000'
-    }
-
     const handleZoomIn = () => {
         setZoom(zoom => zoom -= 100)
     }
-
     const handleZoomOut = () => {
         setZoom(zoom => zoom += 100)
     }

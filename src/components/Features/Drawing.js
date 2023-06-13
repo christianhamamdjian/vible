@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, getDrawingCenter, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp, pathRef } = React.useContext(MoodboardContext);
+    const { paths, isDrawing, getDrawingCenter, currentPath, color, line, isErasing, handleDeletePath, handleMouseDown, handleMouseUp, pathRef } = React.useContext(MoodboardContext);
 
     const { x: originX, y: originY } = getDrawingCenter()
     console.log(originX, originY);
@@ -29,10 +29,17 @@ const Drawing = () => {
                     transform={
                         `
                             translate(${path.x},${path.y}) 
-                            rotate(${path.angle} ${originX} ${originY})  
+                            rotate(${path.angle})  
                             scale(${path.scale})
                         `
                     }
+                    // transform={
+                    //     `
+                    //         translate(${path.x},${path.y}) 
+                    //         rotate(${path.angle} ${originX} ${originY})  
+                    //         scale(${path.scale})
+                    //     `
+                    // }
                     transform-origin={`${originX} ${originY}`}
                     style={{
                         cursor: 'crosshair',
@@ -40,7 +47,7 @@ const Drawing = () => {
                 />
             ))}
             {
-                currentPath && (
+                isDrawing && currentPath && (
                     <path
                         d={currentPath}
                         stroke={color}

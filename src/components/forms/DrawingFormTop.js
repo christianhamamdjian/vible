@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, handleScaleChange, angle, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
+    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, handleScaleChange, rotation, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (
@@ -49,7 +49,7 @@ const DrawingFormTop = () => {
                             min="0"
                             max="360"
                             // value={paths.find(path => path.id === isEditingPath.id).angle}
-                            value={angle}
+                            value={rotation}
                             onChange={(event) => handelLineAngleChange(event, isEditingPath.id)} />
                         <label>Scale:</label>
                         <input
