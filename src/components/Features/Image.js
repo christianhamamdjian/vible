@@ -14,7 +14,8 @@ const Image = ({ item }) => {
                         fill="transparent"
                         style={{ border: '1px solid black', backgroundColor: "red", cursor: 'move' }}
                     />
-                    <image href={item.src}
+                    <image
+                        href={item.src}
                         x="0"
                         y="0"
                         width={item.width || "100"}

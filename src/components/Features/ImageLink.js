@@ -13,7 +13,8 @@ const ImageLink = ({ item }) => {
                         fill="transparent"
                         style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
                     />
-                    <image href={item.imageUrl}
+                    <image
+                        href={item.imageUrl}
                         x="0"
                         y="0"
                         width={item.width || "100"}

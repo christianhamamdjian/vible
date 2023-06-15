@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingForm = () => {
-    const { isDrawing, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
+    const { isDrawing, isErasing, color, line, handleDrawing, handleEraser, handleLineColor, handleLineWidth } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms'>
             <h2>Drawing:</h2>
@@ -11,12 +11,12 @@ const DrawingForm = () => {
                 <input
                     type="color"
                     value={color}
-                    onChange={(event) => handelLineColor(event)} />
+                    onChange={(event) => handleLineColor(event)} />
                 <label>Link thickness:</label>
                 <input
                     type="number"
                     value={line}
-                    onChange={(event) => handelLineWidth(event)} />
+                    onChange={(event) => handleLineWidth(event)} />
                 <button
                     style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                     onClick={handleDrawing}>Add drawing</button>

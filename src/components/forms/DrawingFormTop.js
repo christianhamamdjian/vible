@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, handelLineWidthChange, handelLineColorChange, handelLineAngleChange, handleScaleChange, rotation, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handelLineColor, handelLineWidth } = React.useContext(MoodboardContext);
+    const { paths, handleLineWidthChange, handleLineColorChange, handleLineAngleChange, handleScaleChange, rotation, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handleLineColor, handleLineWidth } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (
@@ -13,12 +13,12 @@ const DrawingFormTop = () => {
                         <input
                             type="color"
                             value={color}
-                            onChange={(event) => handelLineColor(event)} />
+                            onChange={(event) => handleLineColor(event)} />
                         <label>Line width:</label>
                         <input
                             type="number"
                             value={line}
-                            onChange={(event) => handelLineWidth(event)} />
+                            onChange={(event) => handleLineWidth(event)} />
                         <button
                             style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                             onClick={handleDrawing}>Add drawing</button>
@@ -37,12 +37,12 @@ const DrawingFormTop = () => {
                         <input
                             type="color"
                             value={paths.find(path => path.id === isEditingPath.id).color}
-                            onChange={(event) => handelLineColorChange(event, isEditingPath.id)} />
+                            onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         <label>Line width:</label>
                         <input
                             type="number"
                             value={paths.find(path => path.id === isEditingPath.id).line}
-                            onChange={(event) => handelLineWidthChange(event, isEditingPath.id)} />
+                            onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
                         <label>Line angle:</label>
                         <input
                             type="range"
@@ -50,7 +50,7 @@ const DrawingFormTop = () => {
                             max="360"
                             // value={paths.find(path => path.id === isEditingPath.id).angle}
                             value={rotation}
-                            onChange={(event) => handelLineAngleChange(event, isEditingPath.id)} />
+                            onChange={(event) => handleLineAngleChange(event, isEditingPath.id)} />
                         <label>Scale:</label>
                         <input
                             type="range"

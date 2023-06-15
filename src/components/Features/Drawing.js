@@ -18,6 +18,7 @@ const Drawing = () => {
                     ref={pathRef}
                     stroke={path.color}
                     fill="none"
+                    //fill="rgbs(120,65,24,.3)"
                     strokeWidth={path.line}
                     strokeLinecap="round"
                     strokeLinejoin="round"
