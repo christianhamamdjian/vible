@@ -18,7 +18,7 @@ const MoodBoard = () => {
 
             <div className="frame" style={{
                 // overflow: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "scroll"}`,
-                // touchAction: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "scroll"}`'
+                touchAction: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "scroll"}`
                 //overflow: `${(!freezeScreen) ? "visible" : "hidden"}`,
                 // touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
             }}>
