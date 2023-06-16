@@ -177,8 +177,7 @@ export default function MoodboardProvider({ children }) {
     const handleMouseDown = (event, element) => {
         // event.stopPropagation();
         if (isEditingPath) {
-            setIsEditingPath(null)
-            setIsEditingPath(null)
+            stopLineEditing()
         }
         // Start dragging objects
         if (element && !isDrawing && element.type !== "path") {
@@ -477,7 +476,6 @@ export default function MoodboardProvider({ children }) {
 
         setPaths((prevPaths) =>
             prevPaths.map((path) => {
-                console.log(path.id, selectedPath.id)
                 return (
                     path.id === pathRef.current.id) ?
                     {
