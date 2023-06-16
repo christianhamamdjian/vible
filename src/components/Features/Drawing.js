@@ -4,13 +4,8 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const Drawing = () => {
     const { paths, isDrawing, getDrawingCenter, currentPath, pathColor, pathLine, isErasing, handleDeletePath, handleMouseDown, handleMouseUp, pathRef } = React.useContext(MoodboardContext);
 
-<<<<<<< HEAD
     // const { x: originX, y: originY } = getDrawingCenter()
     // console.log(originX, originY);
-=======
-    const { x: originX, y: originY } = getDrawingCenter()
-    //console.log(originX, originY);
->>>>>>> 1a24829 (Renamed state items)
     return (
         <>
             {paths.map((path, index) => (
