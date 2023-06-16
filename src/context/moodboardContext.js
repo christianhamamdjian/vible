@@ -12,11 +12,15 @@ export default function MoodboardProvider({ children }) {
     const [newPathPosition, setNewPathPosition] = useState({})
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isErasing, setIsErasing] = useState(false)
-    const [color, setColor] = useState('#000000')
-    const [line, setLine] = useState(2)
+    const [pathColor, setPathColor] = useState('#000000')
+    const [pathLine, setPathLine] = useState(2)
     const [freezeScreen, setFreezeScreen] = useState(false)
-    const [rotation, setRotation] = useState(0);
-    const [scale, setScale] = useState(1);
+    const [pathRotation, setPathRotation] = useState(0);
+    const [pathScale, setPathScale] = useState(1);
+    const [selectedPath, setSelectedPath] = useState(null);
+    const [draggingPath, setDraggingPath] = useState(false);
+    const [dragOffsetPath, setDragOffsetPath] = useState({ x: 0, y: 0 })
+    const [isPathMoving, setIsPathMoving] = useState(false)
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
@@ -39,11 +43,6 @@ export default function MoodboardProvider({ children }) {
     const [galleryLink, seGalleryLink] = useState('')
     const [galleryError, setGalleryError] = useState('')
     const [galleryShow, setGalleryShow] = useState(false)
-
-    const [selectedPath, setSelectedPath] = useState(null);
-    const [draggingPath, setDraggingPath] = useState(false);
-    const [dragOffsetPath, setDragOffsetPath] = useState({ x: 0, y: 0 })
-    const [isPathMoving, setIsPathMoving] = useState(false)
 
     const [draw, setDraw] = useState(false)
     const [write, setWrite] = useState(false)
@@ -80,7 +79,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleAddGalleryLink = (link) => {
         const itemId = Date.now();
-        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: color, link: link.content, url: link.link, type: "box" };
+        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: pathColor, link: link.content, url: link.link, type: "box" };
         setItems([...items, newBox]);
         setItemText('Text');
         setItemColor('#aabbcc');
@@ -289,7 +288,8 @@ export default function MoodboardProvider({ children }) {
                 id: Date.now(),
                 type: "path",
                 path: currentPath,
-                color, line,
+                color: pathColor,
+                line: pathLine,
                 angle: 0,
                 scale: 1,
                 x: 0,
@@ -300,6 +300,7 @@ export default function MoodboardProvider({ children }) {
         // Save modifications on selected path
         if (newPathPosition && selectedPath && !selectedItem) {
             const { width, height } = pathRef.current.getBBox()
+            const { x, y } = getDrawingCenter()
             setPaths((prevPaths) =>
                 prevPaths.map((path) => {
                     return (
@@ -308,10 +309,12 @@ export default function MoodboardProvider({ children }) {
                             ...path,
                             x: newPathPosition.x,
                             y: newPathPosition.y,
-                            scale: scale,
-                            angle: rotation,
+                            scale: pathScale,
+                            angle: pathRotation,
                             width,
-                            height
+                            height,
+                            centerX: x,
+                            centerY: y,
                         } :
                         path
                 })
@@ -328,8 +331,8 @@ export default function MoodboardProvider({ children }) {
         setDragOffsetPath({ x: 0, y: 0 });
         setCurrentPath(null);
         setNewPathPosition(null)
-        setScale(1)
-        setRotation(0)
+        setPathScale(1)
+        setPathRotation(0)
     };
 
     // Center coordinates for rotation and scaling
@@ -337,8 +340,8 @@ export default function MoodboardProvider({ children }) {
         const path = pathRef.current;
         if (!path) return { x: 0, y: 0 };
         const pathBBox = path.getBBox();
-        const centerX = scale > 1 ? (pathBBox.x + pathBBox.width / 2) * scale : pathBBox.x + pathBBox.width / 2;
-        const centerY = scale > 1 ? (pathBBox.y + pathBBox.height / 2) * scale : pathBBox.y + pathBBox.height / 2;
+        const centerX = pathScale > 1 ? (pathBBox.x + pathBBox.width / 2) * pathScale : pathBBox.x + pathBBox.width / 2;
+        const centerY = pathScale > 1 ? (pathBBox.y + pathBBox.height / 2) * pathScale : pathBBox.y + pathBBox.height / 2;
         return { x: centerX, y: centerY };
     };
 
@@ -424,10 +427,10 @@ export default function MoodboardProvider({ children }) {
         setPaths((prevPaths) => prevPaths.filter((path) => path.path !== erased.path));
     }
     const handleLineColor = (event) => {
-        setColor(event.target.value)
+        setPathColor(event.target.value)
     }
     const handleLineWidth = (event) => {
-        setLine(event.target.value)
+        setPathLine(event.target.value)
     }
     const handleLineWidthChange = (event, id) => {
         setPaths(prevPaths =>
@@ -458,7 +461,7 @@ export default function MoodboardProvider({ children }) {
                 return path;
             })
         )
-        setRotation(parseInt(event.target.value));
+        setPathRotation(parseInt(event.target.value));
     };
     const handleScaleChange = (event, id) => {
         setPaths(prevPaths =>
@@ -469,29 +472,14 @@ export default function MoodboardProvider({ children }) {
                 return path;
             })
         )
-        setScale(parseInt(event.target.value))
+        setPathScale(parseInt(event.target.value))
     };
     const stopLineEditing = () => {
         const { width, height } = pathRef.current.getBBox()
-
-        setPaths((prevPaths) =>
-            prevPaths.map((path) => {
-                return (
-                    path.id === pathRef.current.id) ?
-                    {
-                        ...path,
-                        x: newPathPosition.x,
-                        y: newPathPosition.y,
-                        scale: scale,
-                        angle: rotation,
-                        width,
-                        height
-                    } :
-                    path
-            })
-        );
         setIsEditingPath(null)
         setSelectedPath(null)
+        setPathColor("#000000")
+        setPathLine(2)
     }
 
     // Pdf Download
@@ -686,7 +674,7 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
-            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, color, line, svgRef, pathRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, draggingPath, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, handleDrawing, handleEraser, handleDeletePath, handleLineColor, handleLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handleLineWidthChange, handleLineColorChange, isEditingPath, stopLineEditing, handleLineAngleChange, dragOffsetPath, handlePdfUpload, freezeScreen, getDrawingCenter, handleScaleChange, scale, rotation
+            isDrawing, isPathMoving, handleMovePath, currentPath, paths, isErasing, pathColor, pathLine, svgRef, pathRef, items, itemText, itemColor, itemLink, itemUrl, itemVideoUrl, itemImageUrl, itemMapUrl, selectedItem, editingText, editingImage, draggingItem, draggingPath, dragOffsetItem, handleAddBox, handleImageUpload, handleImageDropUpload, handleAddVideo, handleAddImage, handleAddMap, handleMouseDown, handleMouseMove, handleMouseUp, handleDeleteItem, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemVideoUrl, handleItemImageUrl, handleItemMapUrl, handleEditBox, handleStopEditBox, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleEditImage, handleStopEditImage, handleImageChange, handleDrawing, handleEraser, handleDeletePath, handleLineColor, handleLineWidth, galleryItems, galleryType, galleryError, addGalleryItem, deleteGalleryItem, modelGalleryItem, handleGallerySubmit, handleGalleryImageUpload, handleGalleryTypeChange, handleGalleryContentChange, handleGalleryLinkChange, handleGalleryAddToBoard, handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw, handlePdfDownload, handleClearBoard, isMovingObjects, handleMoveObjects, getTextColor, handleZoomIn, handleZoomOut, zoom, editingBoard, handleEditingBoard, handleGalleryToggle, galleryShow, handleLineWidthChange, handleLineColorChange, isEditingPath, stopLineEditing, handleLineAngleChange, dragOffsetPath, handlePdfUpload, freezeScreen, getDrawingCenter, handleScaleChange, pathScale, pathRotation
         }}>
             {children}
         </MoodboardContext.Provider>
