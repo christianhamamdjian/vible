@@ -340,3 +340,22 @@ button:hover,
   border: none;
   border-radius: 2%;
 }
+
+.side-button {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: rotate(-90deg) translateX(100%);
+  transform-origin: bottom right;
+  z-index: 99;
+  height: 44px;
+  font-size: var(--font-size-large);
+  background-color: var(--color-deep-blue);
+  color: var(--color-white);
+  border: 0;
+  padding: var(--space-m);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.25s ease, color 0.25s ease;
+}

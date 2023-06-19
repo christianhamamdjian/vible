@@ -9,6 +9,7 @@ const Drawing = () => {
             {paths.map((path, index) => (
                 <path
                     key={index}
+                    data-index={path.id}
                     className='draggable'
                     x={path.x}
                     y={path.y}
@@ -26,18 +27,11 @@ const Drawing = () => {
                     onTouchEnd={isErasing ? (() => handleDeletePath(path)) : null}
                     transform={
                         `
-                            translate(${path.x},${path.y}) 
-                            rotate(${path.angle})  
-                            scale(${path.scale})
+                        translate(${path.x},${path.y}) 
+                        rotate(${path.angle})  
+                        scale(${path.scale})
                         `
                     }
-                    // transform={
-                    //     `
-                    //         translate(${path.x},${path.y}) 
-                    //         rotate(${path.angle} ${originX} ${originY})  
-                    //         scale(${path.scale})
-                    //     `
-                    // }
                     transform-origin={`${path.centerX} ${path.centerY}`}
                     style={{
                         cursor: 'crosshair',

@@ -4,6 +4,7 @@ import './App.css';
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
 import { MoodboardContext } from "./context/moodboardContext";
+import SvgRotate from "./components/SvgRotate"
 
 function App() {
   const { isDrawing, freezeScreen, selectedItem, selectedPath } = React.useContext(MoodboardContext);
@@ -13,10 +14,11 @@ function App() {
       overflow: `${!freezeScreen ? "visible" : "hidden"}`,
       touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
     }}>
-      <DrawingFormTop />
+      {/* <DrawingFormTop />
       <SidebarDrawer side="left" />
       <SidebarDrawer side="right" />
-      <MoodBoard />
+      <MoodBoard /> */}
+      <SvgRotate />
     </div >
   );
 }
