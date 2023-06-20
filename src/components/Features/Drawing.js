@@ -2,11 +2,11 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, isDrawing, currentPath, pathColor, pathLine, isErasing, handleDeletePath, handleMouseDown, handleMouseUp, pathRef } = React.useContext(MoodboardContext);
+    const { paths, selectedPath, handlePathClick, handlePathDrag, isDrawing, currentPath, pathColor, pathLine, isErasing, handleDeletePath, handleMouseDown, handleMouseUp, pathRef } = React.useContext(MoodboardContext);
 
     return (
         <>
-            {paths.map((path, index) => (
+            {/* {paths.map((path, index) => (
                 <path
                     key={index}
                     data-index={path.id}
@@ -46,7 +46,20 @@ const Drawing = () => {
                         fill="none"
                         strokeWidth={pathLine}
                     />)
-            }
+            } */}
+            {paths.map((path, index) => (
+                <path
+                    key={index}
+                    d={`M${path.map((point) => `${point.x} ${point.y}`).join(' L')}`}
+                    fill="none"
+                    stroke={index === selectedPath ? 'red' : 'black'}
+                    strokeWidth="2"
+                    onClick={() => handlePathClick(index)}
+                    // onMouseDown={handlePathDrag}
+                    // onTouchStart={handlePathDrag}
+                    onPointerDown={handlePathDrag}
+                />
+            ))}
         </>)
 }
 export default Drawing

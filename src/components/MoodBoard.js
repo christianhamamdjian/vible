@@ -24,12 +24,14 @@ const MoodBoard = () => {
             }}>
                 <svg
                     id="my-svg"
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onTouchStart={handleMouseDown}
-                    onTouchMove={handleMouseMove}
-                    onTouchEnd={handleMouseUp}
+                    // onMouseDown={handleMouseDown}
+                    // onMouseMove={handleMouseMove}
+                    // onMouseUp={handleMouseUp}
+                    // onTouchStart={handleMouseDown}
+                    // onTouchMove={handleMouseMove}
+                    // onTouchEnd={handleMouseUp}
+                    onPointerMove={handleMouseMove}
+                    onPointerUp={handleMouseUp}
                     ref={svgRef}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     style={{ width: '2000', height: '2000', border: '1px solid transparent' }}

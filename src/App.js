@@ -14,11 +14,11 @@ function App() {
       overflow: `${!freezeScreen ? "visible" : "hidden"}`,
       touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
     }}>
-      {/* <DrawingFormTop />
+      <DrawingFormTop />
       <SidebarDrawer side="left" />
       <SidebarDrawer side="right" />
-      <MoodBoard /> */}
-      <SvgRotate />
+      <MoodBoard />
+      {/* <SvgRotate /> */}
     </div >
   );
 }

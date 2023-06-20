@@ -55,6 +55,7 @@ function SvgRotate() {
         const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
 
         if (!drawing) {
+            setSelectedPath(null)
             setDrawing(true);
             setPaths([...paths, [transformedPoint]]);
         }
@@ -211,12 +212,15 @@ function SvgRotate() {
                 ref={svgRef}
                 width="1000"
                 height="1000"
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onTouchStart={handleMouseDown}
-                onTouchMove={handleMouseMove}
-                onTouchEnd={handleMouseUp}
+                // onMouseDown={handleMouseDown}
+                // onMouseMove={handleMouseMove}
+                // onMouseUp={handleMouseUp}
+                // onTouchStart={handleMouseDown}
+                // onTouchMove={handleMouseMove}
+                // onTouchEnd={handleMouseUp}
+                onPointerDown={handleMouseDown}
+                onPointerMove={handleMouseMove}
+                onPointerUp={handleMouseUp}
             >
                 {paths.map((path, index) => (
                     <path
@@ -226,8 +230,9 @@ function SvgRotate() {
                         stroke={index === selectedPath ? 'red' : 'black'}
                         strokeWidth="2"
                         onClick={() => handlePathClick(index)}
-                        onMouseDown={handlePathDrag}
-                        onTouchStart={handlePathDrag}
+                        // onMouseDown={handlePathDrag}
+                        // onTouchStart={handlePathDrag}
+                        onPointerDown={handlePathDrag}
                     />
                 ))}
             </svg>

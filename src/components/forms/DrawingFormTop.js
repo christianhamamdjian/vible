@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, handleLineWidthChange, handleLineColorChange, handleLineAngleChange, handleScaleChange, rotation, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handleLineColor, handleLineWidth } = React.useContext(MoodboardContext);
+    const { paths, handleLineWidthChange, handleLineColorChange, handleLineAngleChange, handleScaleChange, rotation, scale, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handleLineColor, handleLineWidth, selectedPath, handleRotateChange, scaling } = React.useContext(MoodboardContext);
     // console.log(isEditingPath);
     return (
         <div className='itemForms-top'>
@@ -44,7 +44,40 @@ const DrawingFormTop = () => {
                             type="number"
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
-                        <label>Line angle:</label>
+                        <div>
+                            <h3>Selected Path:</h3>
+                            {selectedPath !== null ? (
+                                <>
+                                    <div>
+                                        <label htmlFor="rotate">Rotate:</label>
+                                        <input
+                                            type="range"
+                                            id="rotate"
+                                            min="0"
+                                            max="360"
+                                            step="1"
+                                            value={rotation || 0} // replace with the actual rotate value of the selected path
+                                            onChange={handleRotateChange}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="scale">Scale:</label>
+                                        <input
+                                            type="range"
+                                            id="scale"
+                                            min="0.1"
+                                            max="2"
+                                            step="0.1"
+                                            value={scaling || 1} // replace with the actual scale value of the selected path
+                                            onChange={handleScaleChange}
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <p>No path selected.</p>
+                            )}
+                        </div>
+                        {/* <label>Line angle:</label>
                         <input
                             type="range"
                             min="0"
@@ -60,7 +93,7 @@ const DrawingFormTop = () => {
                             step="0.01"
                             value={scale}
                             onChange={(event) => handleScaleChange(event, isEditingPath.id)}
-                        />
+                        /> */}
                         <button
                             onClick={stopLineEditing}>
                             Done
