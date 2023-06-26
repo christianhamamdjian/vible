@@ -15,9 +15,11 @@ function App() {
       touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
     }}>
       <DrawingFormTop />
-      <SidebarDrawer side="left" />
-      <SidebarDrawer side="right" />
-      <MoodBoard />
+      <div className="container" >
+        <SidebarDrawer side="left" />
+        <MoodBoard />
+        <SidebarDrawer side="right" />
+      </div>
       {/* <SvgRotate /> */}
     </div >
   );

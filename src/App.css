@@ -1,27 +1,38 @@
 body {
   background-color: rgb(255, 255, 255);
+  margin: 0;
+  padding: 0;
 }
 
 
 
 .app {
+  width: 100vw;
+  height: 100vh;
 
-  margin: 0 auto;
-  display: flex;
+  /* margin: 0 auto;
+  display: flex; */
   background: transparent;
   color: rgb(72, 49, 49);
   /* overflow-y: hidden; */
 }
 
+.container {
+  display: flex;
+  height: 100vh;
+}
 
 .frame {
   /* width: 100vw;
   height: 100vh; */
-  position: fixed;
+
+  flex-grow: 1;
+
+  /* position: fixed; */
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
-  /* overflow: scroll; */
+  overflow: scroll;
 }
 
 .left-sidebar {
@@ -75,28 +86,40 @@ body {
 
 
 .Drawer__Container--left {
-  padding: 0 1rem;
-  height: 100vh;
-  width: 12rem;
+  flex-shrink: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  padding-top: 4rem;
+
+  /* padding: 0 1rem; */
+  /* height: 100vh;
+  width: 12rem; */
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  transform: translate(-14rem);
-  position: fixed;
+  /* transform: translate(-14rem);
+  position: fixed; */
   z-index: 98;
   overflow-y: auto;
 }
 
 .Drawer__Container--right {
-  padding: 4rem 1rem 0;
-  height: 100vh;
-  width: 12rem;
+  flex-shrink: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  padding-top: 4rem;
+
+  /* padding: 4rem 1rem 0; */
+  /* height: 100vh;
+  width: 12rem; */
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out;
   transform: translate(calc(100vw + 14rem));
   position: relative;
-  right: 0px;
+  right: 0px; */
   z-index: 98;
   overflow-y: hidden;
 }
@@ -109,26 +132,31 @@ body {
   background-color: rgb(99, 89, 202);
 }
 
-.Drawer__right--isOpen {
-  transform: translate(calc(100vw - 14rem));
+.Drawer__right--isOpen,
+.Drawer__left--isOpen {
+  width: 300px;
+  /* transform: translate(calc(100vw - 14rem)); */
 }
 
-.Drawer__left--isOpen {
+/* .Drawer__left--isOpen {
   transform: translate(0);
-}
+} */
 
 .Drawer__toggle-right {
+  max-height: 30px;
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 0px;
+  right: 0px;
+
   z-index: 99;
   border-radius: 0px 0px 0px 12px;
 }
 
 .Drawer__toggle-left {
+  max-height: 30px;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
   z-index: 99;
   border-radius: 0px 0px 12px 0px;
 }
@@ -358,4 +386,54 @@ button:hover,
   border-top-right-radius: var(--radius);
   cursor: pointer;
   transition: all 0.25s ease, color 0.25s ease;
+}
+
+
+
+
+
+.rightButton {
+  max-height: 30px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+
+.leftButton {
+  max-height: 30px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.insideContainer {
+  display: flex;
+  height: 100vh;
+}
+
+.whiteboard {
+  flex-grow: 1;
+  background-color: #ffffff;
+  /* Additional styles for the whiteboard */
+}
+
+.column {
+  flex-shrink: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  /* Additional styles for the columns */
+}
+
+.left {
+  background-color: #f2f2f2;
+}
+
+.right {
+  background-color: #e6e6e6;
 }

@@ -10,7 +10,7 @@ const DrawingFormTop = () => {
                 <>
                     <h2>Drawing:</h2>
                     <div className='inputs-top'>
-                        <label>Line color:</label>
+                        {/* <label>Line color:</label>
                         <input
                             type="color"
                             value={color}
@@ -19,7 +19,7 @@ const DrawingFormTop = () => {
                         <input
                             type="number"
                             value={line}
-                            onChange={(event) => handleLineWidth(event)} />
+                            onChange={(event) => handleLineWidth(event)} /> */}
                         <button
                             style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                             onClick={handleDrawing}>Add drawing</button>
@@ -34,7 +34,7 @@ const DrawingFormTop = () => {
                 <>
                     <h2>Drawing:</h2>
                     <div className='inputs-top'>
-                        <label>Line color:</label>
+                        {/* <label>Line color:</label>
                         <input
                             type="color"
                             value={paths.find(path => path.id === isEditingPath.id).color}
@@ -43,7 +43,7 @@ const DrawingFormTop = () => {
                         <input
                             type="number"
                             value={paths.find(path => path.id === isEditingPath.id).line}
-                            onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
+                            onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} /> */}
                         <div>
                             <h3>Selected Path:</h3>
                             {selectedPath !== null ? (

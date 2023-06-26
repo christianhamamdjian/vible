@@ -7,7 +7,7 @@ const MoodboardContext = React.createContext();
 export default function MoodboardProvider({ children }) {
 
     const [isDrawing, setIsDrawing] = useState(false)
-    const [currentPath, setCurrentPath] = useState({ x: 0, y: 0 })
+    //const [currentPath, setCurrentPath] = useState({ x: 0, y: 0 })
     //const [paths, setPaths] = useLocalStorage("paths", [])
     const [newPathPosition, setNewPathPosition] = useState({})
 
@@ -309,18 +309,28 @@ export default function MoodboardProvider({ children }) {
 
         // Drawing
         if (!isDrawing) return;
-        if (isDrawing && currentPath && !isErasing && !selectedItem) {
+        if (isDrawing &&
+            //currentPath && 
+            !isErasing && !selectedItem) {
             const { clientX, clientY } = event;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
             svgPoint.y = clientY;
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
 
-            const currentPath = [...paths[paths.length - 1]];
-            currentPath.push(transformedPoint);
-            const updatedPaths = [...paths];
-            updatedPaths[paths.length - 1] = currentPath;
-            setPaths(updatedPaths);
+            if (paths && paths.length > 0) {
+                const currentPath = [...paths[paths.length - 1]];
+                currentPath.push(transformedPoint);
+                const updatedPaths = [...paths];
+                updatedPaths[paths.length - 1] = currentPath;
+                setPaths(updatedPaths);
+            } else {
+                const currentPath = [...paths];
+                currentPath.push(transformedPoint);
+                const updatedPaths = [...paths];
+                updatedPaths[paths.length] = currentPath;
+                setPaths(updatedPaths);
+            }
             // if (event.buttons !== 1) return;
             // const { clientX, clientY } = event;
             // const svg = svgRef.current;
@@ -342,7 +352,8 @@ export default function MoodboardProvider({ children }) {
 
         // Creating the path and storing it
         if (isDrawing) {
-            setDrawing(false);
+            setIsDrawing(false);
+            setSelectedPath(null)
             // setPaths((prevPaths) => [...prevPaths, {
             //     id: Date.now(),
             //     type: "path",
@@ -394,6 +405,7 @@ export default function MoodboardProvider({ children }) {
 
     const handlePathClick = (index) => {
         setSelectedPath(index);
+        setIsEditingPath({ status: true, id: index })
     };
 
     const handlePathDrag = (event) => {
@@ -856,7 +868,7 @@ export default function MoodboardProvider({ children }) {
             // Properties
             isDrawing,
             isPathMoving,
-            currentPath,
+            //currentPath,
             paths,
             isErasing,
             pathColor,
@@ -960,7 +972,8 @@ export default function MoodboardProvider({ children }) {
             handleLineAngleChange,
             handlePdfUpload,
             getDrawingCenter,
-            handleScaleChange
+            handleScaleChange,
+            handleRotateChange
         }}>
             {children}
         </MoodboardContext.Provider>
