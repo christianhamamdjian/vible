@@ -4,7 +4,6 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const DrawingFormTop = () => {
     const { paths, rotation, scaling, stopLineEditing, isDrawing, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange } = React.useContext(MoodboardContext);
 
-    console.log(isEditingPath && isEditingPath);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (
@@ -46,7 +45,6 @@ const DrawingFormTop = () => {
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
                         <div>
-                            <h3>Selected Path:</h3>
                             {selectedPath !== null ? (
                                 <>
                                     <div>

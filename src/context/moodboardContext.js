@@ -52,57 +52,52 @@ export default function MoodboardProvider({ children }) {
     const [editingBoard, setEditingBoard] = useState(false)
 
     const [drawing, setDrawing] = useState(false);
-    // const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
-    const [paths, setPaths] = useState([]);
+    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
     const [rotation, setRotation] = useState([]);
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
     const svgRef = useRef(null);
 
-    // useEffect(() => {
-    //     loadPathsFromLocalStorage();
-    // }, []);
+    useEffect(() => {
+        loadPathsFromLocalStorage();
+    }, []);
 
-    // useEffect(() => {
-    //     savePathsToLocalStorage();
-    // }, [paths]);
+    useEffect(() => {
+        savePathsToLocalStorage();
+    }, [paths]);
 
-    // function loadPathsFromLocalStorage() {
-    //     const savedPaths = localStorage.getItem('svgPaths');
-    //     const pathList = savedPaths && JSON.parse(savedPaths)
-    //     const convertedPaths = pathList && pathList.map(path => {
-    //         const singlePath = path.map(d => convertFromSVGPath(d))
-    //         return singlePath[0]
-    //     })
-    //     return convertedPaths
-    // };
+    function loadPathsFromLocalStorage() {
+        const savedPaths = localStorage.getItem('paths');
+        const pathList = savedPaths && JSON.parse(savedPaths)
+        const convertedPaths = pathList && pathList.map(path => {
+            const singlePath = path["path"].map(d => convertFromSVGPath(d))
+            return ({ ...path, path: singlePath[0] })
+        })
+        return convertedPaths
+    };
 
-    // function convertFromSVGPath(d) {
-    //     const commands = d.split(/[A-Za-z]/).filter(Boolean);
-    //     const points = [];
+    function convertFromSVGPath(d) {
+        const commands = d.split(/[A-Za-z]/).filter(Boolean);
+        const points = [];
 
-    //     commands.forEach((command) => {
-    //         const values = command.trim().split(/[\s,]+/).filter(Boolean);
+        commands.forEach((command) => {
+            const values = command.trim().split(/[\s,]+/).filter(Boolean);
 
-    //         for (let i = 0; i < values.length; i += 2) {
-    //             const x = parseFloat(values[i]);
-    //             const y = parseFloat(values[i + 1]);
-    //             points.push({ x, y });
-    //         }
-    //     });
-    //     return points;
-    // };
+            for (let i = 0; i < values.length; i += 2) {
+                const x = parseFloat(values[i]);
+                const y = parseFloat(values[i + 1]);
+                points.push({ x, y });
+            }
+        });
+        return points;
+    };
 
-    // function savePathsToLocalStorage() {
-    //     const savingPaths = paths.map((line) => {
-    //         const { extractedPath } = line
-    //         return ({
-    //             path: `M${extractedPath.map((point) => `${point.x} ${point.y}`).join(' L')}`
-    //         })
-
-    //     })
-    //     localStorage.setItem('svgPaths', JSON.stringify(savingPaths));
-    // };
+    function savePathsToLocalStorage() {
+        const savingPaths = paths.map((path) => {
+            return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
+        })
+        localStorage.setItem('paths', JSON.stringify(savingPaths));
+    };
 
     // Add Elements
     const handleAddBox = (event) => {
@@ -253,7 +248,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         // Start drawing
-        if (!drawing) {
+        if (isDrawing && !drawing) {
             const { clientX, clientY } = event;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
@@ -288,9 +283,7 @@ export default function MoodboardProvider({ children }) {
             svgPoint.x = clientX;
             svgPoint.y = clientY;
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
-
             const currentPath = { ...paths[paths.length - 1] };
-            console.log(currentPath["path"])
             currentPath["path"].push(transformedPoint);
             const updatedPaths = [...paths];
             updatedPaths[paths.length - 1] = currentPath;
@@ -304,27 +297,24 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Mouse Up
-    const handleMouseUp = (event) => {
+    const handleMouseUp = () => {
         if (drawing) {
             setDrawing(false);
         }
-        // // Resetting
-        // setFreezeScreen(false)
-        // setSelectedItem(null)
-        // // setSelectedPath(null)
-        // setDraggingItem(false);
-        // // setDraggingPath(false);
-        // setDragOffsetItem({ x: 0, y: 0 });
-        // // setDragOffsetPath({ x: 0, y: 0 });
-        // // setCurrentPath(null);
-        // // setNewPathPosition(null)
-        // // setPathScale(1)
-        // // setPathRotation(0)
+        // Resetting
+        setFreezeScreen(false)
+        setSelectedItem(null)
+        setDraggingItem(false);
+        setDragOffsetItem({ x: 0, y: 0 });
     };
 
     const handlePathClick = (index, id) => {
-        setSelectedPath(index);
-        setIsEditingPath({ status: true, id: id })
+        if (isErasing) {
+            handleDeletePath(id)
+        } else {
+            setSelectedPath(index);
+            setIsEditingPath({ status: true, id: id })
+        }
     };
 
     const handlePathDrag = (event) => {
@@ -528,7 +518,7 @@ export default function MoodboardProvider({ children }) {
         setIsPathMoving(false)
     }
     const handleDeletePath = (erased) => {
-        setPaths((prevPaths) => prevPaths.filter((path) => path.path !== erased.path));
+        setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased));
     }
     const handleLineColor = (event) => {
         setPathColor(event.target.value)
@@ -750,7 +740,6 @@ export default function MoodboardProvider({ children }) {
         setZoom(2000)
     }
     const handleGalleryToggle = () => {
-        console.log("galleryShow")
         setGalleryShow(galleryShow => !galleryShow)
     }
 
