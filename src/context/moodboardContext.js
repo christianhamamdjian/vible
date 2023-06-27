@@ -52,50 +52,57 @@ export default function MoodboardProvider({ children }) {
     const [editingBoard, setEditingBoard] = useState(false)
 
     const [drawing, setDrawing] = useState(false);
-    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
+    // const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
+    const [paths, setPaths] = useState([]);
     const [rotation, setRotation] = useState([]);
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
     const svgRef = useRef(null);
 
-    function savePathsToLocalStorage() {
-        const savingPaths = paths.map(path => ([`M${path.map((point) => `${point.x} ${point.y}`).join(' L')}`]))
-        localStorage.setItem('svgPaths', JSON.stringify(savingPaths));
-    };
+    // useEffect(() => {
+    //     loadPathsFromLocalStorage();
+    // }, []);
 
-    function loadPathsFromLocalStorage() {
-        const savedPaths = localStorage.getItem('svgPaths');
-        const pathList = savedPaths && JSON.parse(savedPaths)
-        const convertedPaths = pathList && pathList.map(path => {
-            const singlePath = path.map(d => convertFromSVGPath(d))
-            return singlePath[0]
-        })
-        return convertedPaths
-    };
-    // From locaStorage 
-    function convertFromSVGPath(d) {
-        const commands = d.split(/[A-Za-z]/).filter(Boolean);
-        const points = [];
+    // useEffect(() => {
+    //     savePathsToLocalStorage();
+    // }, [paths]);
 
-        commands.forEach((command) => {
-            const values = command.trim().split(/[\s,]+/).filter(Boolean);
+    // function loadPathsFromLocalStorage() {
+    //     const savedPaths = localStorage.getItem('svgPaths');
+    //     const pathList = savedPaths && JSON.parse(savedPaths)
+    //     const convertedPaths = pathList && pathList.map(path => {
+    //         const singlePath = path.map(d => convertFromSVGPath(d))
+    //         return singlePath[0]
+    //     })
+    //     return convertedPaths
+    // };
 
-            for (let i = 0; i < values.length; i += 2) {
-                const x = parseFloat(values[i]);
-                const y = parseFloat(values[i + 1]);
-                points.push({ x, y });
-            }
-        });
-        return points;
-    };
-    useEffect(() => {
-        loadPathsFromLocalStorage();
-    }, []);
+    // function convertFromSVGPath(d) {
+    //     const commands = d.split(/[A-Za-z]/).filter(Boolean);
+    //     const points = [];
 
-    useEffect(() => {
-        savePathsToLocalStorage();
-    }, [paths]);
+    //     commands.forEach((command) => {
+    //         const values = command.trim().split(/[\s,]+/).filter(Boolean);
 
+    //         for (let i = 0; i < values.length; i += 2) {
+    //             const x = parseFloat(values[i]);
+    //             const y = parseFloat(values[i + 1]);
+    //             points.push({ x, y });
+    //         }
+    //     });
+    //     return points;
+    // };
+
+    // function savePathsToLocalStorage() {
+    //     const savingPaths = paths.map((line) => {
+    //         const { extractedPath } = line
+    //         return ({
+    //             path: `M${extractedPath.map((point) => `${point.x} ${point.y}`).join(' L')}`
+    //         })
+
+    //     })
+    //     localStorage.setItem('svgPaths', JSON.stringify(savingPaths));
+    // };
 
     // Add Elements
     const handleAddBox = (event) => {
@@ -230,7 +237,6 @@ export default function MoodboardProvider({ children }) {
         if (!isDrawing && !isErasing && element && element.type === "path") {
 
             setDraggingPath(true);
-            setIsEditingPath({ status: true, id: element.id })
 
             let selectedElement = event.target.closest(`path[data-index="${element.id}"]`)
             let transformMatrix = selectedElement.getCTM();
@@ -255,7 +261,7 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
             setSelectedPath(null)
             setDrawing(true);
-            setPaths([...paths, [transformedPoint]]);
+            setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
         }
     };
 
@@ -283,8 +289,9 @@ export default function MoodboardProvider({ children }) {
             svgPoint.y = clientY;
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
 
-            const currentPath = [...paths[paths.length - 1]];
-            currentPath.push(transformedPoint);
+            const currentPath = { ...paths[paths.length - 1] };
+            console.log(currentPath["path"])
+            currentPath["path"].push(transformedPoint);
             const updatedPaths = [...paths];
             updatedPaths[paths.length - 1] = currentPath;
             setPaths(updatedPaths);
@@ -301,45 +308,6 @@ export default function MoodboardProvider({ children }) {
         if (drawing) {
             setDrawing(false);
         }
-        // Creating the path and storing it
-        // if (isDrawing) {
-        //     setIsDrawing(false);
-        //     setSelectedPath(null)
-        //     // setPaths((prevPaths) => [...prevPaths, {
-        //     //     id: Date.now(),
-        //     //     type: "path",
-        //     //     path: currentPath,
-        //     //     color: pathColor,
-        //     //     line: pathLine,
-        //     //     angle: 0,
-        //     //     scale: 1,
-        //     //     x: 0,
-        //     //     y: 0,
-        //     // }]);
-        // }
-
-        // // Save modifications on selected path
-        // // if (newPathPosition && selectedPath && !selectedItem) {
-        // //     const { width, height } = pathRef.current.getBBox()
-        // //     const { x, y } = getDrawingCenter()
-        // //     setPaths((prevPaths) =>
-        // //         prevPaths.map((path) => {
-        // //             return (
-        // //                 path.id === selectedPath.id) ?
-        // //                 {
-        // //                     ...path,
-        // //                     x: newPathPosition.x,
-        // //                     y: newPathPosition.y,
-        // //                     width,
-        // //                     height,
-        // //                     centerX: x,
-        // //                     centerY: y,
-        // //                 } :
-        // //                 path
-        // //         })
-        // //     );
-        // // }
-
         // // Resetting
         // setFreezeScreen(false)
         // setSelectedItem(null)
@@ -354,9 +322,9 @@ export default function MoodboardProvider({ children }) {
         // // setPathRotation(0)
     };
 
-    const handlePathClick = (index) => {
+    const handlePathClick = (index, id) => {
         setSelectedPath(index);
-        setIsEditingPath({ status: true, id: index })
+        setIsEditingPath({ status: true, id: id })
     };
 
     const handlePathDrag = (event) => {
@@ -374,14 +342,15 @@ export default function MoodboardProvider({ children }) {
             if (selectedPath !== null) {
                 const updatedPaths = paths.map((path, index) => {
                     if (index === selectedPath) {
-                        return path.map((point) => ({
-                            x: point.x + deltaX,
-                            y: point.y + deltaY,
-                        }));
+                        return ({
+                            ...path, path: path["path"].map((point) => ({
+                                x: point.x + deltaX,
+                                y: point.y + deltaY,
+                            }))
+                        })
                     }
                     return path;
                 });
-
                 setPaths(updatedPaths);
             }
         };
@@ -403,8 +372,10 @@ export default function MoodboardProvider({ children }) {
         const rotate = parseInt(event.target.value);
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
-                const center = getCenterPoint(path);
-                return rotatePath(path, center, rotate);
+                const center = getCenterPoint(path["path"]);
+                return ({
+                    ...path, path: rotatePath(path["path"], center, rotate)
+                })
             }
             return path;
         });
@@ -416,8 +387,10 @@ export default function MoodboardProvider({ children }) {
         const scale = parseFloat(event.target.value);
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
-                const center = getCenterPoint(path);
-                return scalePath(path, center, scale);
+                const center = getCenterPoint(path["path"]);
+                return ({
+                    ...path, path: scalePath(path["path"], center, scale)
+                })
             }
             return path;
         });

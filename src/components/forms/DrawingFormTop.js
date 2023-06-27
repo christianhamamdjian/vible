@@ -2,7 +2,9 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, rotation, scaling, stopLineEditing, isDrawing, isEditingPath, isErasing, color, line, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange } = React.useContext(MoodboardContext);
+    const { paths, rotation, scaling, stopLineEditing, isDrawing, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange } = React.useContext(MoodboardContext);
+
+    console.log(isEditingPath && isEditingPath);
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (
@@ -12,12 +14,12 @@ const DrawingFormTop = () => {
                         <label>Line color:</label>
                         <input
                             type="color"
-                            value={color}
+                            value={pathColor}
                             onChange={(event) => handleLineColor(event)} />
                         <label>Line width:</label>
                         <input
                             type="number"
-                            value={line}
+                            value={pathLine}
                             onChange={(event) => handleLineWidth(event)} />
                         <button
                             style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
@@ -82,7 +84,8 @@ const DrawingFormTop = () => {
                         </button>
                     </div>
                 </>
-            )}
-        </div>)
+            )
+            }
+        </div >)
 }
 export default DrawingFormTop
