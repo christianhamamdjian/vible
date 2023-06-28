@@ -11,14 +11,14 @@ import Drawing from "./Features/Drawing"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, freezeScreen, handleDrawing, editingText, isPathMoving, isErasing, isMovingObjects, selectedItem, selectedPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
+    const { isDrawing, isEditingPath, freezeScreen, handleDrawing, editingText, isPathMoving, isErasing, isMovingObjects, selectedItem, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
 
     return (
         <>
 
             <div className="frame" style={{
                 // overflow: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "hidden" : "scroll"}`,
-                touchAction: `${(isDrawing || isErasing || (selectedItem && draggingItem) || isMovingObjects) ? "none" : "scroll"}`
+                touchAction: `${(draggingPath || draggingItem) ? "none" : "scroll"}`
                 //overflow: `${(!freezeScreen) ? "visible" : "hidden"}`,
                 // touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
             }}>

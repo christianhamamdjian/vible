@@ -7,12 +7,13 @@ import { MoodboardContext } from "./context/moodboardContext";
 import SvgRotate from "./components/SvgRotate"
 
 function App() {
-  const { isDrawing, freezeScreen, selectedItem, selectedPath } = React.useContext(MoodboardContext);
+  const { isDrawing, freezeScreen, selectedItem, selectedPath, draggingPath, draggingItem } = React.useContext(MoodboardContext);
 
   return (
     <div className="app" style={{
-      overflow: `${!freezeScreen ? "visible" : "hidden"}`,
-      touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
+      overflow: `${(draggingPath || draggingItem) ? "visible" : "hidden"}`,
+      // touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
+      touchAction: `${(draggingPath || draggingItem) ? "none" : "scroll"}`
     }}>
       <DrawingFormTop />
       <div className="container" >

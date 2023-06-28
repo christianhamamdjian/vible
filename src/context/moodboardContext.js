@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createContext } from "react";
 import { useLocalStorage } from "../components/hooks/useLocalStorage";
 import getTextColor from "../components/utils/getTextColor";
 import jsPDF from "jspdf"
 
-const MoodboardContext = React.createContext();
+const MoodboardContext = createContext();
 export default function MoodboardProvider({ children }) {
 
     const [isDrawing, setIsDrawing] = useState(false)
     const [isEditingPath, setIsEditingPath] = useState(null)
+    const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(2)
@@ -299,13 +300,13 @@ export default function MoodboardProvider({ children }) {
     // Mouse Up
     const handleMouseUp = () => {
         if (drawing) {
-            setDrawing(false);
+            setDrawing(false)
         }
         // Resetting
         setFreezeScreen(false)
         setSelectedItem(null)
-        setDraggingItem(false);
-        setDragOffsetItem({ x: 0, y: 0 });
+        setDraggingItem(false)
+        setDragOffsetItem({ x: 0, y: 0 })
     };
 
     const handlePathClick = (index, id) => {
@@ -346,16 +347,12 @@ export default function MoodboardProvider({ children }) {
         };
 
         const handleMouseUp = () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
-            window.removeEventListener('touchmove', handleMouseMove);
-            window.removeEventListener('touchend', handleMouseUp);
+            window.removeEventListener('pointermove', handleMouseMove);
+            window.removeEventListener('pointerup', handleMouseUp);
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', handleMouseUp);
-        window.addEventListener('touchmove', handleMouseMove);
-        window.addEventListener('touchend', handleMouseUp);
+        window.addEventListener('pointermove', handleMouseMove);
+        window.addEventListener('pointerup', handleMouseUp);
     };
 
     const handleRotateChange = (event) => {
@@ -440,7 +437,11 @@ export default function MoodboardProvider({ children }) {
             return scaledPoint;
         });
     };
-
+    const handleEditPaths = () => {
+        setIsEditingPaths(isEditingPaths => !isEditingPaths)
+        setIsDrawing(false)
+        setIsErasing(false)
+    }
     // Text Box
     const handleItemTextChange = (event, id) => {
         setItems(prevItems =>
@@ -515,7 +516,7 @@ export default function MoodboardProvider({ children }) {
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing);
         setIsDrawing(false)
-        setIsPathMoving(false)
+        setIsEditingPaths(false)
     }
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased));
@@ -783,6 +784,7 @@ export default function MoodboardProvider({ children }) {
             editingBoard,
             galleryShow,
             isEditingPath,
+            isEditingPaths,
             dragOffsetPath,
             freezeScreen,
             rotation,
@@ -850,7 +852,8 @@ export default function MoodboardProvider({ children }) {
             stopLineEditing,
             handlePdfUpload,
             handleScaleChange,
-            handleRotateChange
+            handleRotateChange,
+            handleEditPaths
         }}>
             {children}
         </MoodboardContext.Provider>

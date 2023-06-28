@@ -1,20 +1,18 @@
+* {
+  font-size: .85rem;
+}
+
 body {
   background-color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
 }
 
-
-
 .app {
   width: 100vw;
   height: 100vh;
-
-  /* margin: 0 auto;
-  display: flex; */
   background: transparent;
   color: rgb(72, 49, 49);
-  /* overflow-y: hidden; */
 }
 
 .container {
@@ -23,12 +21,7 @@ body {
 }
 
 .frame {
-  /* width: 100vw;
-  height: 100vh; */
-
   flex-grow: 1;
-
-  /* position: fixed; */
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   border: 2px solid rgb(221, 221, 221);
@@ -46,13 +39,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: .8rem;
-  /* overflow: hidden; */
 }
 
 .itemForms {
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  /* border: 1px solid rgb(221, 221, 221); */
   padding: .8rem .4rem;
   border-radius: 12px;
   z-index: 100;
@@ -68,9 +59,7 @@ body {
   gap: .8rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  /* border: 1px solid rgb(221, 221, 221); */
   padding: .8rem .4rem;
-  /* border-radius: 12px; */
   z-index: 100;
 }
 
@@ -91,15 +80,9 @@ body {
   overflow: hidden;
   transition: width 0.3s ease;
   padding-top: 4rem;
-
-  /* padding: 0 1rem; */
-  /* height: 100vh;
-  width: 12rem; */
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  /* transform: translate(-14rem);
-  position: fixed; */
   z-index: 98;
   overflow-y: auto;
 }
@@ -110,16 +93,8 @@ body {
   overflow: hidden;
   transition: width 0.3s ease;
   padding-top: 4rem;
-
-  /* padding: 4rem 1rem 0; */
-  /* height: 100vh;
-  width: 12rem; */
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  /* transition: all 0.3s ease-in-out;
-  transform: translate(calc(100vw + 14rem));
-  position: relative;
-  right: 0px; */
   z-index: 98;
   overflow-y: hidden;
 }
@@ -135,12 +110,7 @@ body {
 .Drawer__right--isOpen,
 .Drawer__left--isOpen {
   width: 300px;
-  /* transform: translate(calc(100vw - 14rem)); */
 }
-
-/* .Drawer__left--isOpen {
-  transform: translate(0);
-} */
 
 .Drawer__toggle-right {
   max-height: 30px;
@@ -249,7 +219,6 @@ li {
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
 }
 
-
 li button {
   color: #cbd5e1;
 }
@@ -335,10 +304,6 @@ button:hover,
   left: 0px;
 }
 
-
-
-
-
 .background {
   fill: #eee;
 }
@@ -346,11 +311,6 @@ button:hover,
 .static {
   cursor: not-allowed;
 }
-
-/* .draggable {
-  cursor: move;
-} */
-
 
 
 #switcher {
@@ -388,10 +348,6 @@ button:hover,
   transition: all 0.25s ease, color 0.25s ease;
 }
 
-
-
-
-
 .rightButton {
   max-height: 30px;
   position: fixed;
@@ -419,7 +375,6 @@ button:hover,
 .whiteboard {
   flex-grow: 1;
   background-color: #ffffff;
-  /* Additional styles for the whiteboard */
 }
 
 .column {
@@ -427,7 +382,6 @@ button:hover,
   width: 0;
   overflow: hidden;
   transition: width 0.3s ease;
-  /* Additional styles for the columns */
 }
 
 .left {
