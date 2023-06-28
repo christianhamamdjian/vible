@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Drawing = () => {
-    const { paths, selectedPath, handlePathClick, handlePathDrag, isEditingPaths } = React.useContext(MoodboardContext);
+    const { paths, selectedPath, handlePathClick, handlePathDrag } = React.useContext(MoodboardContext);
     return (
         <>
             {paths.map((path, index) => (
@@ -15,7 +15,7 @@ const Drawing = () => {
                     // stroke={index === selectedPath ? 'red' : `${path.color}`}
                     stroke={path.color}
                     strokeWidth={path.line}
-                    onClick={() => isEditingPaths && handlePathClick(index, path.id)}
+                    onClick={() => handlePathClick(index, path.id)}
                     onPointerDown={handlePathDrag}
                     style={{ cursor: 'grabbing', filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' : 'none'} ` }}
                 />

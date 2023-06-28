@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, editingBoard } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -34,7 +34,7 @@ const Pdf = ({ item }) => {
                             style={{ cursor: 'move' }}>
                         </object>
                     </foreignObject>
-                    {editingBoard && <><circle
+                    {isEditingBoard && <><circle
                         cx="0"
                         cy="0"
                         r="8"

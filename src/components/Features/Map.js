@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, editingBoard } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleDeleteItem, handleMouseUp, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -19,10 +19,10 @@ const Map = ({ item }) => {
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
                         onTouchEnd={handleMouseUp}
                     >
-                        <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }} draggable="true"></div>
-                        <iframe draggable="true" src={item.mapUrl} width="300" height="200" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
+                        <iframe src={item.mapUrl} width="300" height="200" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </foreignObject>
-                    {editingBoard && <><circle
+                    {isEditingBoard && <><circle
                         cx="0"
                         cy="0"
                         r="8"

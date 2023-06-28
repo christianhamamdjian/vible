@@ -50,7 +50,7 @@ export default function MoodboardProvider({ children }) {
     const pathRef = useRef(null)
 
     const [zoom, setZoom] = useState(2000)
-    const [editingBoard, setEditingBoard] = useState(false)
+    const [isEditingBoard, setisEditingBoard] = useState(false)
 
     const [drawing, setDrawing] = useState(false);
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
@@ -312,7 +312,8 @@ export default function MoodboardProvider({ children }) {
     const handlePathClick = (index, id) => {
         if (isErasing) {
             handleDeletePath(id)
-        } else {
+        }
+        if (isEditingPaths) {
             setSelectedPath(index);
             setIsEditingPath({ status: true, id: id })
         }
@@ -737,7 +738,7 @@ export default function MoodboardProvider({ children }) {
         setZoom(zoom => zoom += 100)
     }
     const handleEditingBoard = () => {
-        setEditingBoard(editingBoard => !editingBoard)
+        setisEditingBoard(isEditingBoard => !isEditingBoard)
         setZoom(2000)
     }
     const handleGalleryToggle = () => {
@@ -781,7 +782,7 @@ export default function MoodboardProvider({ children }) {
             draw,
             isMovingObjects,
             zoom,
-            editingBoard,
+            isEditingBoard,
             galleryShow,
             isEditingPath,
             isEditingPaths,

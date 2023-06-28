@@ -52,24 +52,24 @@ body {
 .itemForms-top {
   position: fixed;
   top: 0;
-  left: 200px;
+  width: 100vw;
   height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .8rem;
+  z-index: 0;
+}
+
+.top-buttons {
   display: flex;
   align-items: center;
   gap: .8rem;
-  background: rgba(255, 255, 255, 0.9);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  padding: .8rem .4rem;
-  z-index: 100;
 }
 
 @media only screen and (max-width: 600px) {
   .itemForms-top {
-    top: 30px;
-    left: 80px;
-    padding: 0;
-    gap: 0;
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 
@@ -109,7 +109,7 @@ body {
 
 .Drawer__right--isOpen,
 .Drawer__left--isOpen {
-  width: 300px;
+  width: 200px;
 }
 
 .Drawer__toggle-right {
@@ -193,6 +193,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  padding: .8rem .4rem;
   gap: .8rem;
 }
 
@@ -202,6 +203,10 @@ select {
   padding: .2rem .6rem;
   margin: .2rem 0;
   font-size: .7rem;
+}
+
+input[type="color"] {
+  padding: 0;
 }
 
 li {
