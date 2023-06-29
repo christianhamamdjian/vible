@@ -6,42 +6,42 @@ const DrawingFormTop = () => {
 
     return (
         <div className='itemForms-top'>
-            {!isEditingPath && (
-                <>
-                    <div className='top-buttons'>
-                        <button
-                            style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleDrawing}>Add drawing</button>
-                        <button
-                            style={isEditingPaths ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleEditPaths}>Edit lines</button>
+            {/* {!isEditingPath && ( */}
+            <>
+                <div className='top-buttons'>
+                    <button
+                        style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
+                        onClick={handleDrawing}>Add drawing</button>
+                    <button
+                        style={isEditingPaths ? { backgroundColor: "#aabbcc" } : null}
+                        onClick={handleEditPaths}>Edit lines</button>
 
-                        <button
-                            style={isErasing ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleEraser}>Delete lines</button>
-                        <button
-                            style={isEditingBoard ? { backgroundColor: "#aabbcc" } : null}
-                            onClick={handleEditingBoard}>Edit items</button>
-                    </div>
-                    {/* <h2>Drawing:</h2> */}
-                    {isDrawing && (<div className='inputs-top'>
-                        {/* <label>Line color:</label> */}
-                        <input
-                            type="color"
-                            value={pathColor}
-                            onChange={(event) => handleLineColor(event)} />
-                        {/* <label>Line width:</label> */}
-                        <input
-                            type="number"
-                            style={{ width: '1.5rem' }}
-                            value={pathLine}
-                            onChange={(event) => handleLineWidth(event)} />
+                    <button
+                        style={isErasing ? { backgroundColor: "#aabbcc" } : null}
+                        onClick={handleEraser}>Delete lines</button>
+                    <button
+                        style={isEditingBoard ? { backgroundColor: "#aabbcc" } : null}
+                        onClick={handleEditingBoard}>Edit items</button>
+                </div>
+                {/* <h2>Drawing:</h2> */}
+                {isDrawing && (<div className='inputs-top'>
+                    {/* <label>Line color:</label> */}
+                    <input
+                        type="color"
+                        value={pathColor}
+                        onChange={(event) => handleLineColor(event)} />
+                    {/* <label>Line width:</label> */}
+                    <input
+                        type="number"
+                        style={{ width: '1.5rem' }}
+                        value={pathLine}
+                        onChange={(event) => handleLineWidth(event)} />
 
 
-                    </div>)}
-                </>
-            )
-            }
+                </div>)}
+            </>
+            {/* )
+            } */}
             {paths.length > 0 && isEditingPath && (
                 <>
                     {/* <h2>Drawing:</h2> */}

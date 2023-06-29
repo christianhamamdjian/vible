@@ -420,8 +420,10 @@ export default function MoodboardProvider({ children }) {
     };
     const handleEditPaths = () => {
         setIsEditingPaths(isEditingPaths => !isEditingPaths)
+        setIsEditingPath(false)
         setIsDrawing(false)
         setIsErasing(false)
+        setSelectedPath(null)
     }
     // Text Box
     const handleItemTextChange = (event, id) => {
@@ -488,6 +490,8 @@ export default function MoodboardProvider({ children }) {
         setIsDrawing(isDrawing => !isDrawing)
         setIsErasing(false);
         setIsPathMoving(false)
+        setIsEditingPath(false)
+        setIsEditingPaths(false)
     }
     const handleMovePath = () => {
         setIsPathMoving(isPathMoving => !isPathMoving)

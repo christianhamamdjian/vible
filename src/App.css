@@ -53,27 +53,69 @@ body {
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 2rem;
+  /* height: 2rem; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: .8rem;
   z-index: 0;
 }
 
 .top-buttons {
-  width: 50%;
   display: flex;
+  width: 100vw;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.2rem;
 }
 
+.top-buttons button {
+  border-radius: 0 0 12px 12px;
+}
+
 @media only screen and (max-width: 600px) {
+  .top-buttons {
+    width: 50vw;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
   .itemForms-top {
-    flex-direction: row;
+    flex-direction: column;
+  }
+
+  .top-buttons button {
+    flex-basis: 0;
   }
 }
 
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.inputs-top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: .8rem .4rem;
+  gap: .8rem;
+}
+
+input,
+textarea,
+select {
+  padding: .2rem .6rem;
+  margin: .2rem 0;
+  font-size: .7rem;
+}
+
+input[type="color"] {
+  padding: 0;
+}
 
 .Drawer__Container--left {
   flex-shrink: 0;
@@ -183,32 +225,7 @@ body {
   max-height: 6rem;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: .2rem;
-}
 
-.inputs-top {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: .8rem .4rem;
-  gap: .8rem;
-}
-
-input,
-textarea,
-select {
-  padding: .2rem .6rem;
-  margin: .2rem 0;
-  font-size: .7rem;
-}
-
-input[type="color"] {
-  padding: 0;
-}
 
 li {
   padding: .2rem .4rem;
