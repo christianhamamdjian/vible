@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
     const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
+
+    const [pdfData, setPdfData] = useState('');
+
+    useEffect(() => {
+        fetchPdf(item.id);
+    }, []);
+
+    const fetchPdf = (id) => {
+        const request = indexedDB.open('vible-database', 1);
+
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            const transaction = db.transaction('pdfs', 'readonly');
+            const store = transaction.objectStore('pdfs');
+            const getRequest = store.get(id);
+
+            getRequest.onsuccess = function (event) {
+                const pdf = event.target.result;
+                if (pdf) {
+                    setPdfData(pdf);
+                }
+            };
+
+            getRequest.onerror = function () {
+                console.error('Error retrieving PDF.');
+            };
+        };
+
+        request.onerror = function () {
+            console.error('Error opening IndexedDB.');
+        };
+    };
+
 
     return (
         <>
@@ -17,22 +50,15 @@ const Pdf = ({ item }) => {
                         style={{
                             cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px"
                         }}
-                        onMouseDown={(e) => handleMouseDown(e, item.id)}
-                        onMouseUp={handleMouseUp}
-                        onTouchStart={(e) => handleMouseDown(e, item.id)}
-                        onTouchEnd={handleMouseUp}
+                        onPointerDown={(e) => handleMouseDown(e, item.id)}
+                        onPointerUp={handleMouseUp}
                     >
-                        <object data={item.data} type="application/pdf"
-                            x="100"
-                            y="100"
-                            width={item.width || "300"}
-                            height={item.width || "300"}
-                            onMouseDown={e => { handleMouseDown(e, item.id) }}
-                            onMouseUp={handleMouseUp}
-                            onTouchStart={(e) => handleMouseDown(e, item.id)}
-                            onTouchEnd={handleMouseUp}
-                            style={{ cursor: 'move' }}>
-                        </object>
+                        <div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
+                        {pdfData ? (
+                            <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
+                        ) : (
+                            <div>No PDF found.</div>
+                        )}
                     </foreignObject>
                     {isEditingBoard && <><circle
                         cx="0"

@@ -3,7 +3,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, rotation, scaling, stopLineEditing, isDrawing, isEditingPaths, handleEditPaths, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleEditingBoard, isEditingBoard } = React.useContext(MoodboardContext);
-    console.log(isEditingPaths);
+
     return (
         <div className='itemForms-top'>
             {!isEditingPath && (

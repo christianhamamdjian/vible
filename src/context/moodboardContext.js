@@ -58,6 +58,7 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
     const svgRef = useRef(null);
+    const [pdfData, setPdfData] = useState('');
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -791,6 +792,9 @@ export default function MoodboardProvider({ children }) {
             rotation,
             scaling,
             selectedPath,
+            pdfData,
+            setPdfData,
+            setItems,
             // Methods
             handlePathClick,
             handlePathDrag,
