@@ -142,27 +142,7 @@ export default function MoodboardProvider({ children }) {
         };
         reader.readAsDataURL(file);
     };
-    function handlePdfUpload(event) {
-        const file = event.target.files[0];
-        if (file && file.type === 'application/pdf') {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const pdfData = e.target.result;
-                const newItem = {
-                    id: Date.now(),
-                    data: pdfData,
-                    x: 0,
-                    y: 0,
-                    width: "100",
-                    type: "pdf"
-                };
-                setItems((prevItems) => [...prevItems, newItem]);
-            };
-            reader.readAsDataURL(file);
-        } else {
-            console.log('Please select a PDF file.');
-        }
-    }
+
     const handleImageDropUpload = (e) => {
         const file = e;
         const reader = new FileReader();
@@ -671,10 +651,33 @@ export default function MoodboardProvider({ children }) {
 
     // Helper functions
     const handleDeleteItem = (id) => {
+        const itemType = items.find(item => item.id === id)
+        if (itemType.type === "pdf") {
+            handlePdfDelete(id)
+        }
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         setEditingText(null)
         setEditingImage(null)
     };
+    const handlePdfDelete = (id) => {
+        const request = indexedDB.open('vible-database', 1);
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            const request = db.transaction('pdfs', 'readwrite')
+                .objectStore('pdfs')
+                .delete(id)
+            request.onsuccess = () => {
+                console.log(`Pdf deleted: ${id}`);
+            }
+            request.onerror = (err) => {
+                console.error(`Error to delete pdf: ${err}`)
+            }
+        }
+        request.onerror = function () {
+            console.error('Error opening IndexedDB.');
+        }
+    }
+
     const handleItemText = (event) => {
         setItemText(event.target.value);
     };
@@ -852,10 +855,10 @@ export default function MoodboardProvider({ children }) {
             handleLineWidthChange,
             handleLineColorChange,
             stopLineEditing,
-            handlePdfUpload,
             handleScaleChange,
             handleRotateChange,
-            handleEditPaths
+            handleEditPaths,
+            handlePdfDelete
         }}>
             {children}
         </MoodboardContext.Provider>

@@ -2,40 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleMouseDown, handleMouseUp, handleEditPdf, handleDeleteItem, editingImage, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
     useEffect(() => {
-        fetchPdf(item.id);
+        handlePdfFetch(item.id);
     }, []);
 
-    const fetchPdf = (id) => {
-        const request = indexedDB.open('vible-database', 1);
-
+    const handlePdfFetch = (id) => {
+        const request = indexedDB.open('vible-database', 1)
         request.onsuccess = function (event) {
-            const db = event.target.result;
-            const transaction = db.transaction('pdfs', 'readonly');
+            const db = event.target.result
+            const transaction = db.transaction('pdfs', 'readonly')
             const store = transaction.objectStore('pdfs');
             const getRequest = store.get(id);
-
             getRequest.onsuccess = function (event) {
                 const pdf = event.target.result;
                 if (pdf) {
                     setPdfData(pdf);
                 }
-            };
-
+            }
             getRequest.onerror = function () {
                 console.error('Error retrieving PDF.');
-            };
-        };
-
+            }
+        }
         request.onerror = function () {
             console.error('Error opening IndexedDB.');
-        };
-    };
-
+        }
+    }
 
     return (
         <>
@@ -78,7 +73,7 @@ const Pdf = ({ item }) => {
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
-                            onClick={() => handleEditImage(item.id)}
+                            onClick={() => handleEditPdf(item.id)}
                         />
                         {editingImage && editingImage.id === item.id && <circle
                             cx="20"
@@ -88,7 +83,7 @@ const Pdf = ({ item }) => {
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
-                            onClick={handleStopEditImage}
+                            onClick={handleStopEditPdf}
                         />
                         }</>}
                 </>

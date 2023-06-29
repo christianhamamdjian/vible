@@ -15,12 +15,9 @@ const MoodBoard = () => {
 
     return (
         <>
-
             <div className="frame" style={{
                 overflow: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "hidden" : "scroll"}`,
                 touchAction: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "none" : "auto"}`
-                //overflow: `${(!freezeScreen) ? "visible" : "hidden"}`,
-                // touchAction: `${(!isDrawing || !selectedItem || !selectedPath) ? "auto" : "none"}`
             }}>
                 <svg
                     id="my-svg"
