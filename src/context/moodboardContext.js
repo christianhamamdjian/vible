@@ -25,6 +25,9 @@ export default function MoodboardProvider({ children }) {
     const [itemVideoUrl, setItemVideoUrl] = useState('')
     const [itemImageUrl, setItemImageUrl] = useState('')
     const [itemMapUrl, setItemMapUrl] = useState('')
+    const [itemWidth, setItemWidth] = useState('')
+    const [itemHeight, setItemHeight] = useState('')
+    const [itemAngle, setItemAngle] = useState('')
 
     const [selectedItem, setSelectedItem] = useState(null)
     const [editingText, setEditingText] = useState(null)
@@ -104,14 +107,35 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (event) => {
         event.preventDefault();
         const itemId = Date.now();
-        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: itemColor, link: itemLink, url: itemUrl, type: "box" };
+        const newBox = {
+            id: itemId,
+            x: 0,
+            y: 0,
+            text: itemText,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
+            width: itemWidth,
+            height: itemHeight,
+            angle: itemAngle,
+            type: "box"
+        };
         setItems([...items, newBox]);
         setItemText('Text');
         setItemColor('#aabbcc');
     };
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now();
-        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: color, link: itemLink, url: itemUrl, type: "box" };
+        const newBox = {
+            id: itemId,
+            x: 0,
+            y: 0,
+            text: itemText,
+            color: color,
+            link: itemLink,
+            url: itemUrl,
+            type: "box"
+        };
         setItems([...items, newBox]);
         setItemText('Text');
         setItemColor('#aabbcc');
@@ -121,7 +145,16 @@ export default function MoodboardProvider({ children }) {
     }
     const handleAddGalleryLink = (link) => {
         const itemId = Date.now();
-        const newBox = { id: itemId, x: 0, y: 0, text: itemText, color: pathColor, link: link.content, url: link.link, type: "box" };
+        const newBox = {
+            id: itemId,
+            x: 0,
+            y: 0,
+            text: itemText,
+            color: pathColor,
+            link: link.content,
+            url: link.link,
+            type: "box"
+        };
         setItems([...items, newBox]);
         setItemText('Text');
         setItemColor('#aabbcc');
@@ -153,6 +186,7 @@ export default function MoodboardProvider({ children }) {
                 x: 0,
                 y: 0,
                 width: "100",
+                width: "auto",
                 type: "image"
             };
             setItems((prevItems) => [...prevItems, newItem]);
@@ -178,6 +212,7 @@ export default function MoodboardProvider({ children }) {
             x: 0,
             y: 0,
             width: "100",
+            width: "auto",
             type: "imageUrl"
         }
         setItems((prevItems) => [...prevItems, newItem]);
@@ -196,7 +231,6 @@ export default function MoodboardProvider({ children }) {
 
     // Mouse Down
     const handleMouseDown = (event, element) => {
-
         if (isEditingPath) {
             stopLineEditing()
         }
@@ -456,7 +490,36 @@ export default function MoodboardProvider({ children }) {
             })
         );
     };
-
+    const handleItemWidthChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, width: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
+    const handleItemHeightChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, height: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
+    const handleItemAngleChange = (event, id) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, angle: event.target.value };
+                }
+                return item;
+            })
+        );
+    };
     // Image
     const handleItemUrlChange = (event, id) => {
         setItems(prevItems =>
@@ -799,6 +862,9 @@ export default function MoodboardProvider({ children }) {
             scaling,
             selectedPath,
             setItems,
+            itemWidth,
+            itemHeight,
+            itemAngle,
             // Methods
             handlePathClick,
             handlePathDrag,
@@ -862,7 +928,10 @@ export default function MoodboardProvider({ children }) {
             handleScaleChange,
             handleRotateChange,
             handleEditPaths,
-            handlePdfDelete
+            handlePdfDelete,
+            handleItemWidthChange,
+            handleItemHeightChange,
+            handleItemAngleChange
         }}>
             {children}
         </MoodboardContext.Provider>

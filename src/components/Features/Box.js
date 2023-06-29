@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -11,15 +11,14 @@ const Image = ({ item }) => {
                     <foreignObject
                         x="0"
                         y="0"
-                        width="160"
-                        height="160"
-                        //draggable={editingText ? "false" : "true"}
+                        width={`${item.width || 160}`}
+                        height={`${item.height || 160}`}
                         style={{
                             cursor: 'move',
                             backgroundColor: item.color,
                             padding: "1rem",
                             borderRadius: "6px",
-                            // transform: 'rotate(-5deg)'
+                            transform: `rotate(${item.angle || 0}deg)`
                         }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                         onMouseUp={handleMouseUp}
@@ -28,13 +27,25 @@ const Image = ({ item }) => {
                     >
                         <p
                             className="text"
-                            //draggable={editingText ? "false" : "true"}
                             fill={item.color}
                             style={{
                                 color: getTextColor(item.color), fontFamily: "sans-serif"
                             }}
+                            onDoubleClick={() => handleEditBox(item.id)}
                         >
-                            {item.text}
+                            {(editingText && item.id === editingText.id) && <textarea
+                                name=""
+                                id=""
+                                value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
+                                onChange={(event) =>
+                                    handleItemTextChange(event, editingText.id)}
+                                style={{ color: "#ffffff", backgroundColor: "transparent" }}
+                                cols="30"
+                                rows="10"
+                                onBlur={handleStopEditBox}
+                            >
+                            </textarea>}
+                            {(!editingText || item.id !== editingText.id) && item.text}
                         </p>
 
                     </foreignObject>
