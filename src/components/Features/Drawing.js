@@ -12,7 +12,6 @@ const Drawing = () => {
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    // stroke={index === selectedPath ? 'red' : `${path.color}`}
                     stroke={path.color}
                     strokeWidth={path.line}
                     onClick={() => handlePathClick(index, path.id)}

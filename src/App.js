@@ -6,12 +6,12 @@ import DrawingFormTop from "./components/forms/DrawingFormTop"
 import { MoodboardContext } from "./context/moodboardContext";
 
 function App() {
-  const { draggingPath, draggingItem } = React.useContext(MoodboardContext);
+  const { isDrawing, draggingPath, draggingItem } = React.useContext(MoodboardContext);
 
   return (
     <div className="app" style={{
-      overflow: `${(draggingPath || draggingItem) ? "visible" : "hidden"}`,
-      touchAction: `${(draggingPath || draggingItem) ? "none" : "auto"}`
+      overflow: `${(isDrawing || draggingPath || draggingItem) ? "visible" : "hidden"}`,
+      touchAction: `${(isDrawing || draggingPath || draggingItem) ? "none" : "auto"}`
     }}>
       <DrawingFormTop />
       <div className="container" >
