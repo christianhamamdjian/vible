@@ -18,7 +18,8 @@ const Image = ({ item }) => {
                             backgroundColor: item.color,
                             padding: "1rem",
                             borderRadius: "6px",
-                            transform: `rotate(${item.angle || 0}deg)`
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${item.width / 2, item.height / 2}`
                         }}
                         onMouseDown={(e) => handleMouseDown(e, item.id)}
                         onMouseUp={handleMouseUp}

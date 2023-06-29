@@ -11,7 +11,7 @@ import Drawing from "./Features/Drawing"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom } = React.useContext(MoodboardContext);
+    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom, handleAddBox } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -24,6 +24,7 @@ const MoodBoard = () => {
                     onPointerDown={handleMouseDown}
                     onPointerMove={handleMouseMove}
                     onPointerUp={handleMouseUp}
+                    //onDoubleClick={handleAddBox} // conflict with editing text on box
                     ref={svgRef}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     style={{ width: '2000', height: '2000', border: '1px solid transparent' }}

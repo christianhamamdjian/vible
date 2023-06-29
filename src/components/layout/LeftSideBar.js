@@ -11,7 +11,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const LeftSidebard = () => {
-    const { handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, write, image, video, imageLink, map, draw } = React.useContext(MoodboardContext);
+    const { handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, handlePdf, write, image, video, imageLink, map, pdf, draw } = React.useContext(MoodboardContext);
 
     return (
         <div className='left-sidebar'>
@@ -28,7 +28,8 @@ const LeftSidebard = () => {
             {video && <VideoForm />}
             <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
             {map && <MapForm />}
-            <PdfForm />
+            <button style={pdf ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handlePdf}>Pdf</button>
+            {pdf && <PdfForm />}
         </div>
     )
 }

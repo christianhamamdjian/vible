@@ -48,6 +48,7 @@ export default function MoodboardProvider({ children }) {
     const [imageLink, setImageLink] = useState(false)
     const [video, setVideo] = useState(false)
     const [map, setMap] = useState(false)
+    const [pdf, setPdf] = useState(false)
     const [isMovingObjects, setIsMovingObjects] = useState(false)
 
     const pathRef = useRef(null)
@@ -794,6 +795,9 @@ export default function MoodboardProvider({ children }) {
     const handleMap = () => {
         setMap(map => !map);
     }
+    const handlePdf = () => {
+        setPdf(pdf => !pdf);
+    }
     const handleClearBoard = () => {
         setItems([])
         setPaths([])
@@ -849,6 +853,7 @@ export default function MoodboardProvider({ children }) {
             video,
             imageLink,
             map,
+            pdf,
             draw,
             isMovingObjects,
             zoom,
@@ -914,6 +919,7 @@ export default function MoodboardProvider({ children }) {
             handleImageLink,
             handleVideo,
             handleMap,
+            handlePdf,
             handlePdfDownload,
             handleClearBoard,
             handleMoveObjects,
