@@ -6,7 +6,6 @@ const DrawingFormTop = () => {
 
     return (
         <div className='itemForms-top'>
-            {/* {!isEditingPath && ( */}
             <>
                 <div className='top-buttons'>
                     <button
@@ -40,18 +39,13 @@ const DrawingFormTop = () => {
 
                 </div>)}
             </>
-            {/* )
-            } */}
             {paths.length > 0 && isEditingPath && (
                 <>
-                    {/* <h2>Drawing:</h2> */}
                     <div className='inputs-top'>
-                        {/* <label>Line color:</label> */}
                         <input
                             type="color"
                             value={paths.find(path => path.id === isEditingPath.id).color}
                             onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
-                        {/* <label>Line width:</label> */}
                         <input
                             type="number"
                             style={{ width: '1.5rem' }}
@@ -77,7 +71,7 @@ const DrawingFormTop = () => {
                                     <input
                                         type="range"
                                         id="scale"
-                                        min="0.1"
+                                        min="0.5"
                                         max="2"
                                         step="0.1"
                                         value={scaling || 1}

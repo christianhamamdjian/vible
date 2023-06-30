@@ -1,12 +1,14 @@
 import React from 'react'
+import ThemeSwitcher from './ThemeSwitcher'
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { handlePdfDownload, handleClearBoard, handleEditingBoard, handleZoomIn, handleZoomOut, isMovingObjects, handleMoveObjects } = React.useContext(MoodboardContext);
+    const { handlePdfDownload, handleClearBoard, handleZoomIn, handleZoomOut } = React.useContext(MoodboardContext);
 
     return (
         <div className='right-sidebar'>
+            <ThemeSwitcher />
             <button onClick={handlePdfDownload}>Download as PDF</button>
             <button onClick={handleClearBoard}>Clear board</button>
             {/* <button onClick={handleEditingBoard}>Edit items</button> */}

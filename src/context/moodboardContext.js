@@ -42,6 +42,8 @@ export default function MoodboardProvider({ children }) {
     const [galleryError, setGalleryError] = useState('')
     const [galleryShow, setGalleryShow] = useState(false)
 
+    const [todosShow, setTodosShow] = useState(false)
+
     const [draw, setDraw] = useState(false)
     const [write, setWrite] = useState(false)
     const [image, setImage] = useState(false)
@@ -818,6 +820,9 @@ export default function MoodboardProvider({ children }) {
     const handleGalleryToggle = () => {
         setGalleryShow(galleryShow => !galleryShow)
     }
+    const handleTodosToggle = () => {
+        setTodosShow(todosShow => !todosShow)
+    }
 
     return (
         <MoodboardContext.Provider value={{
@@ -870,6 +875,7 @@ export default function MoodboardProvider({ children }) {
             itemWidth,
             itemHeight,
             itemAngle,
+            todosShow,
             // Methods
             handlePathClick,
             handlePathDrag,
@@ -928,6 +934,7 @@ export default function MoodboardProvider({ children }) {
             handleZoomOut,
             handleEditingBoard,
             handleGalleryToggle,
+            handleTodosToggle,
             handleLineWidthChange,
             handleLineColorChange,
             stopLineEditing,

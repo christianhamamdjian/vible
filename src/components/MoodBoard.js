@@ -7,6 +7,7 @@ import Map from "./Features/Map"
 import Pdf from "./Features/Pdf"
 import ImageLink from "./Features/ImageLink"
 import Drawing from "./Features/Drawing"
+import Todo from "./Features/Todo"
 
 import { MoodboardContext } from "../context/moodboardContext";
 
@@ -48,6 +49,7 @@ const MoodBoard = () => {
                 </svg>
             </div >
             <Gallery />
+            <Todo />
         </>
     )
 }

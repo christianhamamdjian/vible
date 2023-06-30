@@ -6,7 +6,6 @@ import VideoForm from "../forms/VideoForm"
 import MapForm from "../forms/MapForm"
 import PdfForm from "../forms/PdfForm"
 import ImageLinkForm from "../forms/ImageLinkForm"
-import ThemeSwitcher from './ThemeSwitcher';
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -15,7 +14,6 @@ const LeftSidebard = () => {
 
     return (
         <div className='left-sidebar'>
-            <ThemeSwitcher />
             <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
             {draw && <DrawingForm />}
             <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
