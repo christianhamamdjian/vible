@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard, focusRef } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -25,6 +25,7 @@ const Image = ({ item }) => {
                         onMouseUp={handleMouseUp}
                         onTouchStart={(e) => handleMouseDown(e, item.id)}
                         onTouchEnd={handleMouseUp}
+                        onDoubleClick={() => handleEditBox(item.id)}
                     >
                         <p
                             className="text"
@@ -32,21 +33,20 @@ const Image = ({ item }) => {
                             style={{
                                 color: getTextColor(item.color), fontFamily: "sans-serif"
                             }}
-                            onDoubleClick={() => handleEditBox(item.id)}
                         >
-                            {(editingText && item.id === editingText.id) && <textarea
+                            {editingText && (item.id === editingText.id) ? (<textarea
                                 name=""
                                 id=""
                                 value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
                                 onChange={(event) =>
                                     handleItemTextChange(event, editingText.id)}
-                                style={{ color: "#ffffff", backgroundColor: "transparent" }}
-                                cols="30"
+                                style={{ backgroundColor: "transparent" }}
+                                cols="10"
                                 rows="10"
+                                ref={focusRef}
                                 onBlur={handleStopEditBox}
                             >
-                            </textarea>}
-                            {(!editingText || item.id !== editingText.id) && item.text}
+                            </textarea>) : item.text}
                         </p>
 
                     </foreignObject>
@@ -55,6 +55,16 @@ const Image = ({ item }) => {
                         target="__blank">
                         <text x="80" y="30" fill="#aabbcc">{item.link}</text>
                     </a>
+                    {editingText && (editingText.id === item.id) && <circle
+                        cx="0"
+                        cy="0"
+                        r="8"
+                        fill="green"
+                        stroke="white"
+                        strokeWidth="2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleStopEditBox}
+                    />}
                     {isEditingBoard && <><circle
                         cx="0"
                         cy="0"

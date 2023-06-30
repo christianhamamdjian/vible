@@ -106,11 +106,17 @@ body {
 }
 
 input,
-textarea,
 select {
   padding: .2rem .6rem;
   margin: .2rem 0;
   font-size: .7rem;
+}
+
+textarea {
+  padding: .2rem .6rem;
+  margin: .2rem 0;
+  font-size: 1rem;
+  color: #000000;
 }
 
 input[type="color"] {
@@ -186,15 +192,14 @@ input[type="color"] {
 }
 
 .todo-hide {
-  bottom: -62rem;
+  bottom: -32rem;
 }
-
 
 .toggle-gallery {
   position: absolute;
   top: -2rem;
-  justify-self: start;
-  border-radius: 12px 12px 0px 0px;
+  left: 0px;
+  border-radius: 0px 12px 0px 0px;
 }
 
 .todo {
@@ -202,8 +207,8 @@ input[type="color"] {
   position: fixed;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  width: 30rem%;
-  height: 60rem;
+  width: 20rem;
+  height: 30rem;
   right: 0;
   display: flex;
   justify-content: center;
@@ -211,10 +216,12 @@ input[type="color"] {
   gap: 1rem;
   z-index: 99;
   transition: all 0.3s ease-in-out;
+  border: 1px solid #ddd;
 }
 
 .todo ul {
   padding: 0;
+  overflow-y: auto;
 }
 
 .todo form,
@@ -312,6 +319,7 @@ button,
   border: none;
   color: white;
   padding: .5rem 1rem;
+  margin: .05rem .1rem;
   border-radius: .4rem;
   cursor: pointer;
 }

@@ -19,15 +19,12 @@ export default function MoodboardProvider({ children }) {
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('#000000')
+    const [itemColor, setItemColor] = useState('#f4b416')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
     const [itemVideoUrl, setItemVideoUrl] = useState('')
     const [itemImageUrl, setItemImageUrl] = useState('')
     const [itemMapUrl, setItemMapUrl] = useState('')
-    const [itemWidth, setItemWidth] = useState('')
-    const [itemHeight, setItemHeight] = useState('')
-    const [itemAngle, setItemAngle] = useState('')
 
     const [selectedItem, setSelectedItem] = useState(null)
     const [editingText, setEditingText] = useState(null)
@@ -64,6 +61,7 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
     const svgRef = useRef(null);
+    const focusRef = useRef(null);
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -72,6 +70,10 @@ export default function MoodboardProvider({ children }) {
     useEffect(() => {
         savePathsToLocalStorage();
     }, [paths]);
+
+    // useEffect(() => {
+    //     if (focusRef.current) focusRef.current.focus()
+    // }, [focusRef])
 
     function loadPathsFromLocalStorage() {
         const savedPaths = localStorage.getItem('paths');
@@ -118,9 +120,9 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: itemWidth,
-            height: itemHeight,
-            angle: itemAngle,
+            width: "160px",
+            height: "160px",
+            angle: 0,
             type: "box"
         };
         setItems([...items, newBox]);
@@ -143,6 +145,22 @@ export default function MoodboardProvider({ children }) {
         setItemText('Text');
         setItemColor('#aabbcc');
     };
+    const handleAddTodoBox = (text) => {
+        const itemId = Date.now();
+        const newBox = {
+            id: itemId,
+            x: 0,
+            y: 0,
+            text: text,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
+            type: "box"
+        };
+        setItems([...items, newBox]);
+        setItemText('Text');
+        setItemColor('#aabbcc');
+    };
     const handleAddGalleryImage = (image) => {
         setItems([...items, image]);
     }
@@ -153,7 +171,7 @@ export default function MoodboardProvider({ children }) {
             x: 0,
             y: 0,
             text: itemText,
-            color: pathColor,
+            color: itemColor,
             link: link.content,
             url: link.link,
             type: "box"
@@ -237,6 +255,7 @@ export default function MoodboardProvider({ children }) {
         if (isEditingPath) {
             stopLineEditing()
         }
+
         // Start dragging objects
         if (element && !isDrawing && element.type !== "path") {
             setDraggingItem(true);
@@ -373,8 +392,9 @@ export default function MoodboardProvider({ children }) {
         window.addEventListener('pointerup', handleMouseUp);
     };
 
-    const handleRotateChange = (event) => {
-        const rotate = parseInt(event.target.value);
+    const handleRotateChange = (event, amount) => {
+        // const rotate = parseInt(event.target.value);
+        const rotate = (amount === "increase") ? +10 : -10;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
                 const center = getCenterPoint(path["path"]);
@@ -388,8 +408,9 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths);
     };
 
-    const handleScaleChange = (event) => {
-        const scale = parseFloat(event.target.value);
+    const handleScaleChange = (event, amount) => {
+        // const scale = parseFloat(event.target.value);
+        const scale = (amount === "increase") ? 1.2 : 0.8;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
                 const center = getCenterPoint(path["path"]);
@@ -718,6 +739,9 @@ export default function MoodboardProvider({ children }) {
         }
 
     }
+    const handleTodoAddToBoard = (text) => {
+        handleAddTodoBox(text)
+    }
 
     // Helper functions
     const handleDeleteItem = (id) => {
@@ -771,12 +795,16 @@ export default function MoodboardProvider({ children }) {
     };
     const handleEditBox = (id) => {
         setEditingText({ status: true, id: id })
+        // focusRef.current.children[1].focus()
     }
     const handleStopEditBox = () => {
         setEditingText(null)
     }
 
     // Toggle functions
+    const handleShowLeftPanel = () => {
+
+    }
     const handleDraw = () => {
         setDraw(draw => !draw);
         isDrawing && setIsDrawing(false);
@@ -872,9 +900,6 @@ export default function MoodboardProvider({ children }) {
             scaling,
             selectedPath,
             setItems,
-            itemWidth,
-            itemHeight,
-            itemAngle,
             todosShow,
             // Methods
             handlePathClick,
@@ -944,7 +969,8 @@ export default function MoodboardProvider({ children }) {
             handlePdfDelete,
             handleItemWidthChange,
             handleItemHeightChange,
-            handleItemAngleChange
+            handleItemAngleChange,
+            handleTodoAddToBoard
         }}>
             {children}
         </MoodboardContext.Provider>

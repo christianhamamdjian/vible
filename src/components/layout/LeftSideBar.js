@@ -14,8 +14,8 @@ const LeftSidebard = () => {
 
     return (
         <div className='left-sidebar'>
-            <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
-            {draw && <DrawingForm />}
+            {/* <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
+            {draw && <DrawingForm />} */}
             <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
             {write && <BoxForm />}
             <button style={image ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImage}>Image</button>

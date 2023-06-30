@@ -12,7 +12,7 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom, handleAddBox } = React.useContext(MoodboardContext);
+    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom, handleAddBox, handleStopEditBox } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -25,6 +25,7 @@ const MoodBoard = () => {
                     onPointerDown={handleMouseDown}
                     onPointerMove={handleMouseMove}
                     onPointerUp={handleMouseUp}
+                    // onClick={handleStopEditBox}
                     //onDoubleClick={handleAddBox} // conflict with editing text on box
                     ref={svgRef}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"

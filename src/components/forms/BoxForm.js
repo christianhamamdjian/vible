@@ -80,8 +80,8 @@ const BoxForm = () => {
                     <label>Change Angle:</label>
                     <input
                         type="range"
-                        min="0"
-                        max="360"
+                        min="-180"
+                        max="180"
                         step="1"
                         name="angle"
                         value={items.find(item => item.id === editingText.id).angle}

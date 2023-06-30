@@ -3,7 +3,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Todo = () => {
-    const { handleTodosToggle, todosShow } = React.useContext(MoodboardContext);
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext);
 
     const [todos, setTodos] = useLocalStorage("todos", []);
     const [inputValue, setInputValue] = useState('');
@@ -69,6 +69,7 @@ const Todo = () => {
                                 />
                                 <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
                                 <button onClick={() => handleTodoDelete(todo.id)}>Delete</button>
+                                <button onClick={() => handleTodoAddToBoard(todo.text)}>Add to board</button>
                             </li>
                         ))}
                     </ul>
