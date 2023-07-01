@@ -16,17 +16,17 @@ const LeftSidebard = () => {
         <div className='left-sidebar'>
             {/* <button style={draw ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleDraw}>Draw</button>
             {draw && <DrawingForm />} */}
-            <button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Write</button>
+            <button style={write ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handleWrite}>Write</button>
             {write && <BoxForm />}
-            <button style={image ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImage}>Image</button>
+            <button style={image ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handleImage}>Image</button>
             {image && <ImageForm />}
-            <button style={imageLink ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleImageLink}>Image link</button>
+            <button style={imageLink ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handleImageLink}>Image link</button>
             {imageLink && <ImageLinkForm />}
-            <button style={video ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleVideo}>Video</button>
+            <button style={video ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handleVideo}>Video</button>
             {video && <VideoForm />}
-            <button style={map ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleMap}>Map</button>
+            <button style={map ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handleMap}>Map</button>
             {map && <MapForm />}
-            <button style={pdf ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handlePdf}>Pdf</button>
+            <button style={pdf ? { backgroundColor: "rgb(130, 70, 186)" } : null} type="button" onClick={handlePdf}>Pdf</button>
             {pdf && <PdfForm />}
         </div>
     )

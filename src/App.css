@@ -326,7 +326,7 @@ button,
 
 button:hover,
 ::file-selector-button:hover {
-  background-color: rgb(70, 70, 186);
+  background-color: rgb(130, 70, 186);
 }
 
 /* File upload form */

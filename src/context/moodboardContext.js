@@ -19,7 +19,7 @@ export default function MoodboardProvider({ children }) {
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('#f4b416')
+    const [itemColor, setItemColor] = useState('rgba(244, 180, 22, .9)')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
     const [itemVideoUrl, setItemVideoUrl] = useState('')
@@ -178,7 +178,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('#aabbcc');
+        setItemColor('#f4b416');
     }
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -207,7 +207,7 @@ export default function MoodboardProvider({ children }) {
                 x: 0,
                 y: 0,
                 width: "100",
-                width: "auto",
+                height: "auto",
                 type: "image"
             };
             setItems((prevItems) => [...prevItems, newItem]);
@@ -233,7 +233,7 @@ export default function MoodboardProvider({ children }) {
             x: 0,
             y: 0,
             width: "100",
-            width: "auto",
+            height: "auto",
             type: "imageUrl"
         }
         setItems((prevItems) => [...prevItems, newItem]);

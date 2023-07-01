@@ -1,5 +1,5 @@
 import React from 'react';
-import BoxForm from "../forms/BoxForm"
+import BoxFormTop from "../forms/BoxFormTop"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
@@ -55,7 +55,9 @@ const DrawingFormTop = () => {
 
 
                 </div>)}
-            </>{write && items.length > 0 && <div className='inputs-top'><BoxForm /></div>}
+            </>
+            {write && items.length > 0 && <BoxFormTop />}
+
             {paths.length > 0 && isEditingPath && (
                 <>
                     <div className='inputs-top'>
