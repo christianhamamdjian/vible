@@ -207,7 +207,7 @@ input[type="color"] {
   position: fixed;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  width: 20rem;
+  width: 27rem;
   height: 30rem;
   right: 0;
   display: flex;
@@ -227,6 +227,7 @@ input[type="color"] {
 .todo form,
 .todo li {
   display: flex;
+  width: 25rem;
   justify-content: space-between;
   color: #000000;
   gap: .6rem;

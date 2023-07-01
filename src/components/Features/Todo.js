@@ -7,6 +7,8 @@ const Todo = () => {
 
     const [todos, setTodos] = useLocalStorage("todos", []);
     const [inputValue, setInputValue] = useState('');
+    const [editingTodoId, setEditingTodoId] = useState(null);
+    const [editingTodoText, setEditingTodoText] = useState('');
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -45,6 +47,28 @@ const Todo = () => {
         setTodos(updatedTodos);
     };
 
+    const handleTodoEditStart = (id, text) => {
+        setEditingTodoId(id);
+        setEditingTodoText(text);
+    };
+
+    const handleTodoEditChange = (event) => {
+        setEditingTodoText(event.target.value);
+    };
+
+    const handleTodoEditSubmit = (id) => {
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                return { ...todo, text: editingTodoText };
+            }
+            return todo;
+        });
+
+        setTodos(updatedTodos);
+        setEditingTodoId(null);
+        setEditingTodoText('');
+    };
+
     return (
         <>
             <div className={` todo ${todosShow ? "todo-show" : "todo-hide"}`}>
@@ -62,14 +86,26 @@ const Todo = () => {
                     <ul>
                         {todos.map((todo) => (
                             <li key={todo.id}>
-                                <input
-                                    type="checkbox"
-                                    checked={todo.completed}
-                                    onChange={() => handleTodoToggle(todo.id)}
-                                />
-                                <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
-                                <button onClick={() => handleTodoDelete(todo.id)}>Delete</button>
-                                <button onClick={() => handleTodoAddToBoard(todo.text)}>Add to board</button>
+                                {editingTodoId === todo.id ? (
+                                    <input
+                                        type="text"
+                                        value={editingTodoText}
+                                        onChange={handleTodoEditChange}
+                                        onBlur={() => handleTodoEditSubmit(todo.id)}
+                                    />
+                                ) : (
+                                    <>
+                                        <input
+                                            type="checkbox"
+                                            checked={todo.completed}
+                                            onChange={() => handleTodoToggle(todo.id)}
+                                        />
+                                        <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
+                                        <button onClick={() => handleTodoDelete(todo.id)}>Delete</button>
+                                        <button onClick={() => handleTodoEditStart(todo.id, todo.text)}>Edit</button>
+                                        <button onClick={() => handleTodoAddToBoard(todo.text)}>Add to board</button>
+                                    </>
+                                )}
                             </li>
                         ))}
                     </ul>
@@ -79,3 +115,4 @@ const Todo = () => {
     )
 }
 export default Todo
+

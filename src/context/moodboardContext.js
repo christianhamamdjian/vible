@@ -71,10 +71,6 @@ export default function MoodboardProvider({ children }) {
         savePathsToLocalStorage();
     }, [paths]);
 
-    // useEffect(() => {
-    //     if (focusRef.current) focusRef.current.focus()
-    // }, [focusRef])
-
     function loadPathsFromLocalStorage() {
         const savedPaths = localStorage.getItem('paths');
         const pathList = savedPaths && JSON.parse(savedPaths)
@@ -127,7 +123,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('#aabbcc');
+        setItemColor('rgba(244, 180, 22, .9)');
     };
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now();
@@ -159,7 +155,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('#aabbcc');
+        setItemColor('rgba(244, 180, 22, .9)');
     };
     const handleAddGalleryImage = (image) => {
         setItems([...items, image]);
