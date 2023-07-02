@@ -18,10 +18,10 @@ const DrawingForm = () => {
                     value={line}
                     onChange={(event) => handleLineWidth(event)} />
                 <button
-                    style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
+                    className={isDrawing ? "selected-button" : null}
                     onClick={handleDrawing}>Add drawing</button>
                 <button
-                    style={isErasing ? { backgroundColor: "#aabbcc" } : null}
+                    className={isErasing ? "selected-button" : null}
                     onClick={handleEraser}>Delete lines</button>
             </div>
         </div>

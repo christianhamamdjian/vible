@@ -19,7 +19,7 @@ export default function MoodboardProvider({ children }) {
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('rgba(244, 180, 22, .9)')
+    const [itemColor, setItemColor] = useState('rgb(244, 180, 22)')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
     const [itemVideoUrl, setItemVideoUrl] = useState('')
@@ -61,7 +61,6 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
     const svgRef = useRef(null);
-    const focusRef = useRef(null);
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -110,8 +109,8 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now();
         const newBox = {
             id: itemId,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             text: itemText,
             color: itemColor,
             link: itemLink,
@@ -123,14 +122,14 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('rgba(244, 180, 22, .9)');
+        setItemColor('rgb(244, 180, 22)');
     };
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now();
         const newBox = {
             id: itemId,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             text: itemText,
             color: color,
             link: itemLink,
@@ -139,14 +138,14 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('#aabbcc');
+        setItemColor('rgb(244, 180, 22)');
     };
     const handleAddTodoBox = (text) => {
         const itemId = Date.now();
         const newBox = {
             id: itemId,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             text: text,
             color: itemColor,
             link: itemLink,
@@ -155,7 +154,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('rgba(244, 180, 22, .9)');
+        setItemColor('rgb(244, 180, 22)');
     };
     const handleAddGalleryImage = (image) => {
         setItems([...items, image]);
@@ -183,8 +182,8 @@ export default function MoodboardProvider({ children }) {
             const newItem = {
                 id: Date.now(),
                 src: e.target.result,
-                x: 0,
-                y: 0,
+                x: 100,
+                y: 100,
                 width: "100",
                 type: "image"
             };
@@ -200,8 +199,8 @@ export default function MoodboardProvider({ children }) {
             const newItem = {
                 id: Date.now(),
                 src: e.target.result,
-                x: 0,
-                y: 0,
+                x: 100,
+                y: 100,
                 width: "100",
                 height: "auto",
                 type: "image"
@@ -215,8 +214,8 @@ export default function MoodboardProvider({ children }) {
         const newItem = {
             id: Date.now(),
             videoUrl: itemVideoUrl,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             type: "video"
         }
         setItems((prevItems) => [...prevItems, newItem]);
@@ -226,8 +225,8 @@ export default function MoodboardProvider({ children }) {
         const newItem = {
             id: Date.now(),
             imageUrl: itemImageUrl,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             width: "100",
             height: "auto",
             type: "imageUrl"
@@ -239,8 +238,8 @@ export default function MoodboardProvider({ children }) {
         const newItem = {
             id: Date.now(),
             mapUrl: itemMapUrl,
-            x: 0,
-            y: 0,
+            x: 100,
+            y: 100,
             type: "mapUrl"
         }
         setItems((prevItems) => [...prevItems, newItem]);
@@ -389,7 +388,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRotateChange = (event, amount) => {
-        // const rotate = parseInt(event.target.value);
         const rotate = (amount === "increase") ? +10 : -10;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
@@ -405,7 +403,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleScaleChange = (event, amount) => {
-        // const scale = parseFloat(event.target.value);
         const scale = (amount === "increase") ? 1.2 : 0.8;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
@@ -791,16 +788,12 @@ export default function MoodboardProvider({ children }) {
     };
     const handleEditBox = (id) => {
         setEditingText({ status: true, id: id })
-        // focusRef.current.children[1].focus()
     }
     const handleStopEditBox = () => {
         setEditingText(null)
     }
 
     // Toggle functions
-    const handleShowLeftPanel = () => {
-
-    }
     const handleDraw = () => {
         setDraw(draw => !draw);
         isDrawing && setIsDrawing(false);

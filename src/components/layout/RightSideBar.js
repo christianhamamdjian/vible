@@ -16,7 +16,6 @@ const RightSidebard = () => {
                 <button onClick={handleZoomIn}>Zoom in</button>
                 <button onClick={handleZoomOut}>Zoom out</button>
             </div>
-            {/* <button style={isMovingObjects ? { backgroundColor: "#aabbcc" } : null} onClick={handleMoveObjects}>Move objects</button> */}
         </div>
     )
 }

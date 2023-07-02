@@ -10,19 +10,18 @@ const DrawingFormTop = () => {
             <>
                 <div className='top-buttons'>
                     <button
-                        style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
+                        className={isDrawing ? "selected-button" : null}
                         onClick={handleDrawing}>Add drawing</button>
                     <button
-                        style={isDrawing ? { backgroundColor: "#aabbcc" } : null}
                         onClick={handleAddBox}>Add text</button>
                     {paths.length > 0 && (
                         <>
                             <button
-                                style={isEditingPaths ? { backgroundColor: "#aabbcc" } : null}
+                                className={isEditingPaths ? "selected-button" : null}
                                 onClick={handleEditPaths}>Edit lines</button>
 
                             <button
-                                style={isErasing ? { backgroundColor: "#aabbcc" } : null}
+                                className={isErasing ? "selected-button" : null}
                                 onClick={handleEraser}>Delete lines</button>
                         </>
                     )
@@ -30,12 +29,16 @@ const DrawingFormTop = () => {
                     {items.length > 0 && (
                         <>
                             <button
-                                style={isEditingBoard ? { backgroundColor: "#aabbcc" } : null}
+                                className={isEditingBoard ? "selected-button" : null}
                                 onClick={handleEditingBoard}>Edit items</button>
                         </>
                     )
                     }
-                    {items.length > 0 && (<button style={write ? { backgroundColor: "#aabbcc" } : null} type="button" onClick={handleWrite}>Edit box</button>)}
+                    {items.length > 0 && (
+                        <button className={write ? "selected-button" : null}
+                            type="button"
+                            onClick={handleWrite}>Edit box</button>
+                    )}
 
                 </div>
 

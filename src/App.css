@@ -327,6 +327,10 @@ button,
 
 button:hover,
 ::file-selector-button:hover {
+  background-color: rgb(11, 9, 112);
+}
+
+.selected-button {
   background-color: rgb(130, 70, 186);
 }
 

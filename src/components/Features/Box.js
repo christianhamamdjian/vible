@@ -53,7 +53,7 @@ const Image = ({ item }) => {
                     <a
                         xlinkHref={item.url}
                         target="__blank">
-                        <text x="80" y="30" fill="#aabbcc">{item.link}</text>
+                        <text x="80" y="30" fill="rgb(244, 180, 22)">{item.link}</text>
                     </a>
                     {editingText && (editingText.id === item.id) && <circle
                         cx="0"

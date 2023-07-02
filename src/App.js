@@ -3,6 +3,7 @@ import MoodBoard from './components/MoodBoard';
 import './App.css';
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
+import SVGEditor from "./components/SVGEditor"
 import { MoodboardContext } from "./context/moodboardContext";
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         <SidebarDrawer side="right" />
       </div>
     </div >
+
+    // <SVGEditor />
   );
 }
 
