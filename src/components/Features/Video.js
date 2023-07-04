@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
-    const { handleMouseDown, handleDeleteItem, handleMouseUp, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -12,10 +12,9 @@ const Video = ({ item }) => {
                         width="300"
                         height="250"
                         draggable="true"
-                        onMouseDown={(e) => handleMouseDown(e, item.id)}
-                        onMouseUp={handleMouseUp}
-                        onTouchStart={(e) => handleMouseDown(e, item.id)}
-                        onTouchEnd={handleMouseUp}
+                        onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={() => handleRectPointerUp(item.id)}
                     >
                         <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
                         <iframe width="300" height="200" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>

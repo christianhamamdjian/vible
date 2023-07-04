@@ -11,8 +11,8 @@ function App() {
 
   return (
     <div className="app" style={{
-      overflow: `${(isDrawing || draggingPath || draggingItem) ? "visible" : "hidden"}`,
-      touchAction: `${(isDrawing || draggingPath || draggingItem) ? "none" : "auto"}`
+      // overflow: `${(isDrawing || draggingPath || draggingItem) ? "visible" : "hidden"}`,
+      // touchAction: `${(isDrawing || draggingPath || draggingItem) ? "none" : "auto"}`
     }}>
       <DrawingFormTop />
       <div className="container" >

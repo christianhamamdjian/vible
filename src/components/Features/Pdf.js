@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleMouseDown, handleMouseUp, handleEditPdf, handleDeleteItem, editingImage, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingImage, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
@@ -45,8 +45,9 @@ const Pdf = ({ item }) => {
                         style={{
                             cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px"
                         }}
-                        onPointerDown={(e) => handleMouseDown(e, item.id)}
-                        onPointerUp={handleMouseUp}
+                        onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={() => handleRectPointerUp(item.id)}
                     >
                         <div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
                         {pdfData ? (

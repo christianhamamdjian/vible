@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { handleMouseDown, handleMouseUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -19,10 +19,9 @@ const Image = ({ item }) => {
                         x="0"
                         y="0"
                         width={item.width || "100"}
-                        onMouseDown={e => { handleMouseDown(e, item.id) }}
-                        onMouseUp={handleMouseUp}
-                        onTouchStart={(e) => handleMouseDown(e, item.id)}
-                        onTouchEnd={handleMouseUp}
+                        onPointerDown={e => { handleRectPointerDown(e, item.id) }}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={handleRectPointerUp}
                         style={{ cursor: 'move' }} />
                     {isEditingBoard && <><circle
                         cx="0"

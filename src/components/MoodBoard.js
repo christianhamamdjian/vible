@@ -12,30 +12,33 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition } = React.useContext(MoodboardContext);
+    const { isDrawing, isEditingPath, editingText, svgRef, items, zoom, handleSvgPointerDown, svgPosition, divRef, handlePointerMove, handlePointerUp, handleDivResize, handleSvgLoad, draggingSvg } = React.useContext(MoodboardContext);
 
     return (
         <>
-            <div className="frame"
+            <div
+                className="frame"
+                ref={divRef}
                 style={{
-                    // overflow: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "hidden" : "scroll"}`,
-                    // touchAction: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "none" : "auto"}`
-                    // width: '300px',
-                    // height: '300px',
-                    // overflow: 'auto',
-                    // border: '1px solid black',
+                    // width: `${window.innerWidth}`,
+                    // height: `${window.innerHeight}`,
+                    width: "100vw",
+                    height: "100vh",
+                    overflow: 'auto',
+                    // position: 'relative',
                 }}
-
-            >
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onResize={handleDivResize}>
                 <svg
+                    width='2000'
+                    height='2000'
                     id="my-svg"
                     onPointerDown={handleSvgPointerDown}
-                    onPointerMove={handleSvgPointerMove}
-                    onPointerUp={handleSvgPointerUp}
-
+                    onLoad={handleSvgLoad}
                     ref={svgRef}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
-                    style={{ width: '2000', height: '2000', border: '1px solid transparent', transform: `translate(${svgPosition.x}px, ${svgPosition.y}px)` }}
+                    transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >

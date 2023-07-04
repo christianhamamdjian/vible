@@ -65,8 +65,11 @@ export default function MoodboardProvider({ children }) {
     const [draggingSvg, setDraggingSvg] = useState(false);
     const [svgPosition, setSvgPosition] = useState({ x: 0, y: 0 });
     const [svgOffset, setSvgOffset] = useState({ x: 0, y: 0 });
+    const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
+    const [divSize, setDivSize] = useState({ width: 0, height: 0 });
     const [selectedRectId, setSelectedRectId] = useState(null);
     const [rectOffsets, setRectOffsets] = useState({});
+    const divRef = useRef(null);
     const svgRef = useRef(null);
 
     useEffect(() => {
@@ -256,9 +259,11 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault();
         if (!isDrawing) {
             const { clientX, clientY } = e;
+            const svgRect = svgRef.current.getBoundingClientRect();
+            const divRect = divRef.current.getBoundingClientRect();
             setSvgOffset({
-                x: clientX - svgPosition.x,
-                y: clientY - svgPosition.y,
+                x: clientX - svgRect.left + divRect.left - svgPosition.x,
+                y: clientY - svgRect.top + divRect.top - svgPosition.y,
             });
             setDraggingSvg(true);
         }
@@ -278,13 +283,23 @@ export default function MoodboardProvider({ children }) {
         }
     };
 
-    const handleSvgPointerMove = (e) => {
-        e.preventDefault();
+    const handlePointerMove = (e) => {
+
         // if (!draggingSvg || selectedRectId !== null) return;
         if (draggingSvg && selectedRectId === null) {
+            e.preventDefault();
             const { clientX, clientY } = e;
-            const newX = clientX - svgOffset.x;
-            const newY = clientY - svgOffset.y;
+            const divRect = svgRef.current.getBoundingClientRect();
+
+            // const maxX = svgSize.width - divRect.width;
+            // const maxY = svgSize.height - divRect.height;
+
+            let newX = clientX - svgOffset.x - divRect.left;
+            let newY = clientY - svgOffset.y - divRect.top;
+            // console.log(newX, newY)
+            // newX = Math.min(0, Math.max(newX, maxX));
+            // newY = Math.min(0, Math.max(newY, maxY));
+
             setSvgPosition({ x: newX, y: newY });
         }
 
@@ -303,7 +318,22 @@ export default function MoodboardProvider({ children }) {
             setPaths(updatedPaths);
         }
     };
+    const handlePointerUp = () => {
+        setDraggingSvg(false);
+        if (drawing) {
+            setDrawing(false)
+        }
+    };
 
+    const handleSvgLoad = () => {
+        const divRect = svgRef.current.getBoundingClientRect();
+        setSvgSize({ width: divRect.width, height: divRect.height });
+    };
+
+    const handleDivResize = () => {
+        const svgRect = divRef.current.getBoundingClientRect();
+        setDivSize({ width: svgRect.width, height: svgRect.height });
+    };
     const handleSvgPointerUp = () => {
         setDraggingSvg(false)
         if (drawing) {
@@ -992,7 +1022,13 @@ export default function MoodboardProvider({ children }) {
             setItems,
             todosShow,
             svgPosition,
+            divRef,
+            draggingSvg,
             // Methods
+            handlePointerMove,
+            handlePointerUp,
+            handleDivResize,
+            handleSvgLoad,
             handlePathClick,
             handlePathDrag,
             handleMovePath,
@@ -1063,7 +1099,6 @@ export default function MoodboardProvider({ children }) {
             handleItemAngleChange,
             handleTodoAddToBoard,
             handleSvgPointerDown,
-            handleSvgPointerMove,
             handleSvgPointerUp,
             handleRectPointerDown,
             handleRectPointerMove,
