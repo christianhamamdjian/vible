@@ -60,6 +60,13 @@ export default function MoodboardProvider({ children }) {
     const [rotation, setRotation] = useState([]);
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
+
+
+    const [draggingSvg, setDraggingSvg] = useState(false);
+    const [svgPosition, setSvgPosition] = useState({ x: 0, y: 0 });
+    const [svgOffset, setSvgOffset] = useState({ x: 0, y: 0 });
+    const [selectedRectId, setSelectedRectId] = useState(null);
+    const [rectOffsets, setRectOffsets] = useState({});
     const svgRef = useRef(null);
 
     useEffect(() => {
@@ -245,6 +252,101 @@ export default function MoodboardProvider({ children }) {
         setItems((prevItems) => [...prevItems, newItem]);
     }
 
+    const handleSvgPointerDown = (e) => {
+        e.preventDefault();
+        if (!isDrawing) {
+            const { clientX, clientY } = e;
+            setSvgOffset({
+                x: clientX - svgPosition.x,
+                y: clientY - svgPosition.y,
+            });
+            setDraggingSvg(true);
+        }
+
+        // Start drawing
+        if (isDrawing) {
+            e.preventDefault();
+            const { clientX, clientY } = e;
+            const svgPoint = svgRef.current.createSVGPoint();
+            svgPoint.x = clientX;
+            svgPoint.y = clientY;
+            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
+            setSelectedPath(null)
+            setDrawing(true);
+            setDraggingSvg(false);
+            setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
+        }
+    };
+
+    const handleSvgPointerMove = (e) => {
+        e.preventDefault();
+        // if (!draggingSvg || selectedRectId !== null) return;
+        if (draggingSvg && selectedRectId === null) {
+            const { clientX, clientY } = e;
+            const newX = clientX - svgOffset.x;
+            const newY = clientY - svgOffset.y;
+            setSvgPosition({ x: newX, y: newY });
+        }
+
+        // Drawing
+        if (isDrawing && drawing) {
+            e.preventDefault();
+            const { clientX, clientY } = e;
+            const svgPoint = svgRef.current.createSVGPoint();
+            svgPoint.x = clientX;
+            svgPoint.y = clientY;
+            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
+            const currentPath = { ...paths[paths.length - 1] };
+            currentPath["path"].push(transformedPoint);
+            const updatedPaths = [...paths];
+            updatedPaths[paths.length - 1] = currentPath;
+            setPaths(updatedPaths);
+        }
+    };
+
+    const handleSvgPointerUp = () => {
+        setDraggingSvg(false)
+        if (drawing) {
+            setDrawing(false)
+        }
+    };
+    const handleRectPointerDown = (e, rectId) => {
+        e.preventDefault();
+        setSelectedRectId(rectId);
+        const { clientX, clientY } = e;
+        const rect = items.find((r) => r.id === rectId);
+        const rectOffset = {
+            x: clientX - rect.x,
+            y: clientY - rect.y,
+        };
+        setRectOffsets((prevOffsets) => ({
+            ...prevOffsets,
+            [rectId]: rectOffset,
+        }));
+    };
+
+    const handleRectPointerMove = (e, rectId) => {
+        e.preventDefault();
+        if (!draggingSvg || rectId !== selectedRectId) return;
+        const { clientX, clientY } = e;
+        const rectOffset = rectOffsets[rectId];
+        const rectIndex = items.findIndex((r) => r.id === rectId);
+        const newX = clientX - rectOffset.x;
+        const newY = clientY - rectOffset.y;
+        const updatedRectangles = [...items];
+        const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY };
+        updatedRectangles[rectIndex] = updatedRect;
+        setItems(updatedRectangles);
+    };
+
+    const handleRectPointerUp = (rectId) => {
+        setRectOffsets((prevOffsets) => {
+            const { [rectId]: deletedOffset, ...restOffsets } = prevOffsets;
+            return restOffsets;
+        });
+        setSelectedRectId(null);
+    };
+
     // Mouse Down
     const handleMouseDown = (event, element) => {
         if (isEditingPath) {
@@ -262,15 +364,12 @@ export default function MoodboardProvider({ children }) {
         }
         //Start dragging path
         if (!isDrawing && !isErasing && element && element.type === "path") {
-
             setDraggingPath(true);
-
             let selectedElement = event.target.closest(`path[data-index="${element.id}"]`)
             let transformMatrix = selectedElement.getCTM();
             let x = transformMatrix.e
             let y = transformMatrix.f
             const { clientX, clientY } = event.touches ? event.touches[0] : event;
-
             setSelectedPath(paths.find(path => path.id === element.id))
             if (element.angle > 0) {
                 setDragOffsetPath({ x: element.x, y: element.y });
@@ -293,10 +392,12 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Mouse Moving
-    const handleMouseMove = (event) => {
+    const handleMouseMove = (event, element) => {
         // Moving objects
-        if (selectedItem && !selectedPath) {
-            if (!draggingItem) return;
+        event.preventDefault();
+        if (!draggingSvg || element !== selectedItem) return;
+        if (selectedItem && element === selectedItem && !selectedPath) {
+            //if (!draggingItem) return;
             const { x, y } = dragOffsetItem
             const { left, top } = event.currentTarget.getBoundingClientRect()
             const { clientX, clientY } = event.touches ? event.touches[0] : event;
@@ -890,6 +991,7 @@ export default function MoodboardProvider({ children }) {
             selectedPath,
             setItems,
             todosShow,
+            svgPosition,
             // Methods
             handlePathClick,
             handlePathDrag,
@@ -959,7 +1061,13 @@ export default function MoodboardProvider({ children }) {
             handleItemWidthChange,
             handleItemHeightChange,
             handleItemAngleChange,
-            handleTodoAddToBoard
+            handleTodoAddToBoard,
+            handleSvgPointerDown,
+            handleSvgPointerMove,
+            handleSvgPointerUp,
+            handleRectPointerDown,
+            handleRectPointerMove,
+            handleRectPointerUp
         }}>
             {children}
         </MoodboardContext.Provider>

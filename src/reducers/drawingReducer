@@ -1,23 +1,29 @@
-initialState={
-    isDrawing:false,
-    isEditingPath;null,
-    isEditingPaths:false,
-    isErasing:false,
-    pathColor:'#000000',
-    pathLine:2,
-    freezeScreen:false,
-    draggingPath:false,
-    dragOffsetPath:{ x: 0, y: 0 },
-    isPathMoving:false,
+initialState = {
+  isDrawing: false,
+  isEditingPath; null,
+  isEditingPaths: false,
+  isErasing: false,
+  pathColor: '#000000',
+  pathLine: 2,
+  freezeScreen: false,
+  draggingPath: false,
+  dragOffsetPath: { x: 0, y: 0 },
+  isPathMoving: false,
 }
 
 const actions = {
-    START_DRAWING: "START_DRAWWING",
-    MOVE_PATH: "MOVE_PATH",
-    START_ERASE_PATH: "START_ERASE_PATH"
-  };
+  START_DRAWING: "START_DRAWWING",
+  MOVE_PATH: "MOVE_PATH",
+  START_ERASE_PATH: "START_ERASE_PATH",
+  DELETE_PATH: "DELETE_PATH",
+  LINE_COLOR: "LINE_COLOR",
+  LINE_WIDTH: "LINE_WIDTH",
+  CHANGE_LINE_WIDTH: "CHANGE_LINE_WIDTH",
+  CHANGE_LINE_COLOR: "CHANGE_LINE_COLOR",
+  STOP_LINE_EDITING: "STOP_LINE_EDITING"
+};
 
-  //Reducer to Handle Actions
+//Reducer to Handle Actions
 const reducer = (state, action) => {
   switch (action.type) {
     case actions.START_DRAWING:
@@ -50,30 +56,3 @@ const reducer = (state, action) => {
   }
 };
 
-
-// handleDrawing
-// START_DRAWING
-
-// handleMovePath
-// MOVE_PATH
-
-// handleEraser
-// START_ERASE_PATH
-
-// handleDeletePath
-// DELETE_PATH
-
-// handleLineColor
-// LINE _COLOR
-
-// handleLineWidth
-// LINE_WIDTH
-
-// handleLineWidthChange
-// CHANGE_LINE_WIDTH
-
-// handleLineColorChange
-// CHANGE_LINE_COLOR
-
-// stopLineEditing
-// STOP_LINE_EDITING

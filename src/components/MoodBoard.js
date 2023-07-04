@@ -12,24 +12,30 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, handleMouseDown, handleMouseMove, handleMouseUp, zoom, handleAddBox, handleStopEditBox } = React.useContext(MoodboardContext);
+    const { isDrawing, isEditingPath, editingText, selectedPath, draggingPath, draggingItem, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition } = React.useContext(MoodboardContext);
 
     return (
         <>
-            <div className="frame" style={{
-                overflow: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "hidden" : "scroll"}`,
-                touchAction: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "none" : "auto"}`
-            }}>
+            <div className="frame"
+                style={{
+                    // overflow: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "hidden" : "scroll"}`,
+                    // touchAction: `${(isDrawing || selectedPath || draggingPath || draggingItem) ? "none" : "auto"}`
+                    // width: '300px',
+                    // height: '300px',
+                    // overflow: 'auto',
+                    // border: '1px solid black',
+                }}
+
+            >
                 <svg
                     id="my-svg"
-                    onPointerDown={handleMouseDown}
-                    onPointerMove={handleMouseMove}
-                    onPointerUp={handleMouseUp}
-                    // onClick={handleStopEditBox}
-                    //onDoubleClick={handleAddBox} // conflict with editing text on box
+                    onPointerDown={handleSvgPointerDown}
+                    onPointerMove={handleSvgPointerMove}
+                    onPointerUp={handleSvgPointerUp}
+
                     ref={svgRef}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
-                    style={{ width: '2000', height: '2000', border: '1px solid transparent' }}
+                    style={{ width: '2000', height: '2000', border: '1px solid transparent', transform: `translate(${svgPosition.x}px, ${svgPosition.y}px)` }}
                     cursor={isDrawing ? "crosshair" : "move"}
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >

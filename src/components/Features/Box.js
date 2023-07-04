@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { items, handleItemTextChange, handleMouseDown, handleDeleteItem, handleMouseUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard, focusRef } = React.useContext(MoodboardContext);
+    const { items, handleItemTextChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard, focusRef } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -21,10 +21,9 @@ const Image = ({ item }) => {
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`
                         }}
-                        onMouseDown={(e) => handleMouseDown(e, item.id)}
-                        onMouseUp={handleMouseUp}
-                        onTouchStart={(e) => handleMouseDown(e, item.id)}
-                        onTouchEnd={handleMouseUp}
+                        onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={() => handleRectPointerUp(item.id)}
                         onDoubleClick={() => handleEditBox(item.id)}
                     >
                         <p
