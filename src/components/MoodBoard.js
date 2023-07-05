@@ -24,9 +24,8 @@ const MoodBoard = () => {
                     width: `${window.innerWidth}`,
                     height: `${window.innerHeight}`,
                     backgroundColor: "lightgray",
-                    overflow: 'auto'
+                    overflow: 'hidden'
                 }}
-            //onResize={handleDivResize}
             >
                 <svg
                     width='2000'
@@ -35,7 +34,6 @@ const MoodBoard = () => {
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    //onLoad={handleSvgLoad}
                     onDoubleClick={handleStopEditBox}
                     ref={svgRef}
                     style={{
