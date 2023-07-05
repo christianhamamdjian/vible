@@ -59,7 +59,7 @@ const PdfForm = () => {
 
     return (
         <div>
-            <label className='custom-file-upload'>Add a Pdf file:</label>
+            {/* <label className='custom-file-upload'>Add a Pdf file:</label> */}
             <input type="file" accept="application/pdf" onChange={handleFileChange} />
         </div>
     );

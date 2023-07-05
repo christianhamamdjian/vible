@@ -1,7 +1,7 @@
 import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
-const Image = ({ item }) => {
+const Box = ({ item }) => {
     const { items, handleItemTextChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard, focusRef } = React.useContext(MoodboardContext);
 
     return (
@@ -24,30 +24,38 @@ const Image = ({ item }) => {
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
                         onPointerUp={() => handleRectPointerUp(item.id)}
-                        onDoubleClick={() => handleEditBox(item.id)}
+                        onDoubleClick={(e) => handleEditBox(e, item.id)}
                     >
+
+                        {/* {editingText && (item.id === editingText.id) ? (<textarea
+                            name=""
+                            id=""
+                            value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
+                            onChange={(event) => handleItemTextChange(event, editingText.id)}
+                            style={{
+                                backgroundColor: "transparent",
+                                color: getTextColor(item.color),
+                                fontFamily: "sans-serif"
+                            }}
+                            cols="10"
+                            rows="5"
+                            onFocus={(e) => handleEditBox(e, item.id)}
+                            //ref={focusRef}
+                            onBlur={handleStopEditBox}
+                        >
+                        </textarea>) : ( */}
                         <p
                             className="text"
                             fill={item.color}
                             style={{
-                                color: getTextColor(item.color), fontFamily: "sans-serif"
+                                color:
+                                    getTextColor(item.color),
+                                fontFamily: "sans-serif",
+                                zIndex: "100"
                             }}
-                        >
-                            {editingText && (item.id === editingText.id) ? (<textarea
-                                name=""
-                                id=""
-                                value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
-                                onChange={(event) =>
-                                    handleItemTextChange(event, editingText.id)}
-                                style={{ backgroundColor: "transparent" }}
-                                cols="10"
-                                rows="10"
-                                ref={focusRef}
-                                onBlur={handleStopEditBox}
-                            >
-                            </textarea>) : item.text}
-                        </p>
-
+                        >{item.text}
+                        </p>)
+                        {/* } */}
                     </foreignObject>
                     <a
                         xlinkHref={item.url}
@@ -82,7 +90,7 @@ const Image = ({ item }) => {
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
-                            onClick={() => handleEditBox(item.id)}
+                            onClick={(e) => handleEditBox(e, item.id)}
                         />
                         {editingText && (editingText.id === item.id) && <circle
                             cx="20"
@@ -98,4 +106,4 @@ const Image = ({ item }) => {
         </>
     )
 }
-export default Image
+export default Box

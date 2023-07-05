@@ -69,8 +69,8 @@ export default function MoodboardProvider({ children }) {
     const [divSize, setDivSize] = useState({ width: 0, height: 0 });
     const [selectedRectId, setSelectedRectId] = useState(null);
     const [rectOffsets, setRectOffsets] = useState({});
-    const divRef = useRef(null);
-    const svgRef = useRef(null);
+    const divRef = useRef(null)
+    const svgRef = useRef(null)
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -257,6 +257,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleSvgPointerDown = (e) => {
         e.preventDefault();
+        if (editingText) return
         if (!isDrawing) {
             const { clientX, clientY } = e;
             const svgRect = svgRef.current.getBoundingClientRect();
@@ -282,8 +283,22 @@ export default function MoodboardProvider({ children }) {
             setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
         }
     };
+    const handleSvgLoad = () => {
+        const divRect = svgRef.current.getBoundingClientRect();
+        setSvgSize({ width: divRect.width, height: divRect.height });
+    };
 
-    const handlePointerMove = (e) => {
+    const handleDivResize = () => {
+        const svgRect = divRef.current.getBoundingClientRect();
+        setDivSize({ width: svgRect.width, height: svgRect.height });
+    };
+    const handleSvgPointerUp = () => {
+        setDraggingSvg(false)
+        if (drawing) {
+            setDrawing(false)
+        }
+    };
+    const handleSvgPointerMove = (e) => {
 
         // if (!draggingSvg || selectedRectId !== null) return;
         if (draggingSvg && selectedRectId === null) {
@@ -325,23 +340,10 @@ export default function MoodboardProvider({ children }) {
         }
     };
 
-    const handleSvgLoad = () => {
-        const divRect = svgRef.current.getBoundingClientRect();
-        setSvgSize({ width: divRect.width, height: divRect.height });
-    };
 
-    const handleDivResize = () => {
-        const svgRect = divRef.current.getBoundingClientRect();
-        setDivSize({ width: svgRect.width, height: svgRect.height });
-    };
-    const handleSvgPointerUp = () => {
-        setDraggingSvg(false)
-        if (drawing) {
-            setDrawing(false)
-        }
-    };
     const handleRectPointerDown = (e, rectId) => {
         e.preventDefault();
+        if (editingText) return
         setSelectedRectId(rectId);
         const { clientX, clientY } = e;
         const rect = items.find((r) => r.id === rectId);
@@ -355,10 +357,11 @@ export default function MoodboardProvider({ children }) {
         }));
     };
 
-    const handleRectPointerMove = (e, rectId) => {
-        e.preventDefault();
+    const handleRectPointerMove = (event, rectId) => {
+        event.stopPropagation();
+        event.preventDefault();
         if (!draggingSvg || rectId !== selectedRectId) return;
-        const { clientX, clientY } = e;
+        const { clientX, clientY } = event;
         const rectOffset = rectOffsets[rectId];
         const rectIndex = items.findIndex((r) => r.id === rectId);
         const newX = clientX - rectOffset.x;
@@ -375,100 +378,6 @@ export default function MoodboardProvider({ children }) {
             return restOffsets;
         });
         setSelectedRectId(null);
-    };
-
-    // Mouse Down
-    const handleMouseDown = (event, element) => {
-        if (isEditingPath) {
-            stopLineEditing()
-        }
-
-        // Start dragging objects
-        if (element && !isDrawing && element.type !== "path") {
-            setDraggingItem(true);
-            const { clientX, clientY } = event.touches ? event.touches[0] : event;
-            const { left, top } = event.currentTarget.getBoundingClientRect()
-            setDragOffsetItem({ x: clientX - left, y: clientY - top });
-            const selectedItem = items.find(item => item.id === element)
-            setSelectedItem(selectedItem)
-        }
-        //Start dragging path
-        if (!isDrawing && !isErasing && element && element.type === "path") {
-            setDraggingPath(true);
-            let selectedElement = event.target.closest(`path[data-index="${element.id}"]`)
-            let transformMatrix = selectedElement.getCTM();
-            let x = transformMatrix.e
-            let y = transformMatrix.f
-            const { clientX, clientY } = event.touches ? event.touches[0] : event;
-            setSelectedPath(paths.find(path => path.id === element.id))
-            if (element.angle > 0) {
-                setDragOffsetPath({ x: element.x, y: element.y });
-            } else {
-                setDragOffsetPath({ x: parseInt(clientX + x), y: parseInt(clientY + y) });
-            }
-        }
-
-        // Start drawing
-        if (isDrawing && !drawing) {
-            const { clientX, clientY } = event;
-            const svgPoint = svgRef.current.createSVGPoint();
-            svgPoint.x = clientX;
-            svgPoint.y = clientY;
-            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
-            setSelectedPath(null)
-            setDrawing(true);
-            setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
-        }
-    };
-
-    // Mouse Moving
-    const handleMouseMove = (event, element) => {
-        // Moving objects
-        event.preventDefault();
-        if (!draggingSvg || element !== selectedItem) return;
-        if (selectedItem && element === selectedItem && !selectedPath) {
-            //if (!draggingItem) return;
-            const { x, y } = dragOffsetItem
-            const { left, top } = event.currentTarget.getBoundingClientRect()
-            const { clientX, clientY } = event.touches ? event.touches[0] : event;
-            setItems((prevItems) =>
-                prevItems.map((item) => {
-                    return item.id === selectedItem.id ? { ...item, x: clientX - left - x, y: clientY - top - y } : item
-                })
-            );
-        }
-
-        // Drawing
-        if (!drawing) return;
-        if (drawing && !isErasing && !selectedItem) {
-            const { clientX, clientY } = event;
-            const svgPoint = svgRef.current.createSVGPoint();
-            svgPoint.x = clientX;
-            svgPoint.y = clientY;
-            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
-            const currentPath = { ...paths[paths.length - 1] };
-            currentPath["path"].push(transformedPoint);
-            const updatedPaths = [...paths];
-            updatedPaths[paths.length - 1] = currentPath;
-            setPaths(updatedPaths);
-        }
-
-        // prevent screen from scrolling when in action
-        if (selectedItem || selectedPath || isDrawing) {
-            setFreezeScreen(true)
-        }
-    };
-
-    // Mouse Up
-    const handleMouseUp = () => {
-        if (drawing) {
-            setDrawing(false)
-        }
-        // Resetting
-        setFreezeScreen(false)
-        setSelectedItem(null)
-        setDraggingItem(false)
-        setDragOffsetItem({ x: 0, y: 0 })
     };
 
     const handlePathClick = (index, id) => {
@@ -547,8 +456,6 @@ export default function MoodboardProvider({ children }) {
         setScaling(scale)
         setPaths(updatedPaths);
     };
-
-
 
     const getCenterPoint = (points) => {
         const bounds = points.reduce(
@@ -917,11 +824,15 @@ export default function MoodboardProvider({ children }) {
     const handleItemMapUrl = (event) => {
         setItemMapUrl(event.target.value);
     };
-    const handleEditBox = (id) => {
+    const handleEditBox = (event, id) => {
         setEditingText({ status: true, id: id })
+        handleWrite()
     }
     const handleStopEditBox = () => {
-        setEditingText(null)
+        if (editingText) {
+            setEditingText(null)
+            setWrite(false)
+        }
     }
 
     // Toggle functions
@@ -1025,7 +936,7 @@ export default function MoodboardProvider({ children }) {
             divRef,
             draggingSvg,
             // Methods
-            handlePointerMove,
+            handleSvgPointerMove,
             handlePointerUp,
             handleDivResize,
             handleSvgLoad,
@@ -1038,9 +949,6 @@ export default function MoodboardProvider({ children }) {
             handleAddVideo,
             handleAddImage,
             handleAddMap,
-            handleMouseDown,
-            handleMouseMove,
-            handleMouseUp,
             handleDeleteItem,
             handleItemText,
             handleItemColor,

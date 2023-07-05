@@ -34,11 +34,11 @@ const DrawingFormTop = () => {
                         </>
                     )
                     }
-                    {items.length > 0 && (
+                    {/* {items.length > 0 && (
                         <button className={write ? "selected-button" : null}
                             type="button"
                             onClick={handleWrite}>Edit box</button>
-                    )}
+                    )} */}
 
                 </div>
 
