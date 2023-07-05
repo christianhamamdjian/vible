@@ -3,7 +3,7 @@ import BoxFormTop from "../forms/BoxFormTop"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { items, paths, rotation, scaling, stopLineEditing, isDrawing, isEditingPaths, handleEditPaths, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleEditingBoard, isEditingBoard, handleAddBox, write, selectedItem, handleWrite } = React.useContext(MoodboardContext);
+    const { items, paths, stopLineEditing, isDrawing, isEditingPaths, handleEditPaths, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleEditingBoard, isEditingBoard, handleAddBox, write } = React.useContext(MoodboardContext);
 
     return (
         <div className='itemForms-top'>
@@ -34,16 +34,11 @@ const DrawingFormTop = () => {
                         </>
                     )
                     }
-                    {/* {items.length > 0 && (
-                        <button className={write ? "selected-button" : null}
-                            type="button"
-                            onClick={handleWrite}>Edit box</button>
-                    )} */}
 
                 </div>
 
                 {/* <h2>Drawing:</h2> */}
-                {isDrawing && (<div className='inputs-top'>
+                {isDrawing && (<div className='inputs-top_draw'>
                     {/* <label>Line color:</label> */}
                     <input
                         type="color"
@@ -63,7 +58,7 @@ const DrawingFormTop = () => {
 
             {paths.length > 0 && isEditingPath && (
                 <>
-                    <div className='inputs-top'>
+                    <div className='inputs-top_draw'>
                         <input
                             type="color"
                             value={paths.find(path => path.id === isEditingPath.id).color}
@@ -78,29 +73,11 @@ const DrawingFormTop = () => {
                             <>
                                 <div className='path-edit-form'>
                                     <label htmlFor="rotate">Rotate:</label>
-                                    {/* <input
-                                        type="range"
-                                        id="rotate"
-                                        min="0"
-                                        max="36"
-                                        //step="1"
-                                        value={rotation || 0}
-                                        onChange={handleRotateChange}
-                                    /> */}
                                     <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                                     <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                                 </div>
                                 <div>
                                     <label htmlFor="scale">Scale:</label>
-                                    {/* <input
-                                        type="range"
-                                        id="scale"
-                                        min="1"
-                                        max="10"
-                                        //step="0.1"
-                                        value={scaling || 1}
-                                        onChange={handleScaleChange}
-                                    /> */}
                                     <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                                     <button onClick={e => handleScaleChange(e, "increase")}>+</button>
                                 </div>

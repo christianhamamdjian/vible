@@ -12,7 +12,7 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, isEditingPath, editingText, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, handlePointerDown, handlePointerMove, handlePointerUp, handleDivResize, handleSvgLoad, handleStopEditBox, draggingSvg
+    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, handleStopEditBox, draggingSvg
     } = React.useContext(MoodboardContext);
 
     return (
@@ -24,15 +24,10 @@ const MoodBoard = () => {
                     width: `${window.innerWidth}`,
                     height: `${window.innerHeight}`,
                     backgroundColor: "lightgray",
-                    // width: "100vw",
-                    // height: "100vh",
-                    overflow: 'auto',
-                    // position: 'relative',
+                    overflow: 'auto'
                 }}
-                // onPointerDown={handlePointerDown}
-                // onPointerMove={handlePointerMove}
-                // onPointerUp={handlePointerUp}
-                onResize={handleDivResize}>
+            //onResize={handleDivResize}
+            >
                 <svg
                     width='2000'
                     height='2000'
@@ -40,11 +35,12 @@ const MoodBoard = () => {
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    onLoad={handleSvgLoad}
+                    //onLoad={handleSvgLoad}
                     onDoubleClick={handleStopEditBox}
                     ref={svgRef}
                     style={{
                         backgroundColor: "white",
+                        cursor: draggingSvg ? 'grabbing' : 'grab',
                     }}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
@@ -53,7 +49,6 @@ const MoodBoard = () => {
                 >
                     {items.map(item => (
                         <g key={item.id}
-                            draggable={editingText || isEditingPath ? "false" : "true"}
                             transform={`translate(${item.x},${item.y})`}
                         >
                             <Box item={item} />

@@ -3,17 +3,11 @@ import MoodBoard from './components/MoodBoard';
 import './App.css';
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
-import SVGEditor from "./components/SVGEditor"
-import { MoodboardContext } from "./context/moodboardContext";
 
 function App() {
-  const { isDrawing, draggingPath, draggingItem } = React.useContext(MoodboardContext);
 
   return (
-    <div className="app" style={{
-      // overflow: `${(isDrawing || draggingPath || draggingItem) ? "visible" : "hidden"}`,
-      // touchAction: `${(isDrawing || draggingPath || draggingItem) ? "none" : "auto"}`
-    }}>
+    <div className="app">
       <DrawingFormTop />
       <div className="container" >
         <SidebarDrawer side="left" />
@@ -21,8 +15,6 @@ function App() {
         <SidebarDrawer side="right" />
       </div>
     </div >
-
-    // <SVGEditor />
   );
 }
 

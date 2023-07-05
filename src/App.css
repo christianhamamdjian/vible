@@ -95,13 +95,24 @@ body {
   gap: .2rem;
 }
 
-.inputs-top {
+.inputs-top_objects {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   justify-content: center;
   align-items: center;
   padding: .8rem .4rem;
   grid-gap: .2rem .8rem;
+  background: rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  z-index: 10;
+}
+
+.inputs-top_draw {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .8rem .4rem;
+  gap: .2rem .8rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
