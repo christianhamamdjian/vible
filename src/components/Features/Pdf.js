@@ -36,6 +36,7 @@ const Pdf = ({ item }) => {
         <>
             {item.type === "pdf" &&
                 <>
+
                     <foreignObject
                         x="0"
                         y="0"
@@ -48,8 +49,8 @@ const Pdf = ({ item }) => {
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
                         onPointerUp={() => handleRectPointerUp(item.id)}
-                    >
-                        <div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
+                    ><div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
+
                         {pdfData ? (
                             <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
                         ) : (

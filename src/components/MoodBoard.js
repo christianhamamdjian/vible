@@ -29,9 +29,9 @@ const MoodBoard = () => {
                     overflow: 'auto',
                     // position: 'relative',
                 }}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
+                // onPointerDown={handlePointerDown}
+                // onPointerMove={handlePointerMove}
+                // onPointerUp={handlePointerUp}
                 onResize={handleDivResize}>
                 <svg
                     width='2000'

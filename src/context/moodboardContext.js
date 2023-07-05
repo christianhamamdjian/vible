@@ -292,12 +292,7 @@ export default function MoodboardProvider({ children }) {
         const svgRect = divRef.current.getBoundingClientRect();
         setDivSize({ width: svgRect.width, height: svgRect.height });
     };
-    const handleSvgPointerUp = () => {
-        setDraggingSvg(false)
-        if (drawing) {
-            setDrawing(false)
-        }
-    };
+
     const handleSvgPointerMove = (e) => {
 
         // if (!draggingSvg || selectedRectId !== null) return;
@@ -333,16 +328,22 @@ export default function MoodboardProvider({ children }) {
             setPaths(updatedPaths);
         }
     };
-    const handlePointerUp = () => {
-        setDraggingSvg(false);
+    const handleSvgPointerUp = () => {
+        setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)
         }
     };
+    // const handlePointerUp = () => {
+    //     setDraggingSvg(false);
+    //     if (drawing) {
+    //         setDrawing(false)
+    //     }
+    // };
 
 
     const handleRectPointerDown = (e, rectId) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (editingText) return
         setSelectedRectId(rectId);
         const { clientX, clientY } = e;
@@ -358,8 +359,8 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerMove = (event, rectId) => {
-        event.stopPropagation();
-        event.preventDefault();
+        // event.stopPropagation();
+        // event.preventDefault();
         if (!draggingSvg || rectId !== selectedRectId) return;
         const { clientX, clientY } = event;
         const rectOffset = rectOffsets[rectId];
@@ -788,11 +789,17 @@ export default function MoodboardProvider({ children }) {
         const request = indexedDB.open('vible-database', 1);
         request.onsuccess = function (event) {
             const db = event.target.result;
-            const request = db.transaction('pdfs', 'readwrite')
-                .objectStore('pdfs')
-                .delete(id)
+            if (!id) {
+                const request = db.transaction('pdfs', 'readwrite')
+                    .objectStore('pdfs')
+                    .clear()
+            } else {
+                const request = db.transaction('pdfs', 'readwrite')
+                    .objectStore('pdfs')
+                    .delete(id)
+            }
             request.onsuccess = () => {
-                console.log(`Pdf deleted: ${id}`);
+                console.log(id ? `Pdf deleted: ${id}` : "All Pdfs deleted");
             }
             request.onerror = (err) => {
                 console.error(`Error to delete pdf: ${err}`)
@@ -862,6 +869,7 @@ export default function MoodboardProvider({ children }) {
     const handleClearBoard = () => {
         setItems([])
         setPaths([])
+        handlePdfDelete()
     }
     const handleMoveObjects = () => {
         setIsMovingObjects(isMovingObjects => !isMovingObjects)
@@ -937,7 +945,7 @@ export default function MoodboardProvider({ children }) {
             draggingSvg,
             // Methods
             handleSvgPointerMove,
-            handlePointerUp,
+            //handlePointerUp,
             handleDivResize,
             handleSvgLoad,
             handlePathClick,
