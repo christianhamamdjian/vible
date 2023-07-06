@@ -24,10 +24,11 @@ const MoodBoard = () => {
                     width: `${window.innerWidth}`,
                     height: `${window.innerHeight}`,
                     backgroundColor: "lightgray",
-                    overflow: 'hidden'
+                    overflow: 'auto'
                 }}
             >
                 <svg
+                    ref={svgRef}
                     width='2000'
                     height='2000'
                     id="my-svg"
@@ -35,7 +36,6 @@ const MoodBoard = () => {
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
-                    ref={svgRef}
                     style={{
                         backgroundColor: "white",
                         cursor: draggingSvg ? 'grabbing' : 'grab',
@@ -43,7 +43,6 @@ const MoodBoard = () => {
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                     cursor={isDrawing ? "crosshair" : "move"}
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
                     {items.map(item => (
                         <g key={item.id}

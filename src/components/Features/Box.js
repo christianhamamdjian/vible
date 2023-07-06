@@ -26,7 +26,11 @@ const Box = ({ item }) => {
                         onPointerUp={() => handleRectPointerUp(item.id)}
                         onDoubleClick={(e) => handleEditBox(e, item.id)}
                     >
-
+                        <a
+                            href={item.url}
+                            target="__blank">
+                            <text x="80" y="30" fill={getTextColor(item.color)}>{item.link}</text>
+                        </a>
                         {/* {editingText && (item.id === editingText.id) ? (<textarea
                             name=""
                             id=""
@@ -39,8 +43,6 @@ const Box = ({ item }) => {
                             }}
                             cols="10"
                             rows="5"
-                            onFocus={(e) => handleEditBox(e, item.id)}
-                            //ref={focusRef}
                             onBlur={handleStopEditBox}
                         >
                         </textarea>) : ( */}
@@ -48,8 +50,7 @@ const Box = ({ item }) => {
                             className="text"
                             fill={item.color}
                             style={{
-                                color:
-                                    getTextColor(item.color),
+                                color: getTextColor(item.color),
                                 fontFamily: "sans-serif",
                                 zIndex: "100"
                             }}
@@ -57,11 +58,7 @@ const Box = ({ item }) => {
                         </p>)
                         {/* } */}
                     </foreignObject>
-                    <a
-                        xlinkHref={item.url}
-                        target="__blank">
-                        <text x="80" y="30" fill="rgb(244, 180, 22)">{item.link}</text>
-                    </a>
+
                     {editingText && (editingText.id === item.id) && <circle
                         cx="0"
                         cy="0"

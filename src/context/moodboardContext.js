@@ -107,8 +107,8 @@ export default function MoodboardProvider({ children }) {
     };
 
     // Add Elements
-    const handleAddBox = (event) => {
-        event.preventDefault();
+    const handleAddBox = (e) => {
+        e.preventDefault();
         const itemId = Date.now();
         const newBox = {
             id: itemId,
@@ -251,8 +251,8 @@ export default function MoodboardProvider({ children }) {
     const handleSvgPointerDown = (e) => {
         if (editingText) return
         if (!isDrawing) {
-            // e.preventDefault();
-            // e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             const { clientX, clientY } = e;
             const svgRect = svgRef.current.getBoundingClientRect();
             const divRect = divRef.current.getBoundingClientRect();
@@ -274,16 +274,16 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
             setSelectedPath(null)
             setDrawing(true);
-            //setDraggingSvg(false);
+            setDraggingSvg(false);
             setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
         }
     };
 
     const handleSvgPointerMove = (e) => {
 
-        if (draggingSvg && selectedRectId === null) {
-            // e.preventDefault();
-            // e.stopPropagation();
+        if (!isDrawing && !drawing && draggingSvg && selectedRectId === null) {
+            e.preventDefault();
+            e.stopPropagation();
             const { clientX, clientY } = e;
             const divRect = svgRef.current.getBoundingClientRect();
             const maxX = svgSize.width - divRect.width;
@@ -336,11 +336,11 @@ export default function MoodboardProvider({ children }) {
         }));
     };
 
-    const handleRectPointerMove = (event, rectId) => {
-        // event.stopPropagation();
-        event.preventDefault();
+    const handleRectPointerMove = (e, rectId) => {
+        // e.stopPropagation();
+        e.preventDefault();
         if (!draggingSvg || rectId !== selectedRectId) return;
-        const { clientX, clientY } = event;
+        const { clientX, clientY } = e;
         const rectOffset = rectOffsets[rectId];
         const rectIndex = items.findIndex((r) => r.id === rectId);
         const newX = clientX - rectOffset.x;
@@ -369,15 +369,15 @@ export default function MoodboardProvider({ children }) {
         }
     };
 
-    const handlePathDrag = (event) => {
-        event.stopPropagation();
-        const startX = event.clientX || event.touches[0].clientX;
-        const startY = event.clientY || event.touches[0].clientY;
+    const handlePathDrag = (e) => {
+        e.stopPropagation();
+        const startX = e.clientX || e.touches[0].clientX;
+        const startY = e.clientY || e.touches[0].clientY;
 
-        const handleMouseMove = (event) => {
-            event.preventDefault();
-            const currentX = event.clientX || event.touches[0].clientX;
-            const currentY = event.clientY || event.touches[0].clientY;
+        const handleMouseMove = (e) => {
+            e.preventDefault();
+            const currentX = e.clientX || e.touches[0].clientX;
+            const currentY = e.clientY || e.touches[0].clientY;
             const deltaX = currentX - startX;
             const deltaY = currentY - startY;
 
@@ -406,7 +406,7 @@ export default function MoodboardProvider({ children }) {
         window.addEventListener('pointerup', handleMouseUp);
     };
 
-    const handleRotateChange = (event, amount) => {
+    const handleRotateChange = (e, amount) => {
         const rotate = (amount === "increase") ? +10 : -10;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
@@ -421,7 +421,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths);
     };
 
-    const handleScaleChange = (event, amount) => {
+    const handleScaleChange = (e, amount) => {
         const scale = (amount === "increase") ? 1.2 : 0.8;
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
@@ -494,72 +494,72 @@ export default function MoodboardProvider({ children }) {
         setSelectedPath(null)
     }
     // Text Box
-    const handleItemTextChange = (event, id) => {
+    const handleItemTextChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, text: event.target.value };
+                    return { ...item, text: e.target.value };
                 }
                 return item;
             })
         )
     };
-    const handleItemColorChange = (event, id) => {
+    const handleItemColorChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, color: event.target.value };
+                    return { ...item, color: e.target.value };
                 }
                 return item;
             })
         );
     };
-    const handleItemLinkChange = (event, id) => {
+    const handleItemLinkChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, link: event.target.value };
+                    return { ...item, link: e.target.value };
                 }
                 return item;
             })
         );
     };
-    const handleItemWidthChange = (event, id) => {
+    const handleItemWidthChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, width: event.target.value };
+                    return { ...item, width: e.target.value };
                 }
                 return item;
             })
         );
     };
-    const handleItemHeightChange = (event, id) => {
+    const handleItemHeightChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, height: event.target.value };
+                    return { ...item, height: e.target.value };
                 }
                 return item;
             })
         );
     };
-    const handleItemAngleChange = (event, id) => {
+    const handleItemAngleChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, angle: event.target.value };
+                    return { ...item, angle: e.target.value };
                 }
                 return item;
             })
         );
     };
     // Image
-    const handleItemUrlChange = (event, id) => {
+    const handleItemUrlChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, url: event.target.value };
+                    return { ...item, url: e.target.value };
                 }
                 return item;
             })
@@ -571,11 +571,11 @@ export default function MoodboardProvider({ children }) {
     const handleStopEditImage = () => {
         setEditingImage(null)
     }
-    const handleImageChange = (event, id) => {
+    const handleImageChange = (e, id) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, width: event.target.value };
+                    return { ...item, width: e.target.value };
                 }
                 return item;
             })
@@ -603,27 +603,27 @@ export default function MoodboardProvider({ children }) {
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased));
     }
-    const handleLineColor = (event) => {
-        setPathColor(event.target.value)
+    const handleLineColor = (e) => {
+        setPathColor(e.target.value)
     }
-    const handleLineWidth = (event) => {
-        setPathLine(event.target.value)
+    const handleLineWidth = (e) => {
+        setPathLine(e.target.value)
     }
-    const handleLineWidthChange = (event, id) => {
+    const handleLineWidthChange = (e, id) => {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, line: event.target.value };
+                    return { ...path, line: e.target.value };
                 }
                 return path;
             })
         )
     };
-    const handleLineColorChange = (event, id) => {
+    const handleLineColorChange = (e, id) => {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, color: event.target.value };
+                    return { ...path, color: e.target.value };
                 }
                 return path;
             })
@@ -732,8 +732,8 @@ export default function MoodboardProvider({ children }) {
         reader.readAsDataURL(e.target.files[0]);
     };
 
-    const handleGalleryTypeChange = (event) => {
-        setGalleryType(event.target.value)
+    const handleGalleryTypeChange = (e) => {
+        setGalleryType(e.target.value)
     }
 
     const handleGalleryAddToBoard = (item) => {
@@ -765,8 +765,8 @@ export default function MoodboardProvider({ children }) {
     };
     const handlePdfDelete = (id) => {
         const request = indexedDB.open('vible-database', 1);
-        request.onsuccess = function (event) {
-            const db = event.target.result;
+        request.onsuccess = function (e) {
+            const db = e.target.result;
             if (!id) {
                 const request = db.transaction('pdfs', 'readwrite')
                     .objectStore('pdfs')
@@ -788,28 +788,28 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    const handleItemText = (event) => {
-        setItemText(event.target.value);
+    const handleItemText = (e) => {
+        setItemText(e.target.value);
     };
-    const handleItemColor = (event) => {
-        setItemColor(event.target.value);
+    const handleItemColor = (e) => {
+        setItemColor(e.target.value);
     };
-    const handleItemLink = (event) => {
-        setItemLink(event.target.value);
+    const handleItemLink = (e) => {
+        setItemLink(e.target.value);
     };
-    const handleItemUrl = (event) => {
-        setItemUrl(event.target.value);
+    const handleItemUrl = (e) => {
+        setItemUrl(e.target.value);
     };
-    const handleItemVideoUrl = (event) => {
-        setItemVideoUrl(event.target.value);
+    const handleItemVideoUrl = (e) => {
+        setItemVideoUrl(e.target.value);
     };
-    const handleItemImageUrl = (event) => {
-        setItemImageUrl(event.target.value);
+    const handleItemImageUrl = (e) => {
+        setItemImageUrl(e.target.value);
     };
-    const handleItemMapUrl = (event) => {
-        setItemMapUrl(event.target.value);
+    const handleItemMapUrl = (e) => {
+        setItemMapUrl(e.target.value);
     };
-    const handleEditBox = (event, id) => {
+    const handleEditBox = (e, id) => {
         setEditingText({ status: true, id: id })
         handleWrite()
     }
