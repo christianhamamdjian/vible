@@ -20,7 +20,10 @@ const ImageLink = ({ item }) => {
                         width={item.width || "100"}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                        onPointerUp={() => handleRectPointerUp(item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                         style={{ cursor: 'move' }} />
                     {isEditingBoard && <><circle
                         cx="0"

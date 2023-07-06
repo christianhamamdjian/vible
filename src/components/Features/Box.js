@@ -24,14 +24,17 @@ const Box = ({ item }) => {
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
                         onPointerUp={() => handleRectPointerUp(item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditBox(e, item.id)}
                     >
                         <a
                             href={item.url}
                             target="__blank">
-                            <text x="80" y="30" fill={getTextColor(item.color)}>{item.link}</text>
+                            <span x="80" y="30" fill={getTextColor(item.color)}>{item.link}</span>
                         </a>
-                        {/* {editingText && (item.id === editingText.id) ? (<textarea
+                        {editingText && (item.id === editingText.id) ? (<textarea
                             name=""
                             id=""
                             value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
@@ -45,18 +48,18 @@ const Box = ({ item }) => {
                             rows="5"
                             onBlur={handleStopEditBox}
                         >
-                        </textarea>) : ( */}
-                        <p
-                            className="text"
-                            fill={item.color}
-                            style={{
-                                color: getTextColor(item.color),
-                                fontFamily: "sans-serif",
-                                zIndex: "100"
-                            }}
-                        >{item.text}
-                        </p>)
-                        {/* } */}
+                        </textarea>) : (
+                            <p
+                                className="text"
+                                fill={item.color}
+                                style={{
+                                    color: getTextColor(item.color),
+                                    fontFamily: "sans-serif",
+                                    zIndex: "100"
+                                }}
+                            >{item.text}
+                            </p>)
+                        }
                     </foreignObject>
 
                     {editingText && (editingText.id === item.id) && <circle

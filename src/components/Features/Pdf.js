@@ -48,11 +48,15 @@ const Pdf = ({ item }) => {
                         }}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                        onPointerUp={() => handleRectPointerUp(item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     ><div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
 
                         {pdfData ? (
-                            <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
+                            // <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
+                            <iframe draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
                         ) : (
                             <div>No PDF found.</div>
                         )}

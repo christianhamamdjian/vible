@@ -16,7 +16,12 @@ const Drawing = () => {
                     strokeWidth={path.line}
                     onClick={() => handlePathClick(index, path.id)}
                     onPointerDown={handlePathDrag}
-                    style={{ cursor: 'grabbing', filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' : 'none'} ` }}
+                    onTouchStart={handlePathDrag}
+                    // onTouchMove={handlePathDrag}
+                    style={{
+                        cursor: 'grabbing',
+                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' : 'none'} `
+                    }}
                 />
             ))}
         </>)

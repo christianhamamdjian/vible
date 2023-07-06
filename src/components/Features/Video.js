@@ -14,7 +14,10 @@ const Video = ({ item }) => {
                         draggable="true"
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                        onPointerUp={() => handleRectPointerUp(item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     >
                         <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
                         <iframe width="300" height="200" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>

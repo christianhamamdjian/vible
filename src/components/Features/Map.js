@@ -16,7 +16,10 @@ const Map = ({ item }) => {
                         draggable="true"
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                        onPointerUp={() => handleRectPointerUp(item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     >
                         <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
                         <iframe src={item.mapUrl} width="300" height="200" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>

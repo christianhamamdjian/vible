@@ -252,8 +252,8 @@ export default function MoodboardProvider({ children }) {
         if (editingText) return
         if (!isDrawing) {
             e.preventDefault();
-            e.stopPropagation();
-            const { clientX, clientY } = e;
+            //   e.stopPropagation();
+            const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgRect = svgRef.current.getBoundingClientRect();
             const divRect = divRef.current.getBoundingClientRect();
             setSvgOffset({
@@ -265,26 +265,26 @@ export default function MoodboardProvider({ children }) {
 
         // Start drawing
         if (isDrawing) {
-            e.preventDefault();
-            e.stopPropagation();
-            const { clientX, clientY } = e;
+            //e.preventDefault();
+            //e.stopPropagation();
+            const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
             svgPoint.y = clientY;
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
             setSelectedPath(null)
             setDrawing(true);
-            setDraggingSvg(false);
+            //setDraggingSvg(false);
             setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
         }
     };
 
     const handleSvgPointerMove = (e) => {
 
-        if (!isDrawing && !drawing && draggingSvg && selectedRectId === null) {
+        if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
-            e.stopPropagation();
-            const { clientX, clientY } = e;
+            //  e.stopPropagation();
+            const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const divRect = svgRef.current.getBoundingClientRect();
             const maxX = svgSize.width - divRect.width;
             const maxY = svgSize.height - divRect.height;
@@ -296,10 +296,10 @@ export default function MoodboardProvider({ children }) {
         }
 
         // Drawing
-        if (isDrawing && drawing) {
-            e.preventDefault();
-            e.stopPropagation();
-            const { clientX, clientY } = e;
+        if (isDrawing && drawing && !isErasing && !selectedRectId) {
+            //e.preventDefault();
+            // e.stopPropagation();
+            const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
             svgPoint.y = clientY;
@@ -320,11 +320,11 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerDown = (e, rectId) => {
-        e.preventDefault();
+        // e.preventDefault();
         // e.stopPropagation();
         if (editingText) return
         setSelectedRectId(rectId);
-        const { clientX, clientY } = e;
+        const { clientX, clientY } = e.touches ? e.touches[0] : e;
         const rect = items.find((r) => r.id === rectId);
         const rectOffset = {
             x: clientX - rect.x,
@@ -338,9 +338,9 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerMove = (e, rectId) => {
         // e.stopPropagation();
-        e.preventDefault();
+        //e.preventDefault();
         if (!draggingSvg || rectId !== selectedRectId) return;
-        const { clientX, clientY } = e;
+        const { clientX, clientY } = e.touches ? e.touches[0] : e;
         const rectOffset = rectOffsets[rectId];
         const rectIndex = items.findIndex((r) => r.id === rectId);
         const newX = clientX - rectOffset.x;
@@ -371,13 +371,11 @@ export default function MoodboardProvider({ children }) {
 
     const handlePathDrag = (e) => {
         e.stopPropagation();
-        const startX = e.clientX || e.touches[0].clientX;
-        const startY = e.clientY || e.touches[0].clientY;
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e;
 
         const handleMouseMove = (e) => {
             e.preventDefault();
-            const currentX = e.clientX || e.touches[0].clientX;
-            const currentY = e.clientY || e.touches[0].clientY;
+            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e;
             const deltaX = currentX - startX;
             const deltaY = currentY - startY;
 
@@ -918,6 +916,7 @@ export default function MoodboardProvider({ children }) {
             svgPosition,
             divRef,
             draggingSvg,
+            selectedRectId,
             // Methods
             handleSvgPointerMove,
             handlePathClick,
