@@ -251,11 +251,13 @@ export default function MoodboardProvider({ children }) {
     const handleTransferredTodo = (e, text) => {
         setTransferredTodo(text)
     }
+    const resetTransferredTodo = () => {
+        setTransferredTodo("text")
+    }
     const handleSvgPointerDown = (e) => {
         if (editingText) return
         if (!isDrawing) {
             e.preventDefault();
-            //   e.stopPropagation();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgRect = svgRef.current.getBoundingClientRect();
             const divRect = divRef.current.getBoundingClientRect();
@@ -268,8 +270,6 @@ export default function MoodboardProvider({ children }) {
 
         // Start drawing
         if (isDrawing) {
-            //e.preventDefault();
-            //e.stopPropagation();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
@@ -277,7 +277,6 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse());
             setSelectedPath(null)
             setDrawing(true);
-            //setDraggingSvg(false);
             setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }]);
         }
     };
@@ -286,7 +285,6 @@ export default function MoodboardProvider({ children }) {
 
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
-            //  e.stopPropagation();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const divRect = svgRef.current.getBoundingClientRect();
             const maxX = svgSize.width - divRect.width;
@@ -300,8 +298,6 @@ export default function MoodboardProvider({ children }) {
 
         // Drawing
         if (isDrawing && drawing && !isErasing && !selectedRectId) {
-            //e.preventDefault();
-            // e.stopPropagation();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
@@ -323,8 +319,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerDown = (e, rectId) => {
-        // e.preventDefault();
-        // e.stopPropagation();
         if (editingText) return
         setSelectedRectId(rectId);
         const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -340,8 +334,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerMove = (e, rectId) => {
-        // e.stopPropagation();
-        //e.preventDefault();
         if (!draggingSvg || rectId !== selectedRectId) return;
         const { clientX, clientY } = e.touches ? e.touches[0] : e;
         const rectOffset = rectOffsets[rectId];
@@ -360,9 +352,6 @@ export default function MoodboardProvider({ children }) {
             return restOffsets;
         });
         setSelectedRectId(null);
-        // if (transferredTodo !== "") {
-        //     handleTodoAddToBoard(transferredTodo)
-        // }
     };
 
     const handlePathClick = (index, id) => {
@@ -926,6 +915,7 @@ export default function MoodboardProvider({ children }) {
             transferredTodo,
             // Methods
             handleTransferredTodo,
+            resetTransferredTodo,
             handleSvgPointerMove,
             handlePathClick,
             handlePathDrag,

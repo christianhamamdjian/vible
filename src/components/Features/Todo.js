@@ -67,14 +67,12 @@ const Todo = () => {
             }
             return todo;
         });
-
         setTodos(updatedTodos);
         setEditingTodoId(null);
         setEditingTodoText('');
     };
 
     const dragStart = (e, position, text) => {
-        //e.dataTransfer.setData("text/plain", text);
         handleTransferredTodo(e, text)
         dragItem.current = position
         setDragging(true)
