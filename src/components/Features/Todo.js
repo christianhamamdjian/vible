@@ -3,7 +3,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Todo = () => {
-    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext);
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard, handleTransferredTodo } = React.useContext(MoodboardContext);
 
     const [todos, setTodos] = useLocalStorage("todos", []);
     const [inputValue, setInputValue] = useState('');
@@ -73,7 +73,9 @@ const Todo = () => {
         setEditingTodoText('');
     };
 
-    const dragStart = (e, position) => {
+    const dragStart = (e, position, text) => {
+        //e.dataTransfer.setData("text/plain", text);
+        handleTransferredTodo(e, text)
         dragItem.current = position
         setDragging(true)
     };
@@ -113,9 +115,9 @@ const Todo = () => {
                             <li
                                 key={todo.id}
                                 ref={dragItem}
-                                onDragStart={(e) => dragStart(e, index)}
+                                onDragStart={(e) => dragStart(e, index, todo.text)}
                                 onDragOver={(e) => dragOver(e, index)}
-                                onDragEnd={drop}
+                                onDragEnd={(e) => drop(e)}
                                 draggable
                             >
                                 {editingTodoId === todo.id ? (

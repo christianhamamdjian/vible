@@ -55,7 +55,6 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([]);
     const [selectedPath, setSelectedPath] = useState(null);
 
-
     const [draggingSvg, setDraggingSvg] = useState(false);
     const [svgPosition, setSvgPosition] = useState({ x: 0, y: 0 });
     const [svgOffset, setSvgOffset] = useState({ x: 0, y: 0 });
@@ -64,6 +63,8 @@ export default function MoodboardProvider({ children }) {
     const [rectOffsets, setRectOffsets] = useState({});
     const divRef = useRef(null)
     const svgRef = useRef(null)
+
+    const [transferredTodo, setTransferredTodo] = useState("")
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -247,7 +248,9 @@ export default function MoodboardProvider({ children }) {
         }
         setItems((prevItems) => [...prevItems, newItem]);
     }
-
+    const handleTransferredTodo = (e, text) => {
+        setTransferredTodo(text)
+    }
     const handleSvgPointerDown = (e) => {
         if (editingText) return
         if (!isDrawing) {
@@ -357,6 +360,9 @@ export default function MoodboardProvider({ children }) {
             return restOffsets;
         });
         setSelectedRectId(null);
+        // if (transferredTodo !== "") {
+        //     handleTodoAddToBoard(transferredTodo)
+        // }
     };
 
     const handlePathClick = (index, id) => {
@@ -917,7 +923,9 @@ export default function MoodboardProvider({ children }) {
             divRef,
             draggingSvg,
             selectedRectId,
+            transferredTodo,
             // Methods
+            handleTransferredTodo,
             handleSvgPointerMove,
             handlePathClick,
             handlePathDrag,

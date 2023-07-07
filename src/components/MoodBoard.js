@@ -12,8 +12,18 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, draggingSvg, isEditingPath
+    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, draggingSvg, isEditingPath, handleTodoAddToBoard, transferredTodo
     } = React.useContext(MoodboardContext);
+
+    const dragOver = (e) => {
+        e.preventDefault()
+    };
+
+    const drop = (e) => {
+        // e.preventDefault()
+        console.log(transferredTodo);
+        handleTodoAddToBoard(transferredTodo)
+    };
 
     return (
         <>
@@ -37,6 +47,8 @@ const MoodBoard = () => {
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
+                    onDragOver={(e) => dragOver(e)}
+                    onDrop={(e) => drop(e)}
                     style={{
                         backgroundColor: "white",
                         cursor: draggingSvg ? 'grabbing' : 'grab',
