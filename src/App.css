@@ -247,13 +247,22 @@ input[type="color"] {
 .todo li {
   display: flex;
   width: 25rem;
-  justify-content: space-between;
   color: #000000;
   gap: .6rem;
 }
 
-.todo li button {
+.todo li .todo-buttons {
+  display: flex;
+  width: 40%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
   margin-left: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.todo li .todo-buttons button {
+  justify-self: stretch;
 }
 
 .gallery-show {

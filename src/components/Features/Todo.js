@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -9,6 +9,10 @@ const Todo = () => {
     const [inputValue, setInputValue] = useState('');
     const [editingTodoId, setEditingTodoId] = useState(null);
     const [editingTodoText, setEditingTodoText] = useState('');
+    const [dragging, setDragging] = useState(false)
+
+    const dragItem = useRef();
+    const dragOverItem = useRef();
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -69,6 +73,27 @@ const Todo = () => {
         setEditingTodoText('');
     };
 
+    const dragStart = (e, position) => {
+        dragItem.current = position
+        setDragging(true)
+    };
+    const dragOver = (e, position) => {
+        if (dragging) {
+            e.preventDefault();
+        }
+        dragOverItem.current = position;
+    };
+    const drop = (e) => {
+        const copyListItems = [...todos];
+        const dragItemContent = copyListItems[dragItem.current];
+        copyListItems.splice(dragItem.current, 1);
+        copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+        dragItem.current = null;
+        dragOverItem.current = null;
+        e.preventDefault();
+        setTodos(copyListItems);
+        setDragging(false)
+    };
     return (
         <>
             <div className={` todo ${todosShow ? "todo-show" : "todo-hide"}`}>
@@ -83,16 +108,26 @@ const Todo = () => {
                         <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Add a todo..." />
                         <button type="submit">Add</button>
                     </form>
-                    <ul>
-                        {todos.map((todo) => (
-                            <li key={todo.id}>
+                    <ul ref={dragOverItem}>
+                        {todos && todos.map((todo, index) => (
+                            <li
+                                key={todo.id}
+                                ref={dragItem}
+                                onDragStart={(e) => dragStart(e, index)}
+                                onDragOver={(e) => dragOver(e, index)}
+                                onDragEnd={drop}
+                                draggable
+                            >
                                 {editingTodoId === todo.id ? (
-                                    <input
-                                        type="text"
-                                        value={editingTodoText}
-                                        onChange={handleTodoEditChange}
-                                        onBlur={() => handleTodoEditSubmit(todo.id)}
-                                    />
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editingTodoText}
+                                            onChange={handleTodoEditChange}
+                                            onBlur={() => handleTodoEditSubmit(todo.id)}
+                                        />
+                                        <button onClick={() => handleTodoEditSubmit(todo.id)}>Done</button>
+                                    </>
                                 ) : (
                                     <>
                                         <input
@@ -100,17 +135,19 @@ const Todo = () => {
                                             checked={todo.completed}
                                             onChange={() => handleTodoToggle(todo.id)}
                                         />
-                                        <span className={todo.completed ? 'completed' : ''}>{todo.text}</span>
-                                        <button onClick={() => handleTodoDelete(todo.id)}>Delete</button>
-                                        <button onClick={() => handleTodoEditStart(todo.id, todo.text)}>Edit</button>
-                                        <button onClick={() => handleTodoAddToBoard(todo.text)}>Add to board</button>
+                                        <span className={todo.completed ? 'completed' : ''} style={{ textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
+                                        <div className="todo-buttons">
+                                            <button onClick={() => handleTodoDelete(todo.id)}>&times;</button>
+                                            <button onClick={() => handleTodoEditStart(todo.id, todo.text)}>Edit</button>
+                                            <button onClick={() => handleTodoAddToBoard(todo.text)}>+ board</button>
+                                        </div>
                                     </>
                                 )}
                             </li>
                         ))}
                     </ul>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
