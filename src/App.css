@@ -214,12 +214,7 @@ input[type="color"] {
   bottom: -32rem;
 }
 
-.toggle-gallery {
-  position: absolute;
-  top: -2rem;
-  left: 0px;
-  border-radius: 0px 12px 0px 0px;
-}
+
 
 .todo {
   padding: 1rem;
@@ -238,15 +233,21 @@ input[type="color"] {
   border: 1px solid #ddd;
 }
 
+.todo-list {
+  width: 27rem;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .todo ul {
   padding: 0;
-  overflow-y: auto;
 }
 
 .todo form,
 .todo li {
   display: flex;
-  width: 25rem;
+  width: 24rem;
   color: #000000;
   gap: .6rem;
 }
@@ -263,6 +264,13 @@ input[type="color"] {
 
 .todo li .todo-buttons button {
   justify-self: stretch;
+}
+
+.toggle-gallery {
+  position: absolute;
+  top: -2rem;
+  left: 0px;
+  border-radius: 0px 12px 0px 0px;
 }
 
 .gallery-show {

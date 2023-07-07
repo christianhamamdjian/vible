@@ -98,14 +98,14 @@ const Todo = () => {
     };
     return (
         <>
-            <div className={` todo ${todosShow ? "todo-show" : "todo-hide"}`}>
+            <div className={`todo ${todosShow ? "todo-show" : "todo-hide"}`}>
                 <button
                     className="toggle-todo"
                     onClick={handleTodosToggle}
                 >
                     Todo
                 </button >
-                <div>
+                <div className='todo-list'>
                     <form onSubmit={handleFormSubmit}>
                         <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Add a todo..." />
                         <button type="submit">Add</button>
