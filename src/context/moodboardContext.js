@@ -591,6 +591,7 @@ export default function MoodboardProvider({ children }) {
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing);
         setIsDrawing(false)
+        setIsEditingPath(false)
         setIsEditingPaths(false)
     }
     const handleDeletePath = (erased) => {
