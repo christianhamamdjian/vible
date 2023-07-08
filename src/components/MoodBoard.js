@@ -15,15 +15,11 @@ const MoodBoard = () => {
     const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, draggingSvg, isEditingPath, handleTodoAddToBoard, transferredTodo, resetTransferredTodo
     } = React.useContext(MoodboardContext);
 
-    const dragOver = (e) => {
-        e.preventDefault()
-    };
-
-    const drop = (e) => {
-        // e.preventDefault()
-        handleTodoAddToBoard(transferredTodo)
-        resetTransferredTodo()
-    };
+    // const dragOver = (e) => {
+    //     e.preventDefault()
+    //     handleTodoAddToBoard(transferredTodo)
+    //     resetTransferredTodo()
+    // };
 
     return (
         <>
@@ -47,8 +43,8 @@ const MoodBoard = () => {
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
-                    onDragOver={(e) => dragOver(e)}
-                    onDrop={(e) => drop(e)}
+                    // onDragOver={(e) => dragOver(e)}
+                    // onDrop={(e) => drop(e)}
                     style={{
                         backgroundColor: "white",
                         cursor: draggingSvg ? 'grabbing' : 'grab',

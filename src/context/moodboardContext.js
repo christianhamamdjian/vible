@@ -253,7 +253,7 @@ export default function MoodboardProvider({ children }) {
         setTransferredTodo(text)
     }
     const resetTransferredTodo = () => {
-        setTransferredTodo("text")
+        setTransferredTodo("")
     }
     const handleSvgPointerDown = (e) => {
         if (editingText) return
@@ -283,7 +283,11 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleSvgPointerMove = (e) => {
-
+        if (transferredTodo && transferredTodo !== "") {
+            e.preventDefault();
+            handleTodoAddToBoard(transferredTodo)
+            resetTransferredTodo()
+        }
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -745,7 +749,9 @@ export default function MoodboardProvider({ children }) {
 
     }
     const handleTodoAddToBoard = (text) => {
-        handleAddTodoBox(text)
+        if (text !== "") {
+            handleAddTodoBox(text)
+        }
     }
 
     // Helper functions

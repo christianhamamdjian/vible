@@ -84,13 +84,13 @@ const Todo = () => {
         dragOverItem.current = position;
     };
     const drop = (e) => {
+        e.preventDefault();
         const copyListItems = [...todos];
         const dragItemContent = copyListItems[dragItem.current];
         copyListItems.splice(dragItem.current, 1);
         copyListItems.splice(dragOverItem.current, 0, dragItemContent);
         dragItem.current = null;
         dragOverItem.current = null;
-        e.preventDefault();
         setTodos(copyListItems);
         setDragging(false)
     };
@@ -113,9 +113,9 @@ const Todo = () => {
                             <li
                                 key={todo.id}
                                 ref={dragItem}
-                                onDragStart={(e) => dragStart(e, index, todo.text)}
-                                onDragOver={(e) => dragOver(e, index)}
-                                onDragEnd={(e) => drop(e)}
+                                onPointerDown={(e) => dragStart(e, index, todo.text)}
+                                onPointerMove={(e) => dragOver(e, index)}
+                                onPointerUp={(e) => drop(e)}
                                 draggable
                             >
                                 {editingTodoId === todo.id ? (
