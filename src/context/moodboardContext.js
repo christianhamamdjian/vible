@@ -284,7 +284,6 @@ export default function MoodboardProvider({ children }) {
 
     const handleSvgPointerMove = (e) => {
         if (transferredTodo && transferredTodo !== "") {
-            e.preventDefault();
             handleTodoAddToBoard(transferredTodo)
             resetTransferredTodo()
         }
@@ -320,6 +319,10 @@ export default function MoodboardProvider({ children }) {
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)
+        }
+        if (transferredTodo && transferredTodo !== "") {
+            handleTodoAddToBoard(transferredTodo)
+            resetTransferredTodo()
         }
     };
 

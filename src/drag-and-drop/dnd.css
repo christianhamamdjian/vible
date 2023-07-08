@@ -34,8 +34,8 @@ body {
     flex-direction: column;
     background: #fefbdf;
     border-radius: 10px;
-    /* touch-action: none;
-    -ms-touch-action: none; */
+    touch-action: none;
+    -ms-touch-action: none;
 }
 
 .container .card {
@@ -47,7 +47,7 @@ body {
     border-radius: 8px;
     box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.08);
     cursor: grab;
-    /* user-select: none; */
+    user-select: none;
     overflow: hidden;
 }
 
@@ -59,7 +59,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    /* pointer-events: none; */
+    pointer-events: none;
 }
 
 .img-container img {
@@ -91,8 +91,8 @@ body {
 
 
 .container .dragging {
-    /* pointer-events: none;
+    pointer-events: none;
     touch-action: none;
-    -ms-touch-action: none; */
+    -ms-touch-action: none;
     box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }

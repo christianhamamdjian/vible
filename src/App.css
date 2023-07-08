@@ -214,8 +214,6 @@ input[type="color"] {
   bottom: -32rem;
 }
 
-
-
 .todo {
   padding: 1rem;
   position: fixed;
@@ -242,14 +240,25 @@ input[type="color"] {
 
 .todo ul {
   padding: 0;
+  width: 90%
+}
+
+.todo li {
+  padding: 1rem;
+  width: 90%;
+  border: none;
 }
 
 .todo form,
-.todo li {
+.todo-card {
+  padding: 1rem;
+  width: 100%;
   display: flex;
   width: 24rem;
   color: #000000;
   gap: .6rem;
+  background: rgba(240, 240, 240, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
 }
 
 .todo li .todo-buttons {
@@ -264,6 +273,13 @@ input[type="color"] {
 
 .todo li .todo-buttons button {
   justify-self: stretch;
+}
+
+.todo-dragging {
+  /* pointer-events: none;
+  touch-action: none;
+  -ms-touch-action: none; */
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-gallery {
