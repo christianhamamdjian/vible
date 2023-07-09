@@ -64,8 +64,6 @@ export default function MoodboardProvider({ children }) {
     const divRef = useRef(null)
     const svgRef = useRef(null)
 
-    const [transferredTodo, setTransferredTodo] = useState("")
-
     useEffect(() => {
         loadPathsFromLocalStorage();
     }, []);
@@ -249,12 +247,7 @@ export default function MoodboardProvider({ children }) {
         }
         setItems((prevItems) => [...prevItems, newItem]);
     }
-    const handleTransferredTodo = (e, text) => {
-        setTransferredTodo(text)
-    }
-    const resetTransferredTodo = () => {
-        setTransferredTodo("")
-    }
+
     const handleSvgPointerDown = (e) => {
         if (editingText) return
         if (!isDrawing) {
@@ -283,10 +276,7 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleSvgPointerMove = (e) => {
-        if (transferredTodo && transferredTodo !== "") {
-            handleTodoAddToBoard(transferredTodo)
-            resetTransferredTodo()
-        }
+
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -315,14 +305,10 @@ export default function MoodboardProvider({ children }) {
         }
     };
 
-    const handleSvgPointerUp = () => {
+    const handleSvgPointerUp = (e) => {
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)
-        }
-        if (transferredTodo && transferredTodo !== "") {
-            handleTodoAddToBoard(transferredTodo)
-            resetTransferredTodo()
         }
     };
 
@@ -923,10 +909,7 @@ export default function MoodboardProvider({ children }) {
             divRef,
             draggingSvg,
             selectedRectId,
-            transferredTodo,
             // Methods
-            handleTransferredTodo,
-            resetTransferredTodo,
             handleSvgPointerMove,
             handlePathClick,
             handlePathDrag,

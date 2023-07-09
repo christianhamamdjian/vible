@@ -3,7 +3,6 @@ import MoodBoard from './components/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
 import './App.css'
-// import DragDrop from './drag-and-drop/Dnd'
 
 function App() {
 
@@ -15,8 +14,6 @@ function App() {
         <MoodBoard />
         <SidebarDrawer side="right" />
       </div>
-
-      {/* <DragDrop /> */}
     </div >
   );
 }

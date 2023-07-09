@@ -3,17 +3,17 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Todo = () => {
-    const { svgRef, handleTodosToggle, todosShow, handleTodoAddToBoard, handleTransferredTodo, resetTransferredTodo } = React.useContext(MoodboardContext);
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext);
 
     const [todos, setTodos] = useLocalStorage("todos", []);
     const [inputValue, setInputValue] = useState('');
     const [editingTodoId, setEditingTodoId] = useState(null);
     const [editingTodoText, setEditingTodoText] = useState('');
-
-    // const [data, setData] = useState(available);
     const [isDragging, setIsDragging] = useState();
 
     const containerRef = useRef()
+
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
     function detectLeftButton(e) {
         e = e || window.event;
@@ -27,7 +27,7 @@ const Todo = () => {
 
     function dragStart(e, index, text) {
         if (!detectLeftButton()) return; // only use left mouse click;
-        handleTransferredTodo(e, text)
+
         setIsDragging(index);
 
         const container = containerRef.current;
@@ -38,14 +38,10 @@ const Todo = () => {
         const dragData = todos[index];
         let newData = [...todos];
 
-        // getBoundingClientRect of dragItem
         const dragBoundingRect = dragItem.getBoundingClientRect();
 
-        // distance between two card 
         const space = items[1].getBoundingClientRect().top - items[0].getBoundingClientRect().bottom;
 
-
-        // set style for dragItem when mouse down
         dragItem.style.position = "fixed";
         dragItem.style.zIndex = 5000;
         dragItem.style.width = dragBoundingRect.width + "px";
@@ -54,8 +50,6 @@ const Todo = () => {
         dragItem.style.left = dragBoundingRect.left + "px";
         dragItem.style.cursor = "grabbing";
 
-
-        // create alternate div element when dragItem position is fixed
         const div = document.createElement("div");
         div.id = "div-temp";
         div.style.width = dragBoundingRect.width + "px";
@@ -63,36 +57,24 @@ const Todo = () => {
         div.style.pointerEvents = "none";
         container.appendChild(div);
 
-
-        // move the elements below dragItem.
-        // distance to be moved.
         const distance = dragBoundingRect.height + space;
 
         itemsBelowDragItem.forEach(item => {
             item.style.transform = `translateY(${distance}px)`;
         })
 
-
-        // get the original coordinates of the mouse pointer
         let x = e.clientX;
         let y = e.clientY;
 
-
-        // perform the function on hover.
         document.onpointermove = dragMove;
 
         function dragMove(e) {
-            // Calculate the distance the mouse pointer has traveled.
-            // original coordinates minus current coordinates.
             const posX = e.clientX - x;
             const posY = e.clientY - y;
 
-            // Move Item
             dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
 
-            // swap position and data
             notDragItems.forEach(item => {
-                // check two elements is overlapping.
                 const rect1 = dragItem.getBoundingClientRect();
                 const rect2 = item.getBoundingClientRect();
 
@@ -100,7 +82,6 @@ const Todo = () => {
                     rect1.y < rect2.y + (rect2.height / 2) && rect1.y + (rect1.height / 2) > rect2.y;
 
                 if (isOverlapping) {
-                    // Swap Position Card
                     if (item.getAttribute("style")) {
                         item.style.transform = "";
                         index++
@@ -108,8 +89,6 @@ const Todo = () => {
                         item.style.transform = `translateY(${distance}px)`;
                         index--
                     }
-
-                    // Swap Data
                     newData = todos.filter(item => item.id !== dragData.id);
                     newData.splice(index, 0, dragData);
                 }
@@ -118,11 +97,14 @@ const Todo = () => {
 
         }
 
-
-        // finish onPointerDown event
         document.onpointerup = dragEnd;
 
-        function dragEnd() {
+        function dragEnd(e) {
+
+            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth - 30 || e.clientY < windowSize.current[1] - containerRef.current.offsetHeight - 30) {
+                handleTodoAddToBoard(text)
+            }
+
             document.onpointerup = "";
             document.onpointermove = "";
 
@@ -135,8 +117,6 @@ const Todo = () => {
             setTodos(newData)
         }
     }
-
-
 
 
     const handleInputChange = (event) => {
@@ -197,29 +177,7 @@ const Todo = () => {
         setEditingTodoText('');
     };
 
-    // const dragStart = (e, position, text) => {
-    //     handleTransferredTodo(e, text)
-    //     dragItem.current = position
-    //     setDragging(true)
-    // };
-    // const dragOver = (e, position) => {
-    //     if (dragging) {
-    //         e.preventDefault();
-    //     }
-    //     dragOverItem.current = position;
-    // };
-    // const drop = (e) => {
-    //     e.preventDefault();
-    //     // const copyListItems = [...todos];
-    //     // const dragItemContent = copyListItems[dragItem.current];
-    //     // copyListItems.splice(dragItem.current, 1);
-    //     // copyListItems.splice(dragOverItem.current, 0, dragItemContent);
-    //     // dragItem.current = null;
-    //     // dragOverItem.current = null;
-    //     // setTodos(copyListItems);
-    //     // setDragging(false)
-    //     // resetTransferredTodo()
-    // };
+
     return (
         <>
             <div className={`todo ${todosShow ? "todo-show" : "todo-hide"}`}>
@@ -229,57 +187,23 @@ const Todo = () => {
                 >
                     Todo
                 </button >
-                <div className='todo-list'>
+                <div
+                    className='todo-list'
+                >
                     <form onSubmit={handleFormSubmit}>
-                        <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Add a todo..." />
-                        <button type="submit">Add</button>
+                        <input
+                            type="text"
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            placeholder="Add a todo..."
+                        />
+                        <button
+                            type="submit"
+                        >
+                            Add
+                        </button>
                     </form>
                     <ul className='todo-container' ref={containerRef}>
-
-                        {/* <ul
-                        //ref={dragOverItem}
-                        ref={containerRef}
-                    >
-                        {todos && todos.map((todo, index) => (
-                            <li
-                                key={todo.id}
-                                //ref={dragItem}
-                                onPointerDown={e => dragStart(e, index, todo.text)}
-                                // onPointerDown={(e) => dragStart(e, index, todo.text)}
-                                // onPointerMove={(e) => dragOver(e, index)}
-                                // onPointerUp={(e) => drop(e)}
-                                draggable
-                            >
-                                <div
-                                    className={`todo-card ${isDragging === index ? 'todo-dragging' : ''}`}>
-                                    {editingTodoId === todo.id ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                value={editingTodoText}
-                                                onChange={handleTodoEditChange}
-                                                onBlur={() => handleTodoEditSubmit(todo.id)}
-                                            />
-                                            <button onClick={() => handleTodoEditSubmit(todo.id)}>Done</button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <input
-                                                type="checkbox"
-                                                checked={todo.completed}
-                                                onChange={() => handleTodoToggle(todo.id)}
-                                            />
-                                            <span className={todo.completed ? 'completed' : ''} style={{ textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
-                                            <div className="todo-buttons">
-                                                <button onClick={() => handleTodoDelete(todo.id)}>&times;</button>
-                                                <button onClick={() => handleTodoEditStart(todo.id, todo.text)}>Edit</button>
-                                                <button onClick={() => handleTodoAddToBoard(todo.text)}>+ board</button>
-                                            </div>
-                                        </>
-                                    )}
-                                </div></li>
-                        ))}
-                    </ul> */}
                         {
                             todos.map((todo, index) => (
                                 <li key={todo.id}
