@@ -1,5 +1,6 @@
 import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
+import svgPath from '../Helpers/pathSmooth';
 
 const Drawing = () => {
     const { paths, selectedPath, handlePathClick, handlePathDrag } = React.useContext(MoodboardContext);
@@ -8,7 +9,7 @@ const Drawing = () => {
             {paths.map((path, index) => (
                 <path
                     key={index}
-                    d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
+                    d={svgPath(path["path"])}
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"

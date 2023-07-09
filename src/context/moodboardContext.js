@@ -95,7 +95,7 @@ export default function MoodboardProvider({ children }) {
                 points.push({ x, y });
             }
         });
-        console.log(points)
+        // console.log(points)
         return points;
     };
 
