@@ -480,6 +480,7 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(false)
         setSelectedPath(null)
     }
+
     // Text Box
     const handleItemTextChange = (e, id) => {
         setItems(prevItems =>
@@ -585,6 +586,7 @@ export default function MoodboardProvider({ children }) {
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing);
         setIsDrawing(false)
+        setSelectedPath(null);
         setIsEditingPath(false)
         setIsEditingPaths(false)
     }

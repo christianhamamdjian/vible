@@ -40,7 +40,7 @@ const Todo = () => {
 
         const dragBoundingRect = dragItem.getBoundingClientRect();
 
-        const space = items[1].getBoundingClientRect().top - items[0].getBoundingClientRect().bottom;
+        const space = items.length > 1 && items[1].getBoundingClientRect().top - items[0].getBoundingClientRect().bottom;
 
         dragItem.style.position = "fixed";
         dragItem.style.zIndex = 5000;
@@ -100,8 +100,7 @@ const Todo = () => {
         document.onpointerup = dragEnd;
 
         function dragEnd(e) {
-
-            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth - 30 || e.clientY < windowSize.current[1] - containerRef.current.offsetHeight - 30) {
+            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
                 handleTodoAddToBoard(text)
             }
 

@@ -56,7 +56,7 @@ const DrawingFormTop = () => {
             </>
             {write && items.length > 0 && <BoxFormTop />}
 
-            {paths.length > 0 && isEditingPath && (
+            {paths.length > 0 && isEditingPath && !isErasing && (
                 <>
                     <div className='inputs-top_draw'>
                         <input

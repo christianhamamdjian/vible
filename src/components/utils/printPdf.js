@@ -8,15 +8,20 @@ export const printPdf = (div) => {
     </head>
     <body>`;
     innerHTML += div.innerHTML + "</body></html>";
-    console.log(innerHTML);
-    let fakeIFrame = window.document.createElement("iframe");
-    document.body.appendChild(fakeIFrame);
-    let fakeContent = fakeIFrame.contentWindow;
-    fakeContent.document.open();
-    fakeContent.document.write(innerHTML);
-    fakeContent.document.close();
-    fakeContent.focus();
-    fakeIFrame.addEventListener("load", () => {
-        fakeContent.print();
+    let tempIFrame = window.document.createElement("iframe");
+    document.body.appendChild(tempIFrame);
+    let tempContent = tempIFrame.contentWindow;
+    tempContent.document.open();
+    tempContent.document.write(innerHTML);
+    tempContent.document.close();
+    tempContent.focus();
+    tempIFrame.addEventListener("load", () => {
+        tempContent.print();
     });
+
+    // let printContents = div.innerHTML;
+    // let originalContents = document.body.innerHTML;
+    // document.body.innerHTML = printContents;
+    // window.print();
+    // document.body.innerHTML = originalContents;
 }

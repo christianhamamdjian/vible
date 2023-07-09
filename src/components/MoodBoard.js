@@ -36,11 +36,11 @@ const MoodBoard = () => {
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    onPointerOverCapture={handleSvgPointerUp}
+                    // onPointerOverCapture={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
                     style={{
                         backgroundColor: "white",
-                        cursor: draggingSvg ? 'grabbing' : 'grab',
+                        //cursor: draggingSvg ? 'grabbing' : 'grab',
                     }}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
@@ -50,12 +50,12 @@ const MoodBoard = () => {
                         <g key={item.id}
                             transform={`translate(${item.x},${item.y})`}
                         >
-                            <Box item={item} />
-                            <Image item={item} />
                             <Video item={item} />
                             <Map item={item} />
-                            <ImageLink item={item} />
                             <Pdf item={item} />
+                            <ImageLink item={item} />
+                            <Image item={item} />
+                            <Box item={item} />
                         </g>
                     ))}
                     <Drawing />
