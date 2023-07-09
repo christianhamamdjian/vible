@@ -291,7 +291,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         // Drawing
-        if (isDrawing && drawing && !isErasing && !selectedRectId) {
+        if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
             const svgPoint = svgRef.current.createSVGPoint();
             svgPoint.x = clientX;
@@ -352,10 +352,10 @@ export default function MoodboardProvider({ children }) {
         if (isErasing) {
             handleDeletePath(id)
         }
-        if (isEditingPaths) {
-            setSelectedPath(index);
-            setIsEditingPath({ status: true, id: id })
-        }
+        // if (isEditingPaths) {
+        setSelectedPath(index);
+        setIsEditingPath({ status: true, id: id })
+        // }
     };
 
     const handlePathDrag = (e) => {

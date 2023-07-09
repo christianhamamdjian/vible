@@ -47,7 +47,7 @@ const DrawingFormTop = () => {
                     {/* <label>Line width:</label> */}
                     <input
                         type="number"
-                        style={{ width: '1.5rem' }}
+                        style={{ width: '3rem' }}
                         value={pathLine}
                         onChange={(event) => handleLineWidth(event)} />
 
@@ -65,7 +65,7 @@ const DrawingFormTop = () => {
                             onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         <input
                             type="number"
-                            style={{ width: '1.5rem' }}
+                            style={{ width: '3rem' }}
 
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
