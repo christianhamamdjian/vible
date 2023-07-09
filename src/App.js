@@ -3,20 +3,20 @@ import MoodBoard from './components/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import DrawingFormTop from "./components/forms/DrawingFormTop"
 import './App.css'
-// import DragDrop from './drag-and-drop/Dnd'
+import DragDrop from './drag-and-drop/Dnd'
 
 function App() {
 
   return (
     <div className="app">
-      <DrawingFormTop />
+      {/* <DrawingFormTop />
       <div className="container" >
         <SidebarDrawer side="left" />
         <MoodBoard />
         <SidebarDrawer side="right" />
-      </div>
+      </div> */}
 
-      {/* <DragDrop /> */}
+      <DragDrop />
     </div >
   );
 }

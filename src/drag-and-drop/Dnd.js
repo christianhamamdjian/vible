@@ -134,50 +134,27 @@ const DragDrop = () => {
 
 
     return (
-        <div>
-            <div className='container' ref={containerRef}>
-                {
-                    data.map((item, index) => (
-                        <div key={item.id} onPointerDown={e => dragStart(e, index)}>
+        <div className='container' ref={containerRef}>
+            {
+                data.map((item, index) => (
+                    <div key={item.id} onPointerDown={e => dragStart(e, index)}>
 
-                            <div className={`card ${isDragging === index ? 'dragging' : ''}`}>
-                                <div className="img-container">
-                                    <img src="./card.svg" alt="" />
-                                </div>
-
-                                <div className="box">
-                                    <h4>{item.subtitle}</h4>
-                                    <h2>{item.title}</h2>
-                                </div>
+                        <div className={`card ${isDragging === index ? 'dragging' : ''}`}>
+                            <div className="img-container">
+                                <img src="./card.svg" alt="" />
                             </div>
 
-                        </div>
-                    ))
-                }
-            </div>
-            <div className='container' ref={containerRef}>
-                {
-                    data.map((item, index) => (
-                        <div key={item.id} onPointerDown={e => dragStart(e, index)}>
-
-                            <div className={`card ${isDragging === index ? 'dragging' : ''}`}>
-                                <div className="img-container">
-                                    <img src="./card.svg" alt="" />
-                                </div>
-
-                                <div className="box">
-                                    <h4>{item.subtitle}</h4>
-                                    <h2>{item.title}</h2>
-                                </div>
+                            <div className="box">
+                                <h4>{item.subtitle}</h4>
+                                <h2>{item.title}</h2>
                             </div>
-
                         </div>
-                    ))
-                }
-            </div>
+
+                    </div>
+                ))
+            }
         </div>
     )
 }
 
 export default DragDrop
-
