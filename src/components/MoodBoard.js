@@ -36,7 +36,7 @@ const MoodBoard = () => {
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    onTouchMove={handleSvgPointerMove}
+                    // onTouchMove={handleSvgPointerMove}
                     onDoubleClick={handleStopEditBox}
                     style={{
                         backgroundColor: "white",

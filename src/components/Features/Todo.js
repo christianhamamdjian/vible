@@ -9,15 +9,11 @@ const Todo = () => {
     const [inputValue, setInputValue] = useState('');
     const [editingTodoId, setEditingTodoId] = useState(null);
     const [editingTodoText, setEditingTodoText] = useState('');
-    //const [dragging, setDragging] = useState(false)
 
-    const dragItem = useRef();
-    //const dragOverItem = useRef();
-
+    // const [data, setData] = useState(available);
     const [isDragging, setIsDragging] = useState();
 
     const containerRef = useRef()
-
 
     function detectLeftButton(e) {
         e = e || window.event;
@@ -29,7 +25,6 @@ const Todo = () => {
         return button === 1;
     }
 
-
     function dragStart(e, index, text) {
         if (!detectLeftButton()) return; // only use left mouse click;
         handleTransferredTodo(e, text)
@@ -40,9 +35,8 @@ const Todo = () => {
         const dragItem = items[index];
         const itemsBelowDragItem = items.slice(index + 1);
         const notDragItems = items.filter((_, i) => i !== index);
-        const dragTodos = todos[index];
-        let newTodos = [...todos];
-
+        const dragData = todos[index];
+        let newData = [...todos];
 
         // getBoundingClientRect of dragItem
         const dragBoundingRect = dragItem.getBoundingClientRect();
@@ -62,12 +56,12 @@ const Todo = () => {
 
 
         // create alternate div element when dragItem position is fixed
-        const li = document.createElement("li");
-        li.id = "div-temp";
-        li.style.width = dragBoundingRect.width + "px";
-        li.style.height = dragBoundingRect.height + "px";
-        li.style.pointerEvents = "none";
-        container.appendChild(li);
+        const div = document.createElement("div");
+        div.id = "div-temp";
+        div.style.width = dragBoundingRect.width + "px";
+        div.style.height = dragBoundingRect.height + "px";
+        div.style.pointerEvents = "none";
+        container.appendChild(div);
 
 
         // move the elements below dragItem.
@@ -96,7 +90,7 @@ const Todo = () => {
             // Move Item
             dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
 
-            // swap position and todos
+            // swap position and data
             notDragItems.forEach(item => {
                 // check two elements is overlapping.
                 const rect1 = dragItem.getBoundingClientRect();
@@ -115,9 +109,9 @@ const Todo = () => {
                         index--
                     }
 
-                    // Swap todos
-                    newTodos = todos.filter(item => item.id !== dragTodos.id);
-                    newTodos.splice(index, 0, dragTodos);
+                    // Swap Data
+                    newData = todos.filter(item => item.id !== dragData.id);
+                    newData.splice(index, 0, dragData);
                 }
 
             })
@@ -127,21 +121,18 @@ const Todo = () => {
 
         // finish onPointerDown event
         document.onpointerup = dragEnd;
-        document.onpmouseup = dragEnd;
 
         function dragEnd() {
             document.onpointerup = "";
             document.onpointermove = "";
 
             dragItem.style = "";
-            container.removeChild(li);
+            container.removeChild(div);
 
             items.forEach(item => item.style = "");
 
             setIsDragging(undefined);
-            setTodos(newTodos)
-
-            resetTransferredTodo()
+            setTodos(newData)
         }
     }
 
@@ -243,14 +234,16 @@ const Todo = () => {
                         <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Add a todo..." />
                         <button type="submit">Add</button>
                     </form>
-                    <ul
+                    <ul className='todo-container' ref={containerRef}>
+
+                        {/* <ul
                         //ref={dragOverItem}
                         ref={containerRef}
                     >
                         {todos && todos.map((todo, index) => (
                             <li
                                 key={todo.id}
-                                ref={dragItem}
+                                //ref={dragItem}
                                 onPointerDown={e => dragStart(e, index, todo.text)}
                                 // onPointerDown={(e) => dragStart(e, index, todo.text)}
                                 // onPointerMove={(e) => dragOver(e, index)}
@@ -286,9 +279,72 @@ const Todo = () => {
                                     )}
                                 </div></li>
                         ))}
+                    </ul> */}
+                        {
+                            todos.map((todo, index) => (
+                                <li key={todo.id}
+                                    onPointerDown={e => dragStart(e, index, todo.text)}
+                                >
+                                    <div
+                                        className={`card ${isDragging === index ? 'dragging' : ''}`}
+                                    >
+                                        <div className="box">
+                                            {editingTodoId === todo.id ? (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        value={editingTodoText}
+                                                        onChange={handleTodoEditChange}
+                                                        onBlur={() => handleTodoEditSubmit(todo.id)}
+                                                    />
+                                                    <button
+                                                        onClick={() => handleTodoEditSubmit(todo.id)}
+                                                    >
+                                                        Done
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={todo.completed}
+                                                        onChange={() => handleTodoToggle(todo.id)}
+                                                    />
+                                                    <span
+                                                        className={todo.completed ? 'completed' : ''}
+                                                        style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+                                                    >
+                                                        {todo.text}
+                                                    </span>
+                                                    <div className="todo-buttons">
+                                                        <button
+                                                            onClick={() => handleTodoDelete(todo.id)}
+                                                        >
+                                                            &times;
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleTodoEditStart(todo.id, todo.text)}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleTodoAddToBoard(todo.text)}
+                                                        >
+                                                            + board
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </div>
+
             </div >
+
         </>
     )
 }

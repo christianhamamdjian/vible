@@ -1,5 +1,13 @@
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   font-size: .85rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -211,7 +219,7 @@ input[type="color"] {
 }
 
 .todo-hide {
-  bottom: -32rem;
+  bottom: -30rem;
 }
 
 .todo {
@@ -240,17 +248,16 @@ input[type="color"] {
 
 .todo ul {
   padding: 0;
-  width: 90%
+  width: 95%
 }
 
 .todo li {
   padding: 1rem;
-  width: 90%;
+  width: 100%;
   border: none;
 }
 
-.todo form,
-.todo-card {
+.todo form {
   padding: 1rem;
   width: 100%;
   display: flex;
@@ -259,6 +266,19 @@ input[type="color"] {
   gap: .6rem;
   background: rgba(240, 240, 240, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+}
+
+.todo-card {
+  /* user-select: none; */
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  width: 24rem;
+  color: #000000;
+  gap: .6rem;
+  background: rgba(240, 240, 240, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  overflow: hidden;
 }
 
 .todo li .todo-buttons {
@@ -276,9 +296,9 @@ input[type="color"] {
 }
 
 .todo-dragging {
-  /* pointer-events: none;
+  pointer-events: none;
   touch-action: none;
-  -ms-touch-action: none; */
+  -ms-touch-action: none;
   box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -289,12 +309,54 @@ input[type="color"] {
   border-radius: 0px 12px 0px 0px;
 }
 
+.todo-container {
+  max-width: 450px;
+  width: 100%;
+  padding: 30px 20px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  border-radius: 10px;
+  touch-action: none;
+  -ms-touch-action: none;
+}
+
+.todo-container .card {
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.08);
+  cursor: grab;
+  user-select: none;
+  overflow: hidden;
+}
+
+.card .box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: 0 10px;
+}
+
+.todo-container .dragging {
+  /* pointer-events: none;*/
+  touch-action: none;
+  -ms-touch-action: none;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+
 .gallery-show {
   bottom: 0;
 }
 
 .gallery-hide {
-  bottom: -12rem;
+  bottom: -10rem;
 }
 
 .gallery {
