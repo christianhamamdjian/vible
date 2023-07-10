@@ -234,7 +234,7 @@ input[type="color"] {
   justify-content: center;
   align-items: föex-start;
   gap: 1rem;
-  z-index: 99;
+  z-index: 102;
   transition: all 0.3s ease-in-out;
   border: 1px solid #ddd;
 }
@@ -371,7 +371,7 @@ input[type="color"] {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  z-index: 99;
+  z-index: 101;
   transition: all 0.3s ease-in-out;
 }
 

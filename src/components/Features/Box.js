@@ -54,6 +54,7 @@ const Box = ({ item }) => {
                                 fill={item.color}
                                 style={{
                                     color: getTextColor(item.color),
+                                    userSelect: "none",
                                     fontFamily: "sans-serif",
                                     zIndex: "100"
                                 }}
