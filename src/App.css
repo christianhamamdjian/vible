@@ -127,8 +127,8 @@ body {
   align-items: center;
   padding: .8rem .4rem;
   gap: .2rem .8rem;
-  background: rgba(255, 255, 255, 0.9);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  /* background: rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   z-index: 10;
 }
 
@@ -159,7 +159,7 @@ input[type="color"] {
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
-  z-index: 98;
+  z-index: 100;
   overflow-y: auto;
 }
 
@@ -171,7 +171,7 @@ input[type="color"] {
   padding-top: 4rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-  z-index: 98;
+  z-index: 100;
   overflow-y: hidden;
 }
 
@@ -232,7 +232,7 @@ input[type="color"] {
   right: 0;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: föex-start;
   gap: 1rem;
   z-index: 99;
   transition: all 0.3s ease-in-out;

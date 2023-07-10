@@ -55,8 +55,8 @@ const Pdf = ({ item }) => {
                     ><div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
 
                         {pdfData ? (
-                            // <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
-                            <iframe draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
+                            <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
+                            // <iframe title="Pdf" draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
                         ) : (
                             <div>No PDF found.</div>
                         )}

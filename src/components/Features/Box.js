@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { items, handleItemTextChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard, focusRef } = React.useContext(MoodboardContext);
+    const { items, handleItemTextChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>

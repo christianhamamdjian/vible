@@ -3,8 +3,8 @@ import BoxFormTop from "../forms/BoxFormTop"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { items, paths, stopLineEditing, isDrawing, isEditingPaths, handleEditPaths, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleEditingBoard, isEditingBoard, handleAddBox, write } = React.useContext(MoodboardContext);
-
+    const { items, paths, stopLineEditing, isDrawing, isEditingPaths, handleEditPaths, isEditingPath, isErasing, pathColor, pathLine, handleDrawing, handleEraser, handleLineColor, handleLineColorChange, handleLineWidth, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleEditingBoard, isEditingBoard, handleAddBox, write, handleDeletePath } = React.useContext(MoodboardContext);
+    console.log(selectedPath)
     return (
         <div className='itemForms-top'>
             <>
@@ -16,9 +16,9 @@ const DrawingFormTop = () => {
                         onClick={handleAddBox}>Add text</button>
                     {paths.length > 0 && (
                         <>
-                            <button
+                            {/* <button
                                 className={isEditingPaths ? "selected-button" : null}
-                                onClick={handleEditPaths}>Edit lines</button>
+                                onClick={handleEditPaths}>Edit lines</button> */}
 
                             <button
                                 className={isErasing ? "selected-button" : null}
@@ -38,21 +38,22 @@ const DrawingFormTop = () => {
                 </div>
 
                 {/* <h2>Drawing:</h2> */}
-                {isDrawing && (<div className='inputs-top_draw'>
-                    {/* <label>Line color:</label> */}
-                    <input
-                        type="color"
-                        value={pathColor}
-                        onChange={(event) => handleLineColor(event)} />
-                    {/* <label>Line width:</label> */}
-                    <input
-                        type="number"
-                        style={{ width: '3rem' }}
-                        value={pathLine}
-                        onChange={(event) => handleLineWidth(event)} />
+                {isDrawing && !isEditingPath && (
+                    <div className='inputs-top_draw'>
+                        {/* <label>Line color:</label> */}
+                        <input
+                            type="color"
+                            value={pathColor}
+                            onChange={(event) => handleLineColor(event)} />
+                        {/* <label>Line width:</label> */}
+                        <input
+                            type="number"
+                            style={{ width: '3rem' }}
+                            value={pathLine}
+                            onChange={(event) => handleLineWidth(event)} />
 
 
-                </div>)}
+                    </div>)}
             </>
             {write && items.length > 0 && <BoxFormTop />}
 
@@ -85,6 +86,10 @@ const DrawingFormTop = () => {
                         ) : (
                             <p>No path selected.</p>
                         )}
+                        <button
+                            onClick={() => handleDeletePath(isEditingPath.id)}>
+                            Delete
+                        </button>
                         <button
                             onClick={stopLineEditing}>
                             Done

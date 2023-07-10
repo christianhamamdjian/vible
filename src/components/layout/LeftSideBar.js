@@ -1,5 +1,4 @@
 import React from 'react'
-import DrawingForm from "../forms/DrawingForm"
 import BoxForm from "../forms/BoxForm"
 import ImageForm from "../forms/ImageForm"
 import VideoForm from "../forms/VideoForm"
@@ -10,7 +9,7 @@ import ImageLinkForm from "../forms/ImageLinkForm"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const LeftSidebard = () => {
-    const { handleDraw, handleWrite, handleImage, handleImageLink, handleVideo, handleMap, handlePdf, write, image, video, imageLink, map, pdf, draw } = React.useContext(MoodboardContext);
+    const { handleWrite, handleImage, handleImageLink, handleVideo, handleMap, handlePdf, write, image, video, imageLink, map, pdf } = React.useContext(MoodboardContext);
 
     return (
         <div className='left-sidebar'>

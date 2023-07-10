@@ -12,7 +12,7 @@ import Todo from "./Features/Todo"
 import { MoodboardContext } from "../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, draggingSvg, isEditingPath,
+    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, isEditingPath, isErasing
     } = React.useContext(MoodboardContext);
 
     return (
@@ -24,8 +24,8 @@ const MoodBoard = () => {
                     width: `${window.innerWidth}`,
                     height: `${window.innerHeight}`,
                     backgroundColor: "lightgray",
-                    overflow: `${(isDrawing || selectedRectId || isEditingPath) ? "hidden" : "scroll"}`,
-                    touchAction: `${(isDrawing || selectedRectId || isEditingPath) ? "none" : "auto"}`
+                    overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "scroll"}`,
+                    touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                 }}
             >
                 <svg
@@ -36,11 +36,9 @@ const MoodBoard = () => {
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    // onPointerOverCapture={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
                     style={{
                         backgroundColor: "white",
-                        //cursor: draggingSvg ? 'grabbing' : 'grab',
                     }}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}

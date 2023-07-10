@@ -4,7 +4,7 @@ import { printPdf } from '../utils/printPdf'
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { divRef, handlePdfDownload, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut } = React.useContext(MoodboardContext);
 
     return (
         <div className='right-sidebar'>

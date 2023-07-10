@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, createContext } from "react";
 import { useLocalStorage } from "../components/hooks/useLocalStorage";
 import getTextColor from "../components/utils/getTextColor";
-import jsPDF from "jspdf"
 
 const MoodboardContext = createContext();
 export default function MoodboardProvider({ children }) {
@@ -276,6 +275,7 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleSvgPointerMove = (e) => {
+        // isErasing && (() => handleDeletePath(id))
 
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
@@ -313,6 +313,9 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerDown = (e, rectId) => {
+        if (isDrawing) {
+            return
+        }
         if (editingText) return
         setSelectedRectId(rectId);
         const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -328,7 +331,11 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerMove = (e, rectId) => {
+        if (isDrawing || selectedRectId) {
+            e.preventDefault()
+        }
         if (!draggingSvg || rectId !== selectedRectId) return;
+
         const { clientX, clientY } = e.touches ? e.touches[0] : e;
         const rectOffset = rectOffsets[rectId];
         const rectIndex = items.findIndex((r) => r.id === rectId);
@@ -592,6 +599,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased));
+        setIsEditingPath(null)
     }
     const handleLineColor = (e) => {
         setPathColor(e.target.value)
@@ -626,34 +634,6 @@ export default function MoodboardProvider({ children }) {
         setPathColor("#000000")
         setPathLine(2)
     }
-
-    // Pdf Download
-    const handlePdfDownload = () => {
-        const svgElement = document.getElementById('my-svg');
-        const fileName = 'vible-file.pdf';
-
-        const svgData = new XMLSerializer().serializeToString(svgElement);
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        const svgSize = svgElement.getBoundingClientRect();
-
-        canvas.width = svgSize.width;
-        canvas.height = svgSize.height;
-
-        const img = new Image();
-        img.setAttribute('crossOrigin', 'anonymous');
-
-        img.onload = function () {
-            context.clearRect(0, 0, svgSize.width, svgSize.height);
-            context.drawImage(img, 0, 0);
-
-            const pdf = new jsPDF('p', 'pt', [svgSize.width, svgSize.height]);
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, svgSize.width, svgSize.height);
-            pdf.save(fileName);
-        };
-
-        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-    };
 
     // Gallery
     const addGalleryItem = (item) => {
@@ -959,7 +939,6 @@ export default function MoodboardProvider({ children }) {
             handleVideo,
             handleMap,
             handlePdf,
-            handlePdfDownload,
             handleClearBoard,
             handleClearPaths,
             handleMoveObjects,
