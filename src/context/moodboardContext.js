@@ -275,8 +275,6 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleSvgPointerMove = (e) => {
-        // isErasing && (() => handleDeletePath(id))
-
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -331,9 +329,10 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerMove = (e, rectId) => {
-        if (isDrawing || selectedRectId) {
-            e.preventDefault()
-        }
+        // if (isDrawing || selectedRectId) {
+        //     e.preventDefault()
+        // }
+
         if (!draggingSvg || rectId !== selectedRectId) return;
 
         const { clientX, clientY } = e.touches ? e.touches[0] : e;

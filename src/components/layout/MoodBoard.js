@@ -14,18 +14,18 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const MoodBoard = () => {
     const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, isEditingPath, isErasing
     } = React.useContext(MoodboardContext);
-    const boardItems = useMemo(() => items.map(item => (
-        <g key={item.id}
-            transform={`translate(${item.x},${item.y})`}
-        >
-            <Video item={item} />
-            <Map item={item} />
-            <Pdf item={item} />
-            <ImageLink item={item} />
-            <Image item={item} />
-            <Box item={item} />
-        </g>
-    )), [items])
+    // const boardItems = useMemo(() => items.map(item => (
+    //     <g key={item.id}
+    //         transform={`translate(${item.x},${item.y})`}
+    //     >
+    //         <Video item={item} />
+    //         <Map item={item} />
+    //         <Pdf item={item} />
+    //         <ImageLink item={item} />
+    //         <Image item={item} />
+    //         <Box item={item} />
+    //     </g>
+    // )), [items])
     return (
         <>
             <div
@@ -35,7 +35,7 @@ const MoodBoard = () => {
                     width: `${window.innerWidth}`,
                     height: `${window.innerHeight}`,
                     backgroundColor: "lightgray",
-                    overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "scroll"}`,
+                    overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
                     touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                 }}
             >
@@ -55,7 +55,7 @@ const MoodBoard = () => {
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                     cursor={isDrawing ? "crosshair" : "move"}
                 >
-                    {/* {items.map(item => (
+                    {items.map(item => (
                         <g key={item.id}
                             transform={`translate(${item.x},${item.y})`}
                         >
@@ -66,8 +66,8 @@ const MoodBoard = () => {
                             <Image item={item} />
                             <Box item={item} />
                         </g>
-                    ))} */}
-                    {boardItems}
+                    ))}
+                    {/* {boardItems} */}
                     <Drawing />
                 </svg>
             </div >

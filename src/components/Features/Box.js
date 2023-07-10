@@ -42,7 +42,8 @@ const Box = ({ item }) => {
                             style={{
                                 backgroundColor: "transparent",
                                 color: getTextColor(item.color),
-                                fontFamily: "sans-serif"
+                                fontFamily: "sans-serif",
+                                touchAction: "none"
                             }}
                             cols="10"
                             rows="5"
@@ -56,7 +57,8 @@ const Box = ({ item }) => {
                                     color: getTextColor(item.color),
                                     userSelect: "none",
                                     fontFamily: "sans-serif",
-                                    zIndex: "100"
+                                    zIndex: "100",
+                                    touchAction: "none"
                                 }}
                             >{item.text}
                             </p>)
