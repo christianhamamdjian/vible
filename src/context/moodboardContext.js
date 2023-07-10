@@ -46,7 +46,7 @@ export default function MoodboardProvider({ children }) {
     const pathRef = useRef(null)
 
     const [zoom, setZoom] = useState(2000)
-    const [isEditingBoard, setisEditingBoard] = useState(false)
+    const [isEditingBoard, setIsEditingBoard] = useState(false)
 
     const [drawing, setDrawing] = useState(false);
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
@@ -600,6 +600,7 @@ export default function MoodboardProvider({ children }) {
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased));
         setIsEditingPath(null)
+        setSelectedPath(null)
     }
     const handleLineColor = (e) => {
         setPathColor(e.target.value)
@@ -782,12 +783,23 @@ export default function MoodboardProvider({ children }) {
         setItemMapUrl(e.target.value);
     };
     const handleEditBox = (e, id) => {
+        if (editingText) {
+            setEditingText(null)
+            setIsEditingBoard(false)
+            setWrite(false)
+        }
+        if (isEditingBoard) {
+            setEditingText({ status: true, id: id })
+            setWrite(false)
+        }
         setEditingText({ status: true, id: id })
+        setIsEditingBoard(true)
         handleWrite()
     }
     const handleStopEditBox = () => {
         if (editingText) {
             setEditingText(null)
+            setIsEditingBoard(false)
             setWrite(false)
         }
     }
@@ -834,7 +846,10 @@ export default function MoodboardProvider({ children }) {
         setZoom(zoom => zoom += 100)
     }
     const handleEditingBoard = () => {
-        setisEditingBoard(isEditingBoard => !isEditingBoard)
+        setIsEditingBoard(isEditingBoard => !isEditingBoard)
+        if (isEditingBoard) {
+            setEditingText(null)
+        }
         setZoom(2000)
     }
     const handleGalleryToggle = () => {

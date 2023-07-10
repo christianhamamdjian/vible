@@ -2,10 +2,10 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
-    const { items, editingText, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleItemWidthChange, handleItemHeightChange, handleItemAngleChange } = React.useContext(MoodboardContext);
+    const { items, editingText, isEditingBoard, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleItemWidthChange, handleItemHeightChange, handleItemAngleChange } = React.useContext(MoodboardContext);
     return (
         <>
-            {items.length > 0 && editingText && (
+            {items.length > 0 && editingText && editingText.id && isEditingBoard && (
                 <>
                     <div className='inputs-top_objects' style={{ width: "50%", margin: "0 auto" }}>
                         <label>Change text:</label>

@@ -34,7 +34,7 @@ const Box = ({ item }) => {
                             target="__blank">
                             <span x="80" y="30" fill={getTextColor(item.color)}>{item.link}</span>
                         </a>
-                        {editingText && (item.id === editingText.id) ? (<textarea
+                        {editingText && isEditingBoard && (item.id === editingText.id) ? (<textarea
                             name=""
                             id=""
                             value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
@@ -63,7 +63,7 @@ const Box = ({ item }) => {
                         }
                     </foreignObject>
 
-                    {editingText && (editingText.id === item.id) && <circle
+                    {/* {editingText && (editingText.id === item.id) && <circle
                         cx="0"
                         cy="0"
                         r="8"
@@ -72,7 +72,7 @@ const Box = ({ item }) => {
                         strokeWidth="2"
                         style={{ cursor: 'pointer' }}
                         onClick={handleStopEditBox}
-                    />}
+                    />} */}
                     {isEditingBoard && <><circle
                         cx="0"
                         cy="0"
