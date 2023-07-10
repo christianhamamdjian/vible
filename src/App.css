@@ -10,6 +10,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  /* Color schemes */
+  /* Boomers */
+  --clr-boom-1: hsl(46deg 35% 63%);
+  --clr-boom-2: hsl(205deg 47% 37%);
+  --clr-boom-3: hsl(203deg 31% 26%);
+  --clr-boom-4: hsl(39deg 93% 57%);
+  --clr-boom-5: hsl(350deg 100% 29%);
+  /* GenZ */
+  --clr-genz-1: hsl(52deg 89% 63%);
+  --clr-genz-2: hsl(240deg 50% 89%);
+  --clr-genz-3: hsl(112deg 84% 41%);
+  --clr-genz-4: hsl(330deg 100% 70%);
+  --clr-genz-5: hsl(180deg 100% 51%);
+  /* GenX */
+  --clr-genx-1: hsl(0deg 77% 88%);
+  --clr-genx-2: hsl(88deg 73% 88%);
+  --clr-genx-3: hsl(181deg 75% 88%);
+  --clr-genx-4: hsl(16deg 100% 71%);
+  --clr-genx-5: hsl(256deg 99% 71%);
+  /* Millenials */
+  --clr-mill-1: hsl(175deg 76% 57%);
+  --clr-mill-2: hsl(346deg 64% 58%);
+  --clr-mill-3: hsl(41deg 84% 65%);
+  --clr-mill-4: hsl(68deg 50% 52%);
+  --clr-mill-5: hsl(29deg 23% 58%);
+}
+
+
 body {
   background-color: rgb(255, 255, 255);
   margin: 0;

@@ -26,8 +26,8 @@ const ColorList = ({ colors, buttons }) => {
 };
 
 const ThemeSwitcher = () => {
-    const colors = ["orange", "gray", "lightblue", "Moccasin"];
-    const buttons = ["gray", "orange", "gray", "orange"];
+    const colors = ["hsl(46deg 35% 63%)", "hsl(52deg 89% 63%)", "hsl(0deg 77% 88%)", "hsl(175deg 76% 57%)"];
+    const buttons = ["hsl(350deg 100% 29%)", "hsl(330deg 100% 70%)", "hsl(256deg 99% 71%)", "hsl(29deg 23% 58%)"];
     return (
         <section>
             <ColorList colors={colors} buttons={buttons} />
