@@ -302,12 +302,7 @@ input[type="color"] {
   box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
-.toggle-gallery {
-  position: absolute;
-  top: -2rem;
-  left: 0px;
-  border-radius: 0px 12px 0px 0px;
-}
+
 
 .todo-container {
   max-width: 450px;
@@ -343,13 +338,17 @@ input[type="color"] {
 }
 
 .todo-container .dragging {
-  /* pointer-events: none;*/
   touch-action: none;
   -ms-touch-action: none;
   box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
-
+.toggle-gallery {
+  position: absolute;
+  top: -2rem;
+  left: 0px;
+  border-radius: 0px 12px 0px 0px;
+}
 
 .gallery-show {
   bottom: 0;
@@ -405,7 +404,7 @@ li {
   align-items: center;
   gap: 1rem;
   list-style: none;
-  color: #cbd5e1;
+  color: #9da6b2;
   border: 2px solid rgb(221, 221, 221);
   padding: 1rem;
   border-radius: .2rem;

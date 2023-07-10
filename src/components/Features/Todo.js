@@ -71,38 +71,40 @@ const Todo = () => {
         function dragMove(e) {
             const posX = e.clientX - x;
             const posY = e.clientY - y;
+            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
+                dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
+                handleTodoAddToBoard(text)
+            }
+            if (e.clientX > windowSize.current[0] - containerRef.current.offsetWidth && e.clientY > windowSize.current[1] - containerRef.current.offsetHeight) {
+                dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
 
-            dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
+                notDragItems.forEach(item => {
+                    const rect1 = dragItem.getBoundingClientRect();
+                    const rect2 = item.getBoundingClientRect();
 
-            notDragItems.forEach(item => {
-                const rect1 = dragItem.getBoundingClientRect();
-                const rect2 = item.getBoundingClientRect();
+                    let isOverlapping =
+                        rect1.y < rect2.y + (rect2.height / 2) && rect1.y + (rect1.height / 2) > rect2.y;
 
-                let isOverlapping =
-                    rect1.y < rect2.y + (rect2.height / 2) && rect1.y + (rect1.height / 2) > rect2.y;
-
-                if (isOverlapping) {
-                    if (item.getAttribute("style")) {
-                        item.style.transform = "";
-                        index++
-                    } else {
-                        item.style.transform = `translateY(${distance}px)`;
-                        index--
+                    if (isOverlapping) {
+                        if (item.getAttribute("style")) {
+                            item.style.transform = "";
+                            index++
+                        } else {
+                            item.style.transform = `translateY(${distance}px)`;
+                            index--
+                        }
+                        newData = todos.filter(item => item.id !== dragData.id);
+                        newData.splice(index, 0, dragData);
                     }
-                    newData = todos.filter(item => item.id !== dragData.id);
-                    newData.splice(index, 0, dragData);
-                }
 
-            })
+                })
+            }
 
         }
 
         document.onpointerup = dragEnd;
 
         function dragEnd(e) {
-            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
-                handleTodoAddToBoard(text)
-            }
 
             document.onpointerup = "";
             document.onpointermove = "";
