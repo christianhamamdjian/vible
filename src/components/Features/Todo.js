@@ -73,12 +73,6 @@ const Todo = () => {
             const posX = e.clientX - x;
             const posY = e.clientY - y;
 
-            // if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
-            //     dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
-            //     handleTodoAddToBoard(text)
-            // }
-            // if (e.clientX > windowSize.current[0] - containerRef.current.offsetWidth && e.clientY > windowSize.current[1] - containerRef.current.offsetHeight) {
-
             dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
 
             notDragItems.forEach(item => {
@@ -101,8 +95,6 @@ const Todo = () => {
                 }
 
             })
-            // }
-
         }
 
         document.onpointerup = dragEnd;

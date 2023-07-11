@@ -18,6 +18,7 @@ const Box = ({ item }) => {
                             backgroundColor: item.color,
                             padding: "1rem",
                             borderRadius: "6px",
+                            boxShadow: "2px 20px 30px rgba(0, 0, 0, 0.2",
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`
                         }}
@@ -77,39 +78,40 @@ const Box = ({ item }) => {
                     />} */}
                     {isEditingBoard && <>
                         <rect
-                            x="0"
+                            x="10"
                             y="-12"
-                            height="12"
+                            height="10"
                             width="24"
                             fill="red"
-                            stroke="white"
-                            strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
+                            // stroke="white"
+                            // strokeWidth="2"
+                            style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={() => handleDeleteItem(item.id)}
                         />
                         <rect
-                            x="40"
+                            x="60"
                             y="-12"
-                            height="12"
+                            height="10"
                             width="24"
                             fill="orange"
-                            stroke="white"
-                            strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
+                            // stroke="white"
+                            // strokeWidth="2"
+                            style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={(e) => handleEditBox(e, item.id)}
                         />
                         {editingText && (editingText.id === item.id) && <rect
-                            x="20"
+                            x="35"
                             y="-12"
-                            height="12"
+                            height="10"
                             width="24"
                             fill="green"
-                            stroke="white"
-                            strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
+                            // stroke="white"
+                            // strokeWidth="2"
+                            style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={handleStopEditBox}
                         />}</>}
-                </>)}
+                </>)
+            }
         </>
     )
 }

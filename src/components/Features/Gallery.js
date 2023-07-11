@@ -1,8 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Gallery = () => {
-    const { galleryItems, galleryType, galleryError, deleteGalleryItem, handleGallerySubmit, handleGalleryTypeChange, handleGalleryAddToBoard, galleryContent, handleGalleryContentChange, galleryLink, handleGalleryLinkChange, handleGalleryImageUpload, handleGalleryToggle, galleryShow } = React.useContext(MoodboardContext);
+    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink } = React.useContext(MoodboardContext);
+    const [galleryType, setGalleryType] = useState('color')
+    const [galleryContent, setGalleryContent] = useState("#000000")
+    const [galleryLink, seGalleryLink] = useState('')
+    const [galleryError, setGalleryError] = useState('')
+    const [galleryShow, setGalleryShow] = useState(false)
+
+    const modelGalleryItem = {
+        type: galleryType,
+        content: galleryContent,
+        link: galleryLink
+    };
+    const handleGallerySubmit = (e) => {
+        e.preventDefault();
+        setGalleryError('');
+        let newItem;
+        switch (galleryType) {
+            case 'color':
+                if (!galleryContent.startsWith('#')) {
+                    setGalleryError('Please select a valid color.');
+                    return;
+                }
+                newItem = { ...modelGalleryItem };
+                break;
+            case 'image':
+                if (!galleryContent.startsWith('data:image/')) {
+                    setGalleryError('Please select a valid image file (png, jpg, jpeg).');
+                    return;
+                }
+                newItem = { ...modelGalleryItem };
+                break;
+            case 'link':
+                if (!/^https?:\/\//i.test(galleryLink)) {
+                    setGalleryError('Please enter a valid URL (include http:// or https://).');
+                    return;
+                }
+                newItem = { ...modelGalleryItem };
+                break;
+            default:
+                break;
+        }
+        addGalleryItem(newItem);
+        setGalleryType('color');
+        setGalleryContent("")
+        seGalleryLink('');
+    };
+
+    const handleGalleryContentChange = (e) => {
+        setGalleryContent(e.target.value);
+        setGalleryError('');
+    };
+
+    const handleGalleryLinkChange = (e) => {
+        seGalleryLink(e.target.value);
+        setGalleryError('');
+    };
+
+    const handleGalleryImageUpload = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setGalleryContent(reader.result);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    const handleGalleryToggle = () => {
+        setGalleryShow(galleryShow => !galleryShow)
+    }
+
+    const handleGalleryTypeChange = (e) => {
+        setGalleryType(e.target.value)
+    }
+
+    const handleGalleryAddToBoard = (item) => {
+        if (item.type === "color") {
+            handleAddGalleryBox(item.content)
+        }
+        if (item.type === "image") {
+            const imageObject = { id: Date.now(), src: item.content, type: "image", width: "100", x: 0, y: 0 }
+            handleAddGalleryImage(imageObject)
+        }
+        if (item.type === "link") {
+            handleAddGalleryLink(item)
+        }
+
+    }
+
     return (
         <>
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, createContext } from "react";
 import { useLocalStorage } from "../components/hooks/useLocalStorage";
 import getTextColor from "../components/utils/getTextColor";
+import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
+import { handlePdfDelete } from "../components/utils/itemsOperations"
 
 const MoodboardContext = createContext();
 export default function MoodboardProvider({ children }) {
@@ -15,7 +17,7 @@ export default function MoodboardProvider({ children }) {
 
     const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
-    const [itemColor, setItemColor] = useState('rgb(244, 180, 22)')
+    const [itemColor, setItemColor] = useState('#f4b416')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
     const [itemVideoUrl, setItemVideoUrl] = useState('')
@@ -26,11 +28,6 @@ export default function MoodboardProvider({ children }) {
     const [editingImage, setEditingImage] = useState(null)
 
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
-    const [galleryType, setGalleryType] = useState('color')
-    const [galleryContent, setGalleryContent] = useState("#000000")
-    const [galleryLink, seGalleryLink] = useState('')
-    const [galleryError, setGalleryError] = useState('')
-    const [galleryShow, setGalleryShow] = useState(false)
 
     const [todosShow, setTodosShow] = useState(false)
 
@@ -62,6 +59,7 @@ export default function MoodboardProvider({ children }) {
     const [rectOffsets, setRectOffsets] = useState({});
     const divRef = useRef(null)
     const svgRef = useRef(null)
+    const itemRef = useRef(null)
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -71,32 +69,6 @@ export default function MoodboardProvider({ children }) {
         savePathsToLocalStorage();
     }, [paths]);
 
-    function loadPathsFromLocalStorage() {
-        const savedPaths = localStorage.getItem('paths');
-        const pathList = savedPaths && JSON.parse(savedPaths)
-        const convertedPaths = pathList && pathList.map(path => {
-            const singlePath = path["path"].map(d => convertFromSVGPath(d))
-            return ({ ...path, path: singlePath[0] })
-        })
-        return convertedPaths
-    };
-
-    function convertFromSVGPath(d) {
-        const commands = d.split(/[A-Za-z]/).filter(Boolean);
-        const points = [];
-
-        commands.forEach((command) => {
-            const values = command.trim().split(/[\s,]+/).filter(Boolean);
-
-            for (let i = 0; i < values.length; i += 2) {
-                const x = parseFloat(values[i]);
-                const y = parseFloat(values[i + 1]);
-                points.push({ x, y });
-            }
-        });
-        // console.log(points)
-        return points;
-    };
 
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
@@ -124,7 +96,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('rgb(244, 180, 22)');
+        setItemColor('#f4b416');
     };
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now();
@@ -140,7 +112,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('rgb(244, 180, 22)');
+        setItemColor('#f4b416');
     };
     const handleAddTodoBox = (text) => {
         const itemId = Date.now();
@@ -156,7 +128,7 @@ export default function MoodboardProvider({ children }) {
         };
         setItems([...items, newBox]);
         setItemText('Text');
-        setItemColor('rgb(244, 180, 22)');
+        setItemColor('#f4b416');
     };
     const handleAddGalleryImage = (image) => {
         setItems([...items, image]);
@@ -186,7 +158,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: "100",
+                width: "10",
                 type: "image"
             };
             setItems((prevItems) => [...prevItems, newItem]);
@@ -329,12 +301,7 @@ export default function MoodboardProvider({ children }) {
     };
 
     const handleRectPointerMove = (e, rectId) => {
-        // if (isDrawing || selectedRectId) {
-        //     e.preventDefault()
-        // }
-
         if (!draggingSvg || rectId !== selectedRectId) return;
-
         const { clientX, clientY } = e.touches ? e.touches[0] : e;
         const rectOffset = rectOffsets[rectId];
         const rectIndex = items.findIndex((r) => r.id === rectId);
@@ -358,10 +325,8 @@ export default function MoodboardProvider({ children }) {
         if (isErasing) {
             handleDeletePath(id)
         }
-        // if (isEditingPaths) {
         setSelectedPath(index);
         setIsEditingPath({ status: true, id: id })
-        // }
     };
 
     const handlePathDrag = (e) => {
@@ -429,56 +394,6 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths);
     };
 
-    const getCenterPoint = (points) => {
-        const bounds = points.reduce(
-            (acc, point) => {
-                acc.minX = Math.min(acc.minX, point.x);
-                acc.maxX = Math.max(acc.maxX, point.x);
-                acc.minY = Math.min(acc.minY, point.y);
-                acc.maxY = Math.max(acc.maxY, point.y);
-                return acc;
-            },
-            {
-                minX: Number.POSITIVE_INFINITY,
-                maxX: Number.NEGATIVE_INFINITY,
-                minY: Number.POSITIVE_INFINITY,
-                maxY: Number.NEGATIVE_INFINITY,
-            }
-        );
-
-        return {
-            x: (bounds.minX + bounds.maxX) / 2,
-            y: (bounds.minY + bounds.maxY) / 2,
-        };
-    };
-
-    const rotatePath = (points, center, angle) => {
-        const radians = (angle * Math.PI) / 180;
-        return points.map((point) => {
-            const translatedPoint = {
-                x: point.x - center.x,
-                y: point.y - center.y,
-            };
-            const rotatedPoint = {
-                x: translatedPoint.x * Math.cos(radians) - translatedPoint.y * Math.sin(radians),
-                y: translatedPoint.x * Math.sin(radians) + translatedPoint.y * Math.cos(radians),
-            };
-            return {
-                x: rotatedPoint.x + center.x,
-                y: rotatedPoint.y + center.y,
-            };
-        });
-    };
-
-    const scalePath = (points, center, scale) => {
-        return points.map((point) => {
-            const scaledPoint = {
-                x: center.x + (point.x - center.x) * scale,
-                y: center.y + (point.y - center.y) * scale,
-            };
-            return scaledPoint;
-        });
-    };
     const handleEditPaths = () => {
         setIsEditingPaths(isEditingPaths => !isEditingPaths)
         setIsEditingPath(false)
@@ -488,93 +403,26 @@ export default function MoodboardProvider({ children }) {
     }
 
     // Text Box
-    const handleItemTextChange = (e, id) => {
+
+    const handleItemChange = (e, id, property) => {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, text: e.target.value };
+                    return { ...item, [property]: e.target.value };
                 }
                 return item;
             })
         )
     };
-    const handleItemColorChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, color: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemLinkChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, link: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemWidthChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, width: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemHeightChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, height: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
-    const handleItemAngleChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, angle: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
+
     // Image
-    const handleItemUrlChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, url: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
     const handleEditImage = (id) => {
         setEditingImage({ status: true, id: id })
     }
     const handleStopEditImage = () => {
         setEditingImage(null)
     }
-    const handleImageChange = (e, id) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, width: e.target.value };
-                }
-                return item;
-            })
-        );
-    };
+
 
     // Drawing
     const handleDrawing = () => {
@@ -644,81 +492,7 @@ export default function MoodboardProvider({ children }) {
         newItems.splice(index, 1);
         setGalleryItems(newItems);
     };
-    const modelGalleryItem = {
-        type: galleryType,
-        content: galleryContent,
-        link: galleryLink
-    };
-    const handleGallerySubmit = (e) => {
-        e.preventDefault();
-        setGalleryError('');
-        let newItem;
-        switch (galleryType) {
-            case 'color':
-                if (!galleryContent.startsWith('#')) {
-                    setGalleryError('Please select a valid color.');
-                    return;
-                }
-                newItem = { ...modelGalleryItem };
-                break;
-            case 'image':
-                if (!galleryContent.startsWith('data:image/')) {
-                    setGalleryError('Please select a valid image file (png, jpg, jpeg).');
-                    return;
-                }
-                newItem = { ...modelGalleryItem };
-                break;
-            case 'link':
-                if (!/^https?:\/\//i.test(galleryLink)) {
-                    setGalleryError('Please enter a valid URL (include http:// or https://).');
-                    return;
-                }
-                newItem = { ...modelGalleryItem };
-                break;
-            default:
-                break;
-        }
-        addGalleryItem(newItem);
-        setGalleryType('color');
-        setGalleryContent("")
-        seGalleryLink('');
-    };
 
-    const handleGalleryContentChange = (e) => {
-        setGalleryContent(e.target.value);
-        setGalleryError('');
-    };
-
-    const handleGalleryLinkChange = (e) => {
-        seGalleryLink(e.target.value);
-        setGalleryError('');
-    };
-
-    const handleGalleryImageUpload = (e) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setGalleryContent(reader.result);
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    };
-
-    const handleGalleryTypeChange = (e) => {
-        setGalleryType(e.target.value)
-    }
-
-    const handleGalleryAddToBoard = (item) => {
-        if (item.type === "color") {
-            handleAddGalleryBox(item.content)
-        }
-        if (item.type === "image") {
-            const imageObject = { id: Date.now(), src: item.content, type: "image", width: "100", x: 0, y: 0 }
-            handleAddGalleryImage(imageObject)
-        }
-        if (item.type === "link") {
-            handleAddGalleryLink(item)
-        }
-
-    }
     const handleTodoAddToBoard = (text) => {
         if (text !== "") {
             handleAddTodoBox(text)
@@ -738,30 +512,6 @@ export default function MoodboardProvider({ children }) {
         setEditingText(null)
         setEditingImage(null)
     };
-    const handlePdfDelete = (id) => {
-        const request = indexedDB.open('vible-database', 1);
-        request.onsuccess = function (e) {
-            const db = e.target.result;
-            if (!id) {
-                const request = db.transaction('pdfs', 'readwrite')
-                    .objectStore('pdfs')
-                    .clear()
-            } else {
-                const request = db.transaction('pdfs', 'readwrite')
-                    .objectStore('pdfs')
-                    .delete(id)
-            }
-            request.onsuccess = () => {
-                console.log(id ? `Pdf deleted: ${id}` : "All Pdfs deleted");
-            }
-            request.onerror = (err) => {
-                console.error(`Error to delete pdf: ${err}`)
-            }
-        }
-        request.onerror = function () {
-            console.error('Error opening IndexedDB.');
-        }
-    }
 
     const handleItemText = (e) => {
         setItemText(e.target.value);
@@ -856,9 +606,7 @@ export default function MoodboardProvider({ children }) {
         }
         setZoom(2000)
     }
-    const handleGalleryToggle = () => {
-        setGalleryShow(galleryShow => !galleryShow)
-    }
+
     const handleTodosToggle = () => {
         setTodosShow(todosShow => !todosShow)
     }
@@ -874,6 +622,7 @@ export default function MoodboardProvider({ children }) {
             pathLine,
             svgRef,
             pathRef,
+            itemRef,
             items,
             itemText,
             itemColor,
@@ -885,9 +634,6 @@ export default function MoodboardProvider({ children }) {
             editingText,
             editingImage,
             galleryItems,
-            galleryType,
-            galleryError,
-            modelGalleryItem,
             write,
             image,
             video,
@@ -898,7 +644,6 @@ export default function MoodboardProvider({ children }) {
             isMovingObjects,
             zoom,
             isEditingBoard,
-            galleryShow,
             isEditingPath,
             isEditingPaths,
             rotation,
@@ -931,13 +676,9 @@ export default function MoodboardProvider({ children }) {
             handleItemMapUrl,
             handleEditBox,
             handleStopEditBox,
-            handleItemTextChange,
-            handleItemColorChange,
-            handleItemLinkChange,
-            handleItemUrlChange,
             handleEditImage,
             handleStopEditImage,
-            handleImageChange,
+            handleItemChange,
             handleDrawing,
             handleEraser,
             handleDeletePath,
@@ -945,12 +686,9 @@ export default function MoodboardProvider({ children }) {
             handleLineWidth,
             addGalleryItem,
             deleteGalleryItem,
-            handleGallerySubmit,
-            handleGalleryImageUpload,
-            handleGalleryTypeChange,
-            handleGalleryContentChange,
-            handleGalleryLinkChange,
-            handleGalleryAddToBoard,
+            handleAddGalleryBox,
+            handleAddGalleryImage,
+            handleAddGalleryLink,
             handleDraw,
             handleWrite,
             handleImage,
@@ -965,7 +703,6 @@ export default function MoodboardProvider({ children }) {
             handleZoomIn,
             handleZoomOut,
             handleEditingBoard,
-            handleGalleryToggle,
             handleTodosToggle,
             handleLineWidthChange,
             handleLineColorChange,
@@ -974,9 +711,6 @@ export default function MoodboardProvider({ children }) {
             handleRotateChange,
             handleEditPaths,
             handlePdfDelete,
-            handleItemWidthChange,
-            handleItemHeightChange,
-            handleItemAngleChange,
             handleTodoAddToBoard,
             handleSvgPointerDown,
             handleSvgPointerUp,
