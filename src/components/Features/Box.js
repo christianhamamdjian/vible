@@ -75,30 +75,34 @@ const Box = ({ item }) => {
                         style={{ cursor: 'pointer' }}
                         onClick={handleStopEditBox}
                     />} */}
-                    {isEditingBoard && <><circle
-                        cx="0"
-                        cy="0"
-                        r="8"
-                        fill="red"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleDeleteItem(item.id)}
-                    />
-                        <circle
-                            cx="40"
-                            cy="0"
-                            r="8"
+                    {isEditingBoard && <>
+                        <rect
+                            x="0"
+                            y="-12"
+                            height="12"
+                            width="24"
+                            fill="red"
+                            stroke="white"
+                            strokeWidth="2"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleDeleteItem(item.id)}
+                        />
+                        <rect
+                            x="40"
+                            y="-12"
+                            height="12"
+                            width="24"
                             fill="orange"
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
                             onClick={(e) => handleEditBox(e, item.id)}
                         />
-                        {editingText && (editingText.id === item.id) && <circle
-                            cx="20"
-                            cy="0"
-                            r="8"
+                        {editingText && (editingText.id === item.id) && <rect
+                            x="20"
+                            y="-12"
+                            height="12"
+                            width="24"
                             fill="green"
                             stroke="white"
                             strokeWidth="2"

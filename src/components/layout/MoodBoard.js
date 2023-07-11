@@ -49,7 +49,7 @@ const MoodBoard = () => {
                     onPointerUp={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
                     style={{
-                        backgroundColor: "white",
+                        backgroundColor: "#ffffff",
                     }}
                     viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}

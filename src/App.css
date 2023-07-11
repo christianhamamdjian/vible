@@ -181,6 +181,7 @@ textarea {
 }
 
 input[type="color"] {
+  color: #000000;
   padding: 0;
 }
 
@@ -259,8 +260,8 @@ input[type="color"] {
 .todo {
   padding: 1rem;
   position: fixed;
-  background: rgba(255, 255, 255, 0.9);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  /* background: rgba(255, 255, 255, 0.9); */
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   width: 27rem;
   height: 30rem;
   right: 0;
@@ -286,7 +287,7 @@ input[type="color"] {
 }
 
 .todo li {
-  padding: 1rem;
+  padding: 0.5rem;
   width: 100%;
   border: none;
 }
@@ -298,8 +299,8 @@ input[type="color"] {
   width: 24rem;
   color: #000000;
   gap: .6rem;
-  background: rgba(240, 240, 240, 0.9);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  /* background: rgba(240, 240, 240, 0.9); */
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
 }
 
 .todo-card {
@@ -310,8 +311,8 @@ input[type="color"] {
   width: 24rem;
   color: #000000;
   gap: .6rem;
-  background: rgba(240, 240, 240, 0.9);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  /* background: rgba(240, 240, 240, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   overflow: hidden;
 }
 
@@ -343,7 +344,7 @@ input[type="color"] {
   width: 100%;
   padding: 30px 20px;
   display: flex;
-  gap: 15px;
+  gap: .2rem;
   flex-direction: column;
   border-radius: 10px;
   touch-action: none;
@@ -374,7 +375,7 @@ input[type="color"] {
 .todo-container .dragging {
   touch-action: none;
   -ms-touch-action: none;
-  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2); */
 }
 
 .toggle-gallery {
@@ -469,6 +470,7 @@ button,
   padding: .5rem 1rem;
   margin: .05rem .1rem;
   border-radius: .4rem;
+  user-select: none;
   cursor: pointer;
 }
 

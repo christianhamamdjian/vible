@@ -731,6 +731,9 @@ export default function MoodboardProvider({ children }) {
         if (itemType.type === "pdf") {
             handlePdfDelete(id)
         }
+        if (items.length === 1) {
+            setIsEditingBoard(false)
+        }
         setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         setEditingText(null)
         setEditingImage(null)
@@ -796,9 +799,11 @@ export default function MoodboardProvider({ children }) {
         handleWrite()
     }
     const handleStopEditBox = () => {
-        if (editingText) {
+        if (editingText || isEditingPath) {
             setEditingText(null)
             setIsEditingBoard(false)
+            setIsEditingPath(false)
+            setSelectedPath(null)
             setWrite(false)
         }
     }
