@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxForm = () => {
-    const { items, itemText, itemColor, itemLink, itemUrl, editingText, handleAddBox, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemTextChange, handleItemColorChange, handleItemLinkChange, handleItemUrlChange, handleItemWidthChange, handleItemHeightChange, handleItemAngleChange, handleItemChange } = React.useContext(MoodboardContext);
+    const { items, itemText, itemColor, itemLink, itemUrl, editingText, handleAddBox, handleItemText, handleItemColor, handleItemLink, handleItemUrl, handleItemChange } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms'>
             {!editingText && (

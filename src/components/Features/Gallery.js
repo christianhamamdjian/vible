@@ -97,7 +97,9 @@ const Gallery = () => {
                     className="toggle-gallery"
                     onClick={handleGalleryToggle}
                 >
-                    Gallery
+                    <div>|_|</div>
+                    <div>|_|</div>
+                    <div>|_|</div>
                 </button >
                 <div>
                     <h2>Gallery:</h2>

@@ -4,18 +4,39 @@ import getTextColor from "../components/utils/getTextColor";
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
+
+// Actions
+
+// Types
+
+// Initial state
+
+// Reducer
+
+// useReducer
+
+// Dispatch
+
 const MoodboardContext = createContext();
 export default function MoodboardProvider({ children }) {
 
+    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
+    const [items, setItems] = useLocalStorage("items", [])
+    const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
+
     const [isDrawing, setIsDrawing] = useState(false)
+    const [drawing, setDrawing] = useState(false);
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
+
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(2)
     const [isPathMoving, setIsPathMoving] = useState(false)
+    const [rotation, setRotation] = useState([]);
+    const [scaling, setScaling] = useState([]);
+    const [selectedPath, setSelectedPath] = useState(null);
 
-    const [items, setItems] = useLocalStorage("items", [])
     const [itemText, setItemText] = useState('Text');
     const [itemColor, setItemColor] = useState('#f4b416')
     const [itemLink, setItemLink] = useState('')
@@ -27,8 +48,6 @@ export default function MoodboardProvider({ children }) {
     const [editingText, setEditingText] = useState(null)
     const [editingImage, setEditingImage] = useState(null)
 
-    const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
-
     const [todosShow, setTodosShow] = useState(false)
 
     const [draw, setDraw] = useState(false)
@@ -38,18 +57,9 @@ export default function MoodboardProvider({ children }) {
     const [video, setVideo] = useState(false)
     const [map, setMap] = useState(false)
     const [pdf, setPdf] = useState(false)
-    const [isMovingObjects, setIsMovingObjects] = useState(false)
 
-    const pathRef = useRef(null)
-
-    const [zoom, setZoom] = useState(2000)
+    const [zoom, setZoom] = useState(10000)
     const [isEditingBoard, setIsEditingBoard] = useState(false)
-
-    const [drawing, setDrawing] = useState(false);
-    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || []);
-    const [rotation, setRotation] = useState([]);
-    const [scaling, setScaling] = useState([]);
-    const [selectedPath, setSelectedPath] = useState(null);
 
     const [draggingSvg, setDraggingSvg] = useState(false);
     const [svgPosition, setSvgPosition] = useState({ x: 0, y: 0 });
@@ -57,9 +67,11 @@ export default function MoodboardProvider({ children }) {
     const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
     const [selectedRectId, setSelectedRectId] = useState(null);
     const [rectOffsets, setRectOffsets] = useState({});
+
     const divRef = useRef(null)
     const svgRef = useRef(null)
     const itemRef = useRef(null)
+    const pathRef = useRef(null)
 
     useEffect(() => {
         loadPathsFromLocalStorage();
@@ -321,6 +333,9 @@ export default function MoodboardProvider({ children }) {
         setSelectedRectId(null);
     };
 
+
+    //Paths
+
     const handlePathClick = (index, id) => {
         if (isErasing) {
             handleDeletePath(id)
@@ -401,6 +416,8 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(false)
         setSelectedPath(null)
     }
+
+
 
     // Text Box
 
@@ -590,9 +607,8 @@ export default function MoodboardProvider({ children }) {
     const handleClearPaths = () => {
         setPaths([])
     }
-    const handleMoveObjects = () => {
-        setIsMovingObjects(isMovingObjects => !isMovingObjects)
-    }
+
+
     const handleZoomIn = () => {
         setZoom(zoom => zoom -= 100)
     }
@@ -604,7 +620,7 @@ export default function MoodboardProvider({ children }) {
         if (isEditingBoard) {
             setEditingText(null)
         }
-        setZoom(2000)
+        setZoom(10000)
     }
 
     const handleTodosToggle = () => {
@@ -641,7 +657,6 @@ export default function MoodboardProvider({ children }) {
             map,
             pdf,
             draw,
-            isMovingObjects,
             zoom,
             isEditingBoard,
             isEditingPath,
@@ -698,7 +713,6 @@ export default function MoodboardProvider({ children }) {
             handlePdf,
             handleClearBoard,
             handleClearPaths,
-            handleMoveObjects,
             getTextColor,
             handleZoomIn,
             handleZoomOut,

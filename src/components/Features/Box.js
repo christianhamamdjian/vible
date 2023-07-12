@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { items, handleItemTextChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -39,7 +39,7 @@ const Box = ({ item }) => {
                             name=""
                             id=""
                             value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
-                            onChange={(event) => handleItemTextChange(event, editingText.id)}
+                            onChange={(event) => handleItemChange(event, editingText.id, "text")}
                             style={{
                                 backgroundColor: "transparent",
                                 color: getTextColor(item.color),
@@ -66,16 +66,6 @@ const Box = ({ item }) => {
                         }
                     </foreignObject>
 
-                    {/* {editingText && (editingText.id === item.id) && <circle
-                        cx="0"
-                        cy="0"
-                        r="8"
-                        fill="green"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={handleStopEditBox}
-                    />} */}
                     {isEditingBoard && <>
                         <rect
                             x="10"
@@ -83,8 +73,6 @@ const Box = ({ item }) => {
                             height="10"
                             width="24"
                             fill="red"
-                            // stroke="white"
-                            // strokeWidth="2"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={() => handleDeleteItem(item.id)}
                         />
@@ -94,8 +82,6 @@ const Box = ({ item }) => {
                             height="10"
                             width="24"
                             fill="orange"
-                            // stroke="white"
-                            // strokeWidth="2"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={(e) => handleEditBox(e, item.id)}
                         />
@@ -105,8 +91,6 @@ const Box = ({ item }) => {
                             height="10"
                             width="24"
                             fill="green"
-                            // stroke="white"
-                            // strokeWidth="2"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={handleStopEditBox}
                         />}</>}

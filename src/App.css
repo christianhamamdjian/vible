@@ -190,7 +190,7 @@ input[type="color"] {
   width: 0;
   overflow: hidden;
   transition: width 0.3s ease;
-  padding-top: 2rem;
+  padding-top: 4rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   transition: all 0.3s ease-in-out;
@@ -203,7 +203,7 @@ input[type="color"] {
   width: 0;
   overflow: hidden;
   transition: width 0.3s ease;
-  padding-top: 4rem;
+  padding-top: 6rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 100;
@@ -224,29 +224,45 @@ input[type="color"] {
 }
 
 .Drawer__toggle-right {
-  max-height: 30px;
+  /* max-height: 30px; */
+  width: 50px;
+  height: 50px;
   position: fixed;
-  top: 0px;
-  right: 0px;
+  top: 10px;
+  right: 20px;
   z-index: 101;
-  border-radius: 0px 0px 0px 12px;
+  /* border-radius: 0px 0px 0px 12px; */
+  border-radius: 50%;
 }
 
 .Drawer__toggle-left {
-  max-height: 30px;
+  /* max-height: 30px; */
+  width: 50px;
+  height: 50px;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 10px;
+  left: 10px;
   z-index: 101;
-  border-radius: 0px 0px 12px 0px;
+  /* border-radius: 0px 0px 12px 0px; */
+  border-radius: 50%;
 }
 
 
 .toggle-todo {
   position: absolute;
-  top: -2rem;
-  right: 0px;
-  border-radius: 12px 0px 0px 0px;
+  width: 50px;
+  height: 50px;
+  top: -6rem;
+  right: 2rem;
+  font-size: 4rem;
+  /* border-radius: 12px 0px 0px 0px; */
+  border-radius: 50%;
+}
+
+.toggle-todo div {
+  font-size: 2rem;
+  transform: rotate(90deg);
+  margin-right: -.5rem;
 }
 
 .todo-show {
@@ -260,7 +276,7 @@ input[type="color"] {
 .todo {
   padding: 1rem;
   position: fixed;
-  /* background: rgba(255, 255, 255, 0.9); */
+  background: rgba(255, 255, 255, 1);
   /* background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   width: 27rem;
   height: 30rem;
@@ -271,7 +287,7 @@ input[type="color"] {
   gap: 1rem;
   z-index: 102;
   transition: all 0.3s ease-in-out;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
 }
 
 .todo-list {
@@ -380,11 +396,36 @@ input[type="color"] {
 
 .toggle-gallery {
   position: absolute;
-  top: -2rem;
-  left: 0px;
-  border-radius: 0px 12px 0px 0px;
+  width: 50px;
+  height: 50px;
+  top: -6rem;
+  left: 2rem;
+  /* border-radius: 0px 12px 0px 0px; */
+  border-radius: 50%;
 }
 
+.toggle-gallery div {
+  font-size: 2rem;
+  margin-top: -1.2rem;
+  margin-left: -.1rem;
+}
+
+/* .toggle-todo {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: -6rem;
+  right: 2rem;
+  font-size: 4rem;
+border-radius: 50%;
+}
+
+.toggle-todo div {
+  font-size: 2rem;
+  transform: rotate(90deg);
+  margin-right: -.5rem;
+}
+*/
 .gallery-show {
   bottom: 0;
 }

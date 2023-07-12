@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Gallery from "../Features/Gallery"
 import Box from "../Features/Box"
 import Image from "../Features/Image"
@@ -14,18 +14,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const MoodBoard = () => {
     const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, isEditingPath, isErasing
     } = React.useContext(MoodboardContext);
-    // const boardItems = useMemo(() => items.map(item => (
-    //     <g key={item.id}
-    //         transform={`translate(${item.x},${item.y})`}
-    //     >
-    //         <Video item={item} />
-    //         <Map item={item} />
-    //         <Pdf item={item} />
-    //         <ImageLink item={item} />
-    //         <Image item={item} />
-    //         <Box item={item} />
-    //     </g>
-    // )), [items])
+
     return (
         <>
             <div
@@ -41,8 +30,8 @@ const MoodBoard = () => {
             >
                 <svg
                     ref={svgRef}
-                    width='2000'
-                    height='2000'
+                    width='10000'
+                    height='10000'
                     id="my-svg"
                     onPointerDown={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
@@ -67,7 +56,7 @@ const MoodBoard = () => {
                             <Box item={item} />
                         </g>
                     ))}
-                    {/* {boardItems} */}
+
                     <Drawing />
                 </svg>
             </div >

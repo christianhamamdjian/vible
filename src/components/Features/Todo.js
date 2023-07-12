@@ -187,7 +187,7 @@ const Todo = () => {
                     className="toggle-todo"
                     onClick={handleTodosToggle}
                 >
-                    Todo
+                    <div>|||</div>
                 </button >
                 <div
                     className='todo-list'

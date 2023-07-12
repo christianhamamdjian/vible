@@ -19,7 +19,7 @@ const DrawerButton = ({ onClick, side }) => (
     className={`Drawer__toggle-${side}`}
     onClick={onClick}
   >
-    {side === "left" ? "Add items" : "Controls"}
+    {side === "left" ? <div style={{ fontSize: "2rem", marginTop: "-.4rem" }}>+</div> : <div style={{ fontSize: "2rem", transform: "rotate(90deg)", marginRight: "-1.3rem" }}>...</div>}
   </button >
 );
 
