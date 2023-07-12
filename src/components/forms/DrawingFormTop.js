@@ -18,13 +18,13 @@ const DrawingFormTop = () => {
                         onClick={handleAddBox}><div style={{ fontSize: "2rem", fontWeight: "bold" }}>T</div></button>
                     {paths.length > 0 && (
                         <>
-                            {/* <button
-                                className={isEditingPaths ? "selected-button" : null}
-                                onClick={handleEditPaths}>Edit lines</button> */}
-
                             <button
                                 className={isErasing ? "selected-button" : null}
-                                onClick={handleEraser}>Delete lines</button>
+                                onClick={handleEraser}>
+                                <div style={{ transform: "rotate(35deg)" }}>
+                                    <div style={{ width: "1rem", height: "1rem", border: "2px solid #ffffff" }}></div>
+                                    <div style={{ width: "1rem", height: "1rem", border: "2px solid #ffffff", backgroundColor: "#ffffff" }}></div></div>
+                            </button>
                         </>
                     )
                     }
@@ -33,7 +33,7 @@ const DrawingFormTop = () => {
                             <button
                                 className={isEditingBoard ? "selected-button" : null}
                                 onClick={handleEditingBoard}>
-                                <div style={{ fontSize: "2rem", letterSpacing: "-.2rem" }}>
+                                <div style={{ minWidth: "2rem", fontSize: "2rem", letterSpacing: "-.2rem" }}>
                                     <span style={{ fontSize: "2rem" }}>_ </span>
                                     <span style={{ fontSize: "2rem", fontWeight: "bold" }}>
                                         /

@@ -102,7 +102,6 @@ const Gallery = () => {
                     <div>|_|</div>
                 </button >
                 <div>
-                    <h2>Gallery:</h2>
                     <form onSubmit={handleGallerySubmit}>
                         <select value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
                             <option value="color">Color</option>

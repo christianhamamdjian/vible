@@ -117,9 +117,9 @@ body {
 
 @media only screen and (max-width: 600px) {
   .top-buttons {
-    width: 55vw;
+    width: 40vw;
     margin: 0 auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: stretch;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
@@ -277,7 +277,7 @@ input[type="color"] {
   padding: 1rem;
   position: fixed;
   background: rgba(255, 255, 255, 1);
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 27rem;
   height: 30rem;
   right: 0;
@@ -352,8 +352,6 @@ input[type="color"] {
   -ms-touch-action: none;
   box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
-
-
 
 .todo-container {
   max-width: 450px;

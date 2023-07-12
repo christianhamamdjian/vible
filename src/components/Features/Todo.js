@@ -243,20 +243,26 @@ const Todo = () => {
                                                         {todo.text}
                                                     </span>
                                                     <div className="todo-buttons">
-                                                        <button
-                                                            onClick={() => handleTodoDelete(todo.id)}
-                                                        >
-                                                            &times;
-                                                        </button>
-                                                        <button
+                                                        <button style={{ width: "2rem", height: "2.2rem" }}
                                                             onClick={() => handleTodoEditStart(todo.id, todo.text)}
                                                         >
-                                                            Edit
+                                                            <div style={{ minWidth: "1rem", marginLeft: "-.5rem", fontSize: "1rem", letterSpacing: "-.1rem" }}>
+                                                                <span style={{ fontSize: "1rem" }}>_ </span>
+                                                                <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
+                                                                    /
+                                                                </span></div>
                                                         </button>
-                                                        <button
+                                                        <button style={{ width: "2rem", height: "2.2rem" }}
                                                             onClick={() => handleTodoAddToBoard(todo.text)}
                                                         >
-                                                            + board
+                                                            <div style={{ width: "1.2rem", height: "1.2rem", marginLeft: "-.6rem", border: "1px solid #ffffff", marginTop: "-.1rem", }}></div>
+                                                            <div style={{ fontSize: "1rem", fontWeight: "bold", width: "1rem", height: "1rem", marginTop: "-1.3rem", marginLeft: "-.5rem", marginBottom: ".2rem" }}>+</div>
+
+                                                        </button>
+                                                        <button style={{ width: "2rem", height: "2.2rem" }}
+                                                            onClick={() => handleTodoDelete(todo.id)}
+                                                        >
+                                                            <div style={{ fontSize: "1.2rem", fontWeight: "bold", marginLeft: "-.4rem", marginTop: "-.3rem" }}>&times;</div>
                                                         </button>
                                                     </div>
                                                 </>
@@ -266,11 +272,9 @@ const Todo = () => {
                                 </li>
                             ))
                         }
-                    </ul>
-                </div>
-
+                    </ul >
+                </div >
             </div >
-
         </>
     )
 }
