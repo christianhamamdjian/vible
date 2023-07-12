@@ -40,7 +40,7 @@ const BoxFormTop = () => {
                         <label>Change width:</label>
                         <input
                             type="range"
-                            min="200"
+                            min="100"
                             max="600"
                             step="10"
                             name="width"
@@ -50,7 +50,7 @@ const BoxFormTop = () => {
                         <label>Change height:</label>
                         <input
                             type="range"
-                            min="200"
+                            min="60"
                             max="600"
                             step="10"
                             name="height"

@@ -11,9 +11,11 @@ const DrawingFormTop = () => {
                 <div className='top-buttons'>
                     <button
                         className={isDrawing ? "selected-button" : null}
-                        onClick={handleDrawing}>Add drawing</button>
+                        onClick={handleDrawing}>
+                        <div style={{ fontSize: "2rem", fontWeight: "bold", transform: "rotate(35deg)" }}>≈</div>
+                    </button>
                     <button
-                        onClick={handleAddBox}>Add text</button>
+                        onClick={handleAddBox}><div style={{ fontSize: "2rem", fontWeight: "bold" }}>T</div></button>
                     {paths.length > 0 && (
                         <>
                             {/* <button
@@ -30,7 +32,13 @@ const DrawingFormTop = () => {
                         <>
                             <button
                                 className={isEditingBoard ? "selected-button" : null}
-                                onClick={handleEditingBoard}>Edit items</button>
+                                onClick={handleEditingBoard}>
+                                <div style={{ fontSize: "2rem", letterSpacing: "-.2rem" }}>
+                                    <span style={{ fontSize: "2rem" }}>_ </span>
+                                    <span style={{ fontSize: "2rem", fontWeight: "bold" }}>
+                                        /
+                                    </span></div>
+                            </button>
                         </>
                     )
                     }

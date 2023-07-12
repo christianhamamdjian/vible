@@ -232,7 +232,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerDown = (e) => {
-        if (editingText) return
+        // if (editingText) return
         if (!isDrawing) {
             e.preventDefault();
             const { clientX, clientY } = e.touches ? e.touches[0] : e;
@@ -570,6 +570,7 @@ export default function MoodboardProvider({ children }) {
             setEditingText(null)
             setIsEditingBoard(false)
             setIsEditingPath(false)
+            setIsEditingPaths(false)
             setSelectedPath(null)
             setWrite(false)
         }
@@ -619,6 +620,11 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(isEditingBoard => !isEditingBoard)
         if (isEditingBoard) {
             setEditingText(null)
+            setIsEditingBoard(false)
+            setIsEditingPath(false)
+            setIsEditingPaths(false)
+            setSelectedPath(null)
+            setWrite(false)
         }
         setZoom(10000)
     }
