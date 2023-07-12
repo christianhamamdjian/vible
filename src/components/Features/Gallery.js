@@ -97,9 +97,9 @@ const Gallery = () => {
                     className="toggle-gallery"
                     onClick={handleGalleryToggle}
                 >
-                    <div>|_|</div>
-                    <div>|_|</div>
-                    <div>|_|</div>
+                    <div>
+                        <div style={{ width: "2rem", height: "2rem", border: "3px solid #ffffff" }}></div>
+                    </div>
                 </button >
                 <div>
                     <form onSubmit={handleGallerySubmit}>

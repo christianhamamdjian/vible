@@ -12,7 +12,7 @@ const DrawingFormTop = () => {
                     <button
                         className={isDrawing ? "selected-button" : null}
                         onClick={handleDrawing}>
-                        <div style={{ fontSize: "2rem", fontWeight: "bold", transform: "rotate(35deg)" }}>≈</div>
+                        <div style={{ fontSize: "2rem", transform: "rotate(45deg)", marginLeft: ".4rem" }}>≈</div>
                     </button>
                     <button
                         onClick={handleAddBox}><div style={{ fontSize: "2rem", fontWeight: "bold" }}>T</div></button>

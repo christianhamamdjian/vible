@@ -120,7 +120,7 @@ body {
     width: 40vw;
     margin: 0 auto;
     flex-wrap: nowrap;
-    justify-content: stretch;
+    /* justify-content: stretch; */
     border-radius: 0 0 12px 12px;
     overflow: hidden;
     gap: 0;
@@ -228,6 +228,7 @@ input[type="color"] {
   width: 50px;
   height: 50px;
   position: fixed;
+  font-weight: bold;
   top: 10px;
   right: 20px;
   z-index: 101;
@@ -240,6 +241,7 @@ input[type="color"] {
   width: 50px;
   height: 50px;
   position: fixed;
+  font-weight: bold;
   top: 10px;
   left: 10px;
   z-index: 101;
@@ -253,7 +255,7 @@ input[type="color"] {
   width: 50px;
   height: 50px;
   top: -6rem;
-  right: 2rem;
+  right: 1.5rem;
   font-size: 4rem;
   /* border-radius: 12px 0px 0px 0px; */
   border-radius: 50%;
@@ -263,6 +265,7 @@ input[type="color"] {
   font-size: 2rem;
   transform: rotate(90deg);
   margin-right: -.5rem;
+  font-weight: bold;
 }
 
 .todo-show {
@@ -397,14 +400,16 @@ input[type="color"] {
   width: 50px;
   height: 50px;
   top: -6rem;
-  left: 2rem;
+  left: 1.5rem;
+  font-weight: bold;
   /* border-radius: 0px 12px 0px 0px; */
   border-radius: 50%;
+  /* transform: rotate(30deg); */
 }
 
 .toggle-gallery div {
   font-size: 2rem;
-  margin-top: -1.2rem;
+  margin-top: -.1rem;
   margin-left: -.1rem;
 }
 
@@ -468,8 +473,6 @@ border-radius: 50%;
   max-height: 6rem;
 }
 
-
-
 li {
   padding: .2rem .4rem;
   width: 16rem;
@@ -516,6 +519,8 @@ button,
 button:hover,
 ::file-selector-button:hover {
   background-color: rgb(11, 9, 112);
+  user-select: none;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
 .selected-button {

@@ -101,8 +101,8 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: "160px",
-            height: "160px",
+            width: "100px",
+            height: "60px",
             angle: 0,
             type: "box"
         };
