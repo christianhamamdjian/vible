@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -35,22 +35,27 @@ const Box = ({ item }) => {
                             target="__blank">
                             <span x="80" y="30" fill={getTextColor(item.color)}>{item.link}</span>
                         </a>
-                        {editingText && isEditingBoard && (item.id === editingText.id) ? (<textarea
-                            name=""
-                            id=""
-                            value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
-                            onChange={(event) => handleItemChange(event, editingText.id, "text")}
-                            style={{
-                                backgroundColor: "transparent",
-                                color: getTextColor(item.color),
-                                fontFamily: "sans-serif",
-                                touchAction: "none"
-                            }}
-                            cols="10"
-                            rows="5"
-                            onBlur={handleStopEditBox}
-                        >
-                        </textarea>) : (
+                        {editingText && isEditingBoard && (item.id === editingText.id) ? (
+                            <textarea
+                                ref={itemRef}
+                                name=""
+                                id=""
+                                value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
+                                //onClick={() => itemRef.current.focus()}
+                                onChange={(event) => handleItemChange(event, editingText.id, "text")}
+                                style={{
+                                    backgroundColor: "transparent",
+                                    color: getTextColor(item.color),
+                                    fontFamily: "sans-serif",
+                                    touchAction: "none",
+                                    zIndex: "100"
+                                }}
+                                cols="10"
+                                rows="5"
+                                onBlur={handleStopEditBox}
+                            >
+                            </textarea>
+                        ) : (
                             <p
                                 className="text"
                                 fill={item.color}

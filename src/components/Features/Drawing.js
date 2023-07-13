@@ -15,9 +15,9 @@ const Drawing = () => {
                     strokeLinejoin="round"
                     stroke={path.color}
                     strokeWidth={path.line}
-                    onClick={() => handlePathClick(index, path.id)}
-                    onPointerDown={handlePathDrag}
-                    onTouchStart={handlePathDrag}
+                    onDoubleClick={() => handlePathClick(index, path.id)}
+                    onPointerDown={(e) => handlePathDrag(e, index, path.id)}
+                    onTouchStart={(e) => handlePathDrag(e, index, path.id)}
                     style={{
                         cursor: 'grabbing',
                         filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' : 'none'} `
