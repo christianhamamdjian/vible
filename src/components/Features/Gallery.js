@@ -98,7 +98,7 @@ const Gallery = () => {
                     onClick={handleGalleryToggle}
                 >
                     <div>
-                        <div style={{ width: "2rem", height: "2rem", border: "3px solid #ffffff" }}></div>
+                        <div style={{ width: "2rem", height: "2rem", border: "3px solid #ffffff", borderRadius: ".6rem" }}></div>
                     </div>
                 </button >
                 <div>

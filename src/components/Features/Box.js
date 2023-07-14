@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
@@ -47,11 +47,11 @@ const Box = ({ item }) => {
                                     backgroundColor: "transparent",
                                     color: getTextColor(item.color),
                                     fontFamily: "sans-serif",
-                                    touchAction: "none",
-                                    zIndex: "100"
+                                    // touchAction: "none",
+                                    zIndex: "101"
                                 }}
                                 cols="10"
-                                rows="5"
+                                rows="2"
                                 onBlur={handleStopEditBox}
                             >
                             </textarea>
@@ -64,7 +64,7 @@ const Box = ({ item }) => {
                                     userSelect: "none",
                                     fontFamily: "sans-serif",
                                     zIndex: "100",
-                                    touchAction: "none"
+                                    // touchAction: "none"
                                 }}
                             >{item.text}
                             </p>)

@@ -8,7 +8,7 @@ const BoxFormTop = () => {
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && (
                 <>
-                    <div className='inputs-top_objects' style={{ width: "60%", margin: "0 auto" }}>
+                    <div className='inputs-top_objects' >
                         <label>Change text:</label>
                         <textarea
                             value={items.find(item => item.id === editingText.id).text}

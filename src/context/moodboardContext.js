@@ -4,46 +4,36 @@ import getTextColor from "../components/utils/getTextColor"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
+// Initial state
+const initialState = {
+    itemText: "Text",
+}
 
-// // Actions
-// export const addTextBox = (box = initialState.pathColor) => {
-//     return {
-//         type: ADD_TEXT_BOX,
-//         payload: box
-//     }
-// }
+// Reducer
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case "ADD_TEXT":
+            const text = action.payload
+            return (
+                { ...state, itemText: text }
+            )
 
-// // Types
-// const actions = {
-//     ADD_TEXT_BOX: "ADD_TEXT_BOX",
-// }
-
-// // Initial state
-// const initialState = {
-//     isDrawing: false,
-// }
-
-// // Reducer
-// const reducer = (state, action) => {
-//     switch (action.type) {
-//         case ADD_TEXT_BOX:
-//             return {
-
-//             }
-
-//         default:
-//             return state
-//     }
-// }
-
-
-// // Dispatch
+        default:
+            return state
+    }
+}
 
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
+
     // useReducer
-    // const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    // Dispatch action
+    const addText = (text) => {
+        dispatch({ type: "ADD_TEXT", payload: { text } })
+    }
 
     // useState
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
@@ -62,7 +52,7 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
 
-    const [itemText, setItemText] = useState('Text')
+    // const [itemText, setItemText] = useState('Text')
     const [itemColor, setItemColor] = useState('#f4b416')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
@@ -122,17 +112,18 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 100,
             y: 100,
-            text: itemText,
+            text: initialState.itemText,
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: "100px",
+            width: "140px",
             height: "60px",
             angle: 0,
             type: "box"
         }
         setItems([...items, newBox])
-        setItemText('Text')
+        // setItemText('Text')
+        addText('Text')
         setItemColor('#f4b416')
     }
     const handleAddGalleryBox = (color) => {
@@ -141,14 +132,15 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 100,
             y: 100,
-            text: itemText,
+            text: initialState.itemText,
             color: color,
             link: itemLink,
             url: itemUrl,
             type: "box"
         }
         setItems([...items, newBox])
-        setItemText('Text')
+        // setItemText('Text')
+        addText('Text')
         setItemColor('#f4b416')
     }
     const handleAddTodoBox = (text) => {
@@ -164,7 +156,8 @@ export default function MoodboardProvider({ children }) {
             type: "box"
         }
         setItems([...items, newBox])
-        setItemText('Text')
+        // setItemText('Text')
+        addText('Text')
         setItemColor('#f4b416')
     }
     const handleAddGalleryImage = (image) => {
@@ -176,14 +169,15 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 0,
             y: 0,
-            text: itemText,
+            text: initialState.itemText,
             color: itemColor,
             link: link.content,
             url: link.link,
             type: "box"
         }
         setItems([...items, newBox])
-        setItemText('Text')
+        // setItemText('Text')
+        addText('Text')
         setItemColor('#f4b416')
     }
     const handleImageUpload = (e) => {
@@ -258,8 +252,12 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerDown = (e) => {
-        // if (editingText) return
-        if (!isDrawing) {
+        if (editingText) return
+        if (selectedPath || isEditingPath) {
+            setSelectedPath(null)
+            setIsEditingPath(false)
+        }
+        if (!isDrawing && !editingText && !selectedPath) {
             e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgRect = svgRef.current.getBoundingClientRect()
@@ -321,10 +319,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        if (isDrawing) {
-            return
-        }
-        if (editingText) return
+        if (isDrawing || editingText) return
         setSelectedRectId(rectId)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rect = items.find((r) => r.id === rectId)
@@ -549,7 +544,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleItemText = (e) => {
-        setItemText(e.target.value)
+        // setItemText(e.target.value)
+        addText(e.target.value)
     }
     const handleItemColor = (e) => {
         setItemColor(e.target.value)
@@ -653,6 +649,11 @@ export default function MoodboardProvider({ children }) {
 
     return (
         <MoodboardContext.Provider value={{
+
+            //useReducer state
+            ...state,
+            addText,
+
             // Properties
             isDrawing,
             paths,
@@ -663,7 +664,7 @@ export default function MoodboardProvider({ children }) {
             pathRef,
             itemRef,
             items,
-            itemText,
+            // itemText,
             itemColor,
             itemLink,
             itemUrl,
@@ -752,7 +753,7 @@ export default function MoodboardProvider({ children }) {
             handleSvgPointerUp,
             handleRectPointerDown,
             handleRectPointerMove,
-            handleRectPointerUp
+            handleRectPointerUp,
         }}>
             {children}
         </MoodboardContext.Provider>

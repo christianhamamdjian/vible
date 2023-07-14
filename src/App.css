@@ -112,12 +112,17 @@ body {
 }
 
 .top-buttons button {
-  border-radius: 0 0 12px 12px;
+  /* border-radius: 0 0 12px 12px; */
+  max-width: 3.5rem;
+  margin-top: 1rem;
+  border-radius: 50%;
 }
+
+
 
 @media only screen and (max-width: 600px) {
   .top-buttons {
-    width: 40vw;
+    width: 50vw;
     margin: 0 auto;
     flex-wrap: nowrap;
     /* justify-content: stretch; */
@@ -132,7 +137,9 @@ body {
 
   .top-buttons button {
     flex-basis: 0;
-    border-radius: 0;
+    /* margin-top: 1rem; */
+    /* max-width: 3.5rem;
+    border-radius: 50%; */
     font-size: .7rem;
   }
 }
@@ -153,6 +160,14 @@ body {
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 800px) {
+  .inputs-top_objects {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .inputs-top_draw {
@@ -229,8 +244,8 @@ input[type="color"] {
   height: 50px;
   position: fixed;
   font-weight: bold;
-  top: 10px;
-  right: 20px;
+  top: 1rem;
+  right: 1.5rem;
   z-index: 101;
   /* border-radius: 0px 0px 0px 12px; */
   border-radius: 50%;
@@ -242,8 +257,8 @@ input[type="color"] {
   height: 50px;
   position: fixed;
   font-weight: bold;
-  top: 10px;
-  left: 10px;
+  top: 1rem;
+  left: 1rem;
   z-index: 101;
   /* border-radius: 0px 0px 12px 0px; */
   border-radius: 50%;
@@ -400,7 +415,7 @@ input[type="color"] {
   width: 50px;
   height: 50px;
   top: -6rem;
-  left: 1.5rem;
+  left: 1rem;
   font-weight: bold;
   /* border-radius: 0px 12px 0px 0px; */
   border-radius: 50%;
@@ -413,22 +428,6 @@ input[type="color"] {
   margin-left: -.1rem;
 }
 
-/* .toggle-todo {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: -6rem;
-  right: 2rem;
-  font-size: 4rem;
-border-radius: 50%;
-}
-
-.toggle-todo div {
-  font-size: 2rem;
-  transform: rotate(90deg);
-  margin-right: -.5rem;
-}
-*/
 .gallery-show {
   bottom: 0;
 }
