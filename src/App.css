@@ -166,7 +166,8 @@ body {
 
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
-    grid-template-columns: repeat(4, 1fr);
+    width: 90vw;
+    grid-template-columns: repeat(2, 1fr 6rem);
   }
 }
 

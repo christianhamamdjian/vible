@@ -36,8 +36,8 @@ const DrawingFormTop = () => {
                                 className={isEditingBoard ? "selected-button" : null}
                                 onClick={handleEditingBoard}>
                                 <div style={{ minWidth: "1.2rem", letterSpacing: "-.1rem" }}>
-                                    <span style={{ fontSize: "1.6rem", marginLeft: "-.4rem", marginTop: "-2rem" }}>_ </span>
-                                    <span style={{ fontSize: "1.6rem", fontWeight: "bold", marginTop: "-2rem" }}>
+                                    <span style={{ fontSize: "1.4rem", marginLeft: "-.4rem" }}>_ </span>
+                                    <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
                                         /
                                     </span></div>
                             </button>
