@@ -367,6 +367,7 @@ export default function MoodboardProvider({ children }) {
     const handlePathDrag = (e, index, id) => {
         e.stopPropagation()
         setSelectedPath(index)
+        setIsEditingPath({ status: true, id: id })
         if (isErasing) {
             handleDeletePath(id)
         }

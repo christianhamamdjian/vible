@@ -15,10 +15,10 @@ const LeftSidebard = () => {
         <div className='left-sidebar'>
             {/* <button className={draw ? "selected-button" : null} type="button" onClick={handleDraw}>Draw</button>
             {draw && <DrawingForm />} */}
-            <button
+            {/* <button
                 className={write ? "selected-button" : null}
                 type="button" onClick={handleWrite}>Write</button>
-            {write && <BoxForm />}
+            {write && <BoxForm />} */}
             <button
                 className={image ? "selected-button" : null}
                 type="button" onClick={handleImage}>Image</button>
