@@ -6,21 +6,42 @@ import { handlePdfDelete } from "../components/utils/itemsOperations"
 import reducer from "../reducers/reducer"
 import * as ACTIONS from '../reducers/actions'
 
-// Initial state
 const initialState = {
     itemText: "Text",
+    itemColor: "#f4b416",
+    itemLink: "",
+    itemUrl: "",
+    itemVideoUrl: "",
+    itemImageUrl: "",
+    itemMapUrl: "",
 }
 
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
 
-    // useReducer
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    // Dispatch action
     const addText = (text) => {
-        dispatch({ type: ACTIONS.ADD_TEXT, payload: { text } })
+        dispatch({ type: ACTIONS.ADD_TEXT, payload: text })
+    }
+    const addColor = (color) => {
+        dispatch({ type: ACTIONS.ADD_COLOR, payload: color })
+    }
+    const addLink = (link) => {
+        dispatch({ type: ACTIONS.ADD_LINK, payload: link })
+    }
+    const addUrl = (url) => {
+        dispatch({ type: ACTIONS.ADD_URL, payload: url })
+    }
+    const addVideoUrl = (videoUrl) => {
+        dispatch({ type: ACTIONS.ADD_VIDEO_URL, payload: videoUrl })
+    }
+    const addImageUrl = (imageUrl) => {
+        dispatch({ type: ACTIONS.ADD_IMAGE_URL, payload: imageUrl })
+    }
+    const addMapUrl = (mapUrl) => {
+        dispatch({ type: ACTIONS.ADD_MAP_URL, payload: mapUrl })
     }
 
     // useState
@@ -39,14 +60,6 @@ export default function MoodboardProvider({ children }) {
     const [rotation, setRotation] = useState([])
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
-
-    // const [itemText, setItemText] = useState('Text')
-    const [itemColor, setItemColor] = useState('#f4b416')
-    const [itemLink, setItemLink] = useState('')
-    const [itemUrl, setItemUrl] = useState('')
-    const [itemVideoUrl, setItemVideoUrl] = useState('')
-    const [itemImageUrl, setItemImageUrl] = useState('')
-    const [itemMapUrl, setItemMapUrl] = useState('')
 
     const [editingText, setEditingText] = useState(null)
     const [editingImage, setEditingImage] = useState(null)
@@ -96,77 +109,73 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newBox = {
+        const newItem = {
             id: itemId,
             x: 100,
             y: 100,
-            text: initialState.itemText,
-            color: itemColor,
-            link: itemLink,
-            url: itemUrl,
+            text: state.itemText,
+            color: state.itemColor,
+            link: state.itemLink,
+            url: state.itemUrl,
             width: "140px",
             height: "60px",
             angle: 0,
             type: "box"
         }
-        setItems([...items, newBox])
-        // setItemText('Text')
+        setItems((prevItems) => [...prevItems, newItem])
         addText('Text')
-        setItemColor('#f4b416')
+        addColor('#f4b416')
     }
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now()
-        const newBox = {
+        const newItem = {
             id: itemId,
             x: 100,
             y: 100,
-            text: initialState.itemText,
+            text: state.itemText,
             color: color,
-            link: itemLink,
-            url: itemUrl,
+            link: state.itemLink,
+            url: state.itemUrl,
             type: "box"
         }
-        setItems([...items, newBox])
-        // setItemText('Text')
+        setItems((prevItems) => [...prevItems, newItem])
         addText('Text')
-        setItemColor('#f4b416')
+        addColor('#f4b416')
     }
     const handleAddTodoBox = (text) => {
         const itemId = Date.now()
-        const newBox = {
+        const newItem = {
             id: itemId,
             x: 100,
             y: 100,
             text: text,
-            color: itemColor,
-            link: itemLink,
-            url: itemUrl,
+            color: state.itemColor,
+            link: state.itemLink,
+            url: state.itemUrl,
             type: "box"
         }
-        setItems([...items, newBox])
-        // setItemText('Text')
+        setItems((prevItems) => [...prevItems, newItem])
         addText('Text')
-        setItemColor('#f4b416')
+        addColor('#f4b416')
     }
     const handleAddGalleryImage = (image) => {
         setItems([...items, image])
     }
     const handleAddGalleryLink = (link) => {
         const itemId = Date.now()
-        const newBox = {
+        const newItem = {
             id: itemId,
             x: 0,
             y: 0,
-            text: initialState.itemText,
-            color: itemColor,
+            text: state.itemText,
+            color: state.itemColor,
             link: link.content,
             url: link.link,
             type: "box"
         }
-        setItems([...items, newBox])
-        // setItemText('Text')
+        setItems((prevItems) => [...prevItems, newItem])
         addText('Text')
-        setItemColor('#f4b416')
+        addColor('#f4b416')
     }
     const handleImageUpload = (e) => {
         const file = e.target.files[0]
@@ -207,7 +216,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            videoUrl: itemVideoUrl,
+            videoUrl: state.itemVideoUrl,
             x: 100,
             y: 100,
             type: "video"
@@ -218,7 +227,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            imageUrl: itemImageUrl,
+            imageUrl: state.itemImageUrl,
             x: 100,
             y: 100,
             width: "100",
@@ -231,7 +240,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            mapUrl: itemMapUrl,
+            mapUrl: state.itemMapUrl,
             x: 100,
             y: 100,
             type: "mapUrl"
@@ -261,8 +270,8 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
-            svgPoint.x = clientX
-            svgPoint.y = clientY
+            svgPoint.x = Math.floor(clientX)
+            svgPoint.y = Math.floor(clientY)
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setSelectedPath(null)
             setDrawing(true)
@@ -277,8 +286,8 @@ export default function MoodboardProvider({ children }) {
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
-            let newX = clientX - svgOffset.x - divRect.left
-            let newY = clientY - svgOffset.y - divRect.top
+            let newX = Math.floor(clientX) - svgOffset.x - divRect.left
+            let newY = Math.floor(clientY) - svgOffset.y - divRect.top
             newX = Math.min(0, Math.max(newX, maxX))
             newY = Math.min(0, Math.max(newY, maxY))
             setSvgPosition({ x: newX, y: newY })
@@ -288,8 +297,8 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
-            svgPoint.x = clientX
-            svgPoint.y = clientY
+            svgPoint.x = Math.floor(clientX)
+            svgPoint.y = Math.floor(clientY)
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             const currentPath = { ...paths[paths.length - 1] }
             currentPath["path"].push(transformedPoint)
@@ -312,8 +321,8 @@ export default function MoodboardProvider({ children }) {
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rect = items.find((r) => r.id === rectId)
         const rectOffset = {
-            x: clientX - rect.x,
-            y: clientY - rect.y,
+            x: Math.floor(clientX) - rect.x,
+            y: Math.floor(clientY) - rect.y,
         }
         setRectOffsets((prevOffsets) => ({
             ...prevOffsets,
@@ -326,8 +335,8 @@ export default function MoodboardProvider({ children }) {
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rectOffset = rectOffsets[rectId]
         const rectIndex = items.findIndex((r) => r.id === rectId)
-        const newX = clientX - rectOffset.x
-        const newY = clientY - rectOffset.y
+        const newX = Math.floor(clientX) - rectOffset.x
+        const newY = Math.floor(clientY) - rectOffset.y
         const updatedRectangles = [...items]
         const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY }
         updatedRectangles[rectIndex] = updatedRect
@@ -544,22 +553,22 @@ export default function MoodboardProvider({ children }) {
         addText(e.target.value)
     }
     const handleItemColor = (e) => {
-        setItemColor(e.target.value)
+        addColor(e.target.value)
     }
     const handleItemLink = (e) => {
-        setItemLink(e.target.value)
+        addLink(e.target.value)
     }
     const handleItemUrl = (e) => {
-        setItemUrl(e.target.value)
+        addUrl(e.target.value)
     }
     const handleItemVideoUrl = (e) => {
-        setItemVideoUrl(e.target.value)
+        addVideoUrl(e.target.value)
     }
     const handleItemImageUrl = (e) => {
-        setItemImageUrl(e.target.value)
+        addImageUrl(e.target.value)
     }
     const handleItemMapUrl = (e) => {
-        setItemMapUrl(e.target.value)
+        addMapUrl(e.target.value)
     }
     const handleEditBox = (e, id) => {
         if (editingText) {
@@ -644,114 +653,120 @@ export default function MoodboardProvider({ children }) {
     }
 
     return (
-        <MoodboardContext.Provider value={{
+        <MoodboardContext.Provider
+            value={{
 
-            //useReducer state
-            ...state,
-            itemText: state.itemText,
-            addText,
+                //useReducer state
+                ...state,
+                itemText: state.itemText,
+                itemColor: state.itemColor,
+                itemLink: state.itemLink,
+                itemUrl: state.itemUrl,
+                itemVideoUrl: state.itemVideoUrl,
+                itemImageUrl: state.itemImageUrl,
+                itemMapUrl: state.itemMapUrl,
+                addText,
+                addColor,
+                addLink,
+                addUrl,
+                addVideoUrl,
+                addImageUrl,
+                addMapUrl,
 
-            // Properties
-            isDrawing,
-            paths,
-            isErasing,
-            pathColor,
-            pathLine,
-            svgRef,
-            pathRef,
-            itemRef,
-            items,
-            // itemText,
-            itemColor,
-            itemLink,
-            itemUrl,
-            itemVideoUrl,
-            itemImageUrl,
-            itemMapUrl,
-            editingText,
-            editingImage,
-            galleryItems,
-            write,
-            image,
-            video,
-            imageLink,
-            map,
-            pdf,
-            draw,
-            zoom,
-            isEditingBoard,
-            isEditingPath,
-            isEditingPaths,
-            rotation,
-            scaling,
-            selectedPath,
-            setItems,
-            todosShow,
-            svgPosition,
-            divRef,
-            draggingSvg,
-            selectedRectId,
-            // Methods
-            handleSvgPointerMove,
-            handlePathClick,
-            handlePathDrag,
-            handleAddBox,
-            handleImageUpload,
-            handleImageDropUpload,
-            handleAddVideo,
-            handleAddImage,
-            handleAddMap,
-            handleDeleteItem,
-            handleItemText,
-            handleItemColor,
-            handleItemLink,
-            handleItemUrl,
-            handleItemVideoUrl,
-            handleItemImageUrl,
-            handleItemMapUrl,
-            handleEditBox,
-            handleStopEditBox,
-            handleEditImage,
-            handleStopEditImage,
-            handleItemChange,
-            handleDrawing,
-            handleEraser,
-            handleDeletePath,
-            handleLineColor,
-            handleLineWidth,
-            addGalleryItem,
-            deleteGalleryItem,
-            handleAddGalleryBox,
-            handleAddGalleryImage,
-            handleAddGalleryLink,
-            handleDraw,
-            handleWrite,
-            handleImage,
-            handleImageLink,
-            handleVideo,
-            handleMap,
-            handlePdf,
-            handleClearBoard,
-            handleClearPaths,
-            getTextColor,
-            handleZoomIn,
-            handleZoomOut,
-            handleEditingBoard,
-            handleTodosToggle,
-            handleLineWidthChange,
-            handleLineColorChange,
-            stopLineEditing,
-            handleScaleChange,
-            handleRotateChange,
-            handleEditPaths,
-            handlePdfDelete,
-            handleTodoAddToBoard,
-            handleSvgPointerDown,
-            handleSvgPointerUp,
-            handleRectPointerDown,
-            handleRectPointerMove,
-            handleRectPointerUp,
-        }}>
+                // Properties
+                isDrawing,
+                paths,
+                isErasing,
+                pathColor,
+                pathLine,
+                svgRef,
+                pathRef,
+                itemRef,
+                items,
+                editingText,
+                editingImage,
+                galleryItems,
+                write,
+                image,
+                video,
+                imageLink,
+                map,
+                pdf,
+                draw,
+                zoom,
+                isEditingBoard,
+                isEditingPath,
+                isEditingPaths,
+                rotation,
+                scaling,
+                selectedPath,
+                setItems,
+                todosShow,
+                svgPosition,
+                divRef,
+                draggingSvg,
+                selectedRectId,
+                // Methods
+                handleSvgPointerMove,
+                handlePathClick,
+                handlePathDrag,
+                handleAddBox,
+                handleImageUpload,
+                handleImageDropUpload,
+                handleAddVideo,
+                handleAddImage,
+                handleAddMap,
+                handleDeleteItem,
+                handleItemText,
+                handleItemColor,
+                handleItemLink,
+                handleItemUrl,
+                handleItemVideoUrl,
+                handleItemImageUrl,
+                handleItemMapUrl,
+                handleEditBox,
+                handleStopEditBox,
+                handleEditImage,
+                handleStopEditImage,
+                handleItemChange,
+                handleDrawing,
+                handleEraser,
+                handleDeletePath,
+                handleLineColor,
+                handleLineWidth,
+                addGalleryItem,
+                deleteGalleryItem,
+                handleAddGalleryBox,
+                handleAddGalleryImage,
+                handleAddGalleryLink,
+                handleDraw,
+                handleWrite,
+                handleImage,
+                handleImageLink,
+                handleVideo,
+                handleMap,
+                handlePdf,
+                handleClearBoard,
+                handleClearPaths,
+                getTextColor,
+                handleZoomIn,
+                handleZoomOut,
+                handleEditingBoard,
+                handleTodosToggle,
+                handleLineWidthChange,
+                handleLineColorChange,
+                stopLineEditing,
+                handleScaleChange,
+                handleRotateChange,
+                handleEditPaths,
+                handlePdfDelete,
+                handleTodoAddToBoard,
+                handleSvgPointerDown,
+                handleSvgPointerUp,
+                handleRectPointerDown,
+                handleRectPointerMove,
+                handleRectPointerUp,
+            }}>
             {children}
         </MoodboardContext.Provider>
     )
