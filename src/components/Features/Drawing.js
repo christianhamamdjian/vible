@@ -9,7 +9,8 @@ const Drawing = () => {
             {paths.map((path, index) => (
                 <path
                     key={index}
-                    d={svgPath(path["path"])}
+                    // d={svgPath(path["path"])} // Line smoothing to be fixed
+                    d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"

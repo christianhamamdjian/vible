@@ -13,7 +13,11 @@ const DrawingFormTop = () => {
                         className={isDrawing ? "selected-button" : null}
                         onClick={handleDrawing}>
                         <div style={{ width: "1rem" }}>
-                            <div style={{ fontSize: "1.8rem", transform: "rotate(45deg)", marginTop: "-.1rem" }}>≈</div>
+                            <div style={{ transform: "rotate(45deg)", marginTop: "-.1rem" }}>
+                                <span style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
+                                    ~
+                                </span>
+                            </div>
                         </div>
                     </button>
                     <button

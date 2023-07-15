@@ -18,7 +18,7 @@ const Box = ({ item }) => {
                             backgroundColor: item.color,
                             padding: "1rem",
                             borderRadius: "6px",
-                            boxShadow: "2px 20px 30px rgba(0, 0, 0, 0.2",
+                            boxShadow: "2px 6px 12px rgba(0, 0, 0, 0.2)",
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`
                         }}

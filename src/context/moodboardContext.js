@@ -3,24 +3,12 @@ import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
+import reducer from "../reducers/reducer"
+import * as ACTIONS from '../reducers/actions'
 
 // Initial state
 const initialState = {
     itemText: "Text",
-}
-
-// Reducer
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case "ADD_TEXT":
-            const text = action.payload
-            return (
-                { ...state, itemText: text }
-            )
-
-        default:
-            return state
-    }
 }
 
 const MoodboardContext = createContext()
@@ -32,7 +20,7 @@ export default function MoodboardProvider({ children }) {
 
     // Dispatch action
     const addText = (text) => {
-        dispatch({ type: "ADD_TEXT", payload: { text } })
+        dispatch({ type: ACTIONS.ADD_TEXT, payload: { text } })
     }
 
     // useState
@@ -366,8 +354,11 @@ export default function MoodboardProvider({ children }) {
 
     const handlePathDrag = (e, index, id) => {
         e.stopPropagation()
-        setSelectedPath(index)
-        setIsEditingPath({ status: true, id: id })
+        if (drawing || isDrawing) { return }
+        if (!drawing || !isDrawing) {
+            setSelectedPath(index)
+            setIsEditingPath({ status: true, id: id })
+        }
         if (isErasing) {
             handleDeletePath(id)
         }
@@ -464,6 +455,10 @@ export default function MoodboardProvider({ children }) {
 
     // Drawing
     const handleDrawing = () => {
+        if (isDrawing || isEditingPath) {
+            setSelectedPath(null)
+            setIsEditingPath(false)
+        }
         setIsDrawing(isDrawing => !isDrawing)
         setIsErasing(false)
         setIsEditingPath(false)
@@ -653,6 +648,7 @@ export default function MoodboardProvider({ children }) {
 
             //useReducer state
             ...state,
+            itemText: state.itemText,
             addText,
 
             // Properties
