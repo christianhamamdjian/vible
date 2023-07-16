@@ -22,12 +22,13 @@ const Map = ({ item }) => {
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     >
                         <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
-                        <iframe src={item.mapUrl} width="300" height="200" style={{ border: "0" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src={item.mapUrl} width="300" height="200" style={{ border: "0", userSelect: "none", }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </foreignObject>
-                    {isEditingBoard && <><circle
-                        cx="0"
-                        cy="0"
-                        r="8"
+                    {isEditingBoard && <><rect
+                        x="10"
+                        y="-12"
+                        height="10"
+                        width="24"
                         fill="red"
                         stroke="white"
                         strokeWidth="2"

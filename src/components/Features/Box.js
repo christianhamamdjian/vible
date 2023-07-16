@@ -74,31 +74,64 @@ const Box = ({ item }) => {
                     {isEditingBoard && <>
                         <rect
                             x="10"
-                            y="-12"
-                            height="10"
+                            y="-22"
+                            height="20"
                             width="24"
+                            rx="6"
                             fill="red"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={() => handleDeleteItem(item.id)}
                         />
+                        <text
+                            x="18"
+                            y="-9"
+                            width="24"
+                            height="20"
+                            fill="white"
+                            style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                            onClick={() => handleDeleteItem(item.id)}
+                        >&times;</text>
                         <rect
                             x="60"
-                            y="-12"
-                            height="10"
+                            y="-22"
+                            height="20"
                             width="24"
-                            fill="orange"
+                            rx="6"
+                            fill="green"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={(e) => handleEditBox(e, item.id)}
                         />
-                        {editingText && (editingText.id === item.id) && <rect
-                            x="35"
-                            y="-12"
-                            height="10"
+                        <text
+                            x="68"
+                            y="-9"
                             width="24"
-                            fill="green"
+                            height="20"
+                            fill="white"
+                            style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                            onClick={(e) => handleEditBox(e, item.id)}
+                        >+</text>
+
+                        {editingText && (editingText.id === item.id) && <><rect
+                            x="35"
+                            y="-22"
+                            height="20"
+                            width="24"
+                            rx="6"
+                            fill="orange"
                             style={{ cursor: 'pointer', borderRadius: "12px", }}
                             onClick={handleStopEditBox}
-                        />}</>}
+                        />
+                            <text
+                                x="43"
+                                y="-9"
+                                width="24"
+                                height="20"
+                                fill="white"
+                                style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                                onClick={handleStopEditBox}
+                            >-</text>
+                        </>
+                        }</>}
                 </>)
             }
         </>

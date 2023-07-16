@@ -34,33 +34,37 @@ const Image = ({ item }) => {
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             style={{
                                 cursor: 'move',
+                                userSelect: "none",
                                 boxShadow: "2px 20px 30px rgba(0, 0, 0, 0.2"
                             }} />
                     </foreignObject>
-                    {isEditingBoard && <><circle
-                        cx="0"
-                        cy="0"
-                        r="8"
+                    {isEditingBoard && <><rect
+                        x="10"
+                        y="-12"
+                        height="10"
+                        width="24"
                         fill="red"
                         stroke="white"
                         strokeWidth="2"
                         style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteItem(item.id)}
                     />
-                        <circle
-                            cx="40"
-                            cy="0"
-                            r="8"
+                        <rect
+                            x="60"
+                            y="-12"
+                            height="10"
+                            width="24"
                             fill="orange"
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
                             onClick={() => handleEditImage(item.id)}
                         />
-                        {editingImage && editingImage.id === item.id && <circle
-                            cx="20"
-                            cy="0"
-                            r="8"
+                        {editingImage && editingImage.id === item.id && <rect
+                            x="35"
+                            y="-12"
+                            height="10"
+                            width="24"
                             fill="green"
                             stroke="white"
                             strokeWidth="2"

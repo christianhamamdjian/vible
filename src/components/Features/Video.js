@@ -19,15 +19,16 @@ const Video = ({ item }) => {
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     >
-                        <div style={{ width: '100%', height: '30px', backgroundColor: "#000000" }}></div>
+                        <div style={{ width: '100%', height: '30px', backgroundColor: "#000000", userSelect: "none", }}></div>
                         <iframe width="300" height="200" src={item.videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
                     </foreignObject>
                     {isEditingBoard &&
                         <>
-                            <circle
-                                cx="0"
-                                cy="0"
-                                r="8"
+                            <rect
+                                x="10"
+                                y="-12"
+                                height="10"
+                                width="24"
                                 fill="red"
                                 stroke="white"
                                 strokeWidth="2"

@@ -1,50 +1,12 @@
-import React, { useState, useEffect, useRef, useReducer, createContext } from "react"
+import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
-import reducer from "../reducers/reducer"
-import * as ACTIONS from '../reducers/actions'
-
-const initialState = {
-    itemText: "Text",
-    itemColor: "#f4b416",
-    itemLink: "",
-    itemUrl: "",
-    itemVideoUrl: "",
-    itemImageUrl: "",
-    itemMapUrl: "",
-}
 
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
-
-    const [state, dispatch] = useReducer(reducer, initialState)
-
-    const addText = (text) => {
-        dispatch({ type: ACTIONS.ADD_TEXT, payload: text })
-    }
-    const addColor = (color) => {
-        dispatch({ type: ACTIONS.ADD_COLOR, payload: color })
-    }
-    const addLink = (link) => {
-        dispatch({ type: ACTIONS.ADD_LINK, payload: link })
-    }
-    const addUrl = (url) => {
-        dispatch({ type: ACTIONS.ADD_URL, payload: url })
-    }
-    const addVideoUrl = (videoUrl) => {
-        dispatch({ type: ACTIONS.ADD_VIDEO_URL, payload: videoUrl })
-    }
-    const addImageUrl = (imageUrl) => {
-        dispatch({ type: ACTIONS.ADD_IMAGE_URL, payload: imageUrl })
-    }
-    const addMapUrl = (mapUrl) => {
-        dispatch({ type: ACTIONS.ADD_MAP_URL, payload: mapUrl })
-    }
-
-    // useState
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [items, setItems] = useLocalStorage("items", [])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
@@ -60,6 +22,14 @@ export default function MoodboardProvider({ children }) {
     const [rotation, setRotation] = useState([])
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
+
+    const [itemText, setItemText] = useState('Text')
+    const [itemColor, setItemColor] = useState('#f4b416')
+    const [itemLink, setItemLink] = useState('')
+    const [itemUrl, setItemUrl] = useState('')
+    const [itemVideoUrl, setItemVideoUrl] = useState('')
+    const [itemImageUrl, setItemImageUrl] = useState('')
+    const [itemMapUrl, setItemMapUrl] = useState('')
 
     const [editingText, setEditingText] = useState(null)
     const [editingImage, setEditingImage] = useState(null)
@@ -89,6 +59,12 @@ export default function MoodboardProvider({ children }) {
     const itemRef = useRef(null)
     const pathRef = useRef(null)
 
+    const [pdfId, setPdfId] = useState("")
+
+    useEffect(() => {
+        setPdfId(Date.now())
+    }, [items])
+
     useEffect(() => {
         loadPathsFromLocalStorage()
     }, [])
@@ -113,18 +89,18 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 100,
             y: 100,
-            text: state.itemText,
-            color: state.itemColor,
-            link: state.itemLink,
-            url: state.itemUrl,
+            text: itemText,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
             width: "140px",
             height: "60px",
             angle: 0,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
-        addText('Text')
-        addColor('#f4b416')
+        setItemText('Text')
+        setItemColor('#f4b416')
     }
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now()
@@ -132,15 +108,15 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 100,
             y: 100,
-            text: state.itemText,
+            text: itemText,
             color: color,
-            link: state.itemLink,
-            url: state.itemUrl,
+            link: itemLink,
+            url: itemUrl,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
-        addText('Text')
-        addColor('#f4b416')
+        setItemText('Text')
+        setItemColor('#f4b416')
     }
     const handleAddTodoBox = (text) => {
         const itemId = Date.now()
@@ -149,14 +125,14 @@ export default function MoodboardProvider({ children }) {
             x: 100,
             y: 100,
             text: text,
-            color: state.itemColor,
-            link: state.itemLink,
-            url: state.itemUrl,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
-        addText('Text')
-        addColor('#f4b416')
+        setItemText('Text')
+        setItemColor('#f4b416')
     }
     const handleAddGalleryImage = (image) => {
         setItems([...items, image])
@@ -167,15 +143,15 @@ export default function MoodboardProvider({ children }) {
             id: itemId,
             x: 0,
             y: 0,
-            text: state.itemText,
-            color: state.itemColor,
+            text: itemText,
+            color: itemColor,
             link: link.content,
             url: link.link,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
-        addText('Text')
-        addColor('#f4b416')
+        setItemText('Text')
+        setItemColor('#f4b416')
     }
     const handleImageUpload = (e) => {
         const file = e.target.files[0]
@@ -193,7 +169,6 @@ export default function MoodboardProvider({ children }) {
         }
         reader.readAsDataURL(file)
     }
-
     const handleImageDropUpload = (e) => {
         const file = e
         const reader = new FileReader()
@@ -211,12 +186,57 @@ export default function MoodboardProvider({ children }) {
         }
         reader.readAsDataURL(file)
     }
+    const handlePdfUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const arrayBuffer = reader.result;
+                uploadToIndexedDB(arrayBuffer);
+                const newItem = {
+                    id: pdfId,
+                    x: 100,
+                    y: 100,
+                    width: "100",
+                    type: "pdf"
+                };
+                setItems((prevItems) => [...prevItems, newItem]);
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    }
+    const uploadToIndexedDB = (arrayBuffer) => {
+        const request = indexedDB.open('vible-database', 1);
+        request.onupgradeneeded = function (event) {
+            const db = event.target.result;
+            db.createObjectStore('pdfs');
+        };
 
+        request.onsuccess = function (event) {
+            const db = event.target.result;
+            const transaction = db.transaction('pdfs', 'readwrite');
+            const store = transaction.objectStore('pdfs');
+            const uploadRequest = store.put(arrayBuffer, pdfId);
+
+            uploadRequest.onsuccess = function () {
+                setPdfId("")
+                console.log('PDF uploaded successfully!');
+            };
+
+            uploadRequest.onerror = function () {
+                console.error('Error uploading PDF.');
+            };
+        };
+
+        request.onerror = function () {
+            console.error('Error opening IndexedDB.');
+        };
+    }
     const handleAddVideo = (e) => {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            videoUrl: state.itemVideoUrl,
+            videoUrl: itemVideoUrl,
             x: 100,
             y: 100,
             type: "video"
@@ -227,7 +247,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            imageUrl: state.itemImageUrl,
+            imageUrl: itemImageUrl,
             x: 100,
             y: 100,
             width: "100",
@@ -240,7 +260,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            mapUrl: state.itemMapUrl,
+            mapUrl: itemMapUrl,
             x: 100,
             y: 100,
             type: "mapUrl"
@@ -550,25 +570,25 @@ export default function MoodboardProvider({ children }) {
 
     const handleItemText = (e) => {
         // setItemText(e.target.value)
-        addText(e.target.value)
+        setItemText(e.target.value)
     }
     const handleItemColor = (e) => {
-        addColor(e.target.value)
+        setItemColor(e.target.value)
     }
     const handleItemLink = (e) => {
-        addLink(e.target.value)
+        setItemLink(e.target.value)
     }
     const handleItemUrl = (e) => {
-        addUrl(e.target.value)
+        setItemUrl(e.target.value)
     }
     const handleItemVideoUrl = (e) => {
-        addVideoUrl(e.target.value)
+        setItemVideoUrl(e.target.value)
     }
     const handleItemImageUrl = (e) => {
-        addImageUrl(e.target.value)
+        setItemImageUrl(e.target.value)
     }
     const handleItemMapUrl = (e) => {
-        addMapUrl(e.target.value)
+        setItemMapUrl(e.target.value)
     }
     const handleEditBox = (e, id) => {
         if (editingText) {
@@ -656,22 +676,6 @@ export default function MoodboardProvider({ children }) {
         <MoodboardContext.Provider
             value={{
 
-                //useReducer state
-                ...state,
-                itemText: state.itemText,
-                itemColor: state.itemColor,
-                itemLink: state.itemLink,
-                itemUrl: state.itemUrl,
-                itemVideoUrl: state.itemVideoUrl,
-                itemImageUrl: state.itemImageUrl,
-                itemMapUrl: state.itemMapUrl,
-                addText,
-                addColor,
-                addLink,
-                addUrl,
-                addVideoUrl,
-                addImageUrl,
-                addMapUrl,
 
                 // Properties
                 isDrawing,
@@ -683,6 +687,13 @@ export default function MoodboardProvider({ children }) {
                 pathRef,
                 itemRef,
                 items,
+                itemText,
+                itemColor,
+                itemLink,
+                itemUrl,
+                itemVideoUrl,
+                itemImageUrl,
+                itemMapUrl,
                 editingText,
                 editingImage,
                 galleryItems,
@@ -700,7 +711,6 @@ export default function MoodboardProvider({ children }) {
                 rotation,
                 scaling,
                 selectedPath,
-                setItems,
                 todosShow,
                 svgPosition,
                 divRef,
@@ -712,6 +722,7 @@ export default function MoodboardProvider({ children }) {
                 handlePathDrag,
                 handleAddBox,
                 handleImageUpload,
+                handlePdfUpload,
                 handleImageDropUpload,
                 handleAddVideo,
                 handleAddImage,

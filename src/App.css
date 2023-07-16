@@ -119,6 +119,8 @@ body {
 }
 
 .inputs-top_draw {
+  width: 40%;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,14 +148,11 @@ body {
 
   .top-buttons button {
     flex-basis: 0;
-    /* margin-top: 1rem; */
-    /* max-width: 3.5rem;
-    border-radius: 50%; */
     font-size: .7rem;
   }
 
   .inputs-top_draw {
-    width: 90vw;
+    width: 75%;
     margin: 0 auto;
   }
 }
@@ -180,7 +179,7 @@ body {
 
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
-    width: 90vw;
+    width: 80vw;
     grid-template-columns: repeat(2, 1fr 6rem);
   }
 }

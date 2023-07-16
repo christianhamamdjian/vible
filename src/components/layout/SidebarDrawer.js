@@ -8,18 +8,18 @@ const SidebarDrawer = ({ side }) => {
 
   return (
     <>
-      <DrawerButton side={side} onClick={toggleDrawer} />
+      <DrawerButton side={side} isOpen={isOpen} onClick={toggleDrawer} />
       <Drawer isOpen={isOpen} side={side} />
     </>
-  );
-};
+  )
+}
 
-const DrawerButton = ({ onClick, side }) => (
+const DrawerButton = ({ onClick, side, isOpen }) => (
   <button
     className={`Drawer__toggle-${side}`}
     onClick={onClick}
   >
-    {side === "left" ? <div style={{ fontSize: "2rem", marginTop: "-.4rem" }}>+</div> : <div style={{ fontSize: "2rem", transform: "rotate(90deg)", marginRight: "-1.3rem" }}>...</div>}
+    {side === "left" ? <div style={{ fontSize: "2rem", marginTop: "-.4rem", transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", marginLeft: isOpen ? ".3rem" : "0" }}>+</div> : <div style={{ fontSize: "2rem", transform: "rotate(90deg)", marginRight: "-1.3rem" }}>...</div>}
   </button >
 );
 

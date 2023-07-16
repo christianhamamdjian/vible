@@ -24,31 +24,34 @@ const ImageLink = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        style={{ cursor: 'move' }} />
-                    {isEditingBoard && <><circle
-                        cx="0"
-                        cy="0"
-                        r="8"
+                        style={{ cursor: 'move', userSelect: "none", }} />
+                    {isEditingBoard && <><rect
+                        x="10"
+                        y="-12"
+                        height="10"
+                        width="24"
                         fill="red"
                         stroke="white"
                         strokeWidth="2"
                         style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteItem(item.id)}
                     />
-                        <circle
-                            cx="40"
-                            cy="0"
-                            r="8"
+                        <rect
+                            x="60"
+                            y="-12"
+                            height="10"
+                            width="24"
                             fill="orange"
                             stroke="white"
                             strokeWidth="2"
                             style={{ cursor: 'pointer' }}
                             onClick={() => handleEditImage(item.id)}
                         />
-                        {editingImage && editingImage.id === item.id && <circle
-                            cx="20"
-                            cy="0"
-                            r="8"
+                        {editingImage && editingImage.id === item.id && <rect
+                            x="35"
+                            y="-12"
+                            height="10"
+                            width="24"
                             fill="green"
                             stroke="white"
                             strokeWidth="2"
