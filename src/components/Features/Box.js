@@ -13,12 +13,9 @@ const Box = ({ item }) => {
                         y="0"
                         width={`${item.width || 160}`}
                         height={`${item.height || 160}`}
+                        className="box"
                         style={{
-                            cursor: 'move',
                             backgroundColor: item.color,
-                            padding: "1rem",
-                            borderRadius: "6px",
-                            boxShadow: "2px 6px 12px rgba(0, 0, 0, 0.2)",
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`
                         }}
@@ -41,14 +38,10 @@ const Box = ({ item }) => {
                                 name=""
                                 id=""
                                 value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
-                                //onClick={() => itemRef.current.focus()}
                                 onChange={(event) => handleItemChange(event, editingText.id, "text")}
+                                className="box-textarea"
                                 style={{
-                                    backgroundColor: "transparent",
-                                    color: getTextColor(item.color),
-                                    fontFamily: "sans-serif",
-                                    // touchAction: "none",
-                                    zIndex: "101"
+                                    color: getTextColor(item.color)
                                 }}
                                 cols="10"
                                 rows="2"
@@ -57,14 +50,10 @@ const Box = ({ item }) => {
                             </textarea>
                         ) : (
                             <p
-                                className="text"
+                                className="box-content"
                                 fill={item.color}
                                 style={{
-                                    color: getTextColor(item.color),
-                                    userSelect: "none",
-                                    fontFamily: "sans-serif",
-                                    zIndex: "100",
-                                    // touchAction: "none"
+                                    color: getTextColor(item.color)
                                 }}
                             >{item.text}
                             </p>)
@@ -79,7 +68,7 @@ const Box = ({ item }) => {
                             width="24"
                             rx="6"
                             fill="red"
-                            style={{ cursor: 'pointer', borderRadius: "12px", }}
+                            className="box-control"
                             onClick={() => handleDeleteItem(item.id)}
                         />
                         <text
@@ -88,7 +77,7 @@ const Box = ({ item }) => {
                             width="24"
                             height="20"
                             fill="white"
-                            style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                            className="box-control-sign"
                             onClick={() => handleDeleteItem(item.id)}
                         >&times;</text>
                         <rect
@@ -98,7 +87,7 @@ const Box = ({ item }) => {
                             width="24"
                             rx="6"
                             fill="green"
-                            style={{ cursor: 'pointer', borderRadius: "12px", }}
+                            className="box-control"
                             onClick={(e) => handleEditBox(e, item.id)}
                         />
                         <text
@@ -107,7 +96,7 @@ const Box = ({ item }) => {
                             width="24"
                             height="20"
                             fill="white"
-                            style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                            className="box-control-sign"
                             onClick={(e) => handleEditBox(e, item.id)}
                         >+</text>
 
@@ -118,7 +107,7 @@ const Box = ({ item }) => {
                             width="24"
                             rx="6"
                             fill="orange"
-                            style={{ cursor: 'pointer', borderRadius: "12px", }}
+                            className="box-control"
                             onClick={handleStopEditBox}
                         />
                             <text
@@ -127,7 +116,7 @@ const Box = ({ item }) => {
                                 width="24"
                                 height="20"
                                 fill="white"
-                                style={{ cursor: 'pointer', color: "#ffffff", fontWeight: "bold" }}
+                                className="box-control-sign"
                                 onClick={handleStopEditBox}
                             >-</text>
                         </>

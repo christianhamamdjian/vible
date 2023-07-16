@@ -240,11 +240,37 @@ button,
 }
 
 /* Box */
-.text {
-  color: white;
+.box {
+  cursor: move;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.box-control {
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.box-control-sign {
+  cursor: pointer;
+  color: "#ffffff";
+  font-weight: bold;
+}
+
+.box-textarea {
+  background-color: transparent;
+  font-family: sans-serif;
+  z-index: 101;
+}
+
+.box-content {
   font: 18px serif;
   height: 90%;
   overflow: hidden auto;
+  user-select: none;
+  font-family: sans-serif;
+  z-index: 100;
 }
 
 /* Drawing */
