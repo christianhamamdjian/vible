@@ -389,6 +389,9 @@ export default function MoodboardProvider({ children }) {
     }
     const handlePathSelect = (e, index, id) => {
         e.preventDefault()
+        if (isDrawing) {
+            return
+        }
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }

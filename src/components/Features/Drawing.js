@@ -16,7 +16,7 @@ const Drawing = () => {
                     strokeLinejoin="round"
                     stroke={path.color}
                     strokeWidth={path.line}
-                    onClick={(e) => handlePathClick(e, index, path.id)}
+                    //onClick={(e) => handlePathClick(e, index, path.id)}
                     onPointerDown={(e) => handlePathDrag(e, index, path.id)}
                     onPointerMove={(e) => handlePathSelect(e, index, path.id)}
                     onTouchStart={(e) => handlePathDrag(e, index, path.id)}
