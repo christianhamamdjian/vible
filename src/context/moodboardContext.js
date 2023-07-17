@@ -293,7 +293,7 @@ export default function MoodboardProvider({ children }) {
 
         // Start drawing
         if (isDrawing && !isErasing) {
-            const { clientX, clientY } = e.touches && e.touches.length === 1 ? e.touches[0] : e
+            const { clientX, clientY } = e.touches && e.touches.length < 2 ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = Math.floor(clientX)
             svgPoint.y = Math.floor(clientY)
@@ -321,7 +321,7 @@ export default function MoodboardProvider({ children }) {
 
         // Drawing
         if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches && e.touches.length < 2 ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = Math.floor(clientX)
             svgPoint.y = Math.floor(clientY)
