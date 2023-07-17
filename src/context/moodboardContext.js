@@ -16,6 +16,7 @@ export default function MoodboardProvider({ children }) {
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
+    const [dragErasing, setDragErasing] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(2)
@@ -274,7 +275,11 @@ export default function MoodboardProvider({ children }) {
             setSelectedPath(null)
             setIsEditingPath(false)
         }
-        if (!isDrawing && !editingText && !selectedPath) {
+        if (isErasing) {
+            setDragErasing(true)
+            return
+        }
+        if (!isDrawing && !editingText && !selectedPath && !isErasing) {
             e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgRect = svgRef.current.getBoundingClientRect()
@@ -287,8 +292,8 @@ export default function MoodboardProvider({ children }) {
         }
 
         // Start drawing
-        if (isDrawing) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+        if (isDrawing && !isErasing) {
+            const { clientX, clientY } = e.touches && e.touches.length === 1 ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = Math.floor(clientX)
             svgPoint.y = Math.floor(clientY)
@@ -300,6 +305,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e) => {
+        e.preventDefault()
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -332,6 +338,9 @@ export default function MoodboardProvider({ children }) {
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)
+        }
+        if (dragErasing) {
+            setDragErasing(false)
         }
     }
 
@@ -373,12 +382,19 @@ export default function MoodboardProvider({ children }) {
 
 
     //Paths
-    const handlePathClick = (index, id) => {
-        if (isErasing) {
-            handleDeletePath(id)
-        }
+    const handlePathClick = (e, index, id) => {
         setSelectedPath(index)
         setIsEditingPath({ status: true, id: id })
+    }
+    const handlePathSelect = (e, index, id) => {
+        e.preventDefault()
+        if (isErasing && dragErasing) {
+            handleDeletePath(id)
+        }
+        if (!isErasing && !dragErasing) {
+            setSelectedPath(index)
+            setIsEditingPath({ status: true, id: id })
+        }
     }
 
     const handlePathDrag = (e, index, id) => {
@@ -675,8 +691,6 @@ export default function MoodboardProvider({ children }) {
     return (
         <MoodboardContext.Provider
             value={{
-
-
                 // Properties
                 isDrawing,
                 paths,
@@ -720,6 +734,7 @@ export default function MoodboardProvider({ children }) {
                 handleSvgPointerMove,
                 handlePathClick,
                 handlePathDrag,
+                handlePathSelect,
                 handleAddBox,
                 handleImageUpload,
                 handlePdfUpload,

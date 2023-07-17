@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingImage, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingPdf, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
@@ -36,15 +36,15 @@ const Pdf = ({ item }) => {
         <>
             {item.type === "pdf" &&
                 <>
-
                     <foreignObject
                         x="0"
                         y="0"
                         width="160"
                         height="160"
                         draggable="true"
+                        className='pdf-object'
                         style={{
-                            cursor: 'move', backgroundColor: item.color, padding: "1rem", borderRadius: "6px"
+                            backgroundColor: item.color
                         }}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -52,8 +52,9 @@ const Pdf = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                    ><div style={{ width: '100%', height: '20px', backgroundColor: "#000000" }}></div>
-
+                    >
+                        <div className='pdf-top'>
+                        </div>
                         {pdfData ? (
                             <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
                             // <iframe title="Pdf" draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
@@ -61,37 +62,76 @@ const Pdf = ({ item }) => {
                             <div>No PDF found.</div>
                         )}
                     </foreignObject>
-                    {isEditingBoard && <><circle
-                        cx="0"
-                        cy="0"
-                        r="8"
-                        fill="red"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleDeleteItem(item.id)}
-                    />
-                        <circle
-                            cx="40"
-                            cy="0"
-                            r="8"
-                            fill="orange"
+                    {isEditingBoard && <>
+                        <rect
+                            x="10"
+                            y="-22"
+                            height="20"
+                            width="24"
+                            rx="6"
+                            fill="red"
                             stroke="white"
                             strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleEditPdf(item.id)}
+                            className='box-control'
+                            onClick={() => handleDeleteItem(item.id)}
                         />
-                        {editingImage && editingImage.id === item.id && <circle
-                            cx="20"
-                            cy="0"
-                            r="8"
+                        <text
+                            x="18"
+                            y="-9"
+                            width="24"
+                            height="20"
+                            fill="white"
+                            className="box-control-sign"
+                            onClick={() => handleDeleteItem(item.id)}
+                        >&times;</text>
+                        <rect
+                            x="60"
+                            y="-22"
+                            height="20"
+                            width="24"
+                            rx="6"
                             fill="green"
                             stroke="white"
                             strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
-                            onClick={handleStopEditPdf}
+                            className='box-control'
+                            onClick={() => handleEditPdf(item.id)}
                         />
-                        }</>}
+                        <text
+                            x="68"
+                            y="-9"
+                            width="24"
+                            height="20"
+                            fill="white"
+                            className="box-control-sign"
+                            onClick={() => handleEditPdf(item.id)}
+                        >+</text>
+
+                        {editingPdf && editingPdf.id === item.id && <>
+                            <rect
+                                x="35"
+                                y="-22"
+                                height="20"
+                                width="24"
+                                rx="6"
+                                fill="orange"
+                                stroke="white"
+                                strokeWidth="2"
+                                className='box-control'
+                                onClick={handleStopEditPdf}
+                            />
+                            <text
+                                x="43"
+                                y="-9"
+                                width="24"
+                                height="20"
+                                fill="white"
+                                className="box-control-sign"
+                                onClick={handleStopEditPdf}
+                            >-</text>
+                        </>
+                        }
+                    </>
+                    }
                 </>
             }
         </>

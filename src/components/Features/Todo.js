@@ -1,183 +1,183 @@
-import React, { useState, useRef } from 'react';
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { MoodboardContext } from "../../context/moodboardContext";
+import React, { useState, useRef } from 'react'
+import { useLocalStorage } from "../hooks/useLocalStorage"
+import { MoodboardContext } from "../../context/moodboardContext"
 
 const Todo = () => {
-    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext);
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext)
 
-    const [todos, setTodos] = useLocalStorage("todos", []);
-    const [inputValue, setInputValue] = useState('');
-    const [editingTodoId, setEditingTodoId] = useState(null);
-    const [editingTodoText, setEditingTodoText] = useState('');
-    const [isDragging, setIsDragging] = useState();
+    const [todos, setTodos] = useLocalStorage("todos", [])
+    const [inputValue, setInputValue] = useState('')
+    const [editingTodoId, setEditingTodoId] = useState(null)
+    const [editingTodoText, setEditingTodoText] = useState('')
+    const [isDragging, setIsDragging] = useState()
 
     const containerRef = useRef()
 
-    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+    const windowSize = useRef([window.innerWidth, window.innerHeight])
 
-    function detectLeftButton(e) {
-        e = e || window.event;
-        if ("buttons" in e) {
-            return e.buttons === 1;
-        }
+    // function detectLeftButton(e) {
+    //     e = e || window.event
+    //     if ("buttons" in e) {
+    //         return e.buttons === 1
+    //     }
 
-        let button = e.which || e.button;
-        return button === 1;
-    }
+    //     let button = e.which || e.button
+    //     return button === 1
+    // }
 
     function dragStart(e, index, text) {
-        if (!detectLeftButton()) return; // only use left mouse click;
+        // if (!detectLeftButton()) return 
 
-        setIsDragging(index);
+        setIsDragging(index)
 
-        const container = containerRef.current;
-        const items = [...container.childNodes];
-        const dragItem = items[index];
-        const itemsBelowDragItem = items.slice(index + 1);
-        const notDragItems = items.filter((_, i) => i !== index);
-        const dragData = todos[index];
-        let newData = [...todos];
+        const container = containerRef.current
+        const items = [...container.childNodes]
+        const dragItem = items[index]
+        const itemsBelowDragItem = items.slice(index + 1)
+        const notDragItems = items.filter((_, i) => i !== index)
+        const dragData = todos[index]
+        let newData = [...todos]
 
-        const dragBoundingRect = dragItem.getBoundingClientRect();
+        const dragBoundingRect = dragItem.getBoundingClientRect()
 
-        const space = items.length > 1 && items[1].getBoundingClientRect().top - items[0].getBoundingClientRect().bottom;
+        const space = items.length > 1 && items[1].getBoundingClientRect().top - items[0].getBoundingClientRect().bottom
 
-        dragItem.style.position = "fixed";
-        dragItem.style.zIndex = 5000;
-        dragItem.style.width = dragBoundingRect.width + "px";
-        dragItem.style.height = dragBoundingRect.height + "px";
-        dragItem.style.top = dragBoundingRect.top + "px";
-        dragItem.style.left = dragBoundingRect.left + "px";
-        dragItem.style.cursor = "grabbing";
+        dragItem.style.position = "fixed"
+        dragItem.style.zIndex = 5000
+        dragItem.style.width = dragBoundingRect.width + "px"
+        dragItem.style.height = dragBoundingRect.height + "px"
+        dragItem.style.top = dragBoundingRect.top + "px"
+        dragItem.style.left = dragBoundingRect.left + "px"
+        dragItem.style.cursor = "grabbing"
 
-        const div = document.createElement("div");
-        div.id = "div-temp";
-        div.style.width = dragBoundingRect.width + "px";
-        div.style.height = dragBoundingRect.height + "px";
-        div.style.pointerEvents = "none";
-        container.appendChild(div);
+        const div = document.createElement("div")
+        div.id = "div-temp"
+        div.style.width = dragBoundingRect.width + "px"
+        div.style.height = dragBoundingRect.height + "px"
+        div.style.pointerEvents = "none"
+        container.appendChild(div)
 
-        const distance = dragBoundingRect.height + space;
+        const distance = dragBoundingRect.height + space
 
         itemsBelowDragItem.forEach(item => {
-            item.style.transform = `translateY(${distance}px)`;
+            item.style.transform = `translateY(${distance}px)`
         })
 
-        let x = e.clientX;
-        let y = e.clientY;
+        let x = e.clientX
+        let y = e.clientY
 
-        document.onpointermove = dragMove;
+        document.onpointermove = dragMove
 
         function dragMove(e) {
 
-            const posX = e.clientX - x;
-            const posY = e.clientY - y;
+            const posX = e.clientX - x
+            const posY = e.clientY - y
 
-            dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
+            dragItem.style.transform = `translate(${posX}px, ${posY}px)`
 
             notDragItems.forEach(item => {
-                const rect1 = dragItem.getBoundingClientRect();
-                const rect2 = item.getBoundingClientRect();
+                const rect1 = dragItem.getBoundingClientRect()
+                const rect2 = item.getBoundingClientRect()
 
                 let isOverlapping =
-                    rect1.y < rect2.y + (rect2.height / 2) && rect1.y + (rect1.height / 2) > rect2.y;
+                    rect1.y < rect2.y + (rect2.height / 2) && rect1.y + (rect1.height / 2) > rect2.y
 
                 if (isOverlapping) {
                     if (item.getAttribute("style")) {
-                        item.style.transform = "";
+                        item.style.transform = ""
                         index++
                     } else {
-                        item.style.transform = `translateY(${distance}px)`;
+                        item.style.transform = `translateY(${distance}px)`
                         index--
                     }
-                    newData = todos.filter(item => item.id !== dragData.id);
-                    newData.splice(index, 0, dragData);
+                    newData = todos.filter(item => item.id !== dragData.id)
+                    newData.splice(index, 0, dragData)
                 }
 
             })
         }
 
-        document.onpointerup = dragEnd;
+        document.onpointerup = dragEnd
 
         function dragEnd(e) {
-            const posX = e.clientX - x;
-            const posY = e.clientY - y;
+            const posX = e.clientX - x
+            const posY = e.clientY - y
             if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
-                dragItem.style.transform = `translate(${posX}px, ${posY}px)`;
+                dragItem.style.transform = `translate(${posX}px, ${posY}px)`
                 handleTodoAddToBoard(text)
             }
 
-            document.onpointerup = "";
-            document.onpointermove = "";
+            document.onpointerup = ""
+            document.onpointermove = ""
 
-            dragItem.style = "";
-            container.removeChild(div);
+            dragItem.style = ""
+            container.removeChild(div)
 
-            items.forEach(item => item.style = "");
+            items.forEach(item => item.style = "")
 
-            setIsDragging(undefined);
+            setIsDragging(undefined)
             setTodos(newData)
         }
     }
 
 
     const handleInputChange = (event) => {
-        setInputValue(event.target.value);
-    };
+        setInputValue(event.target.value)
+    }
 
     const handleFormSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
         if (inputValue.trim() === '') {
-            return;
+            return
         }
 
         const newTodo = {
             id: Date.now(),
             text: inputValue,
             completed: false,
-        };
+        }
 
-        setTodos([...todos, newTodo]);
-        setInputValue('');
-    };
+        setTodos([...todos, newTodo])
+        setInputValue('')
+    }
 
     const handleTodoToggle = (id) => {
         const updatedTodos = todos.map((todo) => {
             if (todo.id === id) {
-                return { ...todo, completed: !todo.completed };
+                return { ...todo, completed: !todo.completed }
             }
-            return todo;
-        });
+            return todo
+        })
 
-        setTodos(updatedTodos);
-    };
+        setTodos(updatedTodos)
+    }
 
     const handleTodoDelete = (id) => {
-        const updatedTodos = todos.filter((todo) => todo.id !== id);
-        setTodos(updatedTodos);
-    };
+        const updatedTodos = todos.filter((todo) => todo.id !== id)
+        setTodos(updatedTodos)
+    }
 
     const handleTodoEditStart = (id, text) => {
-        setEditingTodoId(id);
-        setEditingTodoText(text);
-    };
+        setEditingTodoId(id)
+        setEditingTodoText(text)
+    }
 
     const handleTodoEditChange = (event) => {
-        setEditingTodoText(event.target.value);
-    };
+        setEditingTodoText(event.target.value)
+    }
 
     const handleTodoEditSubmit = (id) => {
         const updatedTodos = todos.map((todo) => {
             if (todo.id === id) {
-                return { ...todo, text: editingTodoText };
+                return { ...todo, text: editingTodoText }
             }
-            return todo;
-        });
-        setTodos(updatedTodos);
-        setEditingTodoId(null);
-        setEditingTodoText('');
-    };
+            return todo
+        })
+        setTodos(updatedTodos)
+        setEditingTodoId(null)
+        setEditingTodoText('')
+    }
 
 
     return (
@@ -202,7 +202,7 @@ const Todo = () => {
                         <button
                             type="submit"
                         >
-                            Add
+                            +
                         </button>
                     </form>
                     <ul className='todo-container' ref={containerRef}>
@@ -243,26 +243,26 @@ const Todo = () => {
                                                         {todo.text}
                                                     </span>
                                                     <div className="todo-buttons">
-                                                        <button style={{ width: "2rem", height: "2.2rem" }}
+                                                        <button className='todo-button'
                                                             onClick={() => handleTodoEditStart(todo.id, todo.text)}
                                                         >
-                                                            <div style={{ minWidth: "1rem", marginLeft: "-.5rem", fontSize: "1rem", letterSpacing: "-.1rem" }}>
-                                                                <span style={{ fontSize: "1rem" }}>_ </span>
-                                                                <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
+                                                            <div className='todo-edit'>
+                                                                <span className='todo-edit-line'>_ </span>
+                                                                <span className='todo-edit-pen'>
                                                                     /
                                                                 </span></div>
                                                         </button>
-                                                        <button style={{ width: "2rem", height: "2.2rem" }}
+                                                        <button className='todo-button'
                                                             onClick={() => handleTodoAddToBoard(todo.text)}
                                                         >
-                                                            <div style={{ width: "1.2rem", height: "1.2rem", marginLeft: "-.6rem", border: "1px solid #ffffff", marginTop: "-.1rem", }}></div>
-                                                            <div style={{ fontSize: "1rem", fontWeight: "bold", width: "1rem", height: "1rem", marginTop: "-1.3rem", marginLeft: "-.5rem", marginBottom: ".2rem" }}>+</div>
+                                                            <div className='todo-board-out'></div>
+                                                            <div className='todo-board-in'>+</div>
 
                                                         </button>
-                                                        <button style={{ width: "2rem", height: "2.2rem" }}
+                                                        <button className='todo-button'
                                                             onClick={() => handleTodoDelete(todo.id)}
                                                         >
-                                                            <div style={{ fontSize: "1.2rem", fontWeight: "bold", marginLeft: "-.4rem", marginTop: "-.3rem" }}>&times;</div>
+                                                            <div className='todo-delete'>&times;</div>
                                                         </button>
                                                     </div>
                                                 </>

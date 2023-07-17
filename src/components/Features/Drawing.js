@@ -1,9 +1,9 @@
 import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
-import svgPath from '../Helpers/pathSmooth';
+// import svgPath from '../Helpers/pathSmooth';
 
 const Drawing = () => {
-    const { paths, selectedPath, handlePathClick, handlePathDrag } = React.useContext(MoodboardContext);
+    const { paths, selectedPath, handlePathClick, handlePathDrag, handlePathSelect } = React.useContext(MoodboardContext);
     return (
         <>
             {paths.map((path, index) => (
@@ -16,12 +16,15 @@ const Drawing = () => {
                     strokeLinejoin="round"
                     stroke={path.color}
                     strokeWidth={path.line}
-                    onDoubleClick={() => handlePathClick(index, path.id)}
+                    onClick={(e) => handlePathClick(e, index, path.id)}
                     onPointerDown={(e) => handlePathDrag(e, index, path.id)}
+                    onPointerMove={(e) => handlePathSelect(e, index, path.id)}
                     onTouchStart={(e) => handlePathDrag(e, index, path.id)}
+                    cursor="grabbing"
                     style={{
                         cursor: 'grabbing',
-                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' : 'none'} `
+                        pointerEvents: "auto",
+                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `
                     }}
                 />
             ))}

@@ -11,7 +11,7 @@ const ImageLink = ({ item }) => {
                         width="120"
                         height="20"
                         fill="transparent"
-                        style={{ border: '1px solid black', backgroundColor: "transparent", cursor: 'move' }}
+                        className='imagelink-object'
                     />
                     <image
                         href={item.imageUrl}
@@ -24,41 +24,79 @@ const ImageLink = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        style={{ cursor: 'move', userSelect: "none", }} />
-                    {isEditingBoard && <><rect
-                        x="10"
-                        y="-12"
-                        height="10"
-                        width="24"
-                        fill="red"
-                        stroke="white"
-                        strokeWidth="2"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleDeleteItem(item.id)}
-                    />
+                        className='imagelink-media' />
+                    {isEditingBoard && <>
                         <rect
-                            x="60"
-                            y="-12"
-                            height="10"
+                            x="10"
+                            y="-22"
+                            height="20"
                             width="24"
-                            fill="orange"
+                            rx="6"
+                            fill="red"
                             stroke="white"
                             strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleEditImage(item.id)}
+                            className='box-control'
+                            onClick={() => handleDeleteItem(item.id)}
                         />
-                        {editingImage && editingImage.id === item.id && <rect
-                            x="35"
-                            y="-12"
-                            height="10"
+                        <text
+                            x="18"
+                            y="-9"
                             width="24"
+                            height="20"
+                            fill="white"
+                            className="box-control-sign"
+                            onClick={() => handleDeleteItem(item.id)}
+                        >&times;</text>
+                        <rect
+                            x="60"
+                            y="-22"
+                            height="20"
+                            width="24"
+                            rx="6"
                             fill="green"
                             stroke="white"
                             strokeWidth="2"
-                            style={{ cursor: 'pointer' }}
-                            onClick={handleStopEditImage}
-                        />}</>}
-                </>}
+                            className='box-control'
+                            onClick={() => handleEditImage(item.id)}
+                        />
+                        <text
+                            x="68"
+                            y="-9"
+                            width="24"
+                            height="20"
+                            fill="white"
+                            className="box-control-sign"
+                            onClick={() => handleEditImage(item.id)}
+                        >+</text>
+
+                        {editingImage && editingImage.id === item.id && <>
+                            <rect
+                                x="35"
+                                y="-22"
+                                height="20"
+                                width="24"
+                                rx="6"
+                                fill="orange"
+                                stroke="white"
+                                strokeWidth="2"
+                                className='box-control'
+                                onClick={handleStopEditImage}
+                            />
+                            <text
+                                x="43"
+                                y="-9"
+                                width="24"
+                                height="20"
+                                fill="white"
+                                className="box-control-sign"
+                                onClick={handleStopEditImage}
+                            >-</text>
+                        </>
+                        }
+                    </>
+                    }
+                </>
+            }
         </>
     )
 }

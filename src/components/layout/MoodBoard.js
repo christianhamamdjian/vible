@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Gallery from "../Features/Gallery"
 import Box from "../Features/Box"
 import Image from "../Features/Image"
@@ -56,7 +56,6 @@ const MoodBoard = () => {
                             <Box item={item} />
                         </g>
                     ))}
-
                     <Drawing />
                 </svg>
             </div >

@@ -12,24 +12,28 @@ const DrawingFormTop = () => {
                     <button
                         className={isDrawing ? "selected-button" : null}
                         onClick={handleDrawing}>
-                        <div style={{ width: "1rem" }}>
-                            <div style={{ transform: "rotate(45deg)", marginTop: "-.1rem" }}>
-                                <span style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
+                        <div className="drawing-sign">
+                            <div className="drawing-sign-container">
+                                <span className="drawing-sign-sign">
                                     ~
                                 </span>
                             </div>
                         </div>
                     </button>
                     <button
-                        onClick={handleAddBox}><div style={{ fontSize: "1.6rem", fontWeight: "bold" }}>T</div></button>
+                        onClick={handleAddBox}>
+                        <div className='writing-sign'>
+                            T
+                        </div>
+                    </button>
                     {paths.length > 0 && (
                         <>
                             <button
                                 className={isErasing ? "selected-button" : null}
                                 onClick={handleEraser}>
-                                <div style={{ transform: "rotate(35deg)" }}>
-                                    <div style={{ width: ".75rem", height: ".75rem", border: "1.5px solid #ffffff", borderRadius: ".2rem .2rem 0 0" }}></div>
-                                    <div style={{ width: ".75rem", height: ".75rem", border: "1px solid #ffffff", backgroundColor: "#ffffff", borderRadius: " 0 0  .2rem .2rem  " }}></div></div>
+                                <div className='erasing-sign'>
+                                    <div className='erasing-sign-box-top'></div>
+                                    <div className='erasing-sign-box-bottom'></div></div>
                             </button>
                         </>
                     )
@@ -39,9 +43,9 @@ const DrawingFormTop = () => {
                             <button
                                 className={isEditingBoard ? "selected-button" : null}
                                 onClick={handleEditingBoard}>
-                                <div style={{ minWidth: "1.2rem", letterSpacing: "-.1rem" }}>
-                                    <span style={{ fontSize: "1.4rem", marginLeft: "-.4rem" }}>_ </span>
-                                    <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+                                <div className='editing-sign'>
+                                    <span className='editing-sign-line'>_ </span>
+                                    <span className='editing-sign-pen'>
                                         /
                                     </span></div>
                             </button>
@@ -62,7 +66,7 @@ const DrawingFormTop = () => {
                         {/* <label>Line width:</label> */}
                         <input
                             type="number"
-                            style={{ width: '3rem' }}
+                            className='input-line-width'
                             value={pathLine}
                             onChange={(event) => handleLineWidth(event)} />
 
@@ -80,8 +84,7 @@ const DrawingFormTop = () => {
                             onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         <input
                             type="number"
-                            style={{ width: '3rem' }}
-
+                            className='input-line-width'
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
                         {selectedPath !== null ? (

@@ -140,12 +140,70 @@ button,
   position: fixed;
   top: 0;
   width: 100vw;
-  /* height: 2rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: .8rem;
   z-index: 100;
+}
+
+
+
+.writing-sign {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.erasing-sign {
+  transform: rotate(35deg);
+}
+
+.erasing-sign-box-top {
+  width: .75rem;
+  height: .75rem;
+  border: 1.5px solid #ffffff;
+  border-radius: .2rem .2rem 0 0;
+}
+
+.erasing-sign-box-bottom {
+  width: .75rem;
+  height: .75rem;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  border-radius: 0 0 .2rem .2rem;
+}
+
+.editing-sign {
+  min-width: 1.2rem;
+  letter-spacing: -.1rem;
+}
+
+.editing-sign-line {
+  font-size: 1.4rem;
+  margin-left: -.4rem;
+}
+
+.editing-sign-pen {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.input-line-width {
+  width: 3rem;
+}
+
+.drawing-sign {
+  width: 1rem
+}
+
+.drawing-sign-container {
+  transform: rotate(45deg);
+  margin-top: -.1rem;
+}
+
+.drawing-sign-sign {
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .top-buttons {
@@ -240,7 +298,7 @@ button,
 }
 
 /* Box */
-.box {
+.box-container {
   cursor: move;
   padding: 1rem;
   border-radius: 6px;
@@ -254,7 +312,7 @@ button,
 
 .box-control-sign {
   cursor: pointer;
-  color: "#ffffff";
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -276,14 +334,67 @@ button,
 /* Drawing */
 
 /* Image */
+.image-object {
+  cursor: move;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.image-media {
+  cursor: move;
+  user-select: none;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
+}
 
 /* Image link */
+.imagelink-object {
+  border: 1px solid #000000;
+  background-color: transparent;
+  cursor: move;
+}
+
+.imagelink-media {
+  cursor: move;
+  user-select: none;
+  box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2);
+}
 
 /* video */
+.video-top {
+  width: 100%;
+  height: 30px;
+  background-color: #000000;
+  user-select: none;
+}
 
 /* map */
+.map-top {
+  width: 100%;
+  height: 30px;
+  background-color: #000000;
+}
+
+.map-object {
+  width: 300;
+  height: 200;
+}
+
+.map-frame {
+  border: 0;
+  user-select: none;
+}
 
 /* Pdf */
+.pdf-object {
+  cursor: move;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.pdf-top {
+  width: 100%;
+  height: 20px;
+  background-color: #000000;
+}
 
 /* Todos */
 .toggle-todo {
@@ -326,6 +437,7 @@ button,
   gap: 1rem;
   z-index: 102;
   transition: all 0.3s ease-in-out;
+  border-radius: 1rem 0 0 0;
   /* border: 1px solid #ddd; */
 }
 
@@ -431,6 +543,53 @@ button,
   /* box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.2); */
 }
 
+.todo-button {
+  width: 2rem;
+  height: 2.2rem;
+}
+
+.todo-delete {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: -.4rem;
+  margin-top: -.3rem;
+}
+
+.todo-board-out {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: -.6rem;
+  border: 1px solid #ffffff;
+  margin-top: -.1rem;
+}
+
+.todo-board-in {
+  font-size: 1rem;
+  font-weight: bold;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -1.3rem;
+  margin-left: -.5rem;
+  margin-bottom: .2rem;
+}
+
+.todo-edit {
+  min-width: 1rem;
+  margin-left: -.5rem;
+  font-size: 1rem;
+  letter-spacing: -.1rem;
+}
+
+.todo-edit-pen {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.todo-edit-line {
+  font-size: 1rem;
+}
+
+/* Gallery */
 .toggle-gallery {
   position: absolute;
   width: 50px;
@@ -443,8 +602,13 @@ button,
   /* transform: rotate(30deg); */
 }
 
+.gallery-sign {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #ffffff;
+  border-radius: .6rem;
+}
 
-/* Gallery */
 .toggle-gallery div {
   font-size: 2rem;
   margin-top: -.1rem;
@@ -482,19 +646,60 @@ button,
   gap: 1rem;
   padding: .5rem;
   border: 1px solid rgb(221, 221, 221);
+  border-radius: 1rem;
+}
+
+.gallery-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.gallery-box {
+  border-radius: 1rem;
 }
 
 .gallery-list {
   width: 100%;
   overflow: auto;
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
 }
 
 .gallery-list img {
   max-height: 6rem;
+  object-fit: cover;
 }
 
+.gallery-button {
+  width: 2rem;
+  height: 2.2rem;
+}
+
+.gallery-delete {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: -.4rem;
+  margin-top: -.3rem;
+}
+
+.gallery-board-out {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: -.6rem;
+  border: 1px solid #ffffff;
+  margin-top: -.1rem;
+}
+
+.gallery-board-in {
+  font-size: 1rem;
+  font-weight: bold;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -1.3rem;
+  margin-left: -.5rem;
+  margin-bottom: .2rem;
+}
 
 /* Sidebars */
 .left-sidebar {
@@ -574,6 +779,12 @@ button,
   border-radius: 50%;
 }
 
+.sidebar-zoom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
 
 /* Sidebar forms */
 .itemForms {
@@ -586,7 +797,6 @@ button,
 
 
 /* File upload form */
-
 #form-file-upload {
   font-size: .8rem;
 }

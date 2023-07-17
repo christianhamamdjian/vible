@@ -13,7 +13,7 @@ const Box = ({ item }) => {
                         y="0"
                         width={`${item.width || 160}`}
                         height={`${item.height || 160}`}
-                        className="box"
+                        className="box-container"
                         style={{
                             backgroundColor: item.color,
                             transform: `rotate(${item.angle || 0}deg)`,

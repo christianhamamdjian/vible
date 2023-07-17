@@ -80,7 +80,14 @@ const Gallery = () => {
             handleAddGalleryBox(item.content)
         }
         if (item.type === "image") {
-            const imageObject = { id: Date.now(), src: item.content, type: "image", width: "100", x: 0, y: 0 }
+            const imageObject = {
+                id: Date.now(),
+                src: item.content,
+                type: "image",
+                width: "5",
+                x: 0,
+                y: 0
+            }
             handleAddGalleryImage(imageObject)
         }
         if (item.type === "link") {
@@ -91,14 +98,13 @@ const Gallery = () => {
 
     return (
         <>
-
             <div className={` gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
                 <button
                     className="toggle-gallery"
                     onClick={handleGalleryToggle}
                 >
                     <div>
-                        <div style={{ width: "2rem", height: "2rem", border: "3px solid #ffffff", borderRadius: ".6rem" }}></div>
+                        <div className='gallery-sign'></div>
                     </div>
                 </button >
                 <div>
@@ -134,7 +140,7 @@ const Gallery = () => {
                                 onChange={(e) => handleGalleryLinkChange(e)}
                                 placeholder="Add link" />
                         </>}
-                        <button type="submit">Add</button>
+                        <button type="submit">+</button>
                     </form>
                     {galleryError && <div className="error">{galleryError}</div>}
                 </div>
@@ -142,21 +148,68 @@ const Gallery = () => {
                     {galleryItems.map((item, index) => {
                         if (item.type === 'color') {
                             return (
-                                <li key={index} className="color-box" style={{ backgroundColor: item.content }}>{item.content} <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
+                                <li
+                                    key={index}
+                                    className="gallery-box"
+                                    style={{ backgroundColor: item.content }}>{item.content}
+                                    <div className="gallery-buttons">
+                                        <button className='gallery-button'
+                                            onClick={() => handleGalleryAddToBoard(item)}>
+                                            <div className='gallery-board-out'></div>
+                                            <div className='gallery-board-in'>+</div>
+                                        </button>
+                                        <button className='gallery-button'
+                                            onClick={() => deleteGalleryItem(index)}>
+                                            <div className="gallery-delete">&times;</div>
+                                        </button>
+                                    </div>
+                                </li>
                             )
 
                         }
                         if (item.type === 'image') {
                             return (
-                                <li key={index} className="color-box" ><img width="120" alt="" src={item.content}></img> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
+                                <li key={index}
+                                    className="gallery-box" >
+                                    <img
+                                        width="120"
+                                        alt=""
+                                        src={item.content}>
+                                    </img>
+                                    <div className="gallery-buttons">
+                                        <button className='gallery-button'
+                                            onClick={() => handleGalleryAddToBoard(item)}>
+                                            <div className='gallery-board-out'></div>
+                                            <div className='gallery-board-in'>+</div>
+                                        </button>
+                                        <button className='gallery-button'
+                                            onClick={() => deleteGalleryItem(index)}>
+                                            <div className="gallery-delete">&times;</div>
+                                        </button>
+                                    </div>
+                                </li>
                             )
-
                         }
                         if (item.type === 'link') {
                             return (
-                                <li key={index} className="color-box" ><a target="_blank" rel="noreferrer" href={item.link}>{item.content}</a> <button onClick={() => deleteGalleryItem(index)}>&times;</button><button onClick={() => handleGalleryAddToBoard(item)}>Add to board</button></li>
+                                <li key={index}
+                                    className="gallery-box" >
+                                    <a target="_blank" rel="noreferrer" href={item.link}>
+                                        {item.content}
+                                    </a>
+                                    <div className="gallery-buttons">
+                                        <button className='gallery-button'
+                                            onClick={() => handleGalleryAddToBoard(item)}>
+                                            <div className='gallery-board-out'></div>
+                                            <div className='gallery-board-in'>+</div>
+                                        </button>
+                                        <button className='gallery-button'
+                                            onClick={() => deleteGalleryItem(index)}>
+                                            <div className="gallery-delete">&times;</div>
+                                        </button>
+                                    </div>
+                                </li>
                             )
-
                         }
                         return
                     })

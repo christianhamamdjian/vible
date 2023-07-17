@@ -1,6 +1,7 @@
 import React from 'react'
 import ThemeSwitcher from './ThemeSwitcher'
 import { printPdf } from '../utils/printPdf'
+import Calculator from "../../calculator/Calculator"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
@@ -9,15 +10,15 @@ const RightSidebard = () => {
     return (
         <div className='right-sidebar'>
             <ThemeSwitcher />
-            {/* <button onClick={handlePdfDownload}>Download as PDF</button> */}
             <button onClick={() => printPdf(divRef.current)}>Download as PDF</button>
             <button onClick={handleClearBoard}>Clear board</button>
             <button onClick={handleClearPaths}>Clear drawings</button>
-            {/* <button onClick={handleEditingBoard}>Edit items</button> */}
-            <div style={{ display: "flex", justifyContent: "center", gap: '1rem' }}>
-                <button onClick={handleZoomIn}>Zoom in</button>
-                <button onClick={handleZoomOut}>Zoom out</button>
+            <div className='sidebar-zoom'>
+                <h3>Zoom:</h3>
+                <button onClick={handleZoomIn}>+</button>
+                <button onClick={handleZoomOut}>-</button>
             </div>
+            <Calculator />
         </div>
     )
 }
