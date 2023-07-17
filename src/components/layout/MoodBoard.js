@@ -34,6 +34,7 @@ const MoodBoard = () => {
                     height='10000'
                     id="my-svg"
                     onPointerDown={handleSvgPointerDown}
+                    onTouchStart={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
                     onDoubleClick={handleStopEditBox}
