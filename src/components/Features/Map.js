@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditMap, editingMap, handleStopEditMap } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditMap, editingMap, handleStopEditItem } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -91,7 +91,7 @@ const Map = ({ item }) => {
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={handleStopEditMap}
+                                onClick={handleStopEditItem}
                             />
                             <text
                                 x="43"
@@ -100,7 +100,7 @@ const Map = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditMap}
+                                onClick={handleStopEditItem}
                             >-</text>
                         </>
                         }

@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
     return (
         <>
             {item.type === "imageUrl" &&
@@ -80,7 +80,7 @@ const ImageLink = ({ item }) => {
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={handleStopEditImage}
+                                onClick={handleStopEditItem}
                             />
                             <text
                                 x="43"
@@ -89,7 +89,7 @@ const ImageLink = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditImage}
+                                onClick={handleStopEditItem}
                             >-</text>
                         </>
                         }

@@ -13,7 +13,7 @@ const VideoFormTop = () => {
                         <input
                             type="text"
                             name="url"
-                            value={items.find(item => item.id === editingVideo.id).url}
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).url}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "link")
                             } />
                         <label>Change width:</label>
@@ -23,7 +23,7 @@ const VideoFormTop = () => {
                             max="600"
                             step="10"
                             name="width"
-                            value={items.find(item => item.id === editingVideo.id).width}
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).width}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                             } />
                         <label>Change height:</label>
@@ -33,7 +33,7 @@ const VideoFormTop = () => {
                             max="600"
                             step="10"
                             name="height"
-                            value={items.find(item => item.id === editingVideo.id).height}
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).height}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "height")
                             } />
                         <label>Change Angle:</label>
@@ -43,7 +43,7 @@ const VideoFormTop = () => {
                             max="180"
                             step="1"
                             name="angle"
-                            value={items.find(item => item.id === editingVideo.id).angle}
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).angle}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "angle")
                             } />
                     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Tooltips from '../../tooltips/Tooltips';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ButtonsTop = () => {
@@ -18,12 +19,14 @@ const ButtonsTop = () => {
                         </div>
                     </div>
                 </button>
+                <Tooltips text="Click to start drawing" />
                 <button
                     onClick={handleAddBox}>
                     <div className='writing-sign'>
                         T
                     </div>
                 </button>
+                <Tooltips text="Click to add a text box!" />
                 {paths.length > 0 && (
                     <>
                         <button
@@ -33,6 +36,7 @@ const ButtonsTop = () => {
                                 <div className='erasing-sign-box-top'></div>
                                 <div className='erasing-sign-box-bottom'></div></div>
                         </button>
+                        <Tooltips text="Click to erase lines" />
                     </>
                 )
                 }
@@ -45,8 +49,10 @@ const ButtonsTop = () => {
                                 <span className='editing-sign-line'>_ </span>
                                 <span className='editing-sign-pen'>
                                     /
-                                </span></div>
+                                </span
+                                ></div>
                         </button>
+                        <Tooltips text="Click to edit objects!" />
                     </>
                 )
                 }

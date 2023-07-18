@@ -14,7 +14,7 @@ const ImageFormTop = () => {
                                 type="number"
                                 min="10"
                                 max="100"
-                                value={items.find(item => item.id === editingImage.id).width}
+                                value={editingImage && items.find(item => item.id === editingImage.id).width}
                                 onChange={(event) => handleItemChange(event, editingImage.id, "width")}
                             />
                         </label>
@@ -25,7 +25,7 @@ const ImageFormTop = () => {
                             max="180"
                             step="1"
                             name="angle"
-                            value={items.find(item => item.id === editingImage.id).angle}
+                            value={editingImage && items.find(item => item.id === editingImage.id).angle}
                             onChange={(event) => handleItemChange(event, editingImage.id, "angle")
                             } />
                     </div>

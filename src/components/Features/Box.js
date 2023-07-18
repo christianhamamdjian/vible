@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditBox, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -45,7 +45,7 @@ const Box = ({ item }) => {
                                 }}
                                 cols="10"
                                 rows="2"
-                                onBlur={handleStopEditBox}
+                                onBlur={handleStopEditItem}
                             >
                             </textarea>
                         ) : (
@@ -108,7 +108,7 @@ const Box = ({ item }) => {
                             rx="6"
                             fill="orange"
                             className="box-control"
-                            onClick={handleStopEditBox}
+                            onClick={handleStopEditItem}
                         />
                             <text
                                 x="43"
@@ -117,7 +117,7 @@ const Box = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditBox}
+                                onClick={handleStopEditItem}
                             >-</text>
                         </>
                         }</>}

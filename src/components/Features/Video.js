@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditVideo, editingVideo, handleStopEditVideo } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditVideo, editingVideo, handleStopEditItem } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -90,7 +90,7 @@ const Video = ({ item }) => {
                                     stroke="white"
                                     strokeWidth="2"
                                     className='box-control'
-                                    onClick={handleStopEditVideo}
+                                    onClick={handleStopEditItem}
                                 />
                                 <text
                                     x="43"
@@ -99,7 +99,7 @@ const Video = ({ item }) => {
                                     height="20"
                                     fill="white"
                                     className="box-control-sign"
-                                    onClick={handleStopEditVideo}
+                                    onClick={handleStopEditItem}
                                 >-</text>
                             </>
                             }

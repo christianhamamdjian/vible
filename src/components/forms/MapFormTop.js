@@ -12,7 +12,7 @@ const MapFormTop = () => {
                         <input
                             type="text"
                             name="url"
-                            value={items.find(item => item.id === editingMap.id).url}
+                            value={editingMap && items.find(item => item.id === editingMap.id).url}
                             onChange={(event) => handleItemChange(event, editingMap.id, "link")
                             } />
                         <label>Change width:</label>
@@ -22,7 +22,7 @@ const MapFormTop = () => {
                             max="600"
                             step="10"
                             name="width"
-                            value={items.find(item => item.id === editingMap.id).width}
+                            value={editingMap && items.find(item => item.id === editingMap.id).width}
                             onChange={(event) => handleItemChange(event, editingMap.id, "width")
                             } />
                         <label>Change height:</label>
@@ -32,7 +32,7 @@ const MapFormTop = () => {
                             max="600"
                             step="10"
                             name="height"
-                            value={items.find(item => item.id === editingMap.id).height}
+                            value={editingMap && items.find(item => item.id === editingMap.id).height}
                             onChange={(event) => handleItemChange(event, editingMap.id, "height")
                             } />
                         <label>Change Angle:</label>
@@ -42,7 +42,7 @@ const MapFormTop = () => {
                             max="180"
                             step="1"
                             name="angle"
-                            value={items.find(item => item.id === editingMap.id).angle}
+                            value={editingMap && items.find(item => item.id === editingMap.id).angle}
                             onChange={(event) => handleItemChange(event, editingMap.id, "angle")
                             } />
                     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditImage, isEditingBoard } = React.useContext(MoodboardContext);
+    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
 
@@ -89,7 +89,7 @@ const Image = ({ item }) => {
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={handleStopEditImage}
+                                onClick={handleStopEditItem}
                             />
                             <text
                                 x="43"
@@ -98,7 +98,7 @@ const Image = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditImage}
+                                onClick={handleStopEditItem}
                             >-</text>
                         </>
                         }

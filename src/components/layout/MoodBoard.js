@@ -15,6 +15,24 @@ const MoodBoard = () => {
     const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, isEditingPath, isErasing
     } = React.useContext(MoodboardContext);
 
+    const renderBoardItems = useMemo(() => {
+        return (
+            <>
+                {items.map(item => (
+                    <g key={item.id}
+                        transform={`translate(${item.x},${item.y})`}
+                    >
+                        <Video item={item} />
+                        <Map item={item} />
+                        <Pdf item={item} />
+                        <ImageLink item={item} />
+                        <Image item={item} />
+                        <Box item={item} />
+                    </g>
+                ))}
+            </>
+        )
+    }, [items])
     return (
         <>
             <div
@@ -45,18 +63,7 @@ const MoodBoard = () => {
                     transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                     cursor={isDrawing ? "crosshair" : "move"}
                 >
-                    {items.map(item => (
-                        <g key={item.id}
-                            transform={`translate(${item.x},${item.y})`}
-                        >
-                            <Video item={item} />
-                            <Map item={item} />
-                            <Pdf item={item} />
-                            <ImageLink item={item} />
-                            <Image item={item} />
-                            <Box item={item} />
-                        </g>
-                    ))}
+                    {renderBoardItems}
                     <Drawing />
                 </svg>
             </div >

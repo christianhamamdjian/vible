@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingPdf, handleStopEditPdf, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingPdf, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
@@ -117,7 +117,7 @@ const Pdf = ({ item }) => {
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={handleStopEditPdf}
+                                onClick={handleStopEditItem}
                             />
                             <text
                                 x="43"
@@ -126,7 +126,7 @@ const Pdf = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditPdf}
+                                onClick={handleStopEditItem}
                             >-</text>
                         </>
                         }
