@@ -8,6 +8,7 @@ import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
+import DragDropFile from "../Helpers/DragDropUpload"
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -35,39 +36,41 @@ const MoodBoard = () => {
     }, [items])
     return (
         <>
-            <div
-                className="frame"
-                ref={divRef}
-                style={{
-                    width: `${window.innerWidth}`,
-                    height: `${window.innerHeight}`,
-                    backgroundColor: "lightgray",
-                    overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
-                    touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
-                }}
-            >
-                <svg
-                    ref={svgRef}
-                    width='10000'
-                    height='10000'
-                    id="my-svg"
-                    onPointerDown={handleSvgPointerDown}
-                    onTouchStart={handleSvgPointerDown}
-                    onPointerMove={handleSvgPointerMove}
-                    onPointerUp={handleSvgPointerUp}
-                    onDoubleClick={handleStopEditItem}
-                    onContextMenu={handleAddBoxOnSpot}
+            <DragDropFile>
+                <div
+                    className="frame"
+                    ref={divRef}
                     style={{
-                        backgroundColor: "#ffffff",
+                        width: `${window.innerWidth}`,
+                        height: `${window.innerHeight}`,
+                        backgroundColor: "lightgray",
+                        overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
+                        touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                     }}
-                    viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
-                    transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
-                    cursor={isDrawing ? "crosshair" : "move"}
                 >
-                    {renderBoardItems}
-                    <Drawing />
-                </svg>
-            </div >
+                    <svg
+                        ref={svgRef}
+                        width='10000'
+                        height='10000'
+                        id="my-svg"
+                        onPointerDown={handleSvgPointerDown}
+                        onTouchStart={handleSvgPointerDown}
+                        onPointerMove={handleSvgPointerMove}
+                        onPointerUp={handleSvgPointerUp}
+                        onDoubleClick={handleStopEditItem}
+                        onContextMenu={handleAddBoxOnSpot}
+                        style={{
+                            backgroundColor: "#ffffff",
+                        }}
+                        viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
+                        transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
+                        cursor={isDrawing ? "crosshair" : "move"}
+                    >
+                        {renderBoardItems}
+                        <Drawing />
+                    </svg>
+                </div >
+            </DragDropFile>
             <Gallery />
             <Todo />
         </>

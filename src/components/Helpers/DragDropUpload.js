@@ -1,6 +1,7 @@
 import React from 'react';
-
-function DragDropFile({ handleImageDropUpload }) {
+import { MoodboardContext } from "../../context/moodboardContext";
+function DragDropFile({ children }) {
+    const { handleImageDropUpload } = React.useContext(MoodboardContext)
     const [dragActive, setDragActive] = React.useState(false);
     const inputRef = React.useRef(null);
 
@@ -62,14 +63,17 @@ function DragDropFile({ handleImageDropUpload }) {
                     </button>
                 </div>
             </label>
-            {dragActive && <div
+            {/* {dragActive &&  */}
+            <div
                 id="drag-file-element"
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
             >
-            </div>}
+                {children}
+            </div>
+            {/* } */}
         </form>
     );
 };

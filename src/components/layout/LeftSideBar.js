@@ -1,5 +1,5 @@
 import React from 'react'
-import BoxForm from "../forms/BoxForm"
+// import BoxForm from "../forms/BoxForm"
 import ImageForm from "../forms/ImageForm"
 import VideoForm from "../forms/VideoForm"
 import MapForm from "../forms/MapForm"
