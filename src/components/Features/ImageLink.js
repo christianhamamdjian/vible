@@ -24,7 +24,21 @@ const ImageLink = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        className='imagelink-media' />
+                        onDoubleClick={(e) => handleEditImage(e, item.id)}
+                        className='imagelink-media'
+                        style={{
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${item.width / 2, item.height / 2}`,
+                            display: "block",
+                            zIndex: "999999",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
+                        }}
+                    />
+
                     {isEditingBoard && <>
                         <rect
                             x="10"

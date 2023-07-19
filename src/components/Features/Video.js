@@ -9,8 +9,8 @@ const Video = ({ item }) => {
             {item.type === "video" &&
                 <>
                     <foreignObject
-                        width="300"
-                        height="250"
+                        width={item.width}
+                        height={item.height}
                         draggable="true"
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -18,12 +18,26 @@ const Video = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                        style={{
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${item.width / 2, item.height / 2}`,
+                            display: "block",
+                            zIndex: "999999",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
+                        }}
                     >
-                        <div className='video-top'>
+                        <div
+                            className='video-top'
+                            onDoubleClick={(e) => handleEditVideo(e, item.id)}
+                        >
                         </div>
                         <iframe
-                            width="300"
-                            height="200"
+                            width={item.width}
+                            height={item.height}
                             src={item.videoUrl}
                             title="YouTube video player"
                             allow="accelerometer; 

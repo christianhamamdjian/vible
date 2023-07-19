@@ -31,7 +31,9 @@ const Pdf = ({ item }) => {
             console.error('Error opening IndexedDB.');
         }
     }
-
+    const handleMouseDown = (event) => {
+        event.preventDefault()
+    };
     return (
         <>
             {item.type === "pdf" &&
@@ -39,12 +41,21 @@ const Pdf = ({ item }) => {
                     <foreignObject
                         x="0"
                         y="0"
-                        width="160"
-                        height="160"
+                        width={item.width}
+                        height={item.height}
                         draggable="true"
                         className='pdf-object'
                         style={{
-                            backgroundColor: item.color
+                            backgroundColor: item.color,
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${item.width / 2, item.height / 2}`,
+                            display: "block",
+                            zIndex: "999999",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
                         }}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -53,14 +64,35 @@ const Pdf = ({ item }) => {
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                     >
-                        <div className='pdf-top'>
+                        <div
+                            className='pdf-top'
+                            onDoubleClick={(e) => handleEditPdf(e, item.id)}
+
+                        >
                         </div>
-                        {pdfData ? (
-                            <embed draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
-                            // <iframe title="Pdf" draggable="true" src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))} type="application/pdf" width="100%" height="300px" />
-                        ) : (
-                            <div>No PDF found.</div>
-                        )}
+                        <div
+                            onMouseDown={handleMouseDown}
+                        >
+                            {pdfData ? (
+                                // <embed
+                                //     draggable="true"
+                                //     src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}
+                                //     type="application/pdf"
+                                //     width="100%"
+                                //     height={item.height}
+                                // />
+                                <iframe
+
+                                    title="Pdf"
+                                    draggable="true"
+                                    src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}
+                                    type="application/pdf"
+                                    width="100%"
+                                    height={item.height}
+                                />
+                            ) : (
+                                <div>No PDF found.</div>
+                            )}</div>
                     </foreignObject>
                     {isEditingBoard && <>
                         <rect

@@ -9,7 +9,7 @@ import ImageLinkForm from "../forms/ImageLinkForm"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const LeftSidebard = () => {
-    const { handleWrite, handleImage, handleImageLink, handleVideo, handleMap, handlePdf, write, image, video, imageLink, map, pdf } = React.useContext(MoodboardContext);
+    const { handleImage, handleImageLink, handleVideo, handleMap, handlePdf, image, video, imageLink, map, pdf } = React.useContext(MoodboardContext);
 
     return (
         <div className='left-sidebar'>
@@ -22,6 +22,12 @@ const LeftSidebard = () => {
             <button
                 className={image ? "selected-button" : null}
                 type="button" onClick={handleImage}>Image</button>
+
+            {/* <button
+                onClick={handleImage}
+            >
+                <div className='gallery-sign'>&times;</div>
+            </button > */}
             {image && <ImageForm />}
             <button
                 className={imageLink ? "selected-button" : null}

@@ -2,20 +2,13 @@ import React from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const PdfFormTop = () => {
-    const { items, pdf, editingPdf, handleItemChange } = React.useContext(MoodboardContext)
+    const { items, editingPdf, handleItemChange } = React.useContext(MoodboardContext)
 
     return (
         <>
-            {pdf && items.length > 0 && (
+            {editingPdf && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
-                        <label>Change Link:</label>
-                        <input
-                            type="text"
-                            name="url"
-                            value={editingPdf && items.find(item => item.id === editingPdf.id).url}
-                            onChange={(event) => handleItemChange(event, editingPdf.id, "link")
-                            } />
                         <label>Change width:</label>
                         <input
                             type="range"

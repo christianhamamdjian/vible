@@ -12,7 +12,7 @@ import Todo from "../Features/Todo"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditBox, isEditingPath, isErasing
+    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, handleAddBoxOnSpot
     } = React.useContext(MoodboardContext);
 
     const renderBoardItems = useMemo(() => {
@@ -55,7 +55,8 @@ const MoodBoard = () => {
                     onTouchStart={handleSvgPointerDown}
                     onPointerMove={handleSvgPointerMove}
                     onPointerUp={handleSvgPointerUp}
-                    onDoubleClick={handleStopEditBox}
+                    onDoubleClick={handleStopEditItem}
+                    onContextMenu={handleAddBoxOnSpot}
                     style={{
                         backgroundColor: "#ffffff",
                     }}

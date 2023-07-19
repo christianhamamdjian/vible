@@ -17,7 +17,14 @@ const Box = ({ item }) => {
                         style={{
                             backgroundColor: item.color,
                             transform: `rotate(${item.angle || 0}deg)`,
-                            transformOrigin: `${item.width / 2, item.height / 2}`
+                            transformOrigin: `${item.width / 2, item.height / 2}`,
+                            display: "block",
+                            zIndex: "999999",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
                         }}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -25,7 +32,7 @@ const Box = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        onDoubleClick={(e) => handleEditBox(e, item.id)}
+                        onDoubleClick={() => handleEditBox(item.id)}
                     >
                         <a
                             href={item.url}
@@ -41,7 +48,9 @@ const Box = ({ item }) => {
                                 onChange={(event) => handleItemChange(event, editingText.id, "text")}
                                 className="box-textarea"
                                 style={{
-                                    color: getTextColor(item.color)
+                                    color: getTextColor(item.color),
+                                    overflowX: "hidden",
+                                    overflowY: "auto"
                                 }}
                                 cols="10"
                                 rows="2"
@@ -88,7 +97,7 @@ const Box = ({ item }) => {
                             rx="6"
                             fill="green"
                             className="box-control"
-                            onClick={(e) => handleEditBox(e, item.id)}
+                            onClick={(e) => handleEditBox(item.id)}
                         />
                         <text
                             x="68"
@@ -97,7 +106,7 @@ const Box = ({ item }) => {
                             height="20"
                             fill="white"
                             className="box-control-sign"
-                            onClick={(e) => handleEditBox(e, item.id)}
+                            onClick={(e) => handleEditBox(item.id)}
                         >+</text>
 
                         {editingText && (editingText.id === item.id) && <><rect

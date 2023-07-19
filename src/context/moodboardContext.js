@@ -106,6 +106,28 @@ export default function MoodboardProvider({ children }) {
         setItemText('Text')
         setItemColor('#f4b416')
     }
+
+    const handleAddBoxOnSpot = (e) => {
+        e.preventDefault()
+        const { clientX, clientY } = e.touches ? e.touches[0] : e
+        const itemId = Date.now()
+        const newItem = {
+            id: itemId,
+            x: clientX,
+            y: clientY,
+            text: itemText,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
+            width: "140px",
+            height: "60px",
+            angle: 0,
+            type: "box"
+        }
+        setItems((prevItems) => [...prevItems, newItem])
+        setItemText('Text')
+        setItemColor('#f4b416')
+    }
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now()
         const newItem = {
@@ -206,6 +228,7 @@ export default function MoodboardProvider({ children }) {
                     x: 100,
                     y: 200,
                     width: "100",
+                    height: "160",
                     type: "pdf"
                 };
                 setItems((prevItems) => [...prevItems, newItem]);
@@ -247,6 +270,8 @@ export default function MoodboardProvider({ children }) {
             videoUrl: itemVideoUrl,
             x: 100,
             y: 200,
+            width: 300,
+            height: 250,
             type: "video"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -271,6 +296,8 @@ export default function MoodboardProvider({ children }) {
             mapUrl: itemMapUrl,
             x: 100,
             y: 200,
+            width: 300,
+            height: 250,
             type: "mapUrl"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -342,7 +369,7 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    const handleSvgPointerUp = (e) => {
+    const handleSvgPointerUp = () => {
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)
@@ -615,10 +642,8 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(true)
         handleImage()
     }
-    const handleStopEditImage = () => {
-        setEditingImage(null)
-    }
-    const handleEditBox = (e, id) => {
+
+    const handleEditBox = (id) => {
         if (editingText) {
             setEditingText(null)
             setIsEditingBoard(false)
@@ -632,20 +657,19 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(true)
         handleWrite()
     }
-    const handleEditVideo = (e, id) => {
+    const handleEditVideo = (id) => {
         setEditingVideo({ status: true, id: id })
         setIsEditingBoard(true)
         handleVideo()
     }
-    const handleEditMap = (e, id) => {
+    const handleEditMap = (id) => {
         setEditingMap({ status: true, id: id })
         setIsEditingBoard(true)
         handleMap()
     }
-    const handleEditPdf = (e, id) => {
+    const handleEditPdf = (id) => {
         setEditingPdf({ status: true, id: id })
         setIsEditingBoard(true)
-        handlePdf()
         setIsEditingPath(false)
         setIsEditingPaths(false)
         setEditingVideo(false)
@@ -657,7 +681,7 @@ export default function MoodboardProvider({ children }) {
         setMap(false)
     }
     const handleStopEditItem = () => {
-        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf) {
+        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard) {
             setEditingText(null)
             setIsEditingBoard(false)
             setIsEditingPath(false)
@@ -710,10 +734,10 @@ export default function MoodboardProvider({ children }) {
 
 
     const handleZoomIn = () => {
-        setZoom(zoom => zoom -= 100)
+        setZoom(zoom => zoom -= 400)
     }
     const handleZoomOut = () => {
-        setZoom(zoom => zoom += 100)
+        setZoom(zoom => zoom += 400)
     }
     const handleEditingBoard = () => {
         setIsEditingBoard(isEditingBoard => !isEditingBoard)
@@ -754,6 +778,9 @@ export default function MoodboardProvider({ children }) {
                 itemMapUrl,
                 editingText,
                 editingImage,
+                editingVideo,
+                editingMap,
+                editingPdf,
                 galleryItems,
                 write,
                 image,
@@ -799,7 +826,6 @@ export default function MoodboardProvider({ children }) {
                 handleEditVideo,
                 handleEditMap,
                 handleEditPdf,
-                handleStopEditImage,
                 handleStopEditItem,
                 handleItemChange,
                 handleDrawing,
@@ -839,6 +865,7 @@ export default function MoodboardProvider({ children }) {
                 handleRectPointerDown,
                 handleRectPointerMove,
                 handleRectPointerUp,
+                handleAddBoxOnSpot
             }}>
             {children}
         </MoodboardContext.Provider>
