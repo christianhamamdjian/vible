@@ -8,7 +8,7 @@ import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
-import DragDropFile from "../Helpers/DragDropUpload"
+import BoardDrop from "../Helpers/BoardDrop"
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -36,7 +36,7 @@ const MoodBoard = () => {
     }, [items])
     return (
         <>
-            <DragDropFile>
+            <BoardDrop>
                 <div
                     className="frame"
                     ref={divRef}
@@ -70,7 +70,7 @@ const MoodBoard = () => {
                         <Drawing />
                     </svg>
                 </div >
-            </DragDropFile>
+            </BoardDrop>
             <Gallery />
             <Todo />
         </>

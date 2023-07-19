@@ -3,14 +3,8 @@ import './tooltips.css'
 
 const Tooltips = ({ text }) => {
     return (
-        <div style={
-            {
-                textAlign: 'center',
-                margin: '0'
-            }
-        }
-
-        > <div className="custom-tooltip" >
+        <div style={{ textAlign: 'center', margin: '0' }}>
+            <div className="custom-tooltip" >
                 <span className="custom-tooltip-text" >
                     {text}
                 </span>

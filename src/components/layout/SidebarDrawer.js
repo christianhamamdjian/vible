@@ -16,7 +16,7 @@ const SidebarDrawer = ({ side }) => {
 
 const DrawerButton = ({ onClick, side, isOpen }) => (
   <button
-    className={`Drawer__toggle-${side}`}
+    className={`drawer-toggle-${side}`}
     onClick={onClick}
   >
     {side === "left" ?
@@ -42,7 +42,7 @@ const DrawerButton = ({ onClick, side, isOpen }) => (
 
 const DrawerContents = ({ side }) => (
   <div
-    className="DrawerContents__Container"
+    className="drawerContents-container anim-y"
   >
     {side === "left" ? <LeftSideBar /> : <RightSideBar />}
   </div>
@@ -50,7 +50,7 @@ const DrawerContents = ({ side }) => (
 
 const Drawer = ({ isOpen, side }) => (
   <div
-    className={`Drawer__Container--${side} ${isOpen ? `Drawer__${side}--isOpen` : ""}`}
+    className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen anim-y` : ""}`}
   >
     <DrawerContents side={side} />
   </div>

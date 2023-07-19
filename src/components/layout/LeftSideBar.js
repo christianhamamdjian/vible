@@ -12,39 +12,41 @@ const LeftSidebard = () => {
     const { handleImage, handleImageLink, handleVideo, handleMap, handlePdf, image, video, imageLink, map, pdf } = React.useContext(MoodboardContext);
 
     return (
-        <div className='left-sidebar'>
-            {/* <button className={draw ? "selected-button" : null} type="button" onClick={handleDraw}>Draw</button>
+        <div className='left-sidebar anim-y'>
+            <div className='left-sidebar-buttons anim-y'>
+                {/* <button className={draw ? "selected-button" : null} type="button" onClick={handleDraw}>Draw</button>
             {draw && <DrawingForm />} */}
-            {/* <button
+                {/* <button
                 className={write ? "selected-button" : null}
                 type="button" onClick={handleWrite}>Write</button>
             {write && <BoxForm />} */}
-            <button
-                className={image ? "selected-button" : null}
-                type="button" onClick={handleImage}>Image</button>
+                <button
+                    className={`toggler anim-y ${image ? "selected-button" : null}`}
+                    type="button" onClick={handleImage}>Image</button>
 
-            {/* <button
+                {/* <button
                 onClick={handleImage}
             >
                 <div className='gallery-sign'>&times;</div>
             </button > */}
-            {image && <ImageForm />}
-            <button
-                className={imageLink ? "selected-button" : null}
-                type="button" onClick={handleImageLink}>Image link</button>
-            {imageLink && <ImageLinkForm />}
-            <button
-                className={video ? "selected-button" : null}
-                type="button" onClick={handleVideo}>Video</button>
-            {video && <VideoForm />}
-            <button
-                className={map ? "selected-button" : null}
-                type="button" onClick={handleMap}>Map</button>
-            {map && <MapForm />}
-            <button
-                className={pdf ? "selected-button" : null}
-                type="button" onClick={handlePdf}>Pdf</button>
-            {pdf && <PdfForm />}
+                {image && <ImageForm />}
+                <button
+                    className={`toggler anim-y ${imageLink ? "selected-button" : null}`}
+                    type="button" onClick={handleImageLink}>Image link</button>
+                {imageLink && <ImageLinkForm />}
+                <button
+                    className={`toggler anim-y ${video ? "selected-button" : null}`}
+                    type="button" onClick={handleVideo}>Video</button>
+                {video && <VideoForm />}
+                <button
+                    className={`toggler anim-y ${map ? "selected-button" : null}`}
+                    type="button" onClick={handleMap}>Map</button>
+                {map && <MapForm />}
+                <button
+                    className={`toggler anim-y ${pdf ? "selected-button" : null}`}
+                    type="button" onClick={handlePdf}>Pdf</button>
+                {pdf && <PdfForm />}
+            </div>
         </div>
     )
 }

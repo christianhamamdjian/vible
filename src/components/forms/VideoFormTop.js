@@ -2,20 +2,13 @@ import React from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const VideoFormTop = () => {
-    const { items, video, editingVideo, handleItemChange } = React.useContext(MoodboardContext)
+    const { items, editingVideo, handleItemChange } = React.useContext(MoodboardContext)
 
     return (
         <>
-            {video && items.length > 0 && (
+            {editingVideo && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
-                        <label>Change Link:</label>
-                        <input
-                            type="text"
-                            name="url"
-                            value={editingVideo && items.find(item => item.id === editingVideo.id).url}
-                            onChange={(event) => handleItemChange(event, editingVideo.id, "link")
-                            } />
                         <label>Change width:</label>
                         <input
                             type="range"

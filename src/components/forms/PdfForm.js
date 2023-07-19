@@ -5,7 +5,8 @@ const PdfForm = () => {
     const { handlePdfUpload } = React.useContext(MoodboardContext);
 
     return (
-        <div>
+        <div className='itemForms anim-y'>
+            <h2>Upload a Pdf:</h2>
             <input type="file" accept="application/pdf" onChange={handlePdfUpload} />
         </div>
     );

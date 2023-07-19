@@ -2,19 +2,12 @@ import React from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const MapFormTop = () => {
-    const { items, map, editingMap, handleItemChange } = React.useContext(MoodboardContext)
+    const { items, editingMap, handleItemChange } = React.useContext(MoodboardContext)
     return (
         <>
-            {map && items.length > 0 && (
+            {editingMap && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
-                        <label>Change Link:</label>
-                        <input
-                            type="text"
-                            name="url"
-                            value={editingMap && items.find(item => item.id === editingMap.id).url}
-                            onChange={(event) => handleItemChange(event, editingMap.id, "link")
-                            } />
                         <label>Change width:</label>
                         <input
                             type="range"
