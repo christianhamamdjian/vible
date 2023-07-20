@@ -2,6 +2,7 @@ import React from 'react'
 import ThemeSwitcher from './ThemeSwitcher'
 import { printPdf } from '../utils/printPdf'
 import Calculator from "../../calculator/Calculator"
+import Calendar from "../../calendar/Calendar"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
@@ -21,6 +22,7 @@ const RightSidebard = () => {
                 <button onClick={handleZoomOut}>-</button>
             </div>
             <Calculator />
+            <Calendar />
         </div>
     )
 }
