@@ -115,7 +115,8 @@ input[type="number"] {
 button,
 ::file-selector-button {
   /* background-color: rgb(89, 89, 255); */
-  background-color: hsl(240, 17%, 53%);
+  /* background-color: hsl(240, 17%, 53%); */
+  background-color: hsl(240, 23%, 76%);
   outline: none;
   border: none;
   color: white;

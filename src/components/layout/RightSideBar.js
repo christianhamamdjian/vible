@@ -76,6 +76,7 @@ const RightSidebard = () => {
                         </svg>
                     </div>
                 </button>
+                <Tooltips text="Click to clear all lines!" />
             </div>
             <div className='sidebar-zoom'>
                 <button onClick={handleZoomIn}>
@@ -94,7 +95,6 @@ const RightSidebard = () => {
                         />
                     </svg>
                 </button>
-                <Tooltips text="Click to clear all lines!" />
                 <button onClick={handleZoomOut}>
                     <svg
                         width="24"
