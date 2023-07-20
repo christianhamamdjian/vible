@@ -36,11 +36,11 @@ export function Calendar() {
     <div className='calendar'>
       <div className='inner-container'>
         <div className='header'>
-          <button className='button' onClick={() => setDate(new Date(year, month - 1, day))}>&lt;</button>
+          <button className='button' onClick={() => setDate(new Date(year, month - 1, day))}><i className="gg-chevron-left-o"></i></button>
           <div>
             {MONTHS[month]} {year}
           </div>
-          <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}>&gt;</button>
+          <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}><i className="gg-chevron-right-o"></i></button>
         </div>
         <div className='body'>
           {DAYS_OF_THE_WEEK.map((d) => (
@@ -68,7 +68,7 @@ export function Calendar() {
             })}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

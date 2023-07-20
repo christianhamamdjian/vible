@@ -533,8 +533,12 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
+            setPathColor("#000000")
+            setPathLine(2)
         }
         setIsDrawing(isDrawing => !isDrawing)
+        setPathColor("#000000")
+        setPathLine(2)
         setIsErasing(false)
         setIsEditingPath(false)
         setIsEditingPaths(false)
@@ -550,6 +554,8 @@ export default function MoodboardProvider({ children }) {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased))
         setIsEditingPath(null)
         setSelectedPath(null)
+        setPathColor("#000000")
+        setPathLine(2)
     }
     const handleLineColor = (e) => {
         setPathColor(e.target.value)
