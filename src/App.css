@@ -643,7 +643,7 @@ button,
 }
 
 .gallery-hide {
-  bottom: -10rem;
+  bottom: -12rem;
 }
 
 .gallery {
@@ -652,7 +652,7 @@ button,
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   left: 0;
   display: flex;
   justify-content: center;
@@ -662,21 +662,30 @@ button,
   transition: all 0.3s ease-in-out;
 }
 
+.gallery-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .gallery form {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: .5rem;
   padding: .5rem;
   /* border: 1px solid rgb(221, 221, 221); */
-  border-radius: 1rem;
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+  /* border-radius: 1rem;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2); */
 }
 
 .gallery-buttons {
   display: flex;
   flex-direction: column;
   gap: .4rem;
+}
+
+.gallery form input {
+  max-width: 14rem;
 }
 
 .gallery-box {
@@ -689,8 +698,6 @@ button,
 }
 
 .gallery-list {
-  width: 100%;
-  overflow: auto;
   display: flex;
   gap: 1rem;
 }
@@ -734,12 +741,14 @@ button,
 .left-sidebar {
   background: transparent;
   padding-top: 4rem;
+  max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.left-sidebar .itemForms {
+.left-sidebar .itemForms p {
   max-width: 12rem;
+  word-break: break-all;
 }
 
 .left-sidebar-buttons {
@@ -760,6 +769,7 @@ button,
 .right-sidebar {
   background: transparent;
   padding-top: 4rem;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   gap: .8rem;
