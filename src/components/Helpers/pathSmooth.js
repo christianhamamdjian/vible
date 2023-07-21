@@ -1,4 +1,4 @@
-const smoothing = .1
+const smoothing = .4
 
 const line = (pointA, pointB) => {
     const lengthX = pointB["x"] - pointA["x"]
@@ -23,7 +23,7 @@ const controlPoint = (lineCalc, smooth) => (current, previous, next, reverse) =>
 const bezierCommand = (controlPointCalc) => (point, i, a) => {
     const cps = controlPointCalc(a[i - 1], a[i - 2], point)
     const cpe = controlPointCalc(point, a[i - 1], a[i + 1], true)
-    return `S ${cps["x"]},${cps["y"]} ${cpe["x"]},${cpe["y"]} `
+    return `S ${cpe["x"]},${cpe["y"]} ${point["x"]},${point["y"]}`
 }
 
 const svgPath = (points, command = bezierCommandCalc) => {
