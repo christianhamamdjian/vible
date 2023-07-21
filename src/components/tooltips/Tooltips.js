@@ -1,15 +1,18 @@
 import React from "react"
 import './tooltips.css'
 
-const Tooltips = ({ text }) => {
+const Tooltips = ({ position, text, children }) => {
     return (
-        <div style={{ textAlign: 'center', margin: '0' }}>
-            <div className="custom-tooltip" >
-                <span className="custom-tooltip-text" >
-                    {text}
-                </span>
+        <>
+            {children}
+            <div style={{ textAlign: 'center', margin: '0' }}>
+                <div className={`${position === "top" ? "tooltip-top" : "tooltip-bottom"}`} >
+                    <span className="custom-tooltip-text" >
+                        {text}
+                    </span>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
