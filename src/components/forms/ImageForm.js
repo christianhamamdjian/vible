@@ -5,7 +5,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const ImageForm = () => {
     const { items, handleImageUpload, editingImage, handleItemChange, handleImageDropUpload } = React.useContext(MoodboardContext);
     return (
-        <div className='itemForms anim-y'>
+        <div className='itemForms'>
             <h2>Upload an image:</h2>
             <div className='inputs'>
                 <label className='custom-file-upload'>

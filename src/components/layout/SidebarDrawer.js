@@ -50,7 +50,7 @@ const DrawerContents = ({ side }) => (
 
 const Drawer = ({ isOpen, side }) => (
   <div
-    className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen anim-y` : ""}`}
+    className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen` : ""}`}
   >
     <DrawerContents side={side} />
   </div>

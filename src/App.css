@@ -100,6 +100,8 @@ textarea {
   margin: .2rem 0;
   font-size: 1rem;
   color: #000000;
+  width: 100%;
+  height: 100%;
 }
 
 input[type="color"] {
@@ -833,6 +835,8 @@ button,
 .drawer-left-isOpen {
   background: transparent;
   width: 240px;
+  transition: all 1s;
+  transform: translateX(0.2rem) translateY(2rem) scale(1);
 }
 
 .drawer-toggle-right {
@@ -882,6 +886,7 @@ button,
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   padding: .8rem .4rem;
   border-radius: 12px;
+  width: 100%;
   z-index: 0;
 }
 
@@ -1016,55 +1021,6 @@ button,
   border: none;
   border-radius: 2%;
 }
-
-
-.anim-y {
-  animation: slideUp 0.6s both;
-}
-
-.anim-y:nth-child(2) {
-  animation-delay: 0.28s;
-}
-
-/* .anim-y:nth-child(3) {
-  animation-delay: 0.42s;
-}
-
-.anim-y:nth-child(4) {
-  animation-delay: 0.56s;
-}
-
-.anim-y:nth-child(5) {
-  animation-delay: 0.7s;
-}
-
-.anim-y:nth-child(6) {
-  animation-delay: 0.84s;
-}
-
-.anim-y:nth-child(7) {
-  animation-delay: 0.98s;
-}
-
-.anim-y:nth-child(8) {
-  animation-delay: 1.12s;
-}
-
-.anim-y:nth-child(9) {
-  animation-delay: 1.26s;
-}
-
-.anim-y:nth-child(10) {
-  animation-delay: 1.4s;
-} */
-
-@keyframes slideUp {
-  0% {
-    transform: translateX(-50px) scale(1.2);
-    opacity: 0;
-  }
-}
-
 
 .ic {
   font-size: 32px;

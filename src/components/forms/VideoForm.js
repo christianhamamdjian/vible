@@ -4,7 +4,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const VideoForm = () => {
     const { handleAddVideo, handleItemVideoUrl, itemVideoUrl } = React.useContext(MoodboardContext);
 
-    return (<div className='itemForms anim-y'>
+    return (<div className='itemForms'>
         <h2>Youtube video link:</h2>
         <p>Example: https://www.youtube.com/embed/Dwvi_hjAS50 </p>
         <form className='inputs' onSubmit={handleAddVideo}>
