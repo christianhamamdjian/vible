@@ -1,5 +1,5 @@
 // Functional
-const smoothing = .1
+const smoothing = .2
 
 const line = (pointA, pointB) => {
     const lengthX = pointB["x"] - pointA["x"]
