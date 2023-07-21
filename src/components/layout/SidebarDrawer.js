@@ -42,7 +42,7 @@ const DrawerButton = ({ onClick, side, isOpen }) => (
 
 const DrawerContents = ({ side }) => (
   <div
-    className="drawerContents-container anim-y"
+    className="drawerContents-container"
   >
     {side === "left" ? <LeftSideBar /> : <RightSideBar />}
   </div>

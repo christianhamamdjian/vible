@@ -316,11 +316,13 @@ export default function MoodboardProvider({ children }) {
         if (!isDrawing && !editingText && !selectedPath && !isErasing) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
-            const svgRect = svgRef.current.getBoundingClientRect()
-            const divRect = divRef.current.getBoundingClientRect()
+            // const svgRect = svgRef.current.getBoundingClientRect()
+            // const divRect = divRef.current.getBoundingClientRect()
             setSvgOffset({
-                x: clientX - svgRect.left + divRect.left - svgPosition.x,
-                y: clientY - svgRect.top + divRect.top - svgPosition.y,
+                // x: clientX - svgRect.left + divRect.left - svgPosition.x,
+                // y: clientY - svgRect.top + divRect.top - svgPosition.y,
+                x: clientX - svgPosition.x,
+                y: clientY - svgPosition.y,
             })
             setDraggingSvg(true)
         }
@@ -330,8 +332,8 @@ export default function MoodboardProvider({ children }) {
             if (e.targetTouches && e.targetTouches.length > 1) return
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
-            svgPoint.x = Math.floor(clientX)
-            svgPoint.y = Math.floor(clientY)
+            svgPoint.x = clientX
+            svgPoint.y = clientY
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setSelectedPath(null)
             setDrawing(true)
@@ -340,15 +342,17 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
-            e.preventDefault()
+            // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
-            let newX = Math.floor(clientX) - svgOffset.x - divRect.left
-            let newY = Math.floor(clientY) - svgOffset.y - divRect.top
+            // let newX = clientX - svgOffset.x - divRect.left
+            // let newY = clientY - svgOffset.y - divRect.top
+            let newX = clientX - svgOffset.x
+            let newY = clientY - svgOffset.y
             newX = Math.min(0, Math.max(newX, maxX))
             newY = Math.min(0, Math.max(newY, maxY))
             setSvgPosition({ x: newX, y: newY })
@@ -358,8 +362,8 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
-            svgPoint.x = Math.floor(clientX)
-            svgPoint.y = Math.floor(clientY)
+            svgPoint.x = clientX
+            svgPoint.y = clientY
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             const currentPath = { ...paths[paths.length - 1] }
             currentPath["path"].push(transformedPoint)
