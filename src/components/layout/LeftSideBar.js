@@ -12,7 +12,7 @@ const LeftSidebard = () => {
     const { handleImage, handleImageLink, handleVideo, handleMap, handlePdf, image, video, imageLink, map, pdf } = React.useContext(MoodboardContext);
 
     return (
-        <div className='left-sidebar anim-y'>
+        <div className='left-sidebar'>
             <div className='left-sidebar-buttons'>
                 {/* <button className={draw ? "selected-button" : null} type="button" onClick={handleDraw}>Draw</button>
             {draw && <DrawingForm />} */}
