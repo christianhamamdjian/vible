@@ -681,6 +681,11 @@ button,
   box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2); */
 }
 
+.gallery form button {
+  padding: .4rem.8rem;
+  font-size: 1.2rem;
+}
+
 .gallery-buttons {
   display: flex;
   flex-direction: column;
@@ -789,7 +794,6 @@ button,
   flex-shrink: 0;
   width: 0;
   overflow: hidden;
-  transition: width 0.3s ease;
   padding-top: 4rem;
   /* background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
@@ -803,11 +807,11 @@ button,
   flex-shrink: 0;
   width: 0;
   overflow: hidden;
-  transition: width 0.3s ease;
   padding-top: 4rem;
   /* background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   background: transparent;
+  transition: all 0.3s ease-in-out;
   z-index: 100;
   overflow-y: auto;
   overflow-x: hidden;
@@ -835,7 +839,7 @@ button,
 .drawer-left-isOpen {
   background: transparent;
   width: 240px;
-  transition: all 1s;
+  transition: all .5s;
   transform: translateX(0.2rem) translateY(2rem) scale(1);
 }
 

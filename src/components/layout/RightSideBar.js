@@ -12,16 +12,23 @@ const RightSidebard = () => {
     const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
+    const [item, setItem] = useState("")
 
-    const confirmClearBoard = () => {
-        handleClearBoard()
+    const confirmClear = (foo) => {
+        if (foo === "board") {
+            handleClearBoard()
+        }
+        if (foo === "paths") {
+            handleClearPaths()
+        }
         hideConfirm()
     }
     const confirmCancel = () => {
         hideConfirm()
         return
     }
-    const showConfirm = () => {
+    const showConfirm = (bar) => {
+        setItem(bar)
         setOnShow(true)
     }
     const hideConfirm = () => {
@@ -32,7 +39,7 @@ const RightSidebard = () => {
         <div className='right-sidebar'>
             <ThemeSwitcher />
             {onShow &&
-                <Confirm confirmCancel={confirmCancel} confirmClearBoard={confirmClearBoard} />
+                <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
             }
             <div className='right-sidebar-buttons'>
                 <Tooltips position="top" text="Click to download a pdf copy!" >
@@ -58,7 +65,7 @@ const RightSidebard = () => {
                     </button>
                 </Tooltips>
                 <Tooltips position="top" text="Click to clear the board!" >
-                    <button className='toggler' onClick={showConfirm}>
+                    <button className='toggler' onClick={() => showConfirm("board")}>
                         <div className="clear-board">
                             <svg
                                 width="24"
@@ -83,7 +90,7 @@ const RightSidebard = () => {
 
                 </Tooltips>
                 <Tooltips position="top" text="Click to clear all lines!" >
-                    <button className='toggler' onClick={handleClearPaths}>
+                    <button className='toggler' onClick={() => showConfirm("paths")}>
                         <div className="clear-lines">
                             <svg
                                 width="30"

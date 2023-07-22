@@ -1,41 +1,16 @@
-import React, { useState } from 'react'
-import { MoodboardContext } from "../../context/moodboardContext";
+import React from 'react'
 
-const Confirm = ({ confirmClearBoard, confirmCancel }) => {
+const Confirm = ({ confirmClear, confirmCancel, item }) => {
 
-    const { handleClearBoard } = React.useContext(MoodboardContext);
-
-    // const [onShow, setOnShow] = useState(false)
-
-    // const confirmDelete = (id) => {
-    //     handleDeleteItem(id);
-    //     hideConfirm()
-    // }
-    // const confirmCancel = () => {
-    //     hideConfirm()
-    //     return
-    // }
-    // // const showConfirm = () => {
-    // //     setOnShow(true)
-    // // }
-    // const hideConfirm = () => {
-    //     setOnShow(false)
-    // }
     return (
         <div
             style={{ height: "40", width: "124", borderRadius: "6", backgroundColor: "purple" }}
         >
-            {/* {onShow &&  */}
             <>
-                {/* <button
-                    style={{ height: "40", width: "124", borderRadius: "6" }}
-                    className="box-control-sign"
-                    onClick={() => showConfirm()}
-                >&times;</button> */}
-
                 <div
+                    style={{ padding: "1rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center" }}
                     className="box-control"
-                ><h3 style={{ color: "#ffffff" }}>Really?</h3>
+                ><h3 style={{ color: "#ffffff" }}>Delete {item}?</h3>
                     <svg
                         width="24"
                         height="24"
@@ -52,8 +27,8 @@ const Confirm = ({ confirmClearBoard, confirmCancel }) => {
                             fill="#ffffff"
                         />
                         <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
                             fill="#ffffff"
                         />
@@ -68,7 +43,7 @@ const Confirm = ({ confirmClearBoard, confirmCancel }) => {
                         style={{
                             cursor: "pointer"
                         }}
-                        onClick={confirmClearBoard}
+                        onClick={() => confirmClear(item)}
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
@@ -84,7 +59,6 @@ const Confirm = ({ confirmClearBoard, confirmCancel }) => {
                     </svg>
                 </div>
             </>
-            {/* } */}
         </div>
     )
 }
