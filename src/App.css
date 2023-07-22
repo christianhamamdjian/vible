@@ -501,6 +501,8 @@ button,
   /* background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
 }
 
+
+
 .todo-card {
   /* user-select: none; */
   padding: 1rem;
@@ -560,6 +562,16 @@ button,
   overflow: hidden;
 }
 
+.todo-container button {
+  background-color: rgb(70, 76, 103);
+}
+
+.todo form button {
+  font-size: 1.4rem;
+  background-color: rgb(70, 76, 103);
+  padding: .4rem .8rem;
+}
+
 .card .box {
   flex: 1;
   display: flex;
@@ -605,10 +617,10 @@ button,
 }
 
 .todo-edit {
-  min-width: 1rem;
-  margin-left: -.5rem;
-  font-size: 1rem;
-  letter-spacing: -.1rem;
+  max-width: 1rem;
+  margin-top: -.4rem;
+  margin-left: -1rem;
+  padding: .3rem
 }
 
 .todo-edit-pen {

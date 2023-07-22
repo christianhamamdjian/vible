@@ -41,6 +41,7 @@ const DrawingFormTop = () => {
                             type="checkbox"
                             className='input-line-closed'
                             value={paths.find(path => path.id === isEditingPath.id).closed}
+                            checked={paths.find(path => path.id === isEditingPath.id).closed}
                             onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
 
                         {selectedPath !== null ? (
