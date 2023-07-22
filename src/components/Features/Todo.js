@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useLocalStorage } from "../hooks/useLocalStorage"
+import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Todo = () => {
@@ -202,6 +203,20 @@ const Todo = () => {
                             fill="currentColor"
                         />
                     </svg>
+                    <Tooltips
+                        position="top"
+                        width="8rem"
+                        height="4rem"
+                        top="-7rem"
+                        bottom="90%"
+                        left="-4rem"
+                        right=""
+                        marginRight=""
+                        marginLeft=""
+                        tipTop="4rem"
+                        tipLeft="50%"
+                        text="Add todos then drop them on the board!"
+                    />
                 </button >
                 <div
                     className='todo-list'

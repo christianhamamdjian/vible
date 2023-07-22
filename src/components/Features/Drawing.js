@@ -27,9 +27,9 @@ const Drawing = () => {
                 <path
                     key={index}
                     // d={svgPath(path["path"])} // Line smoothing to be fixed
-                    d={renderPath(path["path"])}
                     //d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
-                    fill="none"
+                    d={`${renderPath(path["path"])} ${path.closed ? "Z" : ""}`}
+                    fill={path.closed ? path.fill : "none"}
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     stroke={path.color}

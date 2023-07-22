@@ -19,7 +19,7 @@ export default function MoodboardProvider({ children }) {
     const [dragErasing, setDragErasing] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
-    const [pathLine, setPathLine] = useState(2)
+    const [pathLine, setPathLine] = useState(3)
     const [rotation, setRotation] = useState([])
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
@@ -57,6 +57,8 @@ export default function MoodboardProvider({ children }) {
     const [svgSize, setSvgSize] = useState({ width: 0, height: 0 })
     const [selectedRectId, setSelectedRectId] = useState(null)
     const [rectOffsets, setRectOffsets] = useState({})
+
+    const [info, setInfo] = useState(false)
 
     const divRef = useRef(null)
     const svgRef = useRef(null)
@@ -542,7 +544,7 @@ export default function MoodboardProvider({ children }) {
         }
         setIsDrawing(isDrawing => !isDrawing)
         setPathColor("#000000")
-        setPathLine(2)
+        setPathLine(3)
         setIsErasing(false)
         setIsEditingPath(false)
         setIsEditingPaths(false)
@@ -582,6 +584,26 @@ export default function MoodboardProvider({ children }) {
             prevPaths.map(path => {
                 if (path.id === id) {
                     return { ...path, color: e.target.value }
+                }
+                return path
+            })
+        )
+    }
+    const handleLineFillChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, fill: e.target.value }
+                }
+                return path
+            })
+        )
+    }
+    const handleLineClosedChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, closed: e.target.checked }
                 }
                 return path
             })
@@ -708,8 +730,10 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-
     // Toggle functions
+    const handleInfo = () => {
+        setInfo(info => !info)
+    }
     const handleDraw = () => {
         setDraw(draw => !draw)
         isDrawing && setIsDrawing(false)
@@ -770,6 +794,7 @@ export default function MoodboardProvider({ children }) {
         <MoodboardContext.Provider
             value={{
                 // Properties
+                info,
                 isDrawing,
                 paths,
                 isErasing,
@@ -812,6 +837,7 @@ export default function MoodboardProvider({ children }) {
                 draggingSvg,
                 selectedRectId,
                 // Methods
+                handleInfo,
                 handleSvgPointerMove,
                 handlePathClick,
                 handlePathDrag,
@@ -864,6 +890,8 @@ export default function MoodboardProvider({ children }) {
                 handleTodosToggle,
                 handleLineWidthChange,
                 handleLineColorChange,
+                handleLineFillChange,
+                handleLineClosedChange,
                 stopLineEditing,
                 handleScaleChange,
                 handleRotateChange,

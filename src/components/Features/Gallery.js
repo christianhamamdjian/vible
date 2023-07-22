@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MoodboardContext } from "../../context/moodboardContext";
+import Tooltips from '../tooltips/Tooltips'
+import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
     const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink } = React.useContext(MoodboardContext);
@@ -99,6 +100,7 @@ const Gallery = () => {
     return (
         <>
             <div className={` gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
+
                 <button
                     className="toggle-gallery"
                     onClick={handleGalleryToggle}
@@ -123,6 +125,19 @@ const Gallery = () => {
                                 fill="currentColor"
                             />
                         </svg>
+                        <Tooltips
+                            position="top"
+                            width="7rem"
+                            height="3rem"
+                            top="-6rem"
+                            bottom="90%"
+                            left="1rem"
+                            right=""
+                            marginRight=""
+                            marginLeft=""
+                            tipTop="3rem"
+                            tipLeft="20%"
+                            text="Add items to use later!" />
                     </div>
                 </button >
                 <div className='gallery-container'>

@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -32,6 +32,17 @@ const DrawingFormTop = () => {
                             className='input-line-width'
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
+                        <input
+                            type="color"
+                            className='input-line-fill'
+                            value={paths.find(path => path.id === isEditingPath.id).fill}
+                            onChange={(event) => handleLineFillChange(event, isEditingPath.id)} />
+                        <input
+                            type="checkbox"
+                            className='input-line-closed'
+                            value={paths.find(path => path.id === isEditingPath.id).closed}
+                            onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
+
                         {selectedPath !== null ? (
                             <>
                                 <div className='path-edit-form'>

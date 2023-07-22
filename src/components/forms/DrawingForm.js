@@ -12,7 +12,7 @@ const DrawingForm = () => {
                     type="color"
                     value={color}
                     onChange={(event) => handleLineColor(event)} />
-                <label>Link thickness:</label>
+                <label>Line width:</label>
                 <input
                     type="number"
                     value={line}

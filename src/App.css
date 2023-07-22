@@ -100,8 +100,6 @@ textarea {
   margin: .2rem 0;
   font-size: 1rem;
   color: #000000;
-  width: 100%;
-  height: 100%;
 }
 
 input[type="color"] {
@@ -111,7 +109,7 @@ input[type="color"] {
 }
 
 input[type="number"] {
-  min-width: 3rem;
+  min-width: 4rem;
 }
 
 button,
@@ -189,7 +187,14 @@ button,
   min-width: 1.2rem;
   letter-spacing: -.1rem;
   margin-top: .1rem;
-  margin-left: -.35rem;
+  margin-left: -.38rem;
+}
+
+.info-sign {
+  min-width: 1.2rem;
+  letter-spacing: -.1rem;
+  margin-top: .1rem;
+  margin-left: -.38rem;
 }
 
 .editing-sign-line {
@@ -341,6 +346,8 @@ button,
 .box-textarea {
   background-color: transparent;
   font-family: sans-serif;
+  width: 100%;
+  height: 100%;
   z-index: 101;
 }
 
@@ -432,12 +439,12 @@ button,
   margin-top: 0;
 }
 
-.toggle-todo div {
+/* .toggle-todo div {
   font-size: 2rem;
   transform: rotate(90deg);
   margin-right: -.5rem;
   font-weight: bold;
-}
+} */
 
 .todo-show {
   bottom: 0;
@@ -457,7 +464,7 @@ button,
   right: 0;
   display: flex;
   justify-content: center;
-  align-items: föex-start;
+  align-items: flex-start;
   gap: 1rem;
   z-index: 102;
   transition: all 0.3s ease-in-out;

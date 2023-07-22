@@ -42,7 +42,20 @@ const RightSidebard = () => {
                 <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
             }
             <div className='right-sidebar-buttons'>
-                <Tooltips position="top" text="Click to download a pdf copy!" >
+                <Tooltips
+                    position="top"
+                    width="5rem"
+                    height="5rem"
+                    top="-4rem"
+                    bottom="90%"
+                    left=".5rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="5rem"
+                    tipLeft="50%"
+                    text="Click to download a pdf copy!"
+                >
                     <button className='toggler' onClick={() => printPdf(divRef.current)}>
                         <div className="prnt-board">
                             <svg
@@ -64,7 +77,20 @@ const RightSidebard = () => {
                         </div>
                     </button>
                 </Tooltips>
-                <Tooltips position="top" text="Click to clear the board!" >
+                <Tooltips
+                    position="top"
+                    width="5rem"
+                    height="4rem"
+                    top="-3rem"
+                    bottom="90%"
+                    left="0"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="4rem"
+                    tipLeft="50%"
+                    text="Click to clear the board!"
+                >
                     <button className='toggler' onClick={() => showConfirm("board")}>
                         <div className="clear-board">
                             <svg
@@ -89,7 +115,20 @@ const RightSidebard = () => {
                     </button>
 
                 </Tooltips>
-                <Tooltips position="top" text="Click to clear all lines!" >
+                <Tooltips
+                    position="top"
+                    width="5rem"
+                    height="4rem"
+                    top="-3rem"
+                    bottom="90%"
+                    left="-.5rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="4rem"
+                    tipLeft="70%"
+                    text="Click to clear all lines!"
+                >
                     <button className='toggler' onClick={() => showConfirm("paths")}>
                         <div className="clear-lines">
                             <svg
