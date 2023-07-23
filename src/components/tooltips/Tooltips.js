@@ -5,7 +5,6 @@ import { MoodboardContext } from "../../context/moodboardContext"
 
 const Tooltips = ({ position, tipTop, tipLeft, text, children, width, height, top, bottom, left, right, marginRight, marginLeft }) => {
     const { info } = React.useContext(MoodboardContext)
-    console.log(info)
     return (
         <>
             {position === "bottom" && children}
@@ -14,6 +13,7 @@ const Tooltips = ({ position, tipTop, tipLeft, text, children, width, height, to
             }}>
                 <div
                     className={`${position === "top" ? "tooltip-top" : "tooltip-bottom"}`}
+                    style={{ display: `${info ? "inline-block" : "none"}` }}
                 >
                     <p
                         className="custom-tooltip-text"

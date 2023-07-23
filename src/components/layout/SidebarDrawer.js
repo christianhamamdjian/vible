@@ -41,23 +41,23 @@ const DrawerButton = ({ onClick, side, isOpen }) => (
           ...
         </div>
       }
-
+      <Tooltips
+        position="bottom"
+        width={`${side === "left" ? "5rem" : "5rem"}`}
+        height={`${side === "left" ? "5rem" : "5rem"}`}
+        top={`${side === "left" ? "-10rem" : "-10rem"}`}
+        bottom={`${side === "left" ? "90%" : "90%"}`}
+        left={`${side === "left" ? "4rem" : "-5rem"}`}
+        right=""
+        marginRight=""
+        marginLeft=""
+        tipTop={`${side === "left" ? "1rem" : "1rem"}`}
+        tipLeft={`${side === "left" ? "0%" : "101%"}`}
+        // style={{ margin: `${side === "left" ? "0 auto" : "0 auto"}` }} 
+        text={`${side === "left" ? "Add items to your board!" : "Take control of your board!"}`}
+      />
     </button >
-    <Tooltips
-      position="bottom"
-      width={`${side === "left" ? "5rem" : "5rem"}`}
-      height={`${side === "left" ? "4.2rem" : "5rem"}`}
-      top={`${side === "left" ? "-3rem" : "-3rem"}`}
-      bottom={`${side === "left" ? "90%" : "90%"}`}
-      left={`${side === "left" ? "5.5rem" : "-7rem"}`}
-      right=""
-      marginRight=""
-      marginLeft=""
-      tipTop={`${side === "left" ? "-.7rem" : "-.7rem"}`}
-      tipLeft={`${side === "left" ? "20%" : "80%"}`}
-      // style={{ margin: `${side === "left" ? "0 auto" : "0 auto"}` }} 
-      text={`${side === "left" ? "Add items to your board!" : "Take control of your board!"}`}
-    />
+
   </>
 );
 

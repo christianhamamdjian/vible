@@ -320,7 +320,7 @@ button,
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   /* border: 2px solid rgb(221, 221, 221); */
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 /* Box */
@@ -883,6 +883,7 @@ button,
   font-weight: bold;
   top: 1rem;
   right: 1.5rem;
+  padding-top: .8rem;
   z-index: 101;
   /* border-radius: 0px 0px 0px 12px; */
   border-radius: 50%;
@@ -904,6 +905,7 @@ button,
   font-weight: bold;
   top: 1rem;
   left: 1rem;
+  padding-top: .8rem;
   z-index: 101;
   /* border-radius: 0px 0px 12px 0px; */
   border-radius: 50%;
