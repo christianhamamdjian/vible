@@ -84,6 +84,15 @@ const Box = ({ item }) => {
                             </p>)
                         }
                     </foreignObject>
+                    <rect
+                        id="resize"
+                        fill="red"
+                        x={item.width}
+                        y={item.height}
+                        width="20"
+                        height="20"
+                        onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                    />
                     {onShow && <>
                         <rect
                             x="10"

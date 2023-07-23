@@ -58,6 +58,11 @@ export default function MoodboardProvider({ children }) {
     const [selectedRectId, setSelectedRectId] = useState(null)
     const [rectOffsets, setRectOffsets] = useState({})
 
+    const [isResizing, setIsResizing] = useState(false);
+    const [mousedownPoints, setMousedownPoints] = useState({ x: 0, y: 0 });
+    const [rectangleSize, setRectangleSize] = useState({ width: 100, height: 100 });
+    const [resizeIconPosition, setResizeIconPosition] = useState({ x: 0, y: 0 });
+
     const [info, setInfo] = useState(false)
 
     const divRef = useRef(null)
@@ -315,6 +320,13 @@ export default function MoodboardProvider({ children }) {
             setDragErasing(true)
             return
         }
+
+        if (e.target.id === 'resize') {
+            setIsResizing(true);
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            setMousedownPoints({ x: clientX, y: clientY });
+        }
+
         if (!isDrawing && !editingText && !selectedPath && !isErasing) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -345,6 +357,22 @@ export default function MoodboardProvider({ children }) {
 
     const handleSvgPointerMove = (e) => {
         // e.preventDefault()
+
+        if (isResizing) {
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const currentPoints = { x: clientX, y: clientY };
+            const dx = currentPoints.x - mousedownPoints.x;
+            const dy = currentPoints.y - mousedownPoints.y;
+
+            setRectangleSize((prevSize) => ({
+                width: prevSize.width + dx,
+                height: prevSize.height + dy,
+            }));
+            handleResize(e, selectedRectId, rectangleSize)
+            setMousedownPoints(currentPoints);
+            updateResizeIcon(dx, dy);
+        }
+
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -383,10 +411,25 @@ export default function MoodboardProvider({ children }) {
         if (dragErasing) {
             setDragErasing(false)
         }
+
+        if (isResizing) {
+            // console.log("Resize stopping")
+            setIsResizing(false)
+        }
     }
 
     const handleRectPointerDown = (e, rectId) => {
         if (isDrawing || editingText) return
+
+        // if (e.target.id === 'resize') {
+        //     // console.log("Resizing")
+        //     setIsResizing(true);
+        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
+        //     const rect = items.find((r) => r.id === rectId)
+        //     setMousedownPoints({ x: clientX, y: clientY });
+        //     setResizeIconPosition({ x: rect.width, y: rect.height })
+        // }
+
         setSelectedRectId(rectId)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rect = items.find((r) => r.id === rectId)
@@ -402,6 +445,22 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerMove = (e, rectId) => {
         if (!draggingSvg || rectId !== selectedRectId) return
+
+        // if (isResizing) {
+        //     // console.log(resizeIconPosition)
+        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
+        //     const currentPoints = { x: clientX, y: clientY };
+        //     const dx = currentPoints.x - mousedownPoints.x;
+        //     const dy = currentPoints.y - mousedownPoints.y;
+        //     setRectangleSize((prevSize) => ({
+        //         width: prevSize.width + dx,
+        //         height: prevSize.height + dy,
+        //     }));
+        //     handleResize(e, rectId, rectangleSize)
+        //     setMousedownPoints(currentPoints);
+        //     updateResizeIcon(dx, dy);
+        // }
+
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rectOffset = rectOffsets[rectId]
         const rectIndex = items.findIndex((r) => r.id === rectId)
@@ -419,8 +478,30 @@ export default function MoodboardProvider({ children }) {
             return restOffsets
         })
         setSelectedRectId(null)
+        // if (isResizing) {
+        //     // console.log("Resize stopping")
+        //     setIsResizing(false)
+        // }
     }
 
+    const updateResizeIcon = (dx, dy) => {
+        setResizeIconPosition((prevPosition) => ({
+            x: prevPosition.x + dx,
+            y: prevPosition.y + dy,
+        }));
+    }
+
+    const handleResize = (e, id, size) => {
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+                    console.log(item)
+                    return { ...item, width: size.width, height: size.height }
+                }
+                return item
+            })
+        )
+    }
 
     //Paths
     const handlePathClick = (e, index, id) => {
