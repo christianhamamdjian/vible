@@ -18,7 +18,7 @@ const RightSidebard = () => {
         if (foo === "board") {
             handleClearBoard()
         }
-        if (foo === "paths") {
+        if (foo === "lines") {
             handleClearPaths()
         }
         hideConfirm()
@@ -129,7 +129,7 @@ const RightSidebard = () => {
                     tipLeft="70%"
                     text="Click to clear all lines!"
                 >
-                    <button className='toggler' onClick={() => showConfirm("paths")}>
+                    <button className='toggler' onClick={() => showConfirm("lines")}>
                         <div className="clear-lines">
                             <svg
                                 width="30"

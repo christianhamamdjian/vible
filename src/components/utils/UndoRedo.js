@@ -1,4 +1,4 @@
-const { useState, createContext, useContext } = React;
+import React, { useState, createContext, useContext } from "react"
 
 function useUndo() {
     const [history, setHistory] = useState({ history: [], currentIndex: 0 })
@@ -59,7 +59,7 @@ const useUndoRedoContext = () => useContext(UndoRedoContext);
 //////Then I have a simple Component for testing purposes:
 
 
-function EditUser() {
+function UndoRedo() {
     const undoRedo = useUndoRedoContext()
     const nameInput = undoRedo.state;
     const handleInputChange = (e) => {
@@ -85,10 +85,12 @@ function EditUser() {
     )
 }
 
-ReactDOM.createRoot(
-    document.getElementById("root")
-).render(
-    <UndoRedoProvider>
-        <EditUser />
-    </UndoRedoProvider>
-);
+export default UndoRedo
+
+// ReactDOM.createRoot(
+//     document.getElementById("root")
+// ).render(
+//     <UndoRedoProvider>
+//         <EditUser />
+//     </UndoRedoProvider>
+// );

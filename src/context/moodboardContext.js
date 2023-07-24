@@ -320,21 +320,14 @@ export default function MoodboardProvider({ children }) {
             setDragErasing(true)
             return
         }
-
         if (e.target.id === 'resize') {
             setIsResizing(true);
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setMousedownPoints({ x: clientX, y: clientY });
         }
-
         if (!isDrawing && !editingText && !selectedPath && !isErasing) {
-            // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
-            // const svgRect = svgRef.current.getBoundingClientRect()
-            // const divRect = divRef.current.getBoundingClientRect()
             setSvgOffset({
-                // x: clientX - svgRect.left + divRect.left - svgPosition.x,
-                // y: clientY - svgRect.top + divRect.top - svgPosition.y,
                 x: clientX - svgPosition.x,
                 y: clientY - svgPosition.y,
             })
@@ -356,8 +349,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e) => {
-        // e.preventDefault()
-
         if (isResizing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const currentPoints = { x: clientX, y: clientY };
@@ -372,15 +363,13 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints(currentPoints);
             updateResizeIcon(dx, dy);
         }
-
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
-            // let newX = clientX - svgOffset.x - divRect.left
-            // let newY = clientY - svgOffset.y - divRect.top
+
             let newX = clientX - svgOffset.x
             let newY = clientY - svgOffset.y
             newX = Math.min(0, Math.max(newX, maxX))
@@ -413,22 +402,12 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (isResizing) {
-            // console.log("Resize stopping")
             setIsResizing(false)
         }
     }
 
     const handleRectPointerDown = (e, rectId) => {
         if (isDrawing || editingText) return
-
-        // if (e.target.id === 'resize') {
-        //     // console.log("Resizing")
-        //     setIsResizing(true);
-        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
-        //     const rect = items.find((r) => r.id === rectId)
-        //     setMousedownPoints({ x: clientX, y: clientY });
-        //     setResizeIconPosition({ x: rect.width, y: rect.height })
-        // }
 
         setSelectedRectId(rectId)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -445,21 +424,6 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerMove = (e, rectId) => {
         if (!draggingSvg || rectId !== selectedRectId) return
-
-        // if (isResizing) {
-        //     // console.log(resizeIconPosition)
-        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
-        //     const currentPoints = { x: clientX, y: clientY };
-        //     const dx = currentPoints.x - mousedownPoints.x;
-        //     const dy = currentPoints.y - mousedownPoints.y;
-        //     setRectangleSize((prevSize) => ({
-        //         width: prevSize.width + dx,
-        //         height: prevSize.height + dy,
-        //     }));
-        //     handleResize(e, rectId, rectangleSize)
-        //     setMousedownPoints(currentPoints);
-        //     updateResizeIcon(dx, dy);
-        // }
 
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rectOffset = rectOffsets[rectId]
@@ -478,10 +442,6 @@ export default function MoodboardProvider({ children }) {
             return restOffsets
         })
         setSelectedRectId(null)
-        // if (isResizing) {
-        //     // console.log("Resize stopping")
-        //     setIsResizing(false)
-        // }
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -495,7 +455,6 @@ export default function MoodboardProvider({ children }) {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    console.log(item)
                     return { ...item, width: size.width, height: size.height }
                 }
                 return item
