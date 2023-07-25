@@ -27,6 +27,7 @@ const Image = ({ item }) => {
                             right: "0",
                             bottom: "0",
                             left: "0",
+                            cursor: "move"
                         }}
                     >
                         <img
@@ -44,7 +45,11 @@ const Image = ({ item }) => {
                             onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditImage(e, item.id)}
-                            className='image-media' />
+                            className='image-media'
+                            style={{
+                                cursor: "move"
+                            }}
+                        />
                     </foreignObject>
                     {isEditingBoard && <>
                         <rect

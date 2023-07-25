@@ -58,15 +58,16 @@ export default function MoodboardProvider({ children }) {
     const [selectedRectId, setSelectedRectId] = useState(null)
     const [rectOffsets, setRectOffsets] = useState({})
 
-    const [isResizing, setIsResizing] = useState(false);
-    const [mousedownPoints, setMousedownPoints] = useState({ x: 0, y: 0 });
-    const [rectangleSize, setRectangleSize] = useState({ width: 100, height: 100 });
-    const [resizeIconPosition, setResizeIconPosition] = useState({ x: 0, y: 0 });
+    const [isResizing, setIsResizing] = useState(false)
+    const [mousedownPoints, setMousedownPoints] = useState({ x: 0, y: 0 })
+    const [rectangleSize, setRectangleSize] = useState({ width: 100, height: 100 })
+    const [resizeIconPosition, setResizeIconPosition] = useState({ x: 0, y: 0 })
+    const [isDraggingRect, setIsDraggingRect] = useState(false)
 
-    const [isRotating, setIsRotating] = useState(false);
-    const [rectangleRotation, setRectangleRotation] = useState(0);
-    const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 });
-    const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+    const [isRotating, setIsRotating] = useState(false)
+    const [rectangleRotation, setRectangleRotation] = useState(0)
+    const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 })
+    const [angleOffset, setAngleOffset] = useState({ x: 0, y: 0 })
 
     const [info, setInfo] = useState(false)
 
@@ -109,8 +110,8 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: "140px",
-            height: "60px",
+            width: 140,
+            height: 60,
             angle: 0,
             type: "box"
         }
@@ -131,8 +132,8 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: "140px",
-            height: "60px",
+            width: 140,
+            height: 60,
             angle: 0,
             type: "box"
         }
@@ -150,8 +151,8 @@ export default function MoodboardProvider({ children }) {
             color: color,
             link: itemLink,
             url: itemUrl,
-            width: "140px",
-            height: "60px",
+            width: 140,
+            height: 60,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -168,8 +169,8 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: itemLink,
             url: itemUrl,
-            width: "140px",
-            height: "60px",
+            width: 140,
+            height: 60,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -326,18 +327,12 @@ export default function MoodboardProvider({ children }) {
             return
         }
         if (e.target.id === 'resize') {
-            setIsResizing(true);
+            setIsResizing(true)
+            setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
-            setMousedownPoints({ x: clientX, y: clientY });
+            setMousedownPoints({ x: clientX, y: clientY })
         }
-        // if (e.target.id === 'rotate') {
-        //     setIsRotating(true);
-        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
-        //     const centerX = rect.x + rect.width / 2;
-        //     const centerY = rect.y + rect.height / 2;
-        //     const angle = Math.atan2(centerY - clientY, centerX - clientX);
-        //     setMouseOffset({ x: angle });
-        // }
+
         if (!isDrawing && !editingText && !selectedPath && !isErasing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -379,13 +374,12 @@ export default function MoodboardProvider({ children }) {
 
 
         if (isRotating) {
-            console.log(selectedRectId)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rect = items.find((r) => r.id === selectedRectId)
             const centerX = rect.x + rect.width / 2;
             const centerY = rect.y + rect.height / 2;
             const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-            const angleDiff = newAngle - mouseOffset.x;
+            const angleDiff = newAngle - angleOffset.x;
             const newRotation = (angleDiff * 180) / Math.PI;
             setItems(prevItems =>
                 prevItems.map(item => {
@@ -448,16 +442,18 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing || editingText) return
 
         if (e.target.id === 'rotate') {
-            setIsRotating(true);
+            setIsRotating(true)
+            setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rect = items.find((item) => item.id === rectId)
-            const centerX = rect.x + rect.width / 2;
-            const centerY = rect.y + rect.height / 2;
-            const angle = Math.atan2(centerY - clientY, centerX - clientX);
-            setMouseOffset({ x: angle });
+            const centerX = rect.x + rect.width / 2
+            const centerY = rect.y + rect.height / 2
+            const angle = Math.atan2(centerY - clientY, centerX - clientX)
+            setAngleOffset({ x: angle })
         }
 
         setSelectedRectId(rectId)
+        setIsDraggingRect(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
         const rect = items.find((r) => r.id === rectId)
         const rectOffset = {
@@ -472,16 +468,17 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerMove = (e, rectId) => {
         if (!draggingSvg || rectId !== selectedRectId) return
-
-        const { clientX, clientY } = e.touches ? e.touches[0] : e
-        const rectOffset = rectOffsets[rectId]
-        const rectIndex = items.findIndex((r) => r.id === rectId)
-        const newX = Math.floor(clientX) - rectOffset.x
-        const newY = Math.floor(clientY) - rectOffset.y
-        const updatedRectangles = [...items]
-        const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY }
-        updatedRectangles[rectIndex] = updatedRect
-        setItems(updatedRectangles)
+        if (isDraggingRect) {
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const rectOffset = rectOffsets[rectId]
+            const rectIndex = items.findIndex((r) => r.id === rectId)
+            const newX = Math.floor(clientX) - rectOffset.x
+            const newY = Math.floor(clientY) - rectOffset.y
+            const updatedRectangles = [...items]
+            const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY }
+            updatedRectangles[rectIndex] = updatedRect
+            setItems(updatedRectangles)
+        }
     }
 
     const handleRectPointerUp = (rectId) => {
