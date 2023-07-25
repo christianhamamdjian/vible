@@ -63,6 +63,11 @@ export default function MoodboardProvider({ children }) {
     const [rectangleSize, setRectangleSize] = useState({ width: 100, height: 100 });
     const [resizeIconPosition, setResizeIconPosition] = useState({ x: 0, y: 0 });
 
+    const [isRotating, setIsRotating] = useState(false);
+    const [rectangleRotation, setRectangleRotation] = useState(0);
+    const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 });
+    const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+
     const [info, setInfo] = useState(false)
 
     const divRef = useRef(null)
@@ -325,6 +330,14 @@ export default function MoodboardProvider({ children }) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setMousedownPoints({ x: clientX, y: clientY });
         }
+        // if (e.target.id === 'rotate') {
+        //     setIsRotating(true);
+        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
+        //     const centerX = rect.x + rect.width / 2;
+        //     const centerY = rect.y + rect.height / 2;
+        //     const angle = Math.atan2(centerY - clientY, centerX - clientX);
+        //     setMouseOffset({ x: angle });
+        // }
         if (!isDrawing && !editingText && !selectedPath && !isErasing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -363,6 +376,27 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints(currentPoints);
             updateResizeIcon(dx, dy);
         }
+
+
+        if (isRotating) {
+            console.log(selectedRectId)
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const rect = items.find((r) => r.id === selectedRectId)
+            const centerX = rect.x + rect.width / 2;
+            const centerY = rect.y + rect.height / 2;
+            const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+            const angleDiff = newAngle - mouseOffset.x;
+            const newRotation = (angleDiff * 180) / Math.PI;
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === selectedRectId) {
+                        return { ...item, angle: newRotation }
+                    }
+                    return item
+                })
+            )
+        }
+
         if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -404,10 +438,24 @@ export default function MoodboardProvider({ children }) {
         if (isResizing) {
             setIsResizing(false)
         }
+
+        if (isRotating) {
+            setIsRotating(false)
+        }
     }
 
     const handleRectPointerDown = (e, rectId) => {
         if (isDrawing || editingText) return
+
+        if (e.target.id === 'rotate') {
+            setIsRotating(true);
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const rect = items.find((item) => item.id === rectId)
+            const centerX = rect.x + rect.width / 2;
+            const centerY = rect.y + rect.height / 2;
+            const angle = Math.atan2(centerY - clientY, centerX - clientX);
+            setMouseOffset({ x: angle });
+        }
 
         setSelectedRectId(rectId)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
