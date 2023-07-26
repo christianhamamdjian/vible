@@ -91,7 +91,7 @@ const ButtonsTop = () => {
                     tipLeft="60%"
                     text="Click to add a text box!"
                 />
-                {paths.length > 0 && (
+                {paths.length !== 0 && (
                     <>
 
                         <button

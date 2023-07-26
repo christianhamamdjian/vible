@@ -65,8 +65,8 @@ export default function MoodboardProvider({ children }) {
     const [isDraggingRect, setIsDraggingRect] = useState(false)
 
     const [isRotating, setIsRotating] = useState(false)
-    const [rectangleRotation, setRectangleRotation] = useState(0)
-    const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 })
+    // const [rectangleRotation, setRectangleRotation] = useState(0)
+    // const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 })
     const [angleOffset, setAngleOffset] = useState({ x: 0, y: 0 })
 
     const [info, setInfo] = useState(false)
@@ -643,6 +643,9 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDeletePath = (erased) => {
         setPaths((prevPaths) => prevPaths.filter((path) => path.id !== erased))
+        if (paths.length === 1) {
+            setIsErasing(false)
+        }
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
