@@ -1,39 +1,39 @@
-import React from 'react';
-import { MoodboardContext } from "../../context/moodboardContext";
+import React, { useState, useRef, useContext, } from 'react'
+import { MoodboardContext } from "../../context/moodboardContext"
 function BoardDrop({ children }) {
-    const { handleImageDropUpload } = React.useContext(MoodboardContext)
-    const [dragActive, setDragActive] = React.useState(false);
-    const inputRef = React.useRef(null);
+    const { handleImageDropUpload } = useContext(MoodboardContext)
+    const [dragActive, setDragActive] = useState(false)
+    const inputRef = useRef(null)
 
     const handleDrag = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault()
+        e.stopPropagation()
         if (e.type === "dragenter" || e.type === "dragover") {
-            setDragActive(true);
+            setDragActive(true)
         } else if (e.type === "dragleave") {
-            setDragActive(false);
+            setDragActive(false)
         }
-    };
+    }
 
     const handleDrop = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        setDragActive(false);
+        e.preventDefault()
+        e.stopPropagation()
+        setDragActive(false)
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleImageDropUpload(e.dataTransfer.files[0]);
+            handleImageDropUpload(e.dataTransfer.files[0])
         }
-    };
+    }
 
     const handleChange = function (e) {
-        e.preventDefault();
+        e.preventDefault()
         if (e.target.files && e.target.files[0]) {
-            handleImageDropUpload(e.target.files[0]);
+            handleImageDropUpload(e.target.files[0])
         }
-    };
+    }
 
     // const onButtonClick = () => {
-    //     inputRef.current.click();
-    // };
+    //     inputRef.current.click()
+    // }
 
     return (
         <form
@@ -73,7 +73,7 @@ function BoardDrop({ children }) {
                 {children}
             </div>
         </form>
-    );
-};
+    )
+}
 
 export default BoardDrop

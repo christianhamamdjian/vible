@@ -20,7 +20,6 @@ const Box = ({ item }) => {
     const hideConfirm = () => {
         setOnShow(false)
     }
-    console.log(`${item.width}`);
     return (
         <>
             {item && item.type === "box" && (

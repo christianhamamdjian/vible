@@ -439,7 +439,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        if (isDrawing || editingText) return
+        if (isDrawing || editingText || isResizing || isRotating) return
 
         if (e.target.id === 'rotate') {
             setIsRotating(true)
@@ -467,7 +467,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        if (!draggingSvg || rectId !== selectedRectId) return
+        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rectOffset = rectOffsets[rectId]
@@ -920,6 +920,7 @@ export default function MoodboardProvider({ children }) {
                 svgPosition,
                 divRef,
                 draggingSvg,
+                isDraggingRect,
                 selectedRectId,
                 // Methods
                 handleInfo,

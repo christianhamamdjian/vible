@@ -13,67 +13,109 @@ const Image = ({ item }) => {
         <>
             {item.type === "image" &&
                 <>
-                    <foreignObject
-                        className='image-object'
-                        width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
-                        height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
-                        style={{
-                            transform: `rotate(${item.angle || 0}deg)`,
-                            transformOrigin: `${item.width / 2, item.height / 2}`,
-                            display: "block",
-                            zIndex: "999999",
-                            position: "absolute",
-                            top: "0",
-                            right: "0",
-                            bottom: "0",
-                            left: "0",
-                            cursor: "move"
-                        }}
+                    <g
+                        transform={`rotate(${item.angle || 0}, 
+                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) / 2}, 
+                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) / 2}
+                        )`}
+                        onPointerDown={e => { handleRectPointerDown(e, item.id) }}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                        onDoubleClick={(e) => handleEditImage(e, item.id)}
                     >
-                        <img
-                            ref={itemRef}
-                            src={item.src}
-                            x="0"
-                            y="0"
+                        {isEditingBoard && (
+                            <>
+                                <circle
+                                    id="rotate"
+                                    fill="#cccccc"
+                                    cx="-15"
+                                    cy={`${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) / 2}`}
+                                    width="20"
+                                    height="20"
+                                    r='12'
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="#cccccc"
+                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) - 15}
+                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) - 15}
+                                    width="20"
+                                    height="20"
+                                    rx="4"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="white"
+                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) - 18}
+                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) - 18}
+                                    width="20"
+                                    height="20"
+                                    rx="2"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                            </>)}
+                        <foreignObject
+                            className='image-object'
                             width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
                             height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
-                            fill="#ffffff"
-                            onPointerDown={e => { handleRectPointerDown(e, item.id) }}
-                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
-                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
-                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                            onDoubleClick={(e) => handleEditImage(e, item.id)}
-                            className='image-media'
                             style={{
-                                cursor: "move"
+                                // transform: `rotate(${item.angle || 0}deg)`,
+                                // transformOrigin: `${item.width / 2, item.height / 2}`,
+                                display: "block",
+                                zIndex: "999999",
+                                position: "absolute",
+                                top: "0",
+                                right: "0",
+                                bottom: "0",
+                                left: "0",
                             }}
-                        />
-                    </foreignObject>
-                    {isEditingBoard && <>
+                        >
+                            <img
+                                ref={itemRef}
+                                src={item.src}
+                                x="0"
+                                y="0"
+                                width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
+                                height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
+                                fill="#ffffff"
+                                className='image-media'
+                            />
+                        </foreignObject>
                         <rect
-                            x="10"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="red"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleDeleteItem(item.id)}
-                        />
-                        <text
-                            x="18"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleDeleteItem(item.id)}
-                        >&times;</text>
-                        <rect
+                            fill="transparent"
+                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
+                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
+                        >
+                        </rect>
+                        {isEditingBoard && <>
+                            <rect
+                                x="10"
+                                y="-22"
+                                height="20"
+                                width="24"
+                                rx="6"
+                                fill="red"
+                                stroke="white"
+                                strokeWidth="2"
+                                className='box-control'
+                                onClick={() => handleDeleteItem(item.id)}
+                            />
+                            <text
+                                x="18"
+                                y="-9"
+                                width="24"
+                                height="20"
+                                fill="white"
+                                className="box-control-sign"
+                                onClick={() => handleDeleteItem(item.id)}
+                                style={{ userSelect: "none" }}
+                            >&times;</text>
+                            {/* <rect
                             x="60"
                             y="-22"
                             height="20"
@@ -93,9 +135,9 @@ const Image = ({ item }) => {
                             fill="white"
                             className="box-control-sign"
                             onClick={() => handleEditImage(item.id)}
-                        >+</text>
+                        >+</text> */}
 
-                        {editingImage && editingImage.id === item.id && <>
+                            {/* {editingImage && editingImage.id === item.id && <>
                             <rect
                                 x="35"
                                 y="-22"
@@ -118,9 +160,9 @@ const Image = ({ item }) => {
                                 onClick={handleStopEditItem}
                             >-</text>
                         </>
-                        }
-                    </>
-                    }
+                        } */}
+                        </>
+                        }</g>
                 </>
             }
         </>
