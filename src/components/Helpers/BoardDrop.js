@@ -16,6 +16,7 @@ function BoardDrop({ children }) {
     }
 
     const handleDrop = function (e) {
+        console.log(e);
         e.preventDefault()
         e.stopPropagation()
         setDragActive(false)

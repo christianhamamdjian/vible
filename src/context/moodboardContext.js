@@ -317,7 +317,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerDown = (e) => {
-        if (editingText) return
+        // if (editingText) return
         if (selectedPath || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
@@ -391,7 +391,7 @@ export default function MoodboardProvider({ children }) {
             )
         }
 
-        if (!isDrawing && !drawing && draggingSvg && !selectedRectId) {
+        if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const divRect = svgRef.current.getBoundingClientRect()
@@ -428,18 +428,17 @@ export default function MoodboardProvider({ children }) {
         if (dragErasing) {
             setDragErasing(false)
         }
-
         if (isResizing) {
             setIsResizing(false)
         }
-
         if (isRotating) {
             setIsRotating(false)
         }
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        if (isDrawing || editingText || isResizing || isRotating) return
+        // if (isDrawing || editingText || isResizing || isRotating) return
+        if (isDrawing) return
 
         if (e.target.id === 'rotate') {
             setIsRotating(true)
@@ -467,8 +466,9 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
-        if (isDraggingRect) {
+        if (!draggingSvg || rectId !== selectedRectId) return
+        if (isResizing || isRotating) return
+        if (isDraggingRect && !isResizing || !isRotating) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex((r) => r.id === rectId)
@@ -487,6 +487,13 @@ export default function MoodboardProvider({ children }) {
             return restOffsets
         })
         setSelectedRectId(null)
+        setIsDraggingRect(false)
+        if (isResizing) {
+            setIsResizing(false)
+        }
+        if (isRotating) {
+            setIsRotating(false)
+        }
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -757,7 +764,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     // Editing
-    const handleEditImage = (id) => {
+    const handleEditImage = (e, id) => {
         setEditingImage({ status: true, id: id })
         setIsEditingBoard(true)
         handleImage()
@@ -803,12 +810,13 @@ export default function MoodboardProvider({ children }) {
     const handleStopEditItem = () => {
         if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard) {
             setEditingText(null)
-            setIsEditingBoard(false)
-            setIsEditingPath(false)
-            setIsEditingPaths(false)
-            setEditingVideo(false)
-            setEditingMap(false)
-            setEditingPdf(false)
+            setIsEditingBoard(null)
+            setIsEditingPath(null)
+            setIsEditingPaths(null)
+            setEditingImage(null)
+            setEditingVideo(null)
+            setEditingMap(null)
+            setEditingPdf(null)
             setSelectedPath(null)
             setWrite(false)
             setImage(false)

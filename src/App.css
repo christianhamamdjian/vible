@@ -347,7 +347,7 @@ button,
   background-color: transparent;
   font-family: sans-serif;
   width: 100%;
-  height: 100%;
+  height: 80%;
   z-index: 101;
 }
 
@@ -603,7 +603,8 @@ button,
   width: 1.2rem;
   height: 1.2rem;
   margin-left: -.6rem;
-  border: 1px solid #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: .2rem;
   margin-top: -.1rem;
 }
 
@@ -764,7 +765,8 @@ button,
   width: 1.2rem;
   height: 1.2rem;
   margin-left: -.6rem;
-  border: 1px solid #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: .2rem;
   margin-top: -.1rem;
 }
 

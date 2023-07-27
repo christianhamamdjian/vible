@@ -3,7 +3,9 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
     const { items, editingText, write, isEditingBoard, handleItemChange } = React.useContext(MoodboardContext);
-
+    const findItem = (term) => {
+        return items.find(item => item.id === editingText.id)[`${term}`]
+    }
     return (
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
@@ -11,7 +13,7 @@ const BoxFormTop = () => {
                     <div className='inputs-top_objects' >
                         <label>Change text:</label>
                         <textarea
-                            value={items.find(item => item.id === editingText.id).text}
+                            value={findItem("text")}
                             onChange={(event) => handleItemChange(event, editingText.id, "text")
                             }
                         />
@@ -19,14 +21,14 @@ const BoxFormTop = () => {
                         <input
                             type="color"
                             name="color"
-                            value={items.find(item => item.id === editingText.id).color}
+                            value={findItem("color")}
                             onChange={(event) => handleItemChange(event, editingText.id, "color")
                             } />
                         <label>Change link:</label>
                         <input
                             type="text"
                             name="link"
-                            value={items.find(item => item.id === editingText.id).link}
+                            value={findItem("link")}
                             onChange={(event) => handleItemChange(event, editingText.id, "link")
                             } />
 
@@ -34,10 +36,10 @@ const BoxFormTop = () => {
                         <input
                             type="text"
                             name="url"
-                            value={items.find(item => item.id === editingText.id).url}
+                            value={findItem("url")}
                             onChange={(event) => handleItemChange(event, editingText.id, "url")
                             } />
-                        <label>Change width:</label>
+                        {/* <label>Change width:</label>
                         <input
                             type="range"
                             min="100"
@@ -66,7 +68,7 @@ const BoxFormTop = () => {
                             name="angle"
                             value={items.find(item => item.id === editingText.id).angle}
                             onChange={(event) => handleItemChange(event, editingText.id, "angle")
-                            } />
+                            } /> */}
                     </div>
                 </>)
             }

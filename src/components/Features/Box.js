@@ -26,7 +26,7 @@ const Box = ({ item }) => {
                 <>
                     <g
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}>
-                        {isEditingBoard && !editingText && (
+                        {(editingText || isEditingBoard) && (
                             <>
                                 <circle
                                     id="rotate"
@@ -76,6 +76,7 @@ const Box = ({ item }) => {
                                 right: "0",
                                 bottom: "0",
                                 left: "0",
+                                userSelect: "none"
                             }}
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                             onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -87,8 +88,21 @@ const Box = ({ item }) => {
                         >
                             <a
                                 href={item.url}
-                                target="__blank">
-                                <span x="80" y="30" fill={getTextColor(item.color)}>{item.link}</span>
+                                target="__blank"
+                                style={{
+                                    textAlign: "right"
+                                }}
+                            >
+                                <p
+                                    fill={getTextColor(item.color)}
+                                    style={{
+                                        color: getTextColor(item.color),
+                                        textDecoration: "underline",
+                                        marginBottom: ".5rem"
+                                    }}
+                                >
+                                    {item.link}
+                                </p>
                             </a>
                             {editingText && isEditingBoard && (item.id === editingText.id) ? (
                                 <textarea
