@@ -104,8 +104,8 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
-            x: 100,
-            y: 100,
+            x: 200,
+            y: 200,
             text: itemText,
             color: itemColor,
             link: itemLink,
@@ -145,8 +145,8 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
-            x: 100,
-            y: 100,
+            x: 200,
+            y: 200,
             text: color,
             color: color,
             link: itemLink,
@@ -163,8 +163,8 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
-            x: 100,
-            y: 100,
+            x: 200,
+            y: 200,
             text: text,
             color: itemColor,
             link: itemLink,
@@ -367,6 +367,7 @@ export default function MoodboardProvider({ children }) {
                 width: prevSize.width + dx,
                 height: prevSize.height + dy,
             }));
+
             handleResize(e, selectedRectId, rectangleSize)
             setMousedownPoints(currentPoints);
             updateResizeIcon(dx, dy);
@@ -504,14 +505,27 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleResize = (e, id, size) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === id) {
-                    return { ...item, width: size.width, height: size.height }
-                }
-                return item
-            })
-        )
+        const resizable = items.find(item => item.id === id)
+        if (resizable.type === "image" && size.width >= 5 && resizable.height <= 200) {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        }
+        if (resizable.type === "box" && size.width >= 100 && size.height >= 100) {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        }
     }
 
     //Paths
