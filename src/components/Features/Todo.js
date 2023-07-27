@@ -195,17 +195,17 @@ const Todo = () => {
                     </svg>
                     <Tooltips
                         position="top"
-                        width="8rem"
-                        height="4rem"
-                        top="-7rem"
+                        width="4rem"
+                        height="7rem"
+                        top="-11.2rem"
                         bottom="90%"
-                        left="-4rem"
+                        left="-2rem"
                         right=""
                         marginRight=""
                         marginLeft=""
-                        tipTop="4rem"
+                        tipTop="7rem"
                         tipLeft="50%"
-                        text="Add todos then drop them on the board!"
+                        text="Add todos then drop them on the board"
                     />
                 </button >
                 <div

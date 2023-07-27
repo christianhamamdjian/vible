@@ -43,18 +43,18 @@ const DrawerButton = ({ onClick, side, isOpen }) => (
       }
       <Tooltips
         position="bottom"
-        width={`${side === "left" ? "5rem" : "5rem"}`}
-        height={`${side === "left" ? "5rem" : "5rem"}`}
-        top={`${side === "left" ? "-10rem" : "-10rem"}`}
+        width={`${side === "left" ? "4rem" : "4rem"}`}
+        height={`${side === "left" ? "4.5rem" : "4.5rem"}`}
+        top={`${side === "left" ? "-6.3rem" : "-6.5rem"}`}
         bottom={`${side === "left" ? "90%" : "90%"}`}
-        left={`${side === "left" ? "4rem" : "-5rem"}`}
+        left={`${side === "left" ? ".3rem" : "0rem"}`}
         right=""
         marginRight=""
         marginLeft=""
-        tipTop={`${side === "left" ? "1rem" : "1rem"}`}
-        tipLeft={`${side === "left" ? "0%" : "101%"}`}
+        tipTop={`${side === "left" ? "-.7rem" : "-.7rem"}`}
+        tipLeft={`${side === "left" ? "45%" : "55%"}`}
         // style={{ margin: `${side === "left" ? "0 auto" : "0 auto"}` }} 
-        text={`${side === "left" ? "Add items to your board!" : "Take control of your board!"}`}
+        text={`${side === "left" ? "Add items to your board" : "Take control of your board"}`}
       />
     </button >
 

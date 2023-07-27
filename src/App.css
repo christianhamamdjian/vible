@@ -262,12 +262,12 @@ button,
 
 @media only screen and (max-width: 600px) {
   .top-buttons {
-    width: 50vw;
+    width: 60vw;
     margin: 0 auto;
     flex-wrap: nowrap;
     /* justify-content: stretch; */
     border-radius: 0 0 12px 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     gap: 0;
   }
 

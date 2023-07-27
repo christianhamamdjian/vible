@@ -127,17 +127,17 @@ const Gallery = () => {
                         </svg>
                         <Tooltips
                             position="top"
-                            width="7rem"
-                            height="3rem"
-                            top="-6rem"
+                            width="4rem"
+                            height="3.5rem"
+                            top="-9rem"
                             bottom="90%"
-                            left="1rem"
+                            left="-1.5rem"
                             right=""
                             marginRight=""
                             marginLeft=""
-                            tipTop="3rem"
-                            tipLeft="20%"
-                            text="Add items to use later!" />
+                            tipTop="3.5rem"
+                            tipLeft="50%"
+                            text="Add items to use later" />
                     </div>
                 </button >
                 <div className='gallery-container'>

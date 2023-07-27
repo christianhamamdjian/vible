@@ -39,16 +39,16 @@ const ButtonsTop = () => {
                 </button>
                 <Tooltips
                     position="bottom"
-                    width="5rem"
-                    height="4rem"
-                    top="-4rem"
+                    width="3.5rem"
+                    height="3.7rem"
+                    top="-3rem"
                     bottom="90%"
-                    left="-4.5rem"
+                    left="-1.5rem"
                     right=""
                     marginRight=""
                     marginLeft=""
                     tipTop="-.7rem"
-                    tipLeft="70%"
+                    tipLeft="50%"
                     text="Click to start drawing"
                 />
                 <button
@@ -79,17 +79,17 @@ const ButtonsTop = () => {
                 </button>
                 <Tooltips
                     position="bottom"
-                    width="5rem"
-                    height="4rem"
-                    top="-4rem"
+                    width="3.5rem"
+                    height="4.5rem"
+                    top="-3rem"
                     bottom="90%"
-                    left="-3rem"
+                    left="-1rem"
                     right=""
                     marginRight=""
                     marginLeft=""
                     tipTop="-.7rem"
-                    tipLeft="60%"
-                    text="Click to add a text box!"
+                    tipLeft="40%"
+                    text="Click to add a text box"
                 />
                 {paths.length !== 0 && (
                     <>
@@ -119,16 +119,16 @@ const ButtonsTop = () => {
                         </button>
                         <Tooltips
                             position="bottom"
-                            width="5rem"
-                            height="4rem"
-                            top="-4rem"
+                            width="3.5rem"
+                            height="3.7rem"
+                            top="-3rem"
                             bottom="90%"
-                            left="-1.5rem"
+                            left="-.5rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="40%"
+                            tipLeft="30%"
                             text="Click to erase lines" />
                     </>
                 )
@@ -157,17 +157,17 @@ const ButtonsTop = () => {
                         </button>
                         <Tooltips
                             position="bottom"
-                            width="5rem"
-                            height="4rem"
-                            top="-4rem"
+                            width="3.5rem"
+                            height="3.8rem"
+                            top="-3rem"
                             bottom="90%"
-                            left="0"
+                            left="0rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="20%"
-                            text="Click to edit objects!"
+                            tipLeft="25%"
+                            text="Click to edit objects"
                         />
                     </>
                 )
