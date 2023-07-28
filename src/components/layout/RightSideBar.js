@@ -5,6 +5,7 @@ import Calculator from "../calculator/Calculator"
 import Calendar from "../calendar/Calendar"
 import Tooltips from '../tooltips/Tooltips'
 import Confirm from "../Helpers/Confirm"
+import DownloadUploadData from "../utils/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 
@@ -150,7 +151,7 @@ const RightSidebard = () => {
                     </button>
                 </Tooltips>
             </div>
-
+            <DownloadUploadData />
             <div className='sidebar-zoom'>
                 <button onClick={handleZoomIn}>
                     <svg

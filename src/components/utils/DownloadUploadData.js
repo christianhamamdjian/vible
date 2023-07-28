@@ -1,112 +1,78 @@
 import React, { useState, useEffect } from 'react'
-
+import { MoodboardContext } from "../../context/moodboardContext";
+import { loadPathsFromLocalStorage } from "./pathOperations"
+import { useLocalStorage } from "../../components/hooks/useLocalStorage"
 const DownloadUploadData = () => {
-    const defaultFileType = "json"
-    const fileNames = {
-        json: "states.json",
-        csv: "states.csv",
-        text: "states.txt",
-    }
 
-    const [fileType, setFileType] = useState(defaultFileType)
+    const { items, galleryItems } = React.useContext(MoodboardContext);
+    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
+    const [todos, setTodos] = useLocalStorage("todos", [])
     const [fileDownloadUrl, setFileDownloadUrl] = useState(null)
-    const [status, setStatus] = useState("")
     const [isUploading, setIsUploading] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false)
+    const savePathsToLocalStorage = () => {
+        const savingPaths = paths.map((path) => {
+            return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
+        })
+        return savingPaths
+    }
     const data = [
-        { state: "Arizona", electors: 11 },
-        { state: "Florida", electors: 29 },
-        { state: "Iowa", electors: 6 },
-        { state: "Michigan", electors: 16 },
-        { state: "North Carolina", electors: 15 },
-        { state: "Ohio", electors: 18 },
-        { state: "Pennsylvania", electors: 20 },
-        { state: "Wisconsin", electors: 10 },
+        { items },
+        { paths: savePathsToLocalStorage() },
+        { galleryItems },
+        { todos }
     ]
 
     useEffect(() => {
         if (isUploading) {
             dofileUpload.click()
+            setIsUploading(false)
         }
     })
 
     useEffect(() => {
         if (isDownloading) {
             dofileDownload.click()
-            URL.revokeObjectURL(fileDownloadUrl)
+            setIsDownloading(false)
             setFileDownloadUrl("")
         }
     })
-
-    const changeFileType = (e) => {
-        const value = e.target.value
-        setFileType(value)
-    }
+    // useEffect(() => {
+    //     console.log("Updated");
+    // }, [items, paths, galleryItems, todos])
 
     const download = (e) => {
         e.preventDefault()
-        let output
-        if (fileType === "json") {
-            output = JSON.stringify({ states: data },
-                null, 4)
-        } else if (fileType === "csv") {
-            let contents = []
-            contents.push(["State", "Electors"])
-            data.forEach(row => {
-                contents.push([row.state, row.electors])
-            })
-            output = makeCSV(contents)
-        } else if (fileType === "text") {
-            output = ''
-            data.forEach(row => {
-                output += `${row.state}: ${row.electors}\n`
-            })
-        }
+        const output = JSON.stringify({ vible: data }, null, 4)
         const blob = new Blob([output])
         const newFileDownloadUrl = URL.createObjectURL(blob)
+        URL.revokeObjectURL(fileDownloadUrl)
+        setFileDownloadUrl("")
         setFileDownloadUrl(newFileDownloadUrl)
         setIsDownloading(true)
-        setIsDownloading(false)
-    }
-
-    const makeCSV = (content) => {
-        let csv = ''
-        content.forEach((value) => {
-            value.forEach((item, i) => {
-                let innerValue = item === null ? '' : item.toString()
-                let result = innerValue.replace(/"/g, '""')
-                if (result.search(/("|,|\n)/g) >= 0) {
-                    result = '"' + result + '"'
-                }
-                if (i > 0) {
-                    csv += ','
-                }
-                csv += result
-            })
-            csv += '\n'
-        })
-        return csv
     }
 
     const upload = (e) => {
         e.preventDefault()
         setIsUploading(true)
-        setIsUploading(false)
     }
+    const refresh = () => window.location.reload(true)
 
-    const openFile = (evt) => {
-        let status = []
-        const fileObj = evt.target.files[0]
+    const openFile = (e) => {
+        const fileObj = e.target.files[0]
         const reader = new FileReader()
-
         reader.onload = (e) => {
-            const fileContents = e.target.result
-            status.push(`File name: "${fileObj.name}". Length: ${fileContents.length} bytes.`)
-            const first80char = fileContents.substring(0, 80)
-            status.push(`First 80 characters of the file:\n${first80char}`)
-            setStatus(status.join("\n"))
+            const data = JSON.parse(e.target.result)
+            const { items: newItems } = data.vible[0]
+            const { paths: newPaths } = data.vible[1]
+            const { galleryItems: newGalleryItems } = data.vible[2]
+            const { todos: newTodos } = data.vible[3]
+            localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
+            localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
+            localStorage.setItem('galleryItems', JSON.stringify([...galleryItems, ...newGalleryItems]))
+            localStorage.setItem('todos', JSON.stringify([...todos, ...newTodos]))
+            refresh()
         }
-
         reader.readAsText(fileObj)
     }
 
@@ -114,56 +80,28 @@ const DownloadUploadData = () => {
 
     return (
         <div>
-            <h2>2020 US Swing States</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>State</th>
-                        <th>Electors</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item) => (
-                        <tr key={item.state}>
-                            <td>{item.state}</td>
-                            <td>{item.electors}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <form>
-                <span className="mr">File type:</span>
-                <select name="fileType" onChange={changeFileType} value={fileType} className="mr">
-                    <option value="csv">CSV</option>
-                    <option value="json">JSON</option>
-                    <option value="text">Text</option>
-                </select>
-
-                <button onClick={download}>Download the file!</button>
-
+            <form style={{ padding: ".6rem", display: "flex", gap: ".2rem", justifyContent: "space-between" }}>
+                <button onClick={download}>Download Board</button>
                 <a
                     className="hidden"
-                    download={fileNames[fileType]}
+                    style={{ display: "none" }}
+                    download={"vible.json"}
                     href={fileDownloadUrl}
                     ref={(e) => (dofileDownload = e)}
                 >
-                    download it
                 </a>
-
-                <p>
-                    <button onClick={upload}>Upload a file!</button> Only json, csv, and text files are ok.
-                </p>
-
+                <button onClick={upload}>Upload Vible board</button>
                 <input
+                    id="upload"
                     type="file"
                     className="hidden"
+                    style={{ display: "none" }}
                     multiple={false}
                     accept=".json,.csv,.txt,.text,application/json,text/csv,text/plain"
                     onChange={openFile}
                     ref={(e) => (dofileUpload = e)}
                 />
             </form>
-            <pre className="status">{status}</pre>
         </div>
     )
 }
