@@ -82,6 +82,20 @@ const DownloadUploadData = () => {
     return (
         <div>
             <form style={{ padding: ".6rem", display: "flex", gap: "1rem", justifyContent: "center" }}>
+                <Tooltips
+                    position="bottom"
+                    width="4.3rem"
+                    height="2rem"
+                    top="-4rem"
+                    bottom="90%"
+                    left="3rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="-.7rem"
+                    tipLeft="50%"
+                    text="Download board"
+                />
                 <button onClick={download}>
 
                     {/* Download Board */}
@@ -103,20 +117,7 @@ const DownloadUploadData = () => {
                     </svg>
 
                 </button>
-                <Tooltips
-                    position="bottom"
-                    width="4rem"
-                    height="3rem"
-                    top="-4rem"
-                    bottom="90%"
-                    left="-2.8rem"
-                    right=""
-                    marginRight=""
-                    marginLeft=""
-                    tipTop="-.7rem"
-                    tipLeft="50%"
-                    text="Download board"
-                />
+
                 <a
                     className="hidden"
                     style={{ display: "none" }}
@@ -125,6 +126,7 @@ const DownloadUploadData = () => {
                     ref={(e) => (dofileDownload = e)}
                 >
                 </a>
+
                 <button onClick={upload}>
                     {/* Upload Vible board */}
                     <svg
@@ -149,7 +151,7 @@ const DownloadUploadData = () => {
                 <Tooltips
                     position="bottom"
                     width="3.5rem"
-                    height="3rem"
+                    height="2rem"
                     top="-4rem"
                     bottom="90%"
                     left="-2.5rem"

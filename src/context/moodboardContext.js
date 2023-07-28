@@ -98,6 +98,13 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('paths', JSON.stringify(savingPaths))
     }
 
+    // Move to front / to back
+    const itemMove = (arr, fromIndex, toIndex) => {
+        var element = arr[fromIndex];
+        arr.splice(fromIndex, 1);
+        arr.splice(toIndex, 0, element);
+    }
+
     // Add Elements
     const handleAddBox = (e) => {
         e.preventDefault()
