@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { MoodboardContext } from "../../context/moodboardContext";
 import { loadPathsFromLocalStorage } from "./pathOperations"
 import { useLocalStorage } from "../../components/hooks/useLocalStorage"
+import Tooltips from '../tooltips/Tooltips'
 const DownloadUploadData = () => {
 
     const { items, galleryItems } = React.useContext(MoodboardContext);
@@ -80,8 +81,42 @@ const DownloadUploadData = () => {
 
     return (
         <div>
-            <form style={{ padding: ".6rem", display: "flex", gap: ".2rem", justifyContent: "space-between" }}>
-                <button onClick={download}>Download Board</button>
+            <form style={{ padding: ".6rem", display: "flex", gap: "1rem", justifyContent: "center" }}>
+                <button onClick={download}>
+
+                    {/* Download Board */}
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z"
+                            fill="currentColor"
+                        />
+                        <path
+                            d="M4 14H6V18H18V14H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V14Z"
+                            fill="currentColor"
+                        />
+                    </svg>
+
+                </button>
+                <Tooltips
+                    position="bottom"
+                    width="4rem"
+                    height="3rem"
+                    top="-4rem"
+                    bottom="90%"
+                    left="-2.8rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="-.7rem"
+                    tipLeft="50%"
+                    text="Download board"
+                />
                 <a
                     className="hidden"
                     style={{ display: "none" }}
@@ -90,7 +125,41 @@ const DownloadUploadData = () => {
                     ref={(e) => (dofileDownload = e)}
                 >
                 </a>
-                <button onClick={upload}>Upload Vible board</button>
+                <button onClick={upload}>
+                    {/* Upload Vible board */}
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        transform='rotate(180)'
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z"
+                            fill="currentColor"
+                        />
+                        <path
+                            d="M4 14H6V18H18V14H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V14Z"
+                            fill="currentColor"
+                        />
+                    </svg>
+
+                </button>
+                <Tooltips
+                    position="bottom"
+                    width="3.5rem"
+                    height="3rem"
+                    top="-4rem"
+                    bottom="90%"
+                    left="-2.5rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="-.7rem"
+                    tipLeft="50%"
+                    text="Upload a board"
+                />
                 <input
                     id="upload"
                     type="file"

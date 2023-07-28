@@ -7,7 +7,7 @@ const ColorListItem = ({ button, color }) => {
                 backgroundColor: color
             }}
             onClick={() => {
-                document.querySelector("body").style.backgroundColor = color;
+                // document.querySelector("body").style.backgroundColor = color
                 let buttons = document.getElementsByTagName("button" || "input")
                 for (var i = 0; i < buttons.length; i++) {
                     buttons[i].style.backgroundColor = button;

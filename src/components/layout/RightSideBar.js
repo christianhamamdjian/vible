@@ -46,20 +46,20 @@ const RightSidebard = () => {
                 <Tooltips
                     position="top"
                     width="5rem"
-                    height="5rem"
-                    top="-4rem"
+                    height="3.5rem"
+                    top="-2.5rem"
                     bottom="90%"
                     left=".5rem"
                     right=""
                     marginRight=""
                     marginLeft=""
-                    tipTop="5rem"
+                    tipTop="3.5rem"
                     tipLeft="50%"
                     text="Click to download a pdf copy!"
                 >
                     <button className='toggler' onClick={() => printPdf(divRef.current)}>
                         <div className="prnt-board">
-                            <svg
+                            {/* <svg
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -72,6 +72,20 @@ const RightSidebard = () => {
                                 />
                                 <path
                                     d="M4 14H6V18H18V14H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V14Z"
+                                    fill="currentColor"
+                                />
+                            </svg> */}
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M8 4H16V6H8V4ZM18 6H22V18H18V22H6V18H2V6H6V2H18V6ZM20 16H18V14H6V16H4V8H20V16ZM8 16H16V20H8V16ZM8 10H6V12H8V10Z"
                                     fill="currentColor"
                                 />
                             </svg>
