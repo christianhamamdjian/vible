@@ -97,8 +97,6 @@ const DownloadUploadData = () => {
                     text="Download board"
                 />
                 <button onClick={download}>
-
-                    {/* Download Board */}
                     <svg
                         width="24"
                         height="24"
@@ -133,7 +131,7 @@ const DownloadUploadData = () => {
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
-                        transform='rotate(180)'
+                        style={{ transform: 'rotate(180deg)' }}
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -173,7 +171,7 @@ const DownloadUploadData = () => {
                     ref={(e) => (dofileUpload = e)}
                 />
             </form>
-        </div>
+        </div >
     )
 }
 

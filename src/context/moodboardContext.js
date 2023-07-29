@@ -99,10 +99,68 @@ export default function MoodboardProvider({ children }) {
     }
 
     // Move to front / to back
-    const itemMove = (arr, fromIndex, toIndex) => {
-        var element = arr[fromIndex];
-        arr.splice(fromIndex, 1);
-        arr.splice(toIndex, 0, element);
+
+    // const arrayMoveMutable = (array, fromIndex, toIndex) => {
+    //     const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
+
+    //     if (startIndex >= 0 && startIndex < array.length) {
+    //         const endIndex = toIndex < 0 ? array.length + toIndex : toIndex;
+
+    //         const [item] = array.splice(fromIndex, 1);
+    //         array.splice(endIndex, 0, item);
+    //     }
+    // }
+
+    // const arrayMoveImmutable = (array, fromIndex, toIndex) => {
+    //     const newArray = [...array];
+    //     arrayMoveMutable(newArray, fromIndex, toIndex);
+    //     return newArray;
+    // }
+
+
+    const moveToFront = (arr, id) => {
+        const newArr = [...arr]
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(arr.length, 0, element)
+        setPaths(newArr)
+    }
+    const moveToBack = (arr, id) => {
+        const newArr = [...arr];
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(0, 0, element)
+        setPaths(newArr)
+    }
+    const moveForward = (arr, id) => {
+        const newArr = [...arr]
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(fromIndex + 1, 0, element)
+        setPaths(newArr)
+    }
+    const moveBackward = (arr, id) => {
+        const newArr = [...arr];
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(fromIndex - 1, 0, element)
+        setPaths(newArr)
+    }
+    const handleMoveToFront = (id) => {
+        moveToFront(paths, id)
+    }
+    const handleMoveToBack = (id) => {
+        moveToBack(paths, id)
+    }
+    const handleMoveForward = (id) => {
+        moveForward(paths, id)
+    }
+    const handleMoveBackward = (id) => {
+        moveBackward(paths, id)
     }
 
     // Add Elements
@@ -1021,7 +1079,11 @@ export default function MoodboardProvider({ children }) {
                 handleRectPointerDown,
                 handleRectPointerMove,
                 handleRectPointerUp,
-                handleAddBoxOnSpot
+                handleAddBoxOnSpot,
+                handleMoveToFront,
+                handleMoveToBack,
+                handleMoveForward,
+                handleMoveBackward
             }}>
             {children}
         </MoodboardContext.Provider>

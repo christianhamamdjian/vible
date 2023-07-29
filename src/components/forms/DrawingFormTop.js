@@ -2,7 +2,8 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
+        handleMoveBackward } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -60,6 +61,22 @@ const DrawingFormTop = () => {
                         ) : (
                             <p>No path selected.</p>
                         )}
+                        <button
+                            onClick={() => handleMoveToBack(isEditingPath.id)}>
+                            Move To Back
+                        </button>
+                        <button
+                            onClick={() => handleMoveToFront(isEditingPath.id)}>
+                            Move To Front
+                        </button>
+                        <button
+                            onClick={() => handleMoveBackward(isEditingPath.id)}>
+                            Move Backward
+                        </button>
+                        <button
+                            onClick={() => handleMoveForward(isEditingPath.id)}>
+                            Move Forward
+                        </button>
                         <button
                             onClick={() => handleDeletePath(isEditingPath.id)}>
                             Delete
