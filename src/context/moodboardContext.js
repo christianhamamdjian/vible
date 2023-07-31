@@ -98,26 +98,6 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('paths', JSON.stringify(savingPaths))
     }
 
-    // Move to front / to back
-
-    // const arrayMoveMutable = (array, fromIndex, toIndex) => {
-    //     const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
-
-    //     if (startIndex >= 0 && startIndex < array.length) {
-    //         const endIndex = toIndex < 0 ? array.length + toIndex : toIndex;
-
-    //         const [item] = array.splice(fromIndex, 1);
-    //         array.splice(endIndex, 0, item);
-    //     }
-    // }
-
-    // const arrayMoveImmutable = (array, fromIndex, toIndex) => {
-    //     const newArray = [...array];
-    //     arrayMoveMutable(newArray, fromIndex, toIndex);
-    //     return newArray;
-    // }
-
-
     const moveToFront = (arr, id) => {
         const newArr = [...arr]
         const fromIndex = newArr.findIndex((el) => el.id === id)
@@ -432,10 +412,11 @@ export default function MoodboardProvider({ children }) {
                 width: prevSize.width + dx,
                 height: prevSize.height + dy,
             }));
-
+            // if (rectangleSize.width >= 5 && rectangleSize.width <= 50) {
             handleResize(e, selectedRectId, rectangleSize)
-            setMousedownPoints(currentPoints);
-            updateResizeIcon(dx, dy);
+            setMousedownPoints(currentPoints)
+            updateResizeIcon(dx, dy)
+            // }
         }
 
 
@@ -503,10 +484,10 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        // if (isDrawing || editingText || isResizing || isRotating) return
-        if (isDrawing) return
+        if (isDrawing || editingText || isResizing || isRotating) return
 
         if (e.target.id === 'rotate') {
+            console.log("Rotation")
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -532,9 +513,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        if (!draggingSvg || rectId !== selectedRectId) return
-        if (isResizing || isRotating) return
-        if (isDraggingRect && !isResizing || !isRotating) {
+        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
+        if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex((r) => r.id === rectId)
@@ -554,12 +534,12 @@ export default function MoodboardProvider({ children }) {
         })
         setSelectedRectId(null)
         setIsDraggingRect(false)
-        if (isResizing) {
-            setIsResizing(false)
-        }
-        if (isRotating) {
-            setIsRotating(false)
-        }
+        // if (isResizing) {
+        //     setIsResizing(false)
+        // }
+        // if (isRotating) {
+        //     setIsRotating(false)
+        // }
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -568,10 +548,24 @@ export default function MoodboardProvider({ children }) {
             y: prevPosition.y + dy,
         }));
     }
+    // const handleResize = (e, id, size) => {
 
+    //     setItems(prevItems =>
+    //         prevItems.map(item => {
+    //             if (item.id === id) {
+    //                 return { ...item, width: size.width, height: size.height }
+    //             }
+    //             return item
+    //         })
+    //     )
+
+    // }
     const handleResize = (e, id, size) => {
+
         const resizable = items.find(item => item.id === id)
-        if (resizable.type === "image" && size.width >= 5 && resizable.height <= 200) {
+        console.log(resizable)
+        // if (resizable.type === "image" && size.width >= 5 && resizable.height <= 200) {
+        if (resizable && resizable.type === "image") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -581,7 +575,8 @@ export default function MoodboardProvider({ children }) {
                 })
             )
         }
-        if (resizable.type === "box" && size.width >= 100 && size.height >= 100) {
+        // if (resizable.type === "box" && size.width >= 100 && size.height >= 100) {
+        if (resizable && resizable.type === "box") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -849,7 +844,7 @@ export default function MoodboardProvider({ children }) {
         handleImage()
     }
 
-    const handleEditBox = (id) => {
+    const handleEditBox = (e, id) => {
         if (editingText) {
             setEditingText(null)
             setIsEditingBoard(false)
@@ -944,6 +939,9 @@ export default function MoodboardProvider({ children }) {
 
     const handleZoomIn = () => {
         setZoom(zoom => zoom -= 400)
+    }
+    const handleResetZoom = () => {
+        setZoom(10000)
     }
     const handleZoomOut = () => {
         setZoom(zoom => zoom += 400)
@@ -1062,6 +1060,7 @@ export default function MoodboardProvider({ children }) {
                 getTextColor,
                 handleZoomIn,
                 handleZoomOut,
+                handleResetZoom,
                 handleEditingBoard,
                 handleTodosToggle,
                 handleLineWidthChange,

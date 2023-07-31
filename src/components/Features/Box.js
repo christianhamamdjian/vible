@@ -81,10 +81,10 @@ const Box = ({ item }) => {
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                             onPointerMove={(e) => handleRectPointerMove(e, item.id)}
                             onPointerUp={() => handleRectPointerUp(item.id)}
-                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                            onTouchStart={e => handleRectPointerDown(e, item.id)}
                             onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                            onDoubleClick={() => handleEditBox(item.id)}
+                            onDoubleClick={(e) => handleEditBox(e, item.id)}
                         >
                             <a
                                 href={item.url}

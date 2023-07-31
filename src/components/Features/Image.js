@@ -15,8 +15,8 @@ const Image = ({ item }) => {
                 <>
                     <g
                         transform={`rotate(${item.angle || 0}, 
-                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) / 2}, 
-                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) / 2}
+                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}, 
+                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}
                         )`}
                         onPointerDown={e => { handleRectPointerDown(e, item.id) }}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -25,14 +25,20 @@ const Image = ({ item }) => {
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditImage(e, item.id)}
+                        style={{
+                            minWidth: "100px",
+                            maxWidth: "500px",
+                            minHeight: "100px",
+                            maxHeight: "500px",
+                        }}
                     >
                         {isEditingBoard && (
                             <>
                                 <circle
                                     id="rotate"
                                     fill="#cccccc"
-                                    cx="-15"
-                                    cy={`${(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) / 2}`}
+                                    cx="-30"
+                                    cy={`${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}`}
                                     width="20"
                                     height="20"
                                     r='12'
@@ -41,8 +47,8 @@ const Image = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="#cccccc"
-                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) - 15}
-                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) - 15}
+                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100)) - 15}
+                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100)) - 15}
                                     width="20"
                                     height="20"
                                     rx="4"
@@ -51,8 +57,8 @@ const Image = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="white"
-                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)) - 18}
-                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)) - 18}
+                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100)) - 18}
+                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100)) - 18}
                                     width="20"
                                     height="20"
                                     rx="2"
@@ -61,8 +67,8 @@ const Image = ({ item }) => {
                             </>)}
                         <foreignObject
                             className='image-object'
-                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
-                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
+                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
+                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
                             style={{
                                 // transform: `rotate(${item.angle || 0}deg)`,
                                 // transformOrigin: `${item.width / 2, item.height / 2}`,
@@ -73,6 +79,10 @@ const Image = ({ item }) => {
                                 right: "0",
                                 bottom: "0",
                                 left: "0",
+                                // minWidth: "100px",
+                                // maxWidth: "500px",
+                                // minHeight: "100px",
+                                // maxHeight: "500px",
                             }}
                         >
                             <img
@@ -80,18 +90,24 @@ const Image = ({ item }) => {
                                 src={item.src}
                                 x="0"
                                 y="0"
-                                width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
-                                height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
+                                width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
+                                height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
                                 fill="#ffffff"
                                 className='image-media'
+                            // style={{
+                            //     minWidth: "100px",
+                            //     maxWidth: "500px",
+                            //     minHeight: "100px",
+                            //     maxHeight: "500px",
+                            // }}
                             />
                         </foreignObject>
                         <rect
                             fill="transparent"
-                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100 || loadedImage.naturalWidth * 10 / 100)}
-                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100 || loadedImage.naturalHeight * 10 / 100)}
-                        >
-                        </rect>
+                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
+                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
+                        />
+
                         {isEditingBoard && <>
                             <rect
                                 x="10"
@@ -104,6 +120,12 @@ const Image = ({ item }) => {
                                 strokeWidth="2"
                                 className='box-control'
                                 onClick={() => handleDeleteItem(item.id)}
+                                style={{
+                                    minWidth: "100px",
+                                    maxWidth: "500px",
+                                    minHeight: "100px",
+                                    maxHeight: "500px",
+                                }}
                             />
                             <text
                                 x="18"

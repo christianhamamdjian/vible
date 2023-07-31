@@ -39,7 +39,7 @@ const BoxFormTop = () => {
                             value={findItem("url")}
                             onChange={(event) => handleItemChange(event, editingText.id, "url")
                             } />
-                        {/* <label>Change width:</label>
+                        <label>Change width:</label>
                         <input
                             type="range"
                             min="100"
@@ -68,7 +68,7 @@ const BoxFormTop = () => {
                             name="angle"
                             value={items.find(item => item.id === editingText.id).angle}
                             onChange={(event) => handleItemChange(event, editingText.id, "angle")
-                            } /> */}
+                            } />
                     </div>
                 </>)
             }

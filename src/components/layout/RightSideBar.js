@@ -10,7 +10,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleResetZoom } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -163,6 +163,22 @@ const RightSidebard = () => {
                             fillRule="evenodd"
                             clipRule="evenodd"
                             d="M15.3431 15.2426C17.6863 12.8995 17.6863 9.1005 15.3431 6.75736C13 4.41421 9.20101 4.41421 6.85786 6.75736C4.51472 9.1005 4.51472 12.8995 6.85786 15.2426C9.20101 17.5858 13 17.5858 15.3431 15.2426ZM16.7574 5.34315C19.6425 8.22833 19.8633 12.769 17.4195 15.9075C17.4348 15.921 17.4498 15.9351 17.4645 15.9497L21.7071 20.1924C22.0976 20.5829 22.0976 21.2161 21.7071 21.6066C21.3166 21.9971 20.6834 21.9971 20.2929 21.6066L16.0503 17.364C16.0356 17.3493 16.0215 17.3343 16.008 17.319C12.8695 19.7628 8.32883 19.542 5.44365 16.6569C2.31946 13.5327 2.31946 8.46734 5.44365 5.34315C8.56785 2.21895 13.6332 2.21895 16.7574 5.34315ZM10.1005 7H12.1005V10H15.1005V12H12.1005V15H10.1005V12H7.10052V10H10.1005V7Z"
+                            fill="currentColor"
+                        />
+                    </svg>
+                </button>
+                <button onClick={handleResetZoom}>
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M15.343,15.243 C17.686,12.9 17.686,9.101 15.343,6.757 C13,4.414 9.201,4.414 6.858,6.757 C4.515,9.101 4.515,12.9 6.858,15.243 C9.201,17.586 13,17.586 15.343,15.243 z M16.757,5.343 C19.642,8.228 19.863,12.769 17.42,15.908 C17.435,15.921 17.45,15.935 17.465,15.95 L21.707,20.192 C22.098,20.583 22.098,21.216 21.707,21.607 C21.317,21.997 20.683,21.997 20.293,21.607 L16.05,17.364 C16.036,17.349 16.021,17.334 16.008,17.319 C12.87,19.763 8.329,19.542 5.444,16.657 C2.319,13.533 2.319,8.467 5.444,5.343 C8.568,2.219 13.633,2.219 16.757,5.343 z"
                             fill="currentColor"
                         />
                     </svg>
