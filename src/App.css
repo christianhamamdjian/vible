@@ -783,7 +783,8 @@ button,
 /* Sidebars */
 .left-sidebar {
   background: transparent;
-  padding-top: 4rem;
+  margin-top: 4rem;
+  /* padding-top: 4rem; */
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -811,7 +812,8 @@ button,
 
 .right-sidebar {
   background: transparent;
-  padding-top: 4rem;
+  margin-top: 4rem;
+  /* padding-top: 4rem; */
   max-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -829,7 +831,8 @@ button,
   flex-shrink: 0;
   width: 0;
   /* overflow: hidden; */
-  padding-top: 4rem;
+  margin-top: 4rem;
+  /* padding-top: 4rem; */
   /* background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   background: transparent;
@@ -842,7 +845,8 @@ button,
   flex-shrink: 0;
   width: 0;
   /* overflow: hidden; */
-  padding-top: 4rem;
+  margin-top: 4rem;
+  /* padding-top: 4rem; */
   /* background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)); */
   background: transparent;
