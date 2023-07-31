@@ -67,25 +67,6 @@ body {
   height: 100vh;
 }
 
-li {
-  padding: .2rem .4rem;
-  width: 16rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  list-style: none;
-  color: #9da6b2;
-  border: 2px solid rgb(221, 221, 221);
-  padding: 1rem;
-  border-radius: .2rem;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
-}
-
-li button {
-  color: #cbd5e1;
-}
-
 
 /* Forms */
 input,
@@ -489,6 +470,7 @@ button,
   padding: 0.5rem;
   width: 100%;
   border: none;
+  list-style: none;
 }
 
 .todo form {
@@ -527,6 +509,7 @@ button,
 }
 
 .todo li .todo-buttons button {
+  color: #cbd5e1;
   justify-self: stretch;
 }
 
@@ -726,12 +709,18 @@ button,
 }
 
 .gallery-box {
-  border: 0;
-  border-radius: 1rem;
-  max-width: 10rem;
-  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   padding: .1rem .8rem;
-  color: #ffffff;
+  width: 10rem;
+  max-width: 10rem;
+  list-style: none;
+  color: #9da6b2;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 1rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   /* box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2); */
 }
 
@@ -741,6 +730,7 @@ button,
 }
 
 .gallery-box button {
+  color: #cbd5e1;
   background-color: rgb(70, 76, 103);
 }
 
