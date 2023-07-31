@@ -484,7 +484,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        if (isDrawing || editingText || isResizing || isRotating) return
+        // if (isDrawing || editingText || isResizing || isRotating) return
+        if (isDrawing) return
 
         if (e.target.id === 'rotate') {
             console.log("Rotation")

@@ -26,6 +26,7 @@ const Box = ({ item }) => {
                 <>
                     <g
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}>
+                        {/* {(editingText || isEditingBoard) && ( */}
                         {(editingText || isEditingBoard) && (
                             <>
                                 <circle
