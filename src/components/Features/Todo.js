@@ -242,7 +242,7 @@ const Todo = () => {
                                                         onBlur={() => handleTodoEditSubmit(todo.id)}
                                                     />
                                                     <button
-                                                        onClick={(e) => handleTodoEditSubmit(e, todo.id)}
+                                                        onClick={() => handleTodoEditSubmit(todo.id)}
                                                     >
                                                         <svg
                                                             x="104"

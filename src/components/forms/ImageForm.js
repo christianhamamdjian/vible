@@ -14,7 +14,7 @@ const ImageForm = () => {
                         accept="image/*"
                         onChange={handleImageUpload} />
                 </label>
-                {items.length > 0 && editingImage && (
+                {/* {items.length > 0 && editingImage && (
                     <label>
                         Change image width:
                         <input
@@ -25,7 +25,7 @@ const ImageForm = () => {
                             onChange={(event) => handleItemChange(event, editingImage.id, "width")}
                         />
                     </label>)
-                }
+                } */}
                 <DragDropUpload handleImageDropUpload={handleImageDropUpload} />
             </div>
         </div>

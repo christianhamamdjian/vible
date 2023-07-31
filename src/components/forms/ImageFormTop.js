@@ -28,6 +28,16 @@ const ImageFormTop = () => {
                             value={editingImage && items.find(item => item.id === editingImage.id).angle}
                             onChange={(event) => handleItemChange(event, editingImage.id, "angle")
                             } />
+                        <label>Change Opacity:</label>
+                        <input
+                            type="range"
+                            min="0.1"
+                            max="1"
+                            step="0.1"
+                            name="opacity"
+                            value={editingImage && items.find(item => item.id === editingImage.id).opacity}
+                            onChange={(event) => handleItemChange(event, editingImage.id, "opacity")
+                            } />
                     </div>
                     )
                 </>

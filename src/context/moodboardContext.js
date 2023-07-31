@@ -251,6 +251,8 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: "10",
+                opacity: 1,
+                angle: 0,
                 type: "image"
             }
             setItems((prevItems) => [...prevItems, newItem])
@@ -267,6 +269,8 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: "10",
+                opacity: 1,
+                angle: 0,
                 height: "auto",
                 type: "image"
             }

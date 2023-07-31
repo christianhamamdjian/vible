@@ -94,12 +94,13 @@ const Image = ({ item }) => {
                                 height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
                                 fill="#ffffff"
                                 className='image-media'
-                            // style={{
-                            //     minWidth: "100px",
-                            //     maxWidth: "500px",
-                            //     minHeight: "100px",
-                            //     maxHeight: "500px",
-                            // }}
+                                style={{
+                                    opacity: `${item.opacity}`,
+                                    //     minWidth: "100px",
+                                    //     maxWidth: "500px",
+                                    //     minHeight: "100px",
+                                    //     maxHeight: "500px",
+                                }}
                             />
                         </foreignObject>
                         <rect
@@ -137,52 +138,52 @@ const Image = ({ item }) => {
                                 onClick={() => handleDeleteItem(item.id)}
                                 style={{ userSelect: "none" }}
                             >&times;</text>
-                            {/* <rect
-                            x="60"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="green"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleEditImage(item.id)}
-                        />
-                        <text
-                            x="68"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleEditImage(item.id)}
-                        >+</text> */}
-
-                            {/* {editingImage && editingImage.id === item.id && <>
                             <rect
-                                x="35"
+                                x="60"
                                 y="-22"
                                 height="20"
                                 width="24"
                                 rx="6"
-                                fill="orange"
+                                fill="green"
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={handleStopEditItem}
+                                onClick={() => handleEditImage(item.id)}
                             />
                             <text
-                                x="43"
+                                x="68"
                                 y="-9"
                                 width="24"
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
-                                onClick={handleStopEditItem}
-                            >-</text>
-                        </>
-                        } */}
+                                onClick={() => handleEditImage(item.id)}
+                            >+</text>
+
+                            {editingImage && editingImage.id === item.id && <>
+                                <rect
+                                    x="35"
+                                    y="-22"
+                                    height="20"
+                                    width="24"
+                                    rx="6"
+                                    fill="orange"
+                                    stroke="white"
+                                    strokeWidth="2"
+                                    className='box-control'
+                                    onClick={handleStopEditItem}
+                                />
+                                <text
+                                    x="43"
+                                    y="-9"
+                                    width="24"
+                                    height="20"
+                                    fill="white"
+                                    className="box-control-sign"
+                                    onClick={handleStopEditItem}
+                                >-</text>
+                            </>
+                            }
                         </>
                         }</g>
                 </>

@@ -2,7 +2,7 @@ import React from 'react'
 import ButtonsTop from "./ButtonsTop"
 import BoxFormTop from "./BoxFormTop"
 import DrawingFormTop from "./DrawingFormTop"
-// import ImageFormTop from "./ImageFormTop"
+import ImageFormTop from "./ImageFormTop"
 import VideoFormTop from "./VideoFormTop"
 import MapFormTop from "./MapFormTop"
 import PdfFormTop from "./PdfFormTop"
@@ -16,7 +16,7 @@ const EditFormTop = () => {
             <ButtonsTop />
             <BoxFormTop />
             <DrawingFormTop />
-            {/* <ImageFormTop /> */}
+            <ImageFormTop />
             <VideoFormTop />
             <MapFormTop />
             <PdfFormTop />
