@@ -492,7 +492,6 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing) return
 
         if (e.target.id === 'rotate') {
-            console.log("Rotation")
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -539,12 +538,6 @@ export default function MoodboardProvider({ children }) {
         })
         setSelectedRectId(null)
         setIsDraggingRect(false)
-        // if (isResizing) {
-        //     setIsResizing(false)
-        // }
-        // if (isRotating) {
-        //     setIsRotating(false)
-        // }
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -553,24 +546,11 @@ export default function MoodboardProvider({ children }) {
             y: prevPosition.y + dy,
         }));
     }
-    // const handleResize = (e, id, size) => {
 
-    //     setItems(prevItems =>
-    //         prevItems.map(item => {
-    //             if (item.id === id) {
-    //                 return { ...item, width: size.width, height: size.height }
-    //             }
-    //             return item
-    //         })
-    //     )
-
-    // }
     const handleResize = (e, id, size) => {
-
         const resizable = items.find(item => item.id === id)
-        console.log(resizable)
-        // if (resizable.type === "image" && size.width >= 5 && resizable.height <= 200) {
-        if (resizable && resizable.type === "image") {
+        // if (resizable.type === "image" ) {
+        if (resizable && resizable.type === "image" && size.width >= 5 && size.height <= 20) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -581,7 +561,7 @@ export default function MoodboardProvider({ children }) {
             )
         }
         // if (resizable.type === "box" && size.width >= 100 && size.height >= 100) {
-        if (resizable && resizable.type === "box") {
+        if (resizable && resizable.type === "box" && size.width >= 100 && size.height >= 100) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {

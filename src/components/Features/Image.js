@@ -157,6 +157,7 @@ const Image = ({ item }) => {
                                 height="20"
                                 fill="white"
                                 className="box-control-sign"
+                                style={{ userSelect: "none" }}
                                 onClick={() => handleEditImage(item.id)}
                             >+</text>
 
@@ -171,6 +172,7 @@ const Image = ({ item }) => {
                                     stroke="white"
                                     strokeWidth="2"
                                     className='box-control'
+                                    style={{ userSelect: "none" }}
                                     onClick={handleStopEditItem}
                                 />
                                 <text
@@ -180,6 +182,7 @@ const Image = ({ item }) => {
                                     height="20"
                                     fill="white"
                                     className="box-control-sign"
+                                    style={{ userSelect: "none" }}
                                     onClick={handleStopEditItem}
                                 >-</text>
                             </>

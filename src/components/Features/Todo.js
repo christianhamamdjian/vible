@@ -13,16 +13,15 @@ const Todo = () => {
     const [isDragging, setIsDragging] = useState()
 
     const containerRef = useRef()
+    const todoRef = useRef()
 
     const windowSize = useRef([window.innerWidth, window.innerHeight])
 
     function dragStart(e, index, text) {
-        if (e.button === 2) return
-
+        if (e.button === 2 || editingTodoId || editingTodoText) return
         setIsDragging(index)
-
-        const container = containerRef.current
-        const items = [...container.childNodes]
+        const todoContainer = containerRef.current
+        const items = [...todoContainer.childNodes]
         const dragItem = items[index]
         const itemsBelowDragItem = items.slice(index + 1)
         const notDragItems = items.filter((_, i) => i !== index)
@@ -46,7 +45,7 @@ const Todo = () => {
         div.style.width = dragBoundingRect.width + "px"
         div.style.height = dragBoundingRect.height + "px"
         div.style.pointerEvents = "none"
-        container.appendChild(div)
+        todoContainer.appendChild(div)
 
         const distance = dragBoundingRect.height + space
 
@@ -93,7 +92,10 @@ const Todo = () => {
         function dragEnd(e) {
             const posX = e.clientX - x
             const posY = e.clientY - y
-            if (e.clientX < windowSize.current[0] - containerRef.current.offsetWidth && e.clientY < windowSize.current[1] - containerRef.current.offsetHeight) {
+            // console.log(e.clientX, windowSize.current[0] - todoRef.current.offsetWidth)
+            console.log(e.clientY, windowSize.current[1], todoRef.current.offsetHeight)
+            // console.log(e.clientX, e.clientY)
+            if (e.clientX < (windowSize.current[0] - todoRef.current.offsetWidth) || e.clientY < (windowSize.current[1] - todoRef.current.offsetHeight)) {
                 dragItem.style.transform = `translate(${posX}px, ${posY}px)`
                 handleTodoAddToBoard(text)
             }
@@ -102,7 +104,7 @@ const Todo = () => {
             document.onpointermove = ""
 
             dragItem.style = ""
-            container.removeChild(div)
+            todoContainer.removeChild(div)
 
             items.forEach(item => item.style = "")
 
@@ -110,7 +112,6 @@ const Todo = () => {
             setTodos(newData)
         }
     }
-
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value)
@@ -165,7 +166,7 @@ const Todo = () => {
             }
             return todo
         })
-        setTodos(updatedTodos)
+        setTodos([...updatedTodos])
         setEditingTodoId(null)
         setEditingTodoText('')
     }
@@ -173,7 +174,9 @@ const Todo = () => {
 
     return (
         <>
-            <div className={`todo ${todosShow ? "todo-show" : "todo-hide"}`}>
+            <div
+                className={`todo ${todosShow ? "todo-show" : "todo-hide"}`}
+                ref={todoRef}>
                 <button
                     className="toggle-todo"
                     onClick={handleTodosToggle}
@@ -258,13 +261,13 @@ const Todo = () => {
                                                         >
                                                             <path
                                                                 d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z"
-                                                                fill="#ffffff"
+                                                                fill="#9da6b2"
                                                             />
                                                             <path
                                                                 fillRule="evenodd"
                                                                 clipRule="evenodd"
                                                                 d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
-                                                                fill="#ffffff"
+                                                                fill="#9da6b2"
                                                             />
                                                         </svg>
                                                     </button>
