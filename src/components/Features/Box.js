@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import StartRating from "../rating/StarRating"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
@@ -87,6 +88,7 @@ const Box = ({ item }) => {
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditBox(e, item.id)}
                         >
+
                             <a
                                 href={item.url}
                                 target="__blank"
@@ -133,8 +135,19 @@ const Box = ({ item }) => {
                                 >{item.text}
                                 </p>)
                             }
-                        </foreignObject>
 
+                        </foreignObject>
+                        <foreignObject
+                            x={`${item.width - 80}`}
+                            y={`${item.height + 10}`}
+                            width="160"
+                            height="20"
+                        >
+                            <StartRating
+                                style={{ display: "flex", gap: ".3rem", justifyContent: "flex-start", backgroundColor: "transparent" }}
+                                rating={item.rating} id={item.id}
+                            />
+                        </foreignObject>
                         {onShow && <>
                             <rect
                                 x="10"
@@ -293,6 +306,7 @@ const Box = ({ item }) => {
                                     }}
                                     onClick={handleStopEditItem}
                                 >-</text>
+
                             </>
                             }</>}
                     </g>

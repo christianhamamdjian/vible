@@ -78,6 +78,23 @@ export default function MoodboardProvider({ children }) {
 
     const [pdfId, setPdfId] = useState("")
 
+    const [selectedStars, setSelectedStars] = useState(0)
+
+    const handleRating = (i, id) => {
+        setSelectedStars(i + 1)
+        console.log(i, selectedStars, id)
+        setItems(prevItems =>
+            prevItems.map(item => {
+                if (item.id === id) {
+
+                    return { ...item, rating: i + 1 }
+                }
+                return item
+            })
+        )
+        setSelectedStars(0)
+    }
+
     useEffect(() => {
         setPdfId(Date.now())
     }, [items])
@@ -158,7 +175,8 @@ export default function MoodboardProvider({ children }) {
             width: 140,
             height: 60,
             angle: 0,
-            type: "box"
+            type: "box",
+            rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -180,7 +198,8 @@ export default function MoodboardProvider({ children }) {
             width: 140,
             height: 60,
             angle: 0,
-            type: "box"
+            type: "box",
+            rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -198,7 +217,8 @@ export default function MoodboardProvider({ children }) {
             url: itemUrl,
             width: 140,
             height: 60,
-            type: "box"
+            type: "box",
+            rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -501,7 +521,7 @@ export default function MoodboardProvider({ children }) {
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
             setAngleOffset({ x: angle })
         }
-
+        console.log("Clicked a star", rectId)
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -995,7 +1015,9 @@ export default function MoodboardProvider({ children }) {
                 draggingSvg,
                 isDraggingRect,
                 selectedRectId,
+                selectedStars,
                 // Methods
+                handleRating,
                 handleInfo,
                 handleSvgPointerMove,
                 handlePathClick,
