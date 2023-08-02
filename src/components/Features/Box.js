@@ -139,7 +139,7 @@ const Box = ({ item }) => {
                         </foreignObject>
                         <foreignObject
                             x={`${item.width - 80}`}
-                            y={`${item.height + 10}`}
+                            y={`${item.height - 30}`}
                             width="160"
                             height="20"
                         >
