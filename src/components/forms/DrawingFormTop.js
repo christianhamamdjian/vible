@@ -3,7 +3,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
-        handleMoveBackward } = React.useContext(MoodboardContext);
+        handleMoveBackward, handleDuplicatePath } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -76,6 +76,13 @@ const DrawingFormTop = () => {
                             <button
                                 onClick={() => handleMoveForward(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                            </button>
+                        </div>
+                        <div className='path-edit-form'>
+                            <h3>Duplicate:</h3>
+                            <button
+                                onClick={() => handleDuplicatePath(isEditingPath.id)}>
+                                <div >&#9724;&#9724;</div>
                             </button>
                         </div>
                         <button

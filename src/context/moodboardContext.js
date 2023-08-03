@@ -693,7 +693,11 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(false)
         setSelectedPath(null)
     }
-
+    const handleDuplicatePath = (id) => {
+        const pathToCopy = paths.find(path => path.id === id)
+        const pathCopy = { ...pathToCopy, id: Date.now() }
+        setPaths(prevPaths => [...prevPaths, pathCopy])
+    }
     // Text Box
     const handleItemChange = (e, id, property) => {
         setItems(prevItems =>
@@ -1090,7 +1094,8 @@ export default function MoodboardProvider({ children }) {
                 handleMoveToFront,
                 handleMoveToBack,
                 handleMoveForward,
-                handleMoveBackward
+                handleMoveBackward,
+                handleDuplicatePath
             }}>
             {children}
         </MoodboardContext.Provider>
