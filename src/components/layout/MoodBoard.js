@@ -8,6 +8,7 @@ import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
+// import EditFormTop from "../forms/EditFormTop"
 import BoardDrop from "../Helpers/BoardDrop"
 
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -36,6 +37,7 @@ const MoodBoard = () => {
     }, [items])
     return (
         <>
+
             <BoardDrop>
                 <div
                     className="frame"
@@ -66,6 +68,14 @@ const MoodBoard = () => {
                         transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
+                        {/* <foreignObject
+                            x="0"
+                            y="0"
+                            width="10000"
+                            height="200"
+                        >
+                            <EditFormTop />
+                        </foreignObject> */}
                         {renderBoardItems}
                         <Drawing />
                     </svg>

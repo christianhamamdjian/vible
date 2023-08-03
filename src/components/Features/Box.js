@@ -269,7 +269,7 @@ const Box = ({ item }) => {
                                 rx="6"
                                 fill="green"
                                 className="box-control"
-                                onClick={(e) => handleEditBox(item.id)}
+                                onClick={(e) => handleEditBox(e, item.id)}
                             />
                             <text
                                 x="68"
@@ -281,19 +281,20 @@ const Box = ({ item }) => {
                                 style={{
                                     userSelect: "none"
                                 }}
-                                onClick={(e) => handleEditBox(item.id)}
+                                onClick={(e) => handleEditBox(e, item.id)}
                             >+</text>
 
-                            {editingText && (editingText.id === item.id) && <><rect
-                                x="35"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="orange"
-                                className="box-control"
-                                onClick={handleStopEditItem}
-                            />
+                            {editingText && (editingText.id === item.id) && <>
+                                <rect
+                                    x="35"
+                                    y="-22"
+                                    height="20"
+                                    width="24"
+                                    rx="6"
+                                    fill="orange"
+                                    className="box-control"
+                                    onClick={handleStopEditItem}
+                                />
                                 <text
                                     x="43"
                                     y="-9"

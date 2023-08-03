@@ -82,7 +82,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleRating = (i, id) => {
         setSelectedStars(i + 1)
-        console.log(i, selectedStars, id)
+        // console.log(i, selectedStars, id)
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
@@ -521,7 +521,7 @@ export default function MoodboardProvider({ children }) {
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
             setAngleOffset({ x: angle })
         }
-        console.log("Clicked a star", rectId)
+        // console.log("Clicked a star", rectId)
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
