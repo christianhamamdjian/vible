@@ -45,45 +45,64 @@ const DrawingFormTop = () => {
                             checked={paths.find(path => path.id === isEditingPath.id).closed}
                             onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
 
-                        {selectedPath !== null ? (
+                        {selectedPath !== null && (
                             <>
                                 <div className='path-edit-form'>
-                                    <label htmlFor="rotate">Rotate:</label>
+                                    <label htmlFor="rotate"><h3>Rotate:</h3></label>
                                     <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                                     <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                                 </div>
-                                <div>
-                                    <label htmlFor="scale">Scale:</label>
+                                <div className='path-edit-form'>
+                                    <label htmlFor="scale"><h3>Scale:</h3></label>
                                     <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                                     <button onClick={e => handleScaleChange(e, "increase")}>+</button>
                                 </div>
                             </>
-                        ) : (
-                            <p>No path selected.</p>
                         )}
-                        <button
-                            onClick={() => handleMoveToBack(isEditingPath.id)}>
-                            Move To Back
-                        </button>
-                        <button
-                            onClick={() => handleMoveToFront(isEditingPath.id)}>
-                            Move To Front
-                        </button>
-                        <button
-                            onClick={() => handleMoveBackward(isEditingPath.id)}>
-                            Move Backward
-                        </button>
-                        <button
-                            onClick={() => handleMoveForward(isEditingPath.id)}>
-                            Move Forward
-                        </button>
+                        <div className='path-edit-form'>
+                            <h3>Move:</h3>
+                            <button
+                                onClick={() => handleMoveToBack(isEditingPath.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveToFront(isEditingPath.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveBackward(isEditingPath.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveForward(isEditingPath.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                            </button>
+                        </div>
                         <button
                             onClick={() => handleDeletePath(isEditingPath.id)}>
-                            Delete
+                            &times;
                         </button>
                         <button
+                            style={{ padding: ".3rem .6rem" }}
                             onClick={stopLineEditing}>
-                            Done
+                            <svg
+                                x="0"
+                                y="0"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 18 18"
+                                fill="transparent"
+                                style={{
+                                    cursor: "pointer",
+                                    marginLeft: "-.2rem"
+                                }}
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z"
+                                    fill="#ffffff"
+                                />
+                            </svg>
                         </button>
                     </div>
                 </>
