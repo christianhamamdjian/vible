@@ -270,7 +270,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: "10",
+                width: 10,
                 opacity: 1,
                 angle: 0,
                 type: "image"
@@ -288,7 +288,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: "10",
+                width: 10,
                 opacity: 1,
                 angle: 0,
                 height: "auto",
@@ -569,8 +569,9 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        // if (resizable.type === "image" ) {
-        if (resizable && resizable.type === "image" && size.width >= 5 && size.height <= 20) {
+        // if (resizable.type === "image") {
+        if (resizable && resizable.type === "image" && size.width >= 10 && size.width <= 50) {
+            console.log(size)
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {

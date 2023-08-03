@@ -43,7 +43,7 @@ function useUndo() {
 
 const UndoRedoContext = createContext({})
 
-const UndoRedoProvider = (props) => {
+export const UndoRedoProvider = (props) => {
     const undoRedo = useUndo();
 
     return (
@@ -91,6 +91,6 @@ export default UndoRedo
 //     document.getElementById("root")
 // ).render(
 //     <UndoRedoProvider>
-//         <EditUser />
+//         <UndoRedo />
 //     </UndoRedoProvider>
 // );

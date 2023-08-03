@@ -15,7 +15,7 @@ const ImageFormTop = () => {
                                 min="5"
                                 max="100"
                                 value={editingImage && items.find(item => item.id === editingImage.id).width}
-                                onChange={(event) => handleItemChange(event, editingImage.id, "width")}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "width")}
                             />
                         </label>
                         <label>Change Angle:</label>
@@ -26,7 +26,7 @@ const ImageFormTop = () => {
                             step="1"
                             name="angle"
                             value={editingImage && items.find(item => item.id === editingImage.id).angle}
-                            onChange={(event) => handleItemChange(event, editingImage.id, "angle")
+                            onChange={(e) => handleItemChange(e, editingImage.id, "angle")
                             } />
                         <label>Change Opacity:</label>
                         <input
@@ -36,7 +36,7 @@ const ImageFormTop = () => {
                             step="0.1"
                             name="opacity"
                             value={editingImage && items.find(item => item.id === editingImage.id).opacity}
-                            onChange={(event) => handleItemChange(event, editingImage.id, "opacity")
+                            onChange={(e) => handleItemChange(e, editingImage.id, "opacity")
                             } />
                     </div>
                     )

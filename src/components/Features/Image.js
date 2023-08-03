@@ -148,7 +148,7 @@ const Image = ({ item }) => {
                                 stroke="white"
                                 strokeWidth="2"
                                 className='box-control'
-                                onClick={() => handleEditImage(item.id)}
+                                onClick={(e) => handleEditImage(e, item.id)}
                             />
                             <text
                                 x="68"
@@ -158,7 +158,7 @@ const Image = ({ item }) => {
                                 fill="white"
                                 className="box-control-sign"
                                 style={{ userSelect: "none" }}
-                                onClick={() => handleEditImage(item.id)}
+                                onClick={(e) => handleEditImage(e, item.id)}
                             >+</text>
 
                             {editingImage && editingImage.id === item.id && <>
