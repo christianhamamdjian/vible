@@ -402,7 +402,8 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints({ x: clientX, y: clientY })
         }
 
-        if (!isDrawing && !editingText && !selectedPath && !isErasing) {
+        // if (!isDrawing && !editingText && !selectedPath && !isErasing) {
+        if (!isDrawing && !isErasing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
                 x: clientX - svgPosition.x,
@@ -571,7 +572,6 @@ export default function MoodboardProvider({ children }) {
         const resizable = items.find(item => item.id === id)
         // if (resizable.type === "image") {
         if (resizable && resizable.type === "image" && size.width >= 10 && size.width <= 50) {
-            console.log(size)
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -849,12 +849,18 @@ export default function MoodboardProvider({ children }) {
 
     // Editing
     const handleEditImage = (e, id) => {
+        if (editingText) {
+            setEditingText(null)
+        }
         setEditingImage({ status: true, id: id })
         setIsEditingBoard(true)
         handleImage()
     }
 
     const handleEditBox = (e, id) => {
+        if (editingImage) {
+            setEditingImage(null)
+        }
         if (editingText) {
             setEditingText(null)
             setIsEditingBoard(false)

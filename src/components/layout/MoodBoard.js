@@ -8,7 +8,6 @@ import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
-// import EditFormTop from "../forms/EditFormTop"
 import BoardDrop from "../Helpers/BoardDrop"
 
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -45,7 +44,7 @@ const MoodBoard = () => {
                     style={{
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
-                        backgroundColor: "lightgray",
+                        // backgroundColor: "lightgray",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
                         touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                     }}
@@ -63,19 +62,13 @@ const MoodBoard = () => {
                         onContextMenu={handleAddBoxOnSpot}
                         style={{
                             backgroundColor: "#ffffff",
+                            overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
+                            // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                         transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
-                        {/* <foreignObject
-                            x="0"
-                            y="0"
-                            width="10000"
-                            height="200"
-                        >
-                            <EditFormTop />
-                        </foreignObject> */}
                         {renderBoardItems}
                         <Drawing />
                     </svg>

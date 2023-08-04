@@ -63,26 +63,26 @@ const DrawingFormTop = () => {
                             <h3>Move:</h3>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveToFront(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
                             </button>
                             <button
+                                onClick={() => handleMoveToFront(isEditingPath.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                            </button>
+                            <button
                                 onClick={() => handleMoveBackward(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveForward(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
                             </button>
                         </div>
                         <div className='path-edit-form'>
                             <h3>Duplicate:</h3>
                             <button
                                 onClick={() => handleDuplicatePath(isEditingPath.id)}>
-                                <div >&#9724;&#9724;</div>
+                                <div style={{ fontSize: "1rem", padding: "0", margin: "0" }}>&#9724;&#9724;</div>
                             </button>
                         </div>
                         <button

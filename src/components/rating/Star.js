@@ -7,7 +7,7 @@ export default function Star({ selected = false, onSelect }) {
         width: "8px",
         height: "8px",
         transform: "rotate(45deg)",
-        backgroundColor: `${selected ? 'orange' : 'lightgray'}`,
+        backgroundColor: `${selected ? 'gold' : 'lightgray'}`,
         marginBottom: ".4rem"
       }}
       onClick={onSelect}

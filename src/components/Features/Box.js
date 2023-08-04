@@ -135,19 +135,16 @@ const Box = ({ item }) => {
                                 >{item.text}
                                 </p>)
                             }
+                            <div
+                                style={{ position: "absolute", bottom: ".8rem", right: ".5rem", height: "1rem" }}
+                            >
+                                <StartRating
+                                    style={{ display: "flex", gap: ".3rem", justifyContent: "flex-start", backgroundColor: "transparent" }}
+                                    rating={item.rating} id={item.id}
+                                />
+                            </div>
+                        </foreignObject>
 
-                        </foreignObject>
-                        <foreignObject
-                            x={`${item.width - 80}`}
-                            y={`${item.height - 30}`}
-                            width="160"
-                            height="20"
-                        >
-                            <StartRating
-                                style={{ display: "flex", gap: ".3rem", justifyContent: "flex-start", backgroundColor: "transparent" }}
-                                rating={item.rating} id={item.id}
-                            />
-                        </foreignObject>
                         {onShow && <>
                             <rect
                                 x="10"

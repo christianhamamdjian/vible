@@ -5,19 +5,18 @@ const ImageFormTop = () => {
     const { items, editingImage, handleItemChange } = React.useContext(MoodboardContext)
     return (
         <>
-            {editingImage && items.length > 0 && (
+            {editingImage && items.length > 0 &&
                 <>
                     <div className='inputs-top_objects' >
-                        <label>
-                            Change image width:
-                            <input
-                                type="number"
-                                min="5"
-                                max="100"
-                                value={editingImage && items.find(item => item.id === editingImage.id).width}
-                                onChange={(e) => handleItemChange(e, editingImage.id, "width")}
-                            />
-                        </label>
+                        <label>Change width:</label>
+                        <input
+                            type="number"
+                            min="5"
+                            max="100"
+                            value={editingImage && items.find(item => item.id === editingImage.id).width}
+                            onChange={(e) => handleItemChange(e, editingImage.id, "width")}
+                        />
+
                         <label>Change Angle:</label>
                         <input
                             type="range"
@@ -36,12 +35,10 @@ const ImageFormTop = () => {
                             step="0.1"
                             name="opacity"
                             value={editingImage && items.find(item => item.id === editingImage.id).opacity}
-                            onChange={(e) => handleItemChange(e, editingImage.id, "opacity")
-                            } />
+                            onChange={(e) => handleItemChange(e, editingImage.id, "opacity")}
+                        />
                     </div>
-                    )
                 </>
-            )
             } </>
     )
 }

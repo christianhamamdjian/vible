@@ -2,8 +2,7 @@ import React from 'react';
 import MoodBoard from './components/layout/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import EditFormTop from "./components/forms/EditFormTop"
-import DownloadUploadData from "./components/utils/DownloadUploadData"
-// import UndoRedo from "./components/utils/UndoRedo"
+// import UndoRedo from "./undoRedo/UndoRedo"
 
 import './App.css'
 
@@ -17,7 +16,6 @@ function App() {
         <MoodBoard />
         <SidebarDrawer side="right" />
       </div>
-      {/* <DownloadUploadData /> */}
       {/* <UndoRedo /> */}
     </div >
   );

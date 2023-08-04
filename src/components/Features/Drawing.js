@@ -42,7 +42,8 @@ const Drawing = () => {
                     style={{
                         cursor: 'grabbing',
                         pointerEvents: "auto",
-                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `
+                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `,
+                        userSelect: "none"
                     }}
                 />
             ))}
