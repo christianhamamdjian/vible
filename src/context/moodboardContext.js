@@ -173,7 +173,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 60,
+            height: 80,
             angle: 0,
             type: "box",
             rating: 0
@@ -196,7 +196,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 60,
+            height: 80,
             angle: 0,
             type: "box",
             rating: 0
@@ -216,7 +216,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 60,
+            height: 80,
             type: "box",
             rating: 0
         }
@@ -235,7 +235,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 60,
+            height: 80,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -255,6 +255,8 @@ export default function MoodboardProvider({ children }) {
             color: itemColor,
             link: link.content,
             url: link.link,
+            width: 140,
+            height: 80,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])

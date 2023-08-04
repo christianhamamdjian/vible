@@ -79,6 +79,7 @@ const Image = ({ item }) => {
                                 right: "0",
                                 bottom: "0",
                                 left: "0",
+                                opacity: item.opacity,
                                 // minWidth: "100px",
                                 // maxWidth: "500px",
                                 // minHeight: "100px",
@@ -95,7 +96,7 @@ const Image = ({ item }) => {
                                 fill="#ffffff"
                                 className='image-media'
                                 style={{
-                                    opacity: `${item.opacity}`,
+                                    // opacity: item.opacity,
                                     //     minWidth: "100px",
                                     //     maxWidth: "500px",
                                     //     minHeight: "100px",

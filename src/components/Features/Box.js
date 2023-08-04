@@ -88,7 +88,6 @@ const Box = ({ item }) => {
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditBox(e, item.id)}
                         >
-
                             <a
                                 href={item.url}
                                 target="__blank"
@@ -107,6 +106,7 @@ const Box = ({ item }) => {
                                     {item.link}
                                 </p>
                             </a>
+
                             {editingText && isEditingBoard && (item.id === editingText.id) ? (
                                 <textarea
                                     ref={itemRef}
@@ -133,17 +133,18 @@ const Box = ({ item }) => {
                                         color: getTextColor(item.color)
                                     }}
                                 >{item.text}
+
                                 </p>)
                             }
                             <div
-                                style={{ position: "absolute", bottom: ".8rem", right: ".5rem", height: "1rem" }}
+                                style={{ height: "1rem" }}
                             >
                                 <StartRating
-                                    style={{ display: "flex", gap: ".3rem", justifyContent: "flex-start", backgroundColor: "transparent" }}
+                                    style={{ display: "flex", gap: ".3rem", justifyContent: "flex-end", backgroundColor: "transparent" }}
                                     rating={item.rating} id={item.id}
                                 />
                             </div>
-                        </foreignObject>
+                        </foreignObject >
 
                         {onShow && <>
                             <rect
@@ -235,65 +236,20 @@ const Box = ({ item }) => {
                                 onClick={() => confirmDelete(item.id)}
                             />
                         </>}
-                        {isEditingBoard && <>
-                            <rect
-                                x="10"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="red"
-                                className="box-control"
-                                onClick={() => showConfirm(item.id)}
-                            />
-                            <text
-                                x="18"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                style={{
-                                    userSelect: "none"
-                                }}
-                                onClick={() => showConfirm(item.id)}
-                            >&times;</text>
-                            <rect
-                                x="60"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="green"
-                                className="box-control"
-                                onClick={(e) => handleEditBox(e, item.id)}
-                            />
-                            <text
-                                x="68"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                style={{
-                                    userSelect: "none"
-                                }}
-                                onClick={(e) => handleEditBox(e, item.id)}
-                            >+</text>
-
-                            {editingText && (editingText.id === item.id) && <>
+                        {
+                            isEditingBoard && <>
                                 <rect
-                                    x="35"
+                                    x="10"
                                     y="-22"
                                     height="20"
                                     width="24"
                                     rx="6"
-                                    fill="orange"
+                                    fill="red"
                                     className="box-control"
-                                    onClick={handleStopEditItem}
+                                    onClick={() => showConfirm(item.id)}
                                 />
                                 <text
-                                    x="43"
+                                    x="18"
                                     y="-9"
                                     width="24"
                                     height="20"
@@ -302,12 +258,59 @@ const Box = ({ item }) => {
                                     style={{
                                         userSelect: "none"
                                     }}
-                                    onClick={handleStopEditItem}
-                                >-</text>
+                                    onClick={() => showConfirm(item.id)}
+                                >&times;</text>
+                                <rect
+                                    x="60"
+                                    y="-22"
+                                    height="20"
+                                    width="24"
+                                    rx="6"
+                                    fill="green"
+                                    className="box-control"
+                                    onClick={(e) => handleEditBox(e, item.id)}
+                                />
+                                <text
+                                    x="68"
+                                    y="-9"
+                                    width="24"
+                                    height="20"
+                                    fill="white"
+                                    className="box-control-sign"
+                                    style={{
+                                        userSelect: "none"
+                                    }}
+                                    onClick={(e) => handleEditBox(e, item.id)}
+                                >+</text>
 
-                            </>
-                            }</>}
-                    </g>
+                                {editingText && (editingText.id === item.id) && <>
+                                    <rect
+                                        x="35"
+                                        y="-22"
+                                        height="20"
+                                        width="24"
+                                        rx="6"
+                                        fill="orange"
+                                        className="box-control"
+                                        onClick={handleStopEditItem}
+                                    />
+                                    <text
+                                        x="43"
+                                        y="-9"
+                                        width="24"
+                                        height="20"
+                                        fill="white"
+                                        className="box-control-sign"
+                                        style={{
+                                            userSelect: "none"
+                                        }}
+                                        onClick={handleStopEditItem}
+                                    >-</text>
+
+                                </>
+                                }</>
+                        }
+                    </g >
                 </>)
             }
         </>
