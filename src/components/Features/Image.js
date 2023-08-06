@@ -229,12 +229,7 @@ const Image = ({ item }) => {
                                 strokeWidth="2"
                                 className='box-control'
                                 onClick={() => showConfirm(item.id)}
-                                style={{
-                                    minWidth: "100px",
-                                    maxWidth: "500px",
-                                    minHeight: "100px",
-                                    maxHeight: "500px",
-                                }}
+                                style={{ userSelect: "none" }}
                             />
                             <text
                                 x="18"

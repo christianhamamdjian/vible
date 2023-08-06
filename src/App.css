@@ -340,12 +340,25 @@ button,
 }
 
 .box-content {
-  font: 18px serif;
   height: 80%;
-  overflow: hidden auto;
   user-select: none;
   font-family: sans-serif;
   z-index: 100;
+}
+
+.box-content p {
+  height: 100%;
+  overflow: hidden auto;
+  font-size: 1.2rem;
+}
+
+.box-rating {
+  margin-top: .6rem;
+  user-select: none;
+  display: flex;
+  gap: .3rem;
+  justify-content: flex-end;
+  background-color: transparent;
 }
 
 /* Drawing */

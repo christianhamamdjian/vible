@@ -129,23 +129,18 @@ const Box = ({ item }) => {
                                 </textarea>
                             ) : (
                                 <>
-                                    <p
+                                    <div
                                         className="box-content"
-                                        fill={item.color}
-                                        style={{
-                                            color: getTextColor(item.color),
-                                        }}
-                                    >{item.text}
-                                        <span
-                                            style={{ position: "fixed", height: "1rem", userSelect: "none", bottom: "1rem", right: "1rem" }}
-                                        >
-                                            <StartRating
-                                                style={{ userSelect: "none", display: "flex", gap: ".3rem", justifyContent: "flex-end", backgroundColor: "transparent" }}
-                                                rating={item.rating} id={item.id}
-                                            />
-                                        </span>
-                                    </p>
-
+                                    >
+                                        <p
+                                            style={{
+                                                color: getTextColor(item.color),
+                                                height: item.link !== "" && "70%"
+                                            }}>{item.text}</p>
+                                        <StartRating
+                                            rating={item.rating} id={item.id}
+                                        />
+                                    </div>
                                 </>
                             )
                             }
