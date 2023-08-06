@@ -69,6 +69,7 @@ function BoardDrop({ children }) {
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
+                style={{ userSelect: "none", }}
             >
                 {children}
             </div>

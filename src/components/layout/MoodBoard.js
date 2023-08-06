@@ -44,6 +44,7 @@ const MoodBoard = () => {
                     style={{
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
+                        userSelect: "none",
                         // backgroundColor: "lightgray",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
                         touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
@@ -62,6 +63,7 @@ const MoodBoard = () => {
                         onContextMenu={handleAddBoxOnSpot}
                         style={{
                             backgroundColor: "#ffffff",
+                            userSelect: "none",
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                             // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                         }}

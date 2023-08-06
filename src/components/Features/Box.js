@@ -92,7 +92,8 @@ const Box = ({ item }) => {
                                 href={item.url}
                                 target="__blank"
                                 style={{
-                                    textAlign: "right"
+                                    textAlign: "right",
+                                    userSelect: "none"
                                 }}
                             >
                                 <p
@@ -100,7 +101,8 @@ const Box = ({ item }) => {
                                     style={{
                                         color: getTextColor(item.color),
                                         textDecoration: "underline",
-                                        marginBottom: ".5rem"
+                                        marginBottom: ".5rem",
+                                        userSelect: "none"
                                     }}
                                 >
                                     {item.link}
@@ -126,24 +128,28 @@ const Box = ({ item }) => {
                                 >
                                 </textarea>
                             ) : (
-                                <p
-                                    className="box-content"
-                                    fill={item.color}
-                                    style={{
-                                        color: getTextColor(item.color)
-                                    }}
-                                >{item.text}
+                                <>
+                                    <p
+                                        className="box-content"
+                                        fill={item.color}
+                                        style={{
+                                            color: getTextColor(item.color),
+                                        }}
+                                    >{item.text}
+                                        <span
+                                            style={{ position: "fixed", height: "1rem", userSelect: "none", bottom: "1rem", right: "1rem" }}
+                                        >
+                                            <StartRating
+                                                style={{ userSelect: "none", display: "flex", gap: ".3rem", justifyContent: "flex-end", backgroundColor: "transparent" }}
+                                                rating={item.rating} id={item.id}
+                                            />
+                                        </span>
+                                    </p>
 
-                                </p>)
+                                </>
+                            )
                             }
-                            <div
-                                style={{ height: "1rem" }}
-                            >
-                                <StartRating
-                                    style={{ display: "flex", gap: ".3rem", justifyContent: "flex-end", backgroundColor: "transparent" }}
-                                    rating={item.rating} id={item.id}
-                                />
-                            </div>
+
                         </foreignObject >
 
                         {onShow && <>
