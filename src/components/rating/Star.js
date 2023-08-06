@@ -4,14 +4,19 @@ export default function Star({ selected = false, onSelect }) {
   return (
     <div
       style={{
-        width: "8px",
-        height: "8px",
-        // transform: "rotate(45deg)",
-        backgroundColor: `${selected ? 'gold' : 'lightgray'}`,
-        marginBottom: ".4rem",
+        width: ".8rem",
+        height: ".8rem",
+        marginBottom: ".6rem",
         userSelect: "none",
       }}
       onClick={onSelect}
-    ></div>
+    >{selected ? (<span style={{
+      fontSize: "1rem",
+      color: 'gold'
+    }}>&#x2605;</span>) :
+      (<span style={{
+        fontSize: "1rem",
+        color: 'lightgray', opacity: ".4"
+      }}>&#x2606;</span>)}</div>
   )
 }

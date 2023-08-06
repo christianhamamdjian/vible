@@ -55,7 +55,7 @@ const Image = ({ item }) => {
                                 <circle
                                     id="rotate"
                                     fill="#cccccc"
-                                    cx="-30"
+                                    cx="-15"
                                     cy={`${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}`}
                                     width="20"
                                     height="20"
@@ -113,7 +113,9 @@ const Image = ({ item }) => {
                                 height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
                                 fill="#ffffff"
                                 className='image-media'
+                                alt="uploaded-image"
                                 style={{
+                                    borderRadius: "5%",
                                     // opacity: item.opacity,
                                     //     minWidth: "100px",
                                     //     maxWidth: "500px",

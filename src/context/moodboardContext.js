@@ -446,7 +446,6 @@ export default function MoodboardProvider({ children }) {
             // }
         }
 
-
         if (isRotating) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rect = items.find((r) => r.id === selectedRectId)
@@ -572,8 +571,8 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        // if (resizable.type === "image") {
-        if (resizable && resizable.type === "image" && size.width >= 10 && size.width <= 50) {
+        // if (resizable && resizable.type === "image") {
+        if (resizable && resizable.type === "image" && (resizable.width > 5 && resizable.width < 30) || (size.width > 5 && size.width < 30)) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {

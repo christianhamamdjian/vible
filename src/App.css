@@ -323,12 +323,14 @@ button,
 .box-control {
   cursor: pointer;
   border-radius: 12px;
+  user-select: none;
 }
 
 .box-control-sign {
   cursor: pointer;
   color: #ffffff;
   font-weight: bold;
+  user-select: none;
 }
 
 .box-textarea {
@@ -353,7 +355,7 @@ button,
 }
 
 .box-rating {
-  margin-top: .6rem;
+  margin-top: .4rem;
   user-select: none;
   display: flex;
   gap: .3rem;

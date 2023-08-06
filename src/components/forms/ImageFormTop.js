@@ -12,11 +12,10 @@ const ImageFormTop = () => {
                         <input
                             type="number"
                             min="5"
-                            max="100"
+                            max="20"
                             value={editingImage && items.find(item => item.id === editingImage.id).width}
                             onChange={(e) => handleItemChange(e, editingImage.id, "width")}
                         />
-
                         <label>Change Angle:</label>
                         <input
                             type="range"

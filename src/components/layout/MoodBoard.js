@@ -46,7 +46,7 @@ const MoodBoard = () => {
                         height: `${window.innerHeight}`,
                         userSelect: "none",
                         // backgroundColor: "lightgray",
-                        overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "auto"}`,
+                        overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                         touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                     }}
                 >
