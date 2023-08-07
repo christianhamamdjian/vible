@@ -80,12 +80,11 @@ export default function MoodboardProvider({ children }) {
 
     const [selectedStars, setSelectedStars] = useState(0)
 
-    const [historyErase, setHistoryErase] = useState(paths || []);
+    const [historyErase, setHistoryErase] = useState([])
     const [positionErase, setPositionErase] = useState(0);
 
     const handleRating = (i, id) => {
         setSelectedStars(i + 1)
-        // console.log(i, selectedStars, id)
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
@@ -100,10 +99,12 @@ export default function MoodboardProvider({ children }) {
 
     useEffect(() => {
         setPdfId(Date.now())
+        paths.length > 0 && setHistoryErase(paths)
     }, [items])
 
     useEffect(() => {
         loadPathsFromLocalStorage()
+
     }, [])
 
     useEffect(() => {
@@ -737,27 +738,32 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPaths(false)
     }
     const handleDeletePath = (erased) => {
-        const newPaths = (prevPaths) => prevPaths.filter((path) => path.id !== erased)
-        setPaths(newPaths)
-        if (paths.length === 1) {
-            setIsErasing(false)
-        }
-        setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), newPaths]);
-        setPositionErase((prevPosition) => prevPosition + 1);
+
+        const newPaths = paths.filter((path) => path.id !== erased)
+
+        handleChangeErase(newPaths)
+
+        // if (paths.length === 1) {
+        //     setIsErasing(false)
+        // }
 
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
         setPathLine(2)
     }
-
+    const handleChangeErase = (newPaths) => {
+        setPaths(newPaths);
+        setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: newPaths }]);
+        setPositionErase((prevPosition) => prevPosition + 1);
+    }
     const handleUndoErase = () => {
         if (positionErase > 0) {
             setPositionErase((prevPosition) => prevPosition - 1);
             setPaths(historyErase[positionErase - 1].paths);
         }
     };
-
+    console.log(historyErase, paths)
     const handleRedoErase = () => {
         if (positionErase < historyErase.length - 1) {
             setPositionErase((prevPosition) => prevPosition + 1);

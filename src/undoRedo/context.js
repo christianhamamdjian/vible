@@ -3,41 +3,40 @@ import React, { createContext, useContext, useState } from 'react';
 const MyContext = createContext();
 
 const MyContextProvider = ({ children }) => {
-    const [textA, setTextA] = useState('');
+    const [paths, setpaths] = useState([]);
+    const [historyErase, setHistoryErase] = useState([{ paths }]);
+    const [positionErase, setPositionErase] = useState(0);
 
-    const [historyA, setHistoryA] = useState([{ textA }]);
-    const [positionA, setPositionA] = useState(0);
+    const handleChangePaths = (newpaths) => {
+        setpaths(newpaths);
 
-    const handleChangeA = (newState) => {
-        setTextA(newState.textA);
-        setHistoryA((prevHistory) => [...prevHistory.slice(0, positionA + 1), newState]);
-        setPositionA((prevPosition) => prevPosition + 1);
+        setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: newpaths }]);
+        setPositionErase((prevPosition) => prevPosition + 1);
     };
 
-    const handleUndoA = () => {
-        if (positionA > 0) {
-            setPositionA((prevPosition) => prevPosition - 1);
-            setTextA(historyA[positionA - 1].textA);
+    const handleUndoErase = () => {
+        if (positionErase > 0) {
+            setPositionErase((prevPosition) => prevPosition - 1);
+            setpaths(historyErase[positionErase - 1].paths);
         }
     };
 
-    const handleRedoA = () => {
-        if (positionA < historyA.length - 1) {
-            setPositionA((prevPosition) => prevPosition + 1);
-            setTextA(historyA[positionA + 1].textA);
+    const handleRedoErase = () => {
+        if (positionErase < historyErase.length - 1) {
+            setPositionErase((prevPosition) => prevPosition + 1);
+            setpaths(historyErase[positionErase + 1].paths);
         }
     };
 
     return (
         <MyContext.Provider
             value={{
-                textA,
-                setTextA,
-                handleChangeA,
-                handleUndoA,
-                handleRedoA,
-                canUndoA: positionA > 0,
-                canRedoA: positionA < historyA.length - 1,
+                paths,
+                handleChangePaths,
+                handleUndoErase,
+                handleRedoErase,
+                canUndoErase: positionErase > 0,
+                canRedoErase: positionErase < historyErase.length - 1,
             }}
         >
             {children}

@@ -2,21 +2,38 @@ import React from 'react';
 import { useMyContext } from './context';
 
 const ComponentA = () => {
-    const { textA, handleChangeA, handleUndoA, handleRedoA, canUndoA, canRedoA } = useMyContext();
+    const { paths, handleChangePaths, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = useMyContext();
+
+    const handleAddPath = () => {
+        const newPath = { id: Math.random(), value: `Data A - ${paths.length + 1}` };
+        handleChangePaths([...paths, newPath]);
+    };
+
+    const handleRemovePath = (id) => {
+        const newPaths = paths.filter((item) => item.id !== id);
+        console.log(newPaths)
+        handleChangePaths(newPaths);
+    };
 
     return (
         <div>
             <h2>Component A</h2>
             <div>
-                <button onClick={handleUndoA} disabled={!canUndoA}>
+                <button onClick={handleAddPath}>Add Path</button>
+                <button onClick={handleUndoErase} disabled={!canUndoErase}>
                     Undo
                 </button>
-                <button onClick={handleRedoA} disabled={!canRedoA}>
+                <button onClick={handleRedoErase} disabled={!canRedoErase}>
                     Redo
                 </button>
             </div>
             <div>
-                <input value={textA} onChange={(e) => handleChangeA({ textA: e.target.value })} />
+                {paths.map((item) => (
+                    <div key={item.id}>
+                        <span>{item.value}</span>
+                        <button onClick={() => handleRemovePath(item.id)}>Remove</button>
+                    </div>
+                ))}
             </div>
         </div>
     );
