@@ -1,13 +1,13 @@
 import React from 'react';
 import MyContextProvider from './context';
 import ComponentA from "./ComponentA"
-import ComponentB from "./ComponentB"
+// import ComponentB from "./ComponentB"
 
 const UndoRedo = () => {
     return (
         <MyContextProvider>
             <ComponentA />
-            <ComponentB />
+            {/* <ComponentB /> */}
         </MyContextProvider>
     );
 };

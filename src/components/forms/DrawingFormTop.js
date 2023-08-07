@@ -3,7 +3,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
-        handleMoveBackward, handleDuplicatePath } = React.useContext(MoodboardContext);
+        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -111,10 +111,27 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
+
                     </div>
+
                 </>
             )
             }
+            {paths.length > 0 && isErasing && (
+                <>
+                    <div className='inputs-top_draw'>
+                        <button onClick={handleUndoErase} disabled={!canUndoErase}>
+                            Undo
+                        </button>
+                        <button onClick={handleRedoErase} disabled={!canRedoErase}>
+                            Redo
+                        </button>
+                        {/* <div>
+                            <input value={textA} onChange={(e) => handleChangeA({ textA: e.target.value })} />
+                        </div> */}
+                    </div>
+                </>
+            )}
         </>
     )
 }
