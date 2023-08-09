@@ -7,6 +7,7 @@ import Map from "../Features/Map"
 import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
+import PathGroups from "../Features/PathGroups"
 import Todo from "../Features/Todo"
 import BoardDrop from "../Helpers/BoardDrop"
 
@@ -73,6 +74,7 @@ const MoodBoard = () => {
                     >
                         {renderBoardItems}
                         <Drawing />
+                        <PathGroups />
                     </svg>
                 </div >
             </BoardDrop>

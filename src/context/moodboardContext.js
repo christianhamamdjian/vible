@@ -17,6 +17,10 @@ export default function MoodboardProvider({ children }) {
     const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
     const [dragErasing, setDragErasing] = useState(false)
+    const [isGrouping, setIsGrouping] = useState(false)
+    const [dragGrouping, setDragGrouping] = useState(false)
+    const [pathGroup, setPathGroup] = useState([])
+    const [pathGroups, setPathGroups] = useState(useLocalStorage("pathGroups", []))
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -397,6 +401,10 @@ export default function MoodboardProvider({ children }) {
             setDragErasing(true)
             return
         }
+        if (isGrouping) {
+            setDragGrouping(true)
+            return
+        }
         if (e.target.id === 'resize') {
             setIsResizing(true)
             setIsDraggingRect(false)
@@ -502,6 +510,9 @@ export default function MoodboardProvider({ children }) {
         }
         if (dragErasing) {
             setDragErasing(false)
+        }
+        if (dragGrouping) {
+            setDragGrouping(false)
         }
         if (isResizing) {
             setIsResizing(false)
@@ -610,7 +621,10 @@ export default function MoodboardProvider({ children }) {
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }
-        if (!isErasing && !dragErasing) {
+        if (isGrouping && dragGrouping) {
+            handleGroupPaths(id)
+        }
+        if (!isErasing && !dragErasing && !isGrouping && !dragGrouping) {
             setSelectedPath(index)
             setIsEditingPath({ status: true, id: id })
         }
@@ -625,6 +639,9 @@ export default function MoodboardProvider({ children }) {
         }
         if (isErasing) {
             handleDeletePath(id)
+        }
+        if (isGrouping) {
+            handleGroupPaths(id)
         }
         const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
 
@@ -736,10 +753,12 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(false)
         setIsEditingPaths(false)
     }
+    const handleGrouping = () => {
+        setIsGrouping(isGrouping => !isGrouping)
+    }
 
     const handleDeletePath = (erased) => {
         const newPaths = paths.filter((path) => path.id !== erased)
-        // console.log(historyErase, paths)
         handleChangeErase(newPaths)
         // if (paths.length === 1) {
         //     setIsErasing(false)
@@ -749,6 +768,15 @@ export default function MoodboardProvider({ children }) {
         setSelectedPath(null)
         setPathColor("#000000")
         setPathLine(2)
+    }
+    const handleGroupPaths = (added) => {
+        const addedPath = paths.find((path) => path.id !== added)
+        setPathGroup(prevPathGroup => [...prevPathGroup, addedPath])
+    }
+    const handleGroupingStop = () => {
+        setPathGroups(prevGroups => [...prevGroups, pathGroup])
+        setPathGroup([])
+        setIsGrouping(false)
     }
     const handleChangeErase = (newPaths) => {
         setPaths(newPaths);
@@ -978,8 +1006,6 @@ export default function MoodboardProvider({ children }) {
     const handleClearPaths = () => {
         setPaths([])
     }
-
-
     const handleZoomIn = () => {
         setZoom(zoom => zoom -= 400)
     }
@@ -1056,7 +1082,11 @@ export default function MoodboardProvider({ children }) {
                 selectedStars,
                 canUndoErase: positionErase > 0,
                 canRedoErase: positionErase < historyErase.length - 1,
+                isGrouping,
+                pathGroups,
                 // Methods
+                handleGrouping,
+                handleGroupingStop,
                 handleUndoErase,
                 handleRedoErase,
                 handleRating,

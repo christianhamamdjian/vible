@@ -182,6 +182,12 @@ button,
   margin-left: -.3rem;
 }
 
+.grouping-sign {
+  /* transform: rotate(35deg); */
+  margin-top: .1rem;
+  margin-left: -.3rem;
+}
+
 /* .erasing-sign-box-top {
   width: .75rem;
   height: .75rem;

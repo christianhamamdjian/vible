@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, info } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, info } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -130,6 +130,39 @@ const ButtonsTop = () => {
                             tipTop="-.7rem"
                             tipLeft="30%"
                             text="Click to erase lines" />
+                    </>
+                )}
+
+                {paths.length > 0 && (
+                    <>
+                        <button
+                            className={isGrouping ? "selected-button" : null}
+                            onClick={handleGrouping}>
+                            <div className='grouping-sign'>
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M15 5H5V15H9V19H19V9H15V5Z" fill="currentColor" />
+                                </svg>
+                            </div>
+                        </button>
+                        <Tooltips
+                            position="bottom"
+                            width="3.5rem"
+                            height="3.7rem"
+                            top="-3rem"
+                            bottom="90%"
+                            left="-.5rem"
+                            right=""
+                            marginRight=""
+                            marginLeft=""
+                            tipTop="-.7rem"
+                            tipLeft="30%"
+                            text="Click to group lines" />
                     </>
                 )
                 }

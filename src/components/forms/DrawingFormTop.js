@@ -3,18 +3,18 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
-        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = React.useContext(MoodboardContext);
+        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, handleGroupingStop, isGrouping } = React.useContext(MoodboardContext);
 
     return (
         <>
             {isDrawing && !isEditingPath && (
                 <div className='inputs-top_draw'>
-                    {/* <label>Line color:</label> */}
+                    <label>Line color:</label>
                     <input
                         type="color"
                         value={pathColor}
                         onChange={(event) => handleLineColor(event)} />
-                    {/* <label>Line width:</label> */}
+                    <label>Line width:</label>
                     <input
                         type="number"
                         className='input-line-width'
@@ -24,20 +24,24 @@ const DrawingFormTop = () => {
             {paths.length > 0 && isEditingPath && !isErasing && (
                 <>
                     <div className='inputs-top_draw'>
+                        <label>Line color:</label>
                         <input
                             type="color"
                             value={paths.find(path => path.id === isEditingPath.id).color}
                             onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
+                        <label>Line width:</label>
                         <input
                             type="number"
                             className='input-line-width'
                             value={paths.find(path => path.id === isEditingPath.id).line}
                             onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
+                        <label>Fill color:</label>
                         <input
                             type="color"
                             className='input-line-fill'
                             value={paths.find(path => path.id === isEditingPath.id).fill}
                             onChange={(event) => handleLineFillChange(event, isEditingPath.id)} />
+                        <label>Shape/Line:</label>
                         <input
                             type="checkbox"
                             className='input-line-closed'
@@ -48,19 +52,19 @@ const DrawingFormTop = () => {
                         {selectedPath !== null && (
                             <>
                                 <div className='path-edit-form'>
-                                    <label htmlFor="rotate"><h3>Rotate:</h3></label>
+                                    <label htmlFor="rotate"><label>Rotate:</label></label>
                                     <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                                     <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                                 </div>
                                 <div className='path-edit-form'>
-                                    <label htmlFor="scale"><h3>Scale:</h3></label>
+                                    <label htmlFor="scale"><label>Scale:</label></label>
                                     <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                                     <button onClick={e => handleScaleChange(e, "increase")}>+</button>
                                 </div>
                             </>
                         )}
                         <div className='path-edit-form'>
-                            <h3>Move:</h3>
+                            <label>Move:</label>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
@@ -79,10 +83,19 @@ const DrawingFormTop = () => {
                             </button>
                         </div>
                         <div className='path-edit-form'>
-                            <h3>Duplicate:</h3>
+                            <label>Duplicate:</label>
                             <button
                                 onClick={() => handleDuplicatePath(isEditingPath.id)}>
-                                <div style={{ fontSize: "1rem", padding: "0", margin: "0" }}>&#9724;&#9724;</div>
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M5 5H15V8H8V15H5V5Z" fill="currentColor" />
+                                    <path d="M19 9H9V19H19V9Z" fill="currentColor" />
+                                </svg>
                             </button>
                         </div>
                         <button
@@ -148,6 +161,13 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
+                    </div>
+                </>
+            )}
+            {paths.length > 1 && isGrouping && (
+                <>
+                    <div className='inputs-top_draw'>
+                        <button onClick={handleGroupingStop}>Stop Grouping</button>
                     </div>
                 </>
             )}
