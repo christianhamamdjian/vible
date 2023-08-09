@@ -88,7 +88,6 @@ export default function MoodboardProvider({ children }) {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-
                     return { ...item, rating: i + 1 }
                 }
                 return item
@@ -99,7 +98,7 @@ export default function MoodboardProvider({ children }) {
 
     useEffect(() => {
         setPdfId(Date.now())
-        paths.length > 0 && setHistoryErase(paths)
+        // paths.length > 0 && setHistoryErase(paths)
     }, [items])
 
     useEffect(() => {
@@ -494,6 +493,8 @@ export default function MoodboardProvider({ children }) {
             const updatedPaths = [...paths]
             updatedPaths[paths.length - 1] = currentPath
             setPaths(updatedPaths)
+            setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: updatedPaths }]);
+            setPositionErase((prevPosition) => prevPosition + 1);
         }
     }
 
@@ -703,6 +704,7 @@ export default function MoodboardProvider({ children }) {
         const pathCopy = { ...pathToCopy, id: Date.now() }
         setPaths(prevPaths => [...prevPaths, pathCopy])
     }
+
     // Text Box
     const handleItemChange = (e, id, property) => {
         setItems(prevItems =>
@@ -737,12 +739,11 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(false)
         setIsEditingPaths(false)
     }
+
     const handleDeletePath = (erased) => {
-
         const newPaths = paths.filter((path) => path.id !== erased)
-
+        // console.log(historyErase, paths)
         handleChangeErase(newPaths)
-
         // if (paths.length === 1) {
         //     setIsErasing(false)
         // }
@@ -763,7 +764,6 @@ export default function MoodboardProvider({ children }) {
             setPaths(historyErase[positionErase - 1].paths);
         }
     };
-    console.log(historyErase, paths)
     const handleRedoErase = () => {
         if (positionErase < historyErase.length - 1) {
             setPositionErase((prevPosition) => prevPosition + 1);

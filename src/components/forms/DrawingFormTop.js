@@ -117,7 +117,7 @@ const DrawingFormTop = () => {
                 </>
             )
             }
-            {paths.length > 0 && isErasing && (
+            {paths.length > -1 && isErasing && (
                 <>
                     <div className='inputs-top_draw'>
                         <button onClick={handleUndoErase} disabled={!canUndoErase}>
@@ -126,9 +126,6 @@ const DrawingFormTop = () => {
                         <button onClick={handleRedoErase} disabled={!canRedoErase}>
                             Redo
                         </button>
-                        {/* <div>
-                            <input value={textA} onChange={(e) => handleChangeA({ textA: e.target.value })} />
-                        </div> */}
                     </div>
                 </>
             )}

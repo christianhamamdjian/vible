@@ -4,10 +4,10 @@ import { useMyContext } from './context';
 const ComponentA = () => {
     const { paths, handleChangePaths, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = useMyContext();
 
-    const handleAddPath = () => {
-        const newPath = { id: Math.random(), value: `Data A - ${paths.length + 1}` };
-        handleChangePaths([...paths, newPath]);
-    };
+    // const handleAddPath = () => {
+    //     const newPath = { id: Math.random(), value: `Data A - ${paths.length + 1}` };
+    //     handleChangePaths([...paths, newPath]);
+    // };
 
     const handleRemovePath = (id) => {
         const newPaths = paths.filter((item) => item.id !== id);
@@ -19,7 +19,7 @@ const ComponentA = () => {
         <div>
             <h2>Component A</h2>
             <div>
-                <button onClick={handleAddPath}>Add Path</button>
+                {/* <button onClick={handleAddPath}>Add Path</button> */}
                 <button onClick={handleUndoErase} disabled={!canUndoErase}>
                     Undo
                 </button>
