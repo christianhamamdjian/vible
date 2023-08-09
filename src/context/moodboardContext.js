@@ -65,8 +65,6 @@ export default function MoodboardProvider({ children }) {
     const [isDraggingRect, setIsDraggingRect] = useState(false)
 
     const [isRotating, setIsRotating] = useState(false)
-    // const [rectangleRotation, setRectangleRotation] = useState(0)
-    // const [rotatePoints, setRotatePoints] = useState({ x: 0, y: 0 })
     const [angleOffset, setAngleOffset] = useState({ x: 0, y: 0 })
 
     const [info, setInfo] = useState(false)
@@ -98,12 +96,11 @@ export default function MoodboardProvider({ children }) {
 
     useEffect(() => {
         setPdfId(Date.now())
-        // paths.length > 0 && setHistoryErase(paths)
     }, [items])
 
     useEffect(() => {
         loadPathsFromLocalStorage()
-
+        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }, [])
 
     useEffect(() => {
