@@ -111,6 +111,10 @@ export default function MoodboardProvider({ children }) {
         savePathsToLocalStorage()
     }, [paths])
 
+    useEffect(() => {
+        savePathGroupsToLocalStorage()
+    }, [pathGroups])
+
 
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
@@ -119,6 +123,16 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('paths', JSON.stringify(savingPaths))
     }
 
+    function savePathGroupsToLocalStorage() {
+        // Get pathGroups from localStorage
+        // Add new group
+        // Save groups to localStorage
+
+        // const savingGroups = paths.map((path) => {
+        //     return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
+        // })
+        // localStorage.setItem('pathGroups', JSON.stringify(savingGroups))
+    }
     const moveToFront = (arr, id) => {
         const newArr = [...arr]
         const fromIndex = newArr.findIndex((el) => el.id === id)
@@ -770,11 +784,13 @@ export default function MoodboardProvider({ children }) {
         setPathLine(2)
     }
     const handleGroupPaths = (added) => {
-        const addedPath = paths.find((path) => path.id !== added)
+        const addedPath = paths.find((path) => path.id === added)
         setPathGroup(prevPathGroup => [...prevPathGroup, addedPath])
     }
     const handleGroupingStop = () => {
-        setPathGroups(prevGroups => [...prevGroups, pathGroup])
+        const newPathGroup = new Set(pathGroup);
+        const newPathArray = Array.from(newPathGroup);
+        setPathGroups(prevGroups => [...prevGroups, newPathArray])
         setPathGroup([])
         setIsGrouping(false)
     }

@@ -20,10 +20,10 @@ const Drawing = () => {
 
         return pathData
     }
-    console.log(pathGroups);
+    console.log(pathGroups[2]);
     return (
         <>
-            {/* {pathGroups.map(item => item.map((path, index) => (
+            {pathGroups[2] && pathGroups[2].map((path, index) => (
                 <path
                     key={index}
                     // d={svgPath(path["path"])} // Line smoothing to be fixed
@@ -32,7 +32,8 @@ const Drawing = () => {
                     fill={path.closed ? path.fill : "none"}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    stroke={path.color}
+                    // stroke={path.color}
+                    stroke="red"
                     strokeWidth={path.line}
                     //onClick={(e) => handlePathClick(e, index, path.id)}
                     onPointerDown={(e) => handlePathDrag(e, index, path.id)}
@@ -47,8 +48,7 @@ const Drawing = () => {
                     }}
                 />
             )
-            )
-            )} */}
+            )}
         </>
     )
 }
