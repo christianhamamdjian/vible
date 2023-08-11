@@ -92,9 +92,6 @@ const Todo = () => {
         function dragEnd(e) {
             const posX = e.clientX - x
             const posY = e.clientY - y
-            // console.log(e.clientX, windowSize.current[0] - todoRef.current.offsetWidth)
-            console.log(e.clientY, windowSize.current[1], todoRef.current.offsetHeight)
-            // console.log(e.clientX, e.clientY)
             if (e.clientX < (windowSize.current[0] - todoRef.current.offsetWidth) || e.clientY < (windowSize.current[1] - todoRef.current.offsetHeight)) {
                 dragItem.style.transform = `translate(${posX}px, ${posY}px)`
                 handleTodoAddToBoard(text)

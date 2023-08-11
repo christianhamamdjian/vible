@@ -3,7 +3,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
-        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, handleGroupingStop, isGrouping } = React.useContext(MoodboardContext);
+        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -161,13 +161,6 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
-                    </div>
-                </>
-            )}
-            {paths.length > 1 && isGrouping && (
-                <>
-                    <div className='inputs-top_draw'>
-                        <button onClick={handleGroupingStop}>Stop Grouping</button>
                     </div>
                 </>
             )}

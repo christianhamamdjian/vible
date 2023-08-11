@@ -32,12 +32,12 @@ const Drawing = () => {
                     fill={path.closed ? path.fill : "none"}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    stroke={path.color}
+                    stroke={path.group === "activeGroup" ? "red" : path.color}
                     strokeWidth={path.line}
                     //onClick={(e) => handlePathClick(e, index, path.id)}
-                    onPointerDown={(e) => handlePathDrag(e, index, path.id)}
+                    onPointerDown={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
                     onPointerMove={(e) => handlePathSelect(e, index, path.id)}
-                    onTouchStart={(e) => handlePathDrag(e, index, path.id)}
+                    onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
                     cursor="grabbing"
                     style={{
                         cursor: 'grabbing',

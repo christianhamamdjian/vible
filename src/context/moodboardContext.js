@@ -19,8 +19,6 @@ export default function MoodboardProvider({ children }) {
     const [dragErasing, setDragErasing] = useState(false)
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
-    const [pathGroup, setPathGroup] = useState([])
-    const [pathGroups, setPathGroups] = useState(useLocalStorage("pathGroups", []))
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -111,11 +109,6 @@ export default function MoodboardProvider({ children }) {
         savePathsToLocalStorage()
     }, [paths])
 
-    useEffect(() => {
-        savePathGroupsToLocalStorage()
-    }, [pathGroups])
-
-
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
             return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
@@ -124,14 +117,19 @@ export default function MoodboardProvider({ children }) {
     }
 
     function savePathGroupsToLocalStorage() {
-        // Get pathGroups from localStorage
-        // Add new group
-        // Save groups to localStorage
+        // Add "group" property withvalue "noGroup" to new path
+        // Change the "group" property in each path from "noGroup" to the "activeGroup"
+        // If selected path "group" property is "activeGroup" then 
+        // Make each path in the "activeGroup" selectable and draggable
+        // Change position of each path in the group when dragged
+        // If click on board then deselect group by changing the "group" property of all paths to "no group"
 
-        // const savingGroups = paths.map((path) => {
-        //     return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
+        // console.log(pathGroup)
+        // const newGroup = pathGroup.map((path) => {
+        //     return ({ id: Date.now(), paths: [...paths, { ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] }] })
         // })
-        // localStorage.setItem('pathGroups', JSON.stringify(savingGroups))
+        // const newPathGroups = [...pathGroups, newGroup]
+        // localStorage.setItem('pathGroups', JSON.stringify(newPathGroups))
     }
     const moveToFront = (arr, id) => {
         const newArr = [...arr]
@@ -406,6 +404,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerDown = (e) => {
+
+        setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
         // if (editingText) return
         if (selectedPath || isEditingPath) {
             setSelectedPath(null)
@@ -446,7 +446,7 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setSelectedPath(null)
             setDrawing(true)
-            setPaths([...paths, { id: Date.now(), color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }])
+            setPaths([...paths, { id: Date.now(), group: "noGroup", color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }])
         }
     }
 
@@ -624,8 +624,10 @@ export default function MoodboardProvider({ children }) {
 
     //Paths
     const handlePathClick = (e, index, id) => {
-        setSelectedPath(index)
-        setIsEditingPath({ status: true, id: id })
+        if (!isGrouping) {
+            setSelectedPath(index)
+            setIsEditingPath({ status: true, id: id })
+        }
     }
     const handlePathSelect = (e, index, id) => {
         e.preventDefault()
@@ -689,6 +691,28 @@ export default function MoodboardProvider({ children }) {
         window.addEventListener('pointermove', handleMouseMove)
         window.addEventListener('pointerup', handleMouseUp)
     }
+    // Path Group hadling
+    const handleGrouping = () => {
+        if (isGrouping) {
+            setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
+            setSelectedPath(null)
+            setIsEditingPath(false)
+        }
+        setIsGrouping(isGrouping => !isGrouping)
+        setSelectedPath(null)
+        setIsEditingPath(false)
+    }
+    const handleGroupPaths = (added) => {
+        setPaths(prevPaths => prevPaths.map(el => el.id === added ? { ...el, group: "activeGroup" } : el))
+    }
+    const handlePathGroupDrag = (e) => {
+        const pathGroup = paths.filter(path => path.group === "activeGroup")
+        pathGroup.forEach((el, index) => {
+            handlePathDrag(e, index, el.id)
+        })
+        console.log(pathGroup)
+    }
+
 
     const handleRotateChange = (e, amount) => {
         const rotate = (amount === "increase") ? +10 : -10
@@ -767,9 +791,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(false)
         setIsEditingPaths(false)
     }
-    const handleGrouping = () => {
-        setIsGrouping(isGrouping => !isGrouping)
-    }
+
 
     const handleDeletePath = (erased) => {
         const newPaths = paths.filter((path) => path.id !== erased)
@@ -783,17 +805,7 @@ export default function MoodboardProvider({ children }) {
         setPathColor("#000000")
         setPathLine(2)
     }
-    const handleGroupPaths = (added) => {
-        const addedPath = paths.find((path) => path.id === added)
-        setPathGroup(prevPathGroup => [...prevPathGroup, addedPath])
-    }
-    const handleGroupingStop = () => {
-        const newPathGroup = new Set(pathGroup);
-        const newPathArray = Array.from(newPathGroup);
-        setPathGroups(prevGroups => [...prevGroups, newPathArray])
-        setPathGroup([])
-        setIsGrouping(false)
-    }
+
     const handleChangeErase = (newPaths) => {
         setPaths(newPaths);
         setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: newPaths }]);
@@ -1099,10 +1111,8 @@ export default function MoodboardProvider({ children }) {
                 canUndoErase: positionErase > 0,
                 canRedoErase: positionErase < historyErase.length - 1,
                 isGrouping,
-                pathGroups,
                 // Methods
                 handleGrouping,
-                handleGroupingStop,
                 handleUndoErase,
                 handleRedoErase,
                 handleRating,
@@ -1110,6 +1120,7 @@ export default function MoodboardProvider({ children }) {
                 handleSvgPointerMove,
                 handlePathClick,
                 handlePathDrag,
+                handlePathGroupDrag,
                 handlePathSelect,
                 handleAddBox,
                 handleImageUpload,

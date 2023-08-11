@@ -3,7 +3,7 @@ export const loadPathsFromLocalStorage = () => {
     const pathList = savedPaths && JSON.parse(savedPaths)
     const convertedPaths = pathList && pathList.map(path => {
         const singlePath = path["path"].map(d => convertFromSVGPath(d))
-        return ({ ...path, path: singlePath[0] })
+        return ({ ...path, group: "noGroup", path: singlePath[0] })
     })
     return convertedPaths
 }
