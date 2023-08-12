@@ -117,21 +117,6 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('paths', JSON.stringify(savingPaths))
     }
 
-    function savePathGroupsToLocalStorage() {
-        // Add "group" property withvalue "noGroup" to new path
-        // Change the "group" property in each path from "noGroup" to the "activeGroup"
-        // If selected path "group" property is "activeGroup" then 
-        // Make each path in the "activeGroup" selectable and draggable
-        // Change position of each path in the group when dragged
-        // If click on board then deselect group by changing the "group" property of all paths to "no group"
-
-        // console.log(pathGroup)
-        // const newGroup = pathGroup.map((path) => {
-        //     return ({ id: Date.now(), paths: [...paths, { ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] }] })
-        // })
-        // const newPathGroups = [...pathGroups, newGroup]
-        // localStorage.setItem('pathGroups', JSON.stringify(newPathGroups))
-    }
     const moveToFront = (arr, id) => {
         const newArr = [...arr]
         const fromIndex = newArr.findIndex((el) => el.id === id)
@@ -403,11 +388,13 @@ export default function MoodboardProvider({ children }) {
         }
         setItems((prevItems) => [...prevItems, newItem])
     }
-
+    const resetPathsGroup = () => {
+        setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
+    }
     const handleSvgPointerDown = (e) => {
 
-        setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
-        // if (editingText) return
+        resetPathsGroup()
+
         if (selectedPath || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
@@ -427,7 +414,6 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints({ x: clientX, y: clientY })
         }
 
-        // if (!isDrawing && !editingText && !selectedPath && !isErasing) {
         if (!isDrawing && !isErasing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -541,7 +527,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        // if (isDrawing || editingText || isResizing || isRotating) return
         if (isDrawing) return
 
         if (e.target.id === 'rotate') {
@@ -554,7 +539,6 @@ export default function MoodboardProvider({ children }) {
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
             setAngleOffset({ x: angle })
         }
-        // console.log("Clicked a star", rectId)
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -602,7 +586,6 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        // if (resizable && resizable.type === "image") {
         if (resizable && resizable.type === "image" && (resizable.width > 5 && resizable.width < 30) || (size.width > 5 && size.width < 30)) {
             setItems(prevItems =>
                 prevItems.map(item => {
@@ -613,7 +596,6 @@ export default function MoodboardProvider({ children }) {
                 })
             )
         }
-        // if (resizable.type === "box" && size.width >= 100 && size.height >= 100) {
         if (resizable && resizable.type === "box" && size.width >= 100 && size.height >= 100) {
             setItems(prevItems =>
                 prevItems.map(item => {
@@ -697,13 +679,16 @@ export default function MoodboardProvider({ children }) {
     // Path Group handling
     const handleGrouping = () => {
         if (isGrouping) {
-            setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
+
+            resetPathsGroup()
+
             setSelectedPath(null)
             setIsEditingPath(false)
         }
         setIsGrouping(isGrouping => !isGrouping)
         setSelectedPath(null)
         setIsEditingPath(false)
+        setIsDrawing(false)
     }
     const handleGroupPaths = (added) => {
         setPaths(prevPaths => prevPaths.map(el => el.id === added ? { ...el, group: "activeGroup" } : el))
@@ -712,8 +697,6 @@ export default function MoodboardProvider({ children }) {
     const handlePathGroupDrag = (e) => {
         console.log("Dragging paths group")
         const pathGroup = paths.filter(path => path.group === "activeGroup")
-        // if (groupDragging) {
-        // pathGroup.forEach((el) => {
         const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         const handleMouseMove = (e) => {
             e.preventDefault()
@@ -814,6 +797,9 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(false)
         setIsEditingPath(false)
         setIsEditingPaths(false)
+        setIsGrouping(false)
+        setDragGrouping(false)
+        resetPathsGroup()
     }
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing)
@@ -821,16 +807,15 @@ export default function MoodboardProvider({ children }) {
         setSelectedPath(null)
         setIsEditingPath(false)
         setIsEditingPaths(false)
+        setIsGrouping(false)
+        setDragGrouping(false)
+        resetPathsGroup()
     }
 
 
     const handleDeletePath = (erased) => {
         const newPaths = paths.filter((path) => path.id !== erased)
         handleChangeErase(newPaths)
-        // if (paths.length === 1) {
-        //     setIsErasing(false)
-        // }
-
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
@@ -1036,6 +1021,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDraw = () => {
         setDraw(draw => !draw)
+        isGrouping && setIsGrouping(false)
         isDrawing && setIsDrawing(false)
         isErasing && setIsErasing(false)
     }

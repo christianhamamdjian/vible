@@ -13,9 +13,6 @@ const ButtonsTop = () => {
                     onClick={handleDrawing}>
                     <div className="drawing-sign">
                         <div className="drawing-sign-container">
-                            {/* <span className="drawing-sign-sign">
-                                ~
-                            </span> */}
                             <svg
                                 width="20"
                                 height="20"
@@ -97,9 +94,6 @@ const ButtonsTop = () => {
                         <button
                             className={isErasing ? "selected-button" : null}
                             onClick={handleEraser}>
-                            {/* 
-                                <div className='erasing-sign-box-top'></div>
-                                <div className='erasing-sign-box-bottom'></div> */}
                             <div className='erasing-sign'>
                                 <svg
                                     width="24"

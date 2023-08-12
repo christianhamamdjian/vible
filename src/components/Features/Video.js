@@ -10,7 +10,7 @@ const Video = ({ item }) => {
                 <>
                     <foreignObject
                         width={item.width}
-                        height={item.height}
+                        height={item.height + 30}
                         draggable="true"
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -18,23 +18,26 @@ const Video = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                        onDoubleClick={(e) => handleEditVideo(e, item.id)}
                         style={{
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`,
                             display: "block",
                             zIndex: "999999",
                             position: "absolute",
+                            backgroundColor: "#000000",
+                            paddingTop: "2rem",
                             top: "0",
                             right: "0",
                             bottom: "0",
                             left: "0",
                         }}
                     >
-                        <div
+                        {/* <div
                             className='video-top'
                             onDoubleClick={(e) => handleEditVideo(e, item.id)}
                         >
-                        </div>
+                        </div> */}
                         <iframe
                             width={item.width}
                             height={item.height}

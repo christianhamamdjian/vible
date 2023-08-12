@@ -2,7 +2,6 @@ import React from 'react';
 import MoodBoard from './components/layout/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import EditFormTop from "./components/forms/EditFormTop"
-// import UndoRedo from "./undoRedo/UndoRedo"
 
 import './App.css'
 
@@ -16,7 +15,6 @@ function App() {
         <MoodBoard />
         <SidebarDrawer side="right" />
       </div>
-      {/* <UndoRedo /> */}
     </div >
   );
 }

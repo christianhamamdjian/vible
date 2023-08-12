@@ -22,9 +22,9 @@ const VideoFormTop = () => {
                         <label>Change height:</label>
                         <input
                             type="range"
-                            min="60"
-                            max="600"
-                            step="10"
+                            // min="60"
+                            // max="600"
+                            // step="10"
                             name="height"
                             value={editingVideo && items.find(item => item.id === editingVideo.id).height}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "height")
