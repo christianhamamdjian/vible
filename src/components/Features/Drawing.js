@@ -3,7 +3,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 // import svgPath from '../Helpers/pathSmooth';
 
 const Drawing = () => {
-    const { paths, selectedPath, handlePathClick, handlePathDrag, handlePathSelect } = React.useContext(MoodboardContext);
+    const { paths, selectedPath, handlePathClick, handlePathDrag, handlePathSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
 
     const renderPath = (points) => {
         if (points.length < 2) return null
@@ -35,7 +35,7 @@ const Drawing = () => {
                     stroke={path.group === "activeGroup" ? "red" : path.color}
                     strokeWidth={path.line}
                     //onClick={(e) => handlePathClick(e, index, path.id)}
-                    onPointerDown={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
+                    onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                     onPointerMove={(e) => handlePathSelect(e, index, path.id)}
                     onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
                     cursor="grabbing"

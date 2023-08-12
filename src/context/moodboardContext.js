@@ -19,6 +19,7 @@ export default function MoodboardProvider({ children }) {
     const [dragErasing, setDragErasing] = useState(false)
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
+    const [groupDragging, setGroupDragging] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -534,6 +535,9 @@ export default function MoodboardProvider({ children }) {
         if (isRotating) {
             setIsRotating(false)
         }
+        if (groupDragging) {
+            setGroupDragging(false)
+        }
     }
 
     const handleRectPointerDown = (e, rectId) => {
@@ -622,7 +626,8 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    //Paths
+    // Paths
+    // Single path hadling
     const handlePathClick = (e, index, id) => {
         if (!isGrouping) {
             setSelectedPath(index)
@@ -645,8 +650,8 @@ export default function MoodboardProvider({ children }) {
             setIsEditingPath({ status: true, id: id })
         }
     }
-
     const handlePathDrag = (e, index, id) => {
+        console.log("Dragging single path")
         e.stopPropagation()
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
@@ -659,14 +664,13 @@ export default function MoodboardProvider({ children }) {
         if (isGrouping) {
             handleGroupPaths(id)
         }
-        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
 
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         const handleMouseMove = (e) => {
             e.preventDefault()
             const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
             const deltaX = currentX - startX
             const deltaY = currentY - startY
-
             if (selectedPath !== null) {
                 const updatedPaths = paths.map((path, index) => {
                     if (index === selectedPath) {
@@ -682,16 +686,15 @@ export default function MoodboardProvider({ children }) {
                 setPaths(updatedPaths)
             }
         }
-
         const handleMouseUp = () => {
             window.removeEventListener('pointermove', handleMouseMove)
             window.removeEventListener('pointerup', handleMouseUp)
         }
-
         window.addEventListener('pointermove', handleMouseMove)
         window.addEventListener('pointerup', handleMouseUp)
     }
-    // Path Group hadling
+
+    // Path Group handling
     const handleGrouping = () => {
         if (isGrouping) {
             setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
@@ -704,13 +707,41 @@ export default function MoodboardProvider({ children }) {
     }
     const handleGroupPaths = (added) => {
         setPaths(prevPaths => prevPaths.map(el => el.id === added ? { ...el, group: "activeGroup" } : el))
+        setGroupDragging(true)
     }
     const handlePathGroupDrag = (e) => {
+        console.log("Dragging paths group")
         const pathGroup = paths.filter(path => path.group === "activeGroup")
-        pathGroup.forEach((el, index) => {
-            handlePathDrag(e, index, el.id)
-        })
-        console.log(pathGroup)
+        // if (groupDragging) {
+        // pathGroup.forEach((el) => {
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+        const handleMouseMove = (e) => {
+            e.preventDefault()
+            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
+            const deltaX = currentX - startX
+            const deltaY = currentY - startY
+
+            const updatedPaths = pathGroup.map((path) => {
+                return ({
+                    ...path, path: path["path"].map((point) => ({
+                        x: point.x + deltaX,
+                        y: point.y + deltaY,
+                    }))
+                })
+            })
+
+            setPaths(prevPaths => {
+                const newPaths = prevPaths.filter(ele => !updatedPaths.find(x => x.id === ele.id))
+                return [...newPaths, ...updatedPaths]
+            })
+        }
+        const handleMouseUp = () => {
+            window.removeEventListener('pointermove', handleMouseMove)
+            window.removeEventListener('pointerup', handleMouseUp)
+        }
+        window.addEventListener('pointermove', handleMouseMove)
+        window.addEventListener('pointerup', handleMouseUp)
+
     }
 
 
