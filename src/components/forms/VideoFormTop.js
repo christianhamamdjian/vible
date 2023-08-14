@@ -19,16 +19,16 @@ const VideoFormTop = () => {
                             value={editingVideo && items.find(item => item.id === editingVideo.id).width}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                             } />
-                        <label>Change height:</label>
-                        <input
+                        {/* <label>Change height:</label>
+                         <input
                             type="range"
-                            // min="60"
-                            // max="600"
-                            // step="10"
-                            name="height"
-                            value={editingVideo && items.find(item => item.id === editingVideo.id).height}
-                            onChange={(event) => handleItemChange(event, editingVideo.id, "height")
-                            } />
+                            min="60"
+                            max="600"
+                            step="10"
+                            name="width"
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).width * 3/4}
+                            onChange={(event) => handleItemChange(event, editingVideo.id, "width")
+                            } /> */}
                         <label>Change Angle:</label>
                         <input
                             type="range"

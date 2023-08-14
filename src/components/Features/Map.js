@@ -23,18 +23,19 @@ const Map = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        style={{
-                            backgroundColor: item.color,
-                            transform: `rotate(${item.angle || 0}deg)`,
-                            transformOrigin: `${item.width / 2, item.height / 2}`,
-                            display: "block",
-                            zIndex: "999999",
-                            position: "absolute",
-                            top: "0",
-                            right: "0",
-                            bottom: "0",
-                            left: "0",
-                        }}
+                    // style={{
+                    //     backgroundColor: item.color,
+                    //     transform: `rotate(${item.angle || 0}deg)`,
+                    //     transformOrigin: `${item.width / 2, item.height / 2}`,
+                    //     display: "block",
+                    //     zIndex: "999999",
+                    //     position: "absolute",
+                    //     top: "0",
+                    //     right: "0",
+                    //     bottom: "0",
+                    //     left: "0",
+                    //     borderRadius: ".5rem"
+                    // }}
                     >
                         <div
                             className='map-top'
@@ -42,13 +43,21 @@ const Map = ({ item }) => {
                         >
                         </div>
                         <iframe
+                            x="0"
+                            y="0"
                             src={item.mapUrl}
                             width={item.width}
                             height={item.height}
                             className='map-frame'
                             allowFullScreen=""
                             loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade">
+                            referrerPolicy="no-referrer-when-downgrade"
+                        // style={{
+                        //     position: "absolute",
+                        //     top: "0",
+                        //     left: "0",
+                        // }}
+                        >
                         </iframe>
                     </foreignObject>
                     {isEditingBoard && <>

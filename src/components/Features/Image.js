@@ -32,6 +32,8 @@ const Image = ({ item }) => {
             {item.type === "image" &&
                 <>
                     <g
+                        x="0"
+                        y="0"
                         transform={`rotate(${item.angle || 0}, 
                         ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}, 
                         ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}
@@ -107,15 +109,15 @@ const Image = ({ item }) => {
                             <img
                                 ref={itemRef}
                                 src={item.src}
-                                x="0"
-                                y="0"
+                                // x="100"
+                                // y="100"
                                 width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
                                 height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
                                 fill="#ffffff"
                                 className='image-media'
                                 alt="uploaded-image"
                                 style={{
-                                    borderRadius: "5%",
+                                    borderRadius: ".5rem",
                                     // opacity: item.opacity,
                                     //     minWidth: "100px",
                                     //     maxWidth: "500px",

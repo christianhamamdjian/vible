@@ -56,6 +56,7 @@ const Pdf = ({ item }) => {
                             right: "0",
                             bottom: "0",
                             left: "0",
+                            borderRadius: ".5rem"
                         }}
                         onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                         onPointerMove={(e) => handleRectPointerMove(e, item.id)}
