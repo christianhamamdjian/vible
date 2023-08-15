@@ -1,4 +1,5 @@
 import React from 'react';
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
@@ -42,14 +43,22 @@ const Map = ({ item }) => {
                     >
                         <div
                             // className='map-top'
-                            style={{ potition: "absolute", top: "0", left: "0", height: "2rem", backgroundColor: "#000000", userSelect: "none", borderRadius: "1rem 1rem 0 0" }}
+                            style={{
+                                potition: "absolute",
+                                top: item.y,
+                                left: item.x,
+                                height: "2rem",
+                                backgroundColor: "#000000",
+                                userSelect: "none",
+                                borderRadius: "1rem 1rem 0 0"
+                            }}
 
                             onDoubleClick={() => handleEditMap(item.id)}
                         >
                         </div>
                         <iframe
-                            x="200"
-                            y="200"
+                            // x="200"
+                            // y="200"
                             src={item.mapUrl}
                             width={item.width}
                             height={item.height}
@@ -58,9 +67,9 @@ const Map = ({ item }) => {
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             style={{
-                                position: "fixed",
-                                top: "2rem",
-                                left: "0",
+                                position: "absolute",
+                                top: isSafari ? item.y + 25 : "2rem",
+                                left: isSafari ? item.x : "0",
                             }}
                         >
                         </iframe>

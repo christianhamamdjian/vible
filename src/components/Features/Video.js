@@ -1,12 +1,13 @@
 import React from 'react';
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
     const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditVideo, editingVideo, handleStopEditItem } = React.useContext(MoodboardContext);
-    const isSafari = navigator.vendor.match(/apple/i) &&
-        !navigator.userAgent.match(/crios/i) &&
-        !navigator.userAgent.match(/fxios/i) &&
-        !navigator.userAgent.match(/Opera|OPT\//)
+    // const isSafari = navigator.vendor.match(/apple/i) &&
+    //     !navigator.userAgent.match(/crios/i) &&
+    //     !navigator.userAgent.match(/fxios/i) &&
+    //     !navigator.userAgent.match(/Opera|OPT\//)
     return (
         <>
             {item.type === "video" &&
