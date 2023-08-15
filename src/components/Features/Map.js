@@ -9,7 +9,10 @@ const Map = ({ item }) => {
             {item.type === "mapUrl" &&
                 <g
                     className='map-object'
-                // clipPath="url(#my-clippath)"
+                    // clipPath="url(#my-clippath)"
+                    style={{
+                        position: "absolute",
+                    }}
                 >
                     <foreignObject
                         x="0"
@@ -22,29 +25,31 @@ const Map = ({ item }) => {
                         onPointerUp={(e) => handleRectPointerUp(e, item.id)}
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                    // style={{
-                    //     backgroundColor: item.color,
-                    //     transform: `rotate(${item.angle || 0}deg)`,
-                    //     transformOrigin: `${item.width / 2, item.height / 2}`,
-                    //     display: "block",
-                    //     zIndex: "999999",
-                    //     position: "absolute",
-                    //     top: "0",
-                    //     right: "0",
-                    //     bottom: "0",
-                    //     left: "0",
-                    //     borderRadius: ".5rem"
-                    // }}
+                        onTouchEnd={() => handleRectPointerUp(item.id)}
+                        style={{
+                            backgroundColor: item.color,
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${item.width / 2, item.height / 2}`,
+                            display: "block",
+                            zIndex: "999999",
+                            position: "absolute",
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
+                            borderRadius: ".5rem"
+                        }}
                     >
                         <div
-                            className='map-top'
-                            onDoubleClick={(e) => handleEditMap(e, item.id)}
+                            // className='map-top'
+                            style={{ potition: "absolute", top: "0", left: "0", height: "2rem", backgroundColor: "#000000", userSelect: "none", borderRadius: "1rem 1rem 0 0" }}
+
+                            onDoubleClick={() => handleEditMap(item.id)}
                         >
                         </div>
                         <iframe
-                            x="0"
-                            y="0"
+                            x="200"
+                            y="200"
                             src={item.mapUrl}
                             width={item.width}
                             height={item.height}
@@ -52,11 +57,11 @@ const Map = ({ item }) => {
                             allowFullScreen=""
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                        // style={{
-                        //     position: "absolute",
-                        //     top: "0",
-                        //     left: "0",
-                        // }}
+                            style={{
+                                position: "fixed",
+                                top: "2rem",
+                                left: "0",
+                            }}
                         >
                         </iframe>
                     </foreignObject>
