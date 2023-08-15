@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
@@ -63,12 +64,21 @@ const Pdf = ({ item }) => {
                         onPointerUp={(e) => handleRectPointerUp(e, item.id)}
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchEnd={() => handleRectPointerUp(item.id)}
                     >
                         <div
-                            className='pdf-top'
-                            onDoubleClick={(e) => handleEditPdf(e, item.id)}
-
+                            //    className='pdf-top'
+                            onDoubleClick={() => handleEditPdf(item.id)}
+                            style={{
+                                potition: "absolute",
+                                top: item.y,
+                                left: item.x,
+                                width: item.width,
+                                height: item.width * 9 / 12,
+                                backgroundColor: "#000000",
+                                userSelect: "none",
+                                borderRadius: "1rem 1rem 0 0"
+                            }}
                         >
                         </div>
                         <div
@@ -90,6 +100,11 @@ const Pdf = ({ item }) => {
                                     type="application/pdf"
                                     width="100%"
                                     height={item.height}
+                                    style={{
+                                        position: "absolute",
+                                        top: isSafari ? item.y + 25 : "2rem",
+                                        left: isSafari ? item.x : "0",
+                                    }}
                                 />
                             ) : (
                                 <div>No PDF found.</div>

@@ -830,13 +830,13 @@ export default function MoodboardProvider({ children }) {
     const handleUndoErase = () => {
         if (positionErase > 0) {
             setPositionErase((prevPosition) => prevPosition - 1);
-            setPaths(historyErase[positionErase - 1].paths);
+            setPaths(historyErase[positionErase - 1]["paths"]);
         }
     };
     const handleRedoErase = () => {
         if (positionErase < historyErase.length - 1) {
             setPositionErase((prevPosition) => prevPosition + 1);
-            setPaths(historyErase[positionErase + 1].paths);
+            setPaths(historyErase[positionErase + 1]["paths"]);
         }
     };
 

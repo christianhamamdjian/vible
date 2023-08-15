@@ -20,7 +20,7 @@ const DrawingFormTop = () => {
                         className='input-line-width'
                         value={pathLine}
                         onChange={(event) => handleLineWidth(event)} />
-                    <button onClick={handleUndoErase} disabled={!canUndoErase}>
+                    {/* <button onClick={handleUndoErase} disabled={!canUndoErase}>
                         <svg
                             width="24"
                             height="24"
@@ -47,7 +47,7 @@ const DrawingFormTop = () => {
                                 fill="currentColor"
                             />
                         </svg>
-                    </button>
+                    </button> */}
                 </div>)}
             {paths.length > 0 && isEditingPath && !isErasing && (
                 <>
