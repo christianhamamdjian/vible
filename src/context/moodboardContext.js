@@ -442,7 +442,6 @@ export default function MoodboardProvider({ children }) {
                 x: clientX - svgPosition.x,
                 y: clientY - svgPosition.y,
             })
-            console.log(clientX, clientY)
             setDraggingSvg(true)
         }
 
@@ -505,7 +504,6 @@ export default function MoodboardProvider({ children }) {
         if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
-            console.log(clientX, clientY)
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
@@ -534,7 +532,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerUp = () => {
-        console.log("End Dragging board")
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)

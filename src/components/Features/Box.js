@@ -26,8 +26,12 @@ const Box = ({ item }) => {
             {item && item.type === "box" && (
                 <>
                     <g
-                        transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}>
-                        {/* {(editingText || isEditingBoard) && ( */}
+                        draggable="true"
+                        transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}
+                        style={{
+                            userSelect: "none"
+                        }}
+                    >
                         {(editingText || isEditingBoard) && (
                             <>
                                 <circle
@@ -66,11 +70,9 @@ const Box = ({ item }) => {
                             y="0"
                             width={`${item.width || 160}`}
                             height={`${item.height || 160}`}
-                            className="box-container"
+                            className="box-frame"
                             style={{
-                                backgroundColor: item.color,
-                                // transform: `rotate(${item.angle || 0}deg}`,
-                                // transformOrigin: `${item.width + item.width / 2, item.height + item.height / 2}`,
+                                // backgroundColor: item.color,
                                 display: "block",
                                 zIndex: "999999",
                                 position: "absolute",
@@ -88,63 +90,73 @@ const Box = ({ item }) => {
                             onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditBox(e, item.id)}
                         >
-                            <a
-                                href={item.url}
-                                target="__blank"
+                            <div
+
+                                className="box-container"
                                 style={{
-                                    textAlign: "right",
+                                    backgroundColor: item.color,
+                                    width: "100%",
+                                    height: "100%",
                                     userSelect: "none"
                                 }}
                             >
-                                <p
-                                    fill={getTextColor(item.color)}
+                                <a
+                                    href={item.url}
+                                    target="__blank"
                                     style={{
-                                        color: getTextColor(item.color),
-                                        textDecoration: "underline",
-                                        marginBottom: ".5rem",
+                                        textAlign: "right",
                                         userSelect: "none"
                                     }}
                                 >
-                                    {item.link}
-                                </p>
-                            </a>
-
-                            {editingText && isEditingBoard && (item.id === editingText.id) ? (
-                                <textarea
-                                    ref={itemRef}
-                                    name=""
-                                    id=""
-                                    value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
-                                    onChange={(event) => handleItemChange(event, editingText.id, "text")}
-                                    className="box-textarea"
-                                    style={{
-                                        color: getTextColor(item.color),
-                                        overflowX: "hidden",
-                                        overflowY: "auto"
-                                    }}
-                                    cols="10"
-                                    rows="2"
-                                    onBlur={handleStopEditItem}
-                                >
-                                </textarea>
-                            ) : (
-                                <>
-                                    <div
-                                        className="box-content"
+                                    <p
+                                        fill={getTextColor(item.color)}
+                                        style={{
+                                            color: getTextColor(item.color),
+                                            textDecoration: "underline",
+                                            marginBottom: ".5rem",
+                                            userSelect: "none"
+                                        }}
                                     >
-                                        <p
-                                            style={{
-                                                color: getTextColor(item.color),
-                                                height: item.link !== "" && "70%"
-                                            }}>{item.text}</p>
-                                        <StartRating
-                                            rating={item.rating} id={item.id}
-                                        />
-                                    </div>
-                                </>
-                            )
-                            }
+                                        {item.link}
+                                    </p>
+                                </a>
 
+                                {editingText && isEditingBoard && (item.id === editingText.id) ? (
+                                    <textarea
+                                        ref={itemRef}
+                                        name=""
+                                        id=""
+                                        value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
+                                        onChange={(event) => handleItemChange(event, editingText.id, "text")}
+                                        className="box-textarea"
+                                        style={{
+                                            color: getTextColor(item.color),
+                                            overflowX: "hidden",
+                                            overflowY: "auto"
+                                        }}
+                                        cols="10"
+                                        rows="2"
+                                        onBlur={handleStopEditItem}
+                                    >
+                                    </textarea>
+                                ) : (
+                                    <>
+                                        <div
+                                            className="box-content"
+                                        >
+                                            <p
+                                                style={{
+                                                    color: getTextColor(item.color),
+                                                    height: item.link !== "" && "70%"
+                                                }}>{item.text}</p>
+                                            <StartRating
+                                                rating={item.rating} id={item.id}
+                                            />
+                                        </div>
+                                    </>
+                                )
+                                }
+                            </div>
                         </foreignObject >
 
                         {onShow && <>
