@@ -69,7 +69,7 @@ const Video = ({ item }) => {
                             draggable="true"
                             width="100%"
                             height="90%"
-                            src={item.videoUrl}
+                            src={`https://www.youtube.com/embed/${item.videoUrl}`}
                             title="YouTube video player"
                             allow="accelerometer;
                             autoplay;

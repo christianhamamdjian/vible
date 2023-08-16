@@ -16,7 +16,7 @@ const VideoFormTop = () => {
                             max="600"
                             step="10"
                             name="width"
-                            value={editingVideo && items.find(item => item.id === editingVideo.id).width}
+                            value={editingVideo && items.find(item => item.id === editingVideo.id)["width"]}
                             onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                             } />
                         {/* <label>Change height:</label>

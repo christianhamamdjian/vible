@@ -382,6 +382,7 @@ export default function MoodboardProvider({ children }) {
             type: "video"
         }
         setItems((prevItems) => [...prevItems, newItem])
+        setItemVideoUrl('')
     }
     const handleAddImage = (e) => {
         e.preventDefault()
@@ -441,6 +442,7 @@ export default function MoodboardProvider({ children }) {
                 x: clientX - svgPosition.x,
                 y: clientY - svgPosition.y,
             })
+            console.log(clientX, clientY)
             setDraggingSvg(true)
         }
 
@@ -471,7 +473,6 @@ export default function MoodboardProvider({ children }) {
             const currentPoints = { x: clientX, y: clientY };
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
-
             setRectangleSize((prevSize) => ({
                 width: prevSize.width + dx,
                 height: prevSize.height + dy,
@@ -504,10 +505,10 @@ export default function MoodboardProvider({ children }) {
         if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
             // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
+            console.log(clientX, clientY)
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
-
             let newX = clientX - svgOffset.x
             let newY = clientY - svgOffset.y
             newX = Math.min(0, Math.max(newX, maxX))
@@ -533,6 +534,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerUp = () => {
+        console.log("End Dragging board")
         setDraggingSvg(false)
         if (drawing) {
             setDrawing(false)

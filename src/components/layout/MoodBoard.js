@@ -64,11 +64,12 @@ const MoodBoard = () => {
                         style={{
                             backgroundColor: "#ffffff",
                             userSelect: "none",
+                            transform: `translate(${svgPosition.x}px, ${svgPosition.y}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                             // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
-                        transform={`translate(${svgPosition.x}, ${svgPosition.y})`}
+                        transform={`translate(${svgPosition.x}px, ${svgPosition.y}px)`}
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
                         {renderBoardItems}
