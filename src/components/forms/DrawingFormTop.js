@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -75,6 +75,16 @@ const DrawingFormTop = () => {
                             value={paths.find(path => path.id === isEditingPath.id).closed}
                             checked={paths.find(path => path.id === isEditingPath.id).closed}
                             onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
+                        <label>Change Opacity:</label>
+                        <input
+                            type="range"
+                            min="0.1"
+                            max="1"
+                            step="0.1"
+                            name="opacity"
+                            value={paths.find(path => path.id === isEditingPath.id).opacity}
+                            onChange={(e) => handleLineOpacityChange(e, isEditingPath.id, "opacity")}
+                        />
 
                         {selectedPath !== null && (
                             <>
@@ -194,15 +204,17 @@ const DrawingFormTop = () => {
 
             {paths.length > 1 && isGrouping && (
                 <>
-                    <div className='path-edit-form'>
-                        <label htmlFor="rotate"><label>Rotate:</label></label>
-                        <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
-                        <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
-                    </div>
-                    <div className='path-edit-form'>
-                        <label htmlFor="scale"><label>Scale:</label></label>
-                        <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
-                        <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
+                    <div className='inputs-top_draw'>
+                        <div className='path-edit-form'>
+                            <label htmlFor="rotate"><label>Rotate:</label></label>
+                            <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
+                            <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
+                        </div>
+                        <div className='path-edit-form'>
+                            <label htmlFor="scale"><label>Scale:</label></label>
+                            <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
+                            <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
+                        </div>
                     </div>
                 </>
             )}

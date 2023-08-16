@@ -177,7 +177,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 80,
+            height: 100,
             angle: 0,
             type: "box",
             rating: 0
@@ -200,7 +200,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 80,
+            height: 100,
             angle: 0,
             type: "box",
             rating: 0
@@ -220,7 +220,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 80,
+            height: 100,
             type: "box",
             rating: 0
         }
@@ -239,7 +239,7 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 80,
+            height: 100,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -260,7 +260,7 @@ export default function MoodboardProvider({ children }) {
             link: link.content,
             url: link.link,
             width: 140,
-            height: 80,
+            height: 100,
             type: "box"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -435,7 +435,14 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setSelectedPath(null)
             setDrawing(true)
-            setPaths([...paths, { id: Date.now(), group: "noGroup", color: pathColor || "#000000", line: pathLine || 2, path: [transformedPoint] }])
+            setPaths([...paths, {
+                id: Date.now(),
+                group: "noGroup",
+                color: pathColor || "#000000",
+                line: pathLine || 2,
+                opacity: 1,
+                path: [transformedPoint]
+            }])
         }
     }
 
@@ -918,6 +925,17 @@ export default function MoodboardProvider({ children }) {
             })
         )
     }
+    const handleLineOpacityChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, opacity: e.target.value }
+                }
+                return path
+            })
+        )
+    }
+
     const stopLineEditing = () => {
         setIsEditingPath(null)
         setSelectedPath(null)
@@ -1220,6 +1238,7 @@ export default function MoodboardProvider({ children }) {
                 handleLineWidthChange,
                 handleLineColorChange,
                 handleLineFillChange,
+                handleLineOpacityChange,
                 handleLineClosedChange,
                 stopLineEditing,
                 handleScaleChange,

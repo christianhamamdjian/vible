@@ -24,8 +24,6 @@ export const convertFromSVGPath = (d) => {
     return points;
 }
 
-
-
 export const getCenterPoint = (points) => {
     const bounds = points.reduce(
         (acc, point) => {

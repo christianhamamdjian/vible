@@ -8,7 +8,9 @@ const Pdf = ({ item }) => {
     const [pdfData, setPdfData] = useState('');
 
     useEffect(() => {
-        handlePdfFetch(item.id);
+        if (item.type === "pdf") {
+            handlePdfFetch(item.id)
+        }
     }, []);
 
     const handlePdfFetch = (id) => {

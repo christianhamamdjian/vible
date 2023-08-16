@@ -15,7 +15,7 @@ function App() {
         <MoodBoard />
         <SidebarDrawer side="right" />
       </div>
-    </div >
+    </div>
   );
 }
 
