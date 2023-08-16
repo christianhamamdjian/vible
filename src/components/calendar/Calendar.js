@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './calendar.css';
+import { MoodboardContext } from "../../context/moodboardContext"
 
 export function Calendar() {
+  const { handleAddDateBox } = React.useContext(MoodboardContext);
+
   const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -20,6 +23,12 @@ export function Calendar() {
     setYear(date.getFullYear());
     setStartDay(getStartDayOfMonth(date));
   }, [date]);
+
+  const addDateToBoard = (d) => {
+    setDate(new Date(year, month, d))
+    const newDate = new Date(year, month, d)
+    handleAddDateBox(newDate)
+  }
 
   function getStartDayOfMonth(date) {
     const startDate = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -58,9 +67,9 @@ export function Calendar() {
                   key={index}
                   style={{
                     border: `${d === today.getDate() && "1px solid #eee"}`,
-                    //  backgroundColor: `${d === day && "#eee"}`
+                    backgroundColor: `${d === day && "#eee"}`
                   }}
-                  onClick={() => setDate(new Date(year, month, d))}
+                  onClick={() => addDateToBoard(d)}
                 >
                   {d > 0 ? d : ''}
                 </div>

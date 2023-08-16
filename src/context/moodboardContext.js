@@ -20,8 +20,8 @@ export default function MoodboardProvider({ children }) {
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
     const [groupDragging, setGroupDragging] = useState(false)
-    const [groupRotating, setGroupRotating] = useState(false)
-    const [groupScaling, setGroupScaling] = useState(false)
+    // const [groupRotating, setGroupRotating] = useState(false)
+    // const [groupScaling, setGroupScaling] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -235,6 +235,25 @@ export default function MoodboardProvider({ children }) {
             x: 200,
             y: 200,
             text: text,
+            color: itemColor,
+            link: itemLink,
+            url: itemUrl,
+            width: 140,
+            height: 100,
+            type: "box"
+        }
+        setItems((prevItems) => [...prevItems, newItem])
+        setItemText('Text')
+        setItemColor('#f4b416')
+    }
+    const handleAddDateBox = (text) => {
+        console.log(text.toLocaleString())
+        const itemId = Date.now()
+        const newItem = {
+            id: itemId,
+            x: 200,
+            y: 200,
+            text: text.toLocaleString(),
             color: itemColor,
             link: itemLink,
             url: itemUrl,
@@ -1258,7 +1277,8 @@ export default function MoodboardProvider({ children }) {
                 handleMoveBackward,
                 handleDuplicatePath,
                 handleGroupRotateChange,
-                handleGroupScaleChange
+                handleGroupScaleChange,
+                handleAddDateBox
             }}>
             {children}
         </MoodboardContext.Provider>
