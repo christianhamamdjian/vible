@@ -2,8 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward,
-        handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -189,6 +188,21 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
+                    </div>
+                </>
+            )}
+
+            {paths.length > 1 && isGrouping && (
+                <>
+                    <div className='path-edit-form'>
+                        <label htmlFor="rotate"><label>Rotate:</label></label>
+                        <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
+                        <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
+                    </div>
+                    <div className='path-edit-form'>
+                        <label htmlFor="scale"><label>Scale:</label></label>
+                        <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
+                        <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
                     </div>
                 </>
             )}

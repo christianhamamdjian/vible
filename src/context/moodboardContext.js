@@ -20,6 +20,8 @@ export default function MoodboardProvider({ children }) {
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
     const [groupDragging, setGroupDragging] = useState(false)
+    const [groupRotating, setGroupRotating] = useState(false)
+    const [groupScaling, setGroupScaling] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -633,7 +635,6 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handlePathDrag = (e, index, id) => {
-        console.log("Dragging single path")
         e.stopPropagation()
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
@@ -695,7 +696,6 @@ export default function MoodboardProvider({ children }) {
         setGroupDragging(true)
     }
     const handlePathGroupDrag = (e) => {
-        console.log("Dragging paths group")
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         const handleMouseMove = (e) => {
@@ -739,6 +739,7 @@ export default function MoodboardProvider({ children }) {
             }
             return path
         })
+        console.log(rotate)
         setRotation(rotate)
         setPaths(updatedPaths)
     }
@@ -753,6 +754,36 @@ export default function MoodboardProvider({ children }) {
                 })
             }
             return path
+        })
+        setScaling(scale)
+        setPaths(updatedPaths)
+    }
+
+    const handleGroupRotateChange = (e, amount) => {
+        const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const pathCollect = pathGroup.map(el => el.path)
+        const pathPoints = pathCollect.flat()
+        const rotate = (amount === "increase") ? +10 : -10
+        const center = getCenterPoint(pathPoints)
+        const updatedPaths = pathGroup.map((path) => {
+            return ({
+                ...path, path: rotatePath(path["path"], center, rotate)
+            })
+        })
+        setRotation(rotate)
+        setPaths(updatedPaths)
+    }
+
+    const handleGroupScaleChange = (e, amount) => {
+        const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const pathCollect = pathGroup.map(el => el.path)
+        const pathPoints = pathCollect.flat()
+        const scale = (amount === "increase") ? 1.2 : 0.8
+        const center = getCenterPoint(pathPoints)
+        const updatedPaths = pathGroup.map((path) => {
+            return ({
+                ...path, path: scalePath(path["path"], center, scale)
+            })
         })
         setScaling(scale)
         setPaths(updatedPaths)
@@ -1206,7 +1237,9 @@ export default function MoodboardProvider({ children }) {
                 handleMoveToBack,
                 handleMoveForward,
                 handleMoveBackward,
-                handleDuplicatePath
+                handleDuplicatePath,
+                handleGroupRotateChange,
+                handleGroupScaleChange
             }}>
             {children}
         </MoodboardContext.Provider>
