@@ -177,9 +177,10 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 100,
+            height: 140,
             angle: 0,
             type: "box",
+            font: "Roboto",
             rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -200,9 +201,10 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 100,
+            height: 140,
             angle: 0,
             type: "box",
+            font: "Roboto",
             rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -220,8 +222,9 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 100,
+            height: 140,
             type: "box",
+            font: "Roboto",
             rating: 0
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -239,8 +242,9 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 100,
-            type: "box"
+            height: 140,
+            type: "box",
+            font: "Roboto",
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -258,8 +262,9 @@ export default function MoodboardProvider({ children }) {
             link: itemLink,
             url: itemUrl,
             width: 140,
-            height: 100,
-            type: "box"
+            height: 140,
+            type: "box",
+            font: "Roboto",
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -279,8 +284,9 @@ export default function MoodboardProvider({ children }) {
             link: link.content,
             url: link.link,
             width: 140,
-            height: 100,
-            type: "box"
+            height: 140,
+            type: "box",
+            font: "Roboto",
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')

@@ -114,7 +114,7 @@ const Box = ({ item }) => {
                                             color: getTextColor(item.color),
                                             textDecoration: "underline",
                                             marginBottom: ".5rem",
-                                            userSelect: "none"
+                                            userSelect: "none",
                                         }}
                                     >
                                         {item.link}
@@ -132,7 +132,8 @@ const Box = ({ item }) => {
                                         style={{
                                             color: getTextColor(item.color),
                                             overflowX: "hidden",
-                                            overflowY: "auto"
+                                            overflowY: "auto",
+                                            fontFamily: item.font
                                         }}
                                         cols="10"
                                         rows="2"
@@ -147,8 +148,13 @@ const Box = ({ item }) => {
                                             <p
                                                 style={{
                                                     color: getTextColor(item.color),
-                                                    height: item.link !== "" && "70%"
-                                                }}>{item.text}</p>
+                                                    height: item.link !== "" && "70%",
+                                                    fontFamily: item.font,
+                                                    userSelect: "none",
+                                                }}
+                                            >
+                                                {item.text}
+                                            </p>
                                             <StartRating
                                                 rating={item.rating} id={item.id}
                                             />
