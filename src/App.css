@@ -1066,11 +1066,13 @@ button,
 /* File upload to Board */
 #board-form-file-upload {
   /* font-size: .8rem; */
-  height: 8rem;
+  /* height: 8rem; */
   width: 100%;
-  max-width: 100%;
-  text-align: center;
-  position: relative;
+  height: 100%;
+  background-color: azure;
+  /* max-width: 100%; */
+  /* text-align: center;
+  position: relative; */
 }
 
 #board-input-file-upload {
@@ -1078,6 +1080,7 @@ button,
 }
 
 #board-label-file-upload {
+  width: 100%;
   height: 100%;
   /* display: flex;
   align-items: center;
@@ -1085,22 +1088,25 @@ button,
   /* border-width: 2px; */
   /* border-radius: 1rem; */
   /* border-style: dashed; */
-  border-color: transparent;
-  background-color: transparent;
-  color: transparent;
+  /* border-color: transparent; */
+  /* background-color: transparent; */
+  background-color: azure;
+  /* color: transparent; */
 }
 
 #board-label-file-upload.drag-active {
-  background-color: transparent;
+  background-color: azure;
+  /* background-color: transparent; */
 }
 
 .board-upload-button {
-  cursor: pointer;
+  /* cursor: pointer; */
   /* padding: 0.25rem;
   font-size: 1rem; */
-  border: none;
+  /* border: none; */
   /* font-family: 'Oswald', sans-serif; */
-  background-color: transparent;
+  /* background-color: transparent; */
+  background-color: azure;
 }
 
 /* .board-upload-button:hover {

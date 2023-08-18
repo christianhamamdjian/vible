@@ -327,6 +327,24 @@ export default function MoodboardProvider({ children }) {
         }
         reader.readAsDataURL(file)
     }
+    const handleTextDropUpload = (e) => {
+        const text = e.dataTransfer.getData('text')
+        const itemId = Date.now()
+        const newItem = {
+            id: itemId,
+            x: 200,
+            y: 200,
+            text: text,
+            color: "#ffffff",
+            link: "",
+            url: "",
+            width: 140,
+            height: 140,
+            type: "box",
+            font: "Roboto",
+        }
+        setItems((prevItems) => [...prevItems, newItem])
+    }
     const handlePdfUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -1032,6 +1050,39 @@ export default function MoodboardProvider({ children }) {
     }
 
     // Editing functions
+
+    const handleEditItem = (e, id) => {
+        const itemType = items.find(el => el.id === id).type
+        switch (itemType) {
+            case 'box':
+
+                break;
+            case 'image':
+
+                break;
+            case 'imageUrl':
+
+                break;
+            case 'video':
+
+                break;
+            case 'map':
+
+                break;
+            case 'pdf':
+
+                break;
+            default:
+                break;
+        }
+        if (editingText) {
+            setEditingText(null)
+        }
+        setEditingImage({ status: true, id: id })
+        setIsEditingBoard(true)
+        handleImage()
+    }
+
     const handleEditImage = (e, id) => {
         if (editingText) {
             setEditingText(null)
@@ -1233,6 +1284,7 @@ export default function MoodboardProvider({ children }) {
                 handleImageUpload,
                 handlePdfUpload,
                 handleImageDropUpload,
+                handleTextDropUpload,
                 handleAddVideo,
                 handleAddImage,
                 handleAddMap,
@@ -1244,6 +1296,7 @@ export default function MoodboardProvider({ children }) {
                 handleItemVideoUrl,
                 handleItemImageUrl,
                 handleItemMapUrl,
+                handleEditItem,
                 handleEditBox,
                 handleEditImage,
                 handleEditVideo,

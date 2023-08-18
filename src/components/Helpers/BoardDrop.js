@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext, } from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 function BoardDrop({ children }) {
-    const { handleImageDropUpload } = useContext(MoodboardContext)
+    const { handleImageDropUpload, handleTextDropUpload } = useContext(MoodboardContext)
     const [dragActive, setDragActive] = useState(false)
     const inputRef = useRef(null)
 
@@ -21,6 +21,8 @@ function BoardDrop({ children }) {
         setDragActive(false)
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             handleImageDropUpload(e.dataTransfer.files[0])
+        } else {
+            handleTextDropUpload(e)
         }
     }
 
@@ -30,10 +32,6 @@ function BoardDrop({ children }) {
             handleImageDropUpload(e.target.files[0])
         }
     }
-
-    // const onButtonClick = () => {
-    //     inputRef.current.click()
-    // }
 
     return (
         <form
@@ -48,21 +46,6 @@ function BoardDrop({ children }) {
                 multiple={true}
                 onChange={handleChange}
             />
-            {/* <label
-                id="board-label-file-upload"
-                htmlFor="board-input-file-upload"
-                className={dragActive ? "drag-active" : ""}
-            >
-                <div>
-                    <p>Drag and drop your file here or</p>
-                    <button
-                        className="upload-button"
-                        onClick={onButtonClick}
-                    >
-                        Upload a file
-                    </button>
-                </div>
-            </label> */}
             <div
                 id="drag-file-element"
                 onDragEnter={handleDrag}
