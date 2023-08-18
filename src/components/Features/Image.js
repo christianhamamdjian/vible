@@ -5,7 +5,6 @@ const Image = ({ item }) => {
     const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
-
     const [onShow, setOnShow] = useState(false)
 
     const confirmDelete = (id) => {
@@ -24,7 +23,12 @@ const Image = ({ item }) => {
     }
 
     useEffect(() => {
-        setLoadedImage(item.type === "image" && itemRef.current)
+        if (item.type === "image") {
+            const imageSource = itemRef.current.href.baseVal
+            const newImage = document.createElement("img")
+            newImage.src = imageSource
+            setLoadedImage(newImage)
+        }
     }, [])
 
     return (
@@ -32,24 +36,9 @@ const Image = ({ item }) => {
             {item.type === "image" &&
                 <>
                     <g
-                        x="0"
-                        y="0"
-                        transform={`rotate(${item.angle || 0}, 
-                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}, 
-                        ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}
-                        )`}
-                        onPointerDown={e => { handleRectPointerDown(e, item.id) }}
-                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
-                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
-                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        onDoubleClick={(e) => handleEditImage(e, item.id)}
                         style={{
-                            minWidth: "100px",
-                            maxWidth: "500px",
-                            minHeight: "100px",
-                            maxHeight: "500px",
+                            transform: `rotate(${item.angle || 0}deg)`,
+                            transformOrigin: `${(loadedImage && (loadedImage.naturalWidth * item.width / 100)) / 2}, ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}`,
                         }}
                     >
                         {isEditingBoard && (
@@ -85,52 +74,7 @@ const Image = ({ item }) => {
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
                             </>)}
-                        <foreignObject
-                            className='image-object'
-                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
-                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
-                            style={{
-                                // transform: `rotate(${item.angle || 0}deg)`,
-                                // transformOrigin: `${item.width / 2, item.height / 2}`,
-                                display: "block",
-                                zIndex: "999999",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
-                                opacity: item.opacity,
-                                // minWidth: "100px",
-                                // maxWidth: "500px",
-                                // minHeight: "100px",
-                                // maxHeight: "500px",
-                            }}
-                        >
-                            <img
-                                ref={itemRef}
-                                src={item.src}
-                                // x="100"
-                                // y="100"
-                                width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
-                                height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
-                                fill="#ffffff"
-                                className='image-media'
-                                alt="uploaded-image"
-                                style={{
-                                    borderRadius: ".5rem",
-                                    // opacity: item.opacity,
-                                    //     minWidth: "100px",
-                                    //     maxWidth: "500px",
-                                    //     minHeight: "100px",
-                                    //     maxHeight: "500px",
-                                }}
-                            />
-                        </foreignObject>
-                        <rect
-                            fill="transparent"
-                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100)}
-                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100)}
-                        />
+
                         {onShow && <>
                             <rect
                                 x="10"
@@ -221,6 +165,33 @@ const Image = ({ item }) => {
                                 onClick={() => confirmDelete(item.id)}
                             />
                         </>}
+                        <image
+                            ref={itemRef}
+                            href={item.src}
+                            x="0"
+                            y="0"
+                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100) || "100"}
+                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100) || "100"}
+                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                            onDoubleClick={(e) => handleEditImage(e, item.id)}
+                            className='image-media'
+                            style={{
+                                display: "block",
+                                zIndex: "999999",
+                                position: "absolute",
+                                top: "0",
+                                right: "0",
+                                bottom: "0",
+                                left: "0",
+                                opacity: item.opacity,
+                            }}
+                        />
+
                         {isEditingBoard && <>
                             <rect
                                 x="10"
@@ -295,7 +266,8 @@ const Image = ({ item }) => {
                             </>
                             }
                         </>
-                        }</g>
+                        }
+                    </g >
                 </>
             }
         </>

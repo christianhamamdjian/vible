@@ -20,8 +20,6 @@ export default function MoodboardProvider({ children }) {
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
     const [groupDragging, setGroupDragging] = useState(false)
-    // const [groupRotating, setGroupRotating] = useState(false)
-    // const [groupScaling, setGroupScaling] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
     const [pathLine, setPathLine] = useState(3)
@@ -301,7 +299,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: 10,
+                width: 100,
                 opacity: 1,
                 angle: 0,
                 type: "image"
@@ -319,7 +317,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: 10,
+                width: 100,
                 opacity: 1,
                 angle: 0,
                 height: "auto",
@@ -394,11 +392,11 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
+            // imageUrl: itemImageUrl,
             imageUrl: itemImageUrl,
             x: 100,
             y: 100,
-            width: "100",
-            height: "auto",
+            width: 100,
             type: "imageUrl"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -482,11 +480,10 @@ export default function MoodboardProvider({ children }) {
                 width: prevSize.width + dx,
                 height: prevSize.height + dy,
             }));
-            // if (rectangleSize.width >= 5 && rectangleSize.width <= 50) {
             handleResize(e, selectedRectId, rectangleSize)
             setMousedownPoints(currentPoints)
             updateResizeIcon(dx, dy)
-            // }
+
         }
 
         if (isRotating) {
@@ -619,7 +616,18 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        if (resizable && resizable.type === "image" && (resizable.width > 5 && resizable.width < 30) || (size.width > 5 && size.width < 30)) {
+        // if (resizable && resizable.type === "image" && (resizable.width > 5 && resizable.width < 30) || (size.width > 5 && size.width < 30)) {
+        if (resizable && resizable.type === "image") {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        }
+        if (resizable && resizable.type === "imageUrl") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -711,9 +719,7 @@ export default function MoodboardProvider({ children }) {
     // Path Group handling
     const handleGrouping = () => {
         if (isGrouping) {
-
             resetPathsGroup()
-
             setSelectedPath(null)
             setIsEditingPath(false)
         }
@@ -743,7 +749,6 @@ export default function MoodboardProvider({ children }) {
                     }))
                 })
             })
-
             setPaths(prevPaths => {
                 const newPaths = prevPaths.filter(ele => !updatedPaths.find(x => x.id === ele.id))
                 return [...newPaths, ...updatedPaths]
@@ -775,6 +780,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths)
     }
 
+    // Line Group functions
     const handleScaleChange = (e, amount) => {
         const scale = (amount === "increase") ? 1.2 : 0.8
         const updatedPaths = paths.map((path, index) => {
@@ -909,6 +915,9 @@ export default function MoodboardProvider({ children }) {
     const handleLineWidth = (e) => {
         setPathLine(e.target.value)
     }
+
+
+    // Line Change function 
     const handleLineWidthChange = (e, id) => {
         setPaths(prevPaths =>
             prevPaths.map(path => {
@@ -960,6 +969,8 @@ export default function MoodboardProvider({ children }) {
         )
     }
 
+
+
     const stopLineEditing = () => {
         setIsEditingPath(null)
         setSelectedPath(null)
@@ -997,6 +1008,7 @@ export default function MoodboardProvider({ children }) {
         setEditingImage(null)
     }
 
+    // Text box inputs
     const handleItemText = (e) => {
         setItemText(e.target.value)
     }
@@ -1019,7 +1031,7 @@ export default function MoodboardProvider({ children }) {
         setItemMapUrl(e.target.value)
     }
 
-    // Editing
+    // Editing functions
     const handleEditImage = (e, id) => {
         if (editingText) {
             setEditingText(null)
@@ -1028,7 +1040,6 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(true)
         handleImage()
     }
-
     const handleEditBox = (e, id) => {
         if (editingImage) {
             setEditingImage(null)
@@ -1088,15 +1099,18 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    // Toggle functions
-    const handleInfo = () => {
-        setInfo(info => !info)
-    }
+
+    // Togge draw
     const handleDraw = () => {
         setDraw(draw => !draw)
         isGrouping && setIsGrouping(false)
         isDrawing && setIsDrawing(false)
         isErasing && setIsErasing(false)
+    }
+
+    // Toggle functions
+    const handleInfo = () => {
+        setInfo(info => !info)
     }
     const handleWrite = () => {
         setWrite(write => !write)
@@ -1116,6 +1130,11 @@ export default function MoodboardProvider({ children }) {
     const handlePdf = () => {
         setPdf(pdf => !pdf)
     }
+    const handleTodosToggle = () => {
+        setTodosShow(todosShow => !todosShow)
+    }
+
+
     const handleClearBoard = () => {
         setItems([])
         setPaths([])
@@ -1146,9 +1165,7 @@ export default function MoodboardProvider({ children }) {
         setZoom(10000)
     }
 
-    const handleTodosToggle = () => {
-        setTodosShow(todosShow => !todosShow)
-    }
+
 
     return (
         <MoodboardContext.Provider
