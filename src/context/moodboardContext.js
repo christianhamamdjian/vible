@@ -329,21 +329,34 @@ export default function MoodboardProvider({ children }) {
     }
     const handleTextDropUpload = (e) => {
         const text = e.dataTransfer.getData('text')
-        const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            x: 200,
-            y: 200,
-            text: text,
-            color: "#ffffff",
-            link: "",
-            url: "",
-            width: 140,
-            height: 140,
-            type: "box",
-            font: "Roboto",
+        if (text.startsWith('http') || text.startsWith('https')) {
+            e.preventDefault()
+            const newItem = {
+                id: Date.now(),
+                imageUrl: text,
+                x: 100,
+                y: 100,
+                width: 100,
+                type: "imageUrl"
+            }
+            setItems((prevItems) => [...prevItems, newItem])
+        } else {
+            const itemId = Date.now()
+            const newItem = {
+                id: itemId,
+                x: 200,
+                y: 200,
+                text: text,
+                color: "#ffffff",
+                link: "",
+                url: "",
+                width: 140,
+                height: 140,
+                type: "box",
+                font: "Roboto",
+            }
+            setItems((prevItems) => [...prevItems, newItem])
         }
-        setItems((prevItems) => [...prevItems, newItem])
     }
     const handlePdfUpload = (event) => {
         const file = event.target.files[0];
@@ -410,7 +423,6 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
-            // imageUrl: itemImageUrl,
             imageUrl: itemImageUrl,
             x: 100,
             y: 100,
