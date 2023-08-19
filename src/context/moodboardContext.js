@@ -117,6 +117,7 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('paths', JSON.stringify(savingPaths))
     }
 
+    // Paths order
     const moveToFront = (arr, id) => {
         const newArr = [...arr]
         const fromIndex = newArr.findIndex((el) => el.id === id)
@@ -160,6 +161,52 @@ export default function MoodboardProvider({ children }) {
     }
     const handleMoveBackward = (id) => {
         moveBackward(paths, id)
+    }
+
+    // Items order
+    const moveItemToFront = (arr, id) => {
+        const newArr = [...arr]
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(arr.length, 0, element)
+        setItems(newArr)
+    }
+    const moveItemToBack = (arr, id) => {
+        const newArr = [...arr];
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(0, 0, element)
+        setItems(newArr)
+    }
+    const moveItemForward = (arr, id) => {
+        const newArr = [...arr]
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(fromIndex + 1, 0, element)
+        setItems(newArr)
+    }
+    const moveItemBackward = (arr, id) => {
+        const newArr = [...arr];
+        const fromIndex = newArr.findIndex((el) => el.id === id)
+        const element = newArr[fromIndex]
+        newArr.splice(fromIndex, 1)
+        newArr.splice(fromIndex - 1, 0, element)
+        setItems(newArr)
+    }
+    const handleMoveItemToFront = (id) => {
+        moveItemToFront(items, id)
+    }
+    const handleMoveItemToBack = (id) => {
+        moveItemToBack(items, id)
+    }
+    const handleMoveItemForward = (id) => {
+        moveItemForward(items, id)
+    }
+    const handleMoveItemBackward = (id) => {
+        moveItemBackward(items, id)
     }
 
     // Add Elements
@@ -646,7 +693,22 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        // if (resizable && resizable.type === "image" && (resizable.width > 5 && resizable.width < 30) || (size.width > 5 && size.width < 30)) {
+        // if (resizable && resizable.type === "image" && (resizable.width > 50 && resizable.width < 10) || (size.width > 50 && size.width < 10)) {
+        //     e.preventDefault()
+        // }
+
+        console.log(itemRef.current)
+
+        // if (isResizing) {
+        //     const activeItem = itemRef.current
+        //     const newWidth = Math.max(100, Math.min(300, e.clientX - activeItem.getBoundingClientRect().left));
+        //     const newHeight = Math.max(100, Math.min(300, e.clientY - activeItem.getBoundingClientRect().top));
+
+        //     activeItem.setAttribute('width', newWidth);
+        //     activeItem.setAttribute('height', newHeight);
+        // }
+
+
         if (resizable && resizable.type === "image") {
             setItems(prevItems =>
                 prevItems.map(item => {
@@ -1365,6 +1427,10 @@ export default function MoodboardProvider({ children }) {
                 handleMoveToBack,
                 handleMoveForward,
                 handleMoveBackward,
+                handleMoveItemToFront,
+                handleMoveItemToBack,
+                handleMoveItemForward,
+                handleMoveItemBackward,
                 handleDuplicatePath,
                 handleGroupRotateChange,
                 handleGroupScaleChange,

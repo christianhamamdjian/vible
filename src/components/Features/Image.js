@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleDeleteItem, handleEditImage, editingImage, handleStopEditItem, isEditingBoard, } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
     const [onShow, setOnShow] = useState(false)
-
+    // console.log(item.width)
     const confirmDelete = (id) => {
         handleDeleteItem(id);
         hideConfirm()

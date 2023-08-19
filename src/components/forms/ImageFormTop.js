@@ -2,7 +2,7 @@ import React from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageFormTop = () => {
-    const { items, editingImage, handleItemChange } = React.useContext(MoodboardContext)
+    const { items, editingImage, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext)
     return (
         <>
             {editingImage && items.length > 0 &&
@@ -36,6 +36,24 @@ const ImageFormTop = () => {
                             value={editingImage && items.find(item => item.id === editingImage.id).opacity}
                             onChange={(e) => handleItemChange(e, editingImage.id, "opacity")}
                         />
+
+                        <label>Move:</label>
+                        <button
+                            onClick={() => handleMoveItemToBack(editingImage.id)}>
+                            <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                        </button>
+                        <button
+                            onClick={() => handleMoveItemToFront(editingImage.id)}>
+                            <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                        </button>
+                        <button
+                            onClick={() => handleMoveItemBackward(editingImage.id)}>
+                            <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                        </button>
+                        <button
+                            onClick={() => handleMoveItemForward(editingImage.id)}>
+                            <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                        </button>
                     </div>
                 </>
             } </>

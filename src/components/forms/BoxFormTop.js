@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
-    const { items, editingText, write, isEditingBoard, handleItemChange } = React.useContext(MoodboardContext);
+    const { items, editingText, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext);
     const [selectedFont, setSelectedFont] = useState('Roboto');
     const fontOptions = [
         { value: 'Roboto', label: 'Roboto' },
@@ -93,6 +93,25 @@ const BoxFormTop = () => {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+                        <div className='item-edit-form'>
+                            <label>Move:</label>
+                            <button
+                                onClick={() => handleMoveItemToBack(editingText.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveItemToFront(editingText.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveItemBackward(editingText.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                            </button>
+                            <button
+                                onClick={() => handleMoveItemForward(editingText.id)}>
+                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                            </button>
                         </div>
                     </div>
                 </>)
