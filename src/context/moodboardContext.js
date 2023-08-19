@@ -283,7 +283,8 @@ export default function MoodboardProvider({ children }) {
             x: 200,
             y: 200,
             text: text,
-            color: itemColor,
+            //color: itemColor,
+            color: "#940019",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -303,7 +304,8 @@ export default function MoodboardProvider({ children }) {
             x: 200,
             y: 200,
             text: text.toLocaleString(),
-            color: itemColor,
+            // color: itemColor,
+            color: "#2e4757",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -553,10 +555,16 @@ export default function MoodboardProvider({ children }) {
             const currentPoints = { x: clientX, y: clientY };
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
+
             setRectangleSize((prevSize) => ({
-                width: prevSize.width + dx,
-                height: prevSize.height + dy,
+                // width: prevSize.width + dx,
+                // height: prevSize.height + dy,
+
+                width: Math.max(100, Math.min(300, prevSize.width + dx)),
+                height: Math.max(100, Math.min(300, prevSize.height + dy)),
+
             }));
+
             handleResize(e, selectedRectId, rectangleSize)
             setMousedownPoints(currentPoints)
             updateResizeIcon(dx, dy)
@@ -693,22 +701,6 @@ export default function MoodboardProvider({ children }) {
 
     const handleResize = (e, id, size) => {
         const resizable = items.find(item => item.id === id)
-        // if (resizable && resizable.type === "image" && (resizable.width > 50 && resizable.width < 10) || (size.width > 50 && size.width < 10)) {
-        //     e.preventDefault()
-        // }
-
-        console.log(itemRef.current)
-
-        // if (isResizing) {
-        //     const activeItem = itemRef.current
-        //     const newWidth = Math.max(100, Math.min(300, e.clientX - activeItem.getBoundingClientRect().left));
-        //     const newHeight = Math.max(100, Math.min(300, e.clientY - activeItem.getBoundingClientRect().top));
-
-        //     activeItem.setAttribute('width', newWidth);
-        //     activeItem.setAttribute('height', newHeight);
-        // }
-
-
         if (resizable && resizable.type === "image") {
             setItems(prevItems =>
                 prevItems.map(item => {
