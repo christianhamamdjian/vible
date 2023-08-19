@@ -828,6 +828,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleGroupRotateChange = (e, amount) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const notGouped = paths.filter(path => path.group === "noGroup")
         const pathCollect = pathGroup.map(el => el.path)
         const pathPoints = pathCollect.flat()
         const rotate = (amount === "increase") ? +10 : -10
@@ -838,11 +839,13 @@ export default function MoodboardProvider({ children }) {
             })
         })
         setRotation(rotate)
-        setPaths(updatedPaths)
+        console.log()
+        setPaths([...notGouped, ...updatedPaths])
     }
 
     const handleGroupScaleChange = (e, amount) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const notGouped = paths.filter(path => path.group === "noGroup")
         const pathCollect = pathGroup.map(el => el.path)
         const pathPoints = pathCollect.flat()
         const scale = (amount === "increase") ? 1.2 : 0.8
@@ -853,7 +856,7 @@ export default function MoodboardProvider({ children }) {
             })
         })
         setScaling(scale)
-        setPaths(updatedPaths)
+        setPaths([...notGouped, ...updatedPaths])
     }
 
     const handleEditPaths = () => {
