@@ -4,7 +4,13 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
     const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditMap, editingMap, handleStopEditItem } = React.useContext(MoodboardContext);
-
+    // console.log(`https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=60.1717794+24.9413548+&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`)
+    //const points = "60.1717794,24.9413548"
+    const coordinates = item.mapUrl.split(",")
+    const lat = parseFloat(coordinates[0].trim())
+    const long = parseFloat(coordinates[1].trim())
+    const url = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${lat}+${long}+&t=&z=14&ie=UTF8&iwloc=B&output=embed`
+    console.log(url)
     return (
         <>
             {item.type === "mapUrl" &&
@@ -52,24 +58,24 @@ const Map = ({ item }) => {
                                 userSelect: "none",
                                 borderRadius: "1rem 1rem 0 0"
                             }}
-
                             onDoubleClick={() => handleEditMap(item.id)}
                         >
                         </div>
                         <iframe
                             // x="200"
                             // y="200"
-                            src={item.mapUrl}
+                            src={url}
                             width={item.width}
                             height={item.height}
                             className='map-frame'
-                            allowFullScreen=""
+                            allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             style={{
                                 position: "absolute",
                                 top: isSafari ? item.y + 25 : "2rem",
                                 left: isSafari ? item.x : "0",
+                                style: "border:0"
                             }}
                         >
                         </iframe>
