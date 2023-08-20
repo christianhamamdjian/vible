@@ -44,16 +44,17 @@ const Drawing = () => {
                         </marker>
                     </defs>
                     <path
-                        key={index}
+                        // key={index}
+                        key={Date.now()}
                         // d={svgPath(path["path"])} // Line smoothing to be fixed
                         //d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
                         d={`${renderPath(path["path"])} ${path.closed ? "Z" : ""}`}
                         fill={path.closed ? path.fill : "none"}
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        stroke-dasharray={path.dashed && "10,10"}
-                        marker-end={path.arrowEnd && "url(#endarrow)"}
-                        marker-start={path.arrowStart && "url(#endarrow)"}
+                        strokeDasharray={path.dashed && "10,10"}
+                        markerEnd={path.arrowEnd && "url(#endarrow)"}
+                        markerStart={path.arrowStart && "url(#endarrow)"}
                         stroke={path.group === "activeGroup" ? "red" : path.color}
                         strokeWidth={path.line}
                         //onClick={(e) => handlePathClick(e, index, path.id)}
