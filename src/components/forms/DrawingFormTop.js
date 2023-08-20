@@ -2,7 +2,7 @@ import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -75,6 +75,27 @@ const DrawingFormTop = () => {
                             value={paths.find(path => path.id === isEditingPath.id).closed}
                             checked={paths.find(path => path.id === isEditingPath.id).closed}
                             onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
+                        <label>Dashed line:</label>
+                        <input
+                            type="checkbox"
+                            className='input-line-dashed'
+                            value={paths.find(path => path.id === isEditingPath.id).dashed}
+                            checked={paths.find(path => path.id === isEditingPath.id).dashed}
+                            onChange={(event) => handleLineDashedChange(event, isEditingPath.id)} />
+                        <label>Arrow Start:</label>
+                        <input
+                            type="checkbox"
+                            className='input-line-arrowstart'
+                            value={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                            checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                            onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
+                        <label>Arrow End:</label>
+                        <input
+                            type="checkbox"
+                            className='input-line-arrowend'
+                            value={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                            checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                            onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
                         <label>Change Opacity:</label>
                         <input
                             type="range"

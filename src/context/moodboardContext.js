@@ -544,7 +544,11 @@ export default function MoodboardProvider({ children }) {
                 color: pathColor || "#000000",
                 line: pathLine || 2,
                 opacity: 1,
-                path: [transformedPoint]
+                path: [transformedPoint],
+                closed: "",
+                dashed: "",
+                arrowStart: "",
+                arrowEnd: ""
             }])
         }
     }
@@ -1055,8 +1059,36 @@ export default function MoodboardProvider({ children }) {
             })
         )
     }
-
-
+    const handleLineDashedChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, dashed: e.target.checked }
+                }
+                return path
+            })
+        )
+    }
+    const handleLineArrowStartChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, arrowStart: e.target.checked }
+                }
+                return path
+            })
+        )
+    }
+    const handleLineArrowEndChange = (e, id) => {
+        setPaths(prevPaths =>
+            prevPaths.map(path => {
+                if (path.id === id) {
+                    return { ...path, arrowEnd: e.target.checked }
+                }
+                return path
+            })
+        )
+    }
 
     const stopLineEditing = () => {
         setIsEditingPath(null)
@@ -1402,6 +1434,9 @@ export default function MoodboardProvider({ children }) {
                 handleLineColorChange,
                 handleLineFillChange,
                 handleLineOpacityChange,
+                handleLineDashedChange,
+                handleLineArrowStartChange,
+                handleLineArrowEndChange,
                 handleLineClosedChange,
                 stopLineEditing,
                 handleScaleChange,

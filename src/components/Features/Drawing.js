@@ -28,13 +28,20 @@ const Drawing = () => {
                     <defs>
                         <marker id="startarrow" markerWidth="10" markerHeight="7"
                             refX="10" refY="3.5" orient="auto">
-                            <polygon points="10 0, 10 7, 0 3.5" fill="red" />
+                            <polygon
+                                points="10 0, 10 7, 0 3.5"
+                                //fill={path.group === "activeGroup" ? "red" : path.color}
+                                fill={path.color}
+                            />
                         </marker>
                         <marker id="endarrow" markerWidth="10" markerHeight="7"
                             refX="0" refY="3.5" orient="auto" markerUnits="strokeWidth">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="red" />
+                            <polygon
+                                points="0 0, 10 3.5, 0 7"
+                                // fill={path.group === "activeGroup" ? "red" : path.color}
+                                fill={path.color}
+                            />
                         </marker>
-
                     </defs>
                     <path
                         key={index}
@@ -44,9 +51,9 @@ const Drawing = () => {
                         fill={path.closed ? path.fill : "none"}
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        stroke-dasharray="10,10"
-                        marker-end="url(#endarrow)"
-                        marker-start="url(#startarrow)"
+                        stroke-dasharray={path.dashed && "10,10"}
+                        marker-end={path.arrowEnd && "url(#endarrow)"}
+                        marker-start={path.arrowStart && "url(#endarrow)"}
                         stroke={path.group === "activeGroup" ? "red" : path.color}
                         strokeWidth={path.line}
                         //onClick={(e) => handlePathClick(e, index, path.id)}
