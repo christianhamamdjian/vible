@@ -24,23 +24,9 @@ const Drawing = () => {
 
     return (
         <>
-            {paths.map((path, index) => (
+            {paths.length > 0 && paths.map((path, index) => (
                 <g key={index}>
                     <defs>
-                        {/* <marker id="startarrow" markerWidth="10" markerHeight="7"
-                            refX="10" refY="3.5" orient="auto" >
-                            <polygon
-                                points="10 0, 10 7, 0 3.5"
-                                fill={path.color}
-                            />
-                        </marker>
-                        <marker id="endarrow" markerWidth="10" markerHeight="7"
-                            refX="0" refY="3.5" orient="auto" markerUnits="strokeWidth" >
-                            <polygon
-                                points="0 0, 10 3.5, 0 7"
-                                fill={path.color}
-                            />
-                        </marker> */}
                         <marker key={path.id} id={`startarrow-${path.id + 1}`} markerWidth="10" markerHeight="7"
                             refX="10" refY="3.5" orient="auto" >
                             <polygon

@@ -17,7 +17,8 @@ function partialErase(target, coordinatesArray) {
     const p1 = coordinatesArray.slice(0, closestIndex);
     const p2 = coordinatesArray.slice(closestIndex);
     console.log(p1, p2)
-    return closestIndex;
+    // return ({ p1, p2 });
+    // return closestIndex;
 }
 
 export default partialErase
