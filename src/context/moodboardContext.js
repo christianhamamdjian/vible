@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
-import partialErase from "../components/Helpers/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
@@ -17,7 +16,6 @@ export default function MoodboardProvider({ children }) {
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
-    const [isPartialErasing, setIsPartialErasing] = useState(false)
     const [dragErasing, setDragErasing] = useState(false)
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
@@ -752,9 +750,9 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing) {
             return
         }
-        // if (isErasing && dragErasing) {
-        //     handleDeletePath(id)
-        // }
+        if (isErasing && dragErasing) {
+            handleDeletePath(id)
+        }
         if (isGrouping && dragGrouping) {
             handleGroupPaths(id)
         }
@@ -764,8 +762,6 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handlePathDrag = (e, index, id) => {
-        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
-
         e.stopPropagation()
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
@@ -775,15 +771,11 @@ export default function MoodboardProvider({ children }) {
         if (isErasing) {
             handleDeletePath(id)
         }
-
-        if (isPartialErasing) {
-            partialErase({ x: startX, y: startY }, paths.find(el => el.id === id))
-        }
         if (isGrouping) {
             handleGroupPaths(id)
         }
 
-
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         const handleMouseMove = (e) => {
             e.preventDefault()
             const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e

@@ -23,54 +23,53 @@ const Drawing = () => {
 
     return (
         <>
-            {paths.map((path, index) => (
-                <>
-                    <defs>
-                        <marker id="startarrow" markerWidth="10" markerHeight="7"
-                            refX="10" refY="3.5" orient="auto">
-                            <polygon
-                                points="10 0, 10 7, 0 3.5"
-                                //fill={path.group === "activeGroup" ? "red" : path.color}
-                                fill={path.color}
-                            />
-                        </marker>
-                        <marker id="endarrow" markerWidth="10" markerHeight="7"
-                            refX="0" refY="3.5" orient="auto" markerUnits="strokeWidth">
-                            <polygon
-                                points="0 0, 10 3.5, 0 7"
-                                // fill={path.group === "activeGroup" ? "red" : path.color}
-                                fill={path.color}
-                            />
-                        </marker>
-                    </defs>
-                    <path
-                        // key={index}
-                        key={Date.now()}
-                        // d={svgPath(path["path"])} // Line smoothing to be fixed
-                        //d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
-                        d={`${renderPath(path["path"])} ${path.closed ? "Z" : ""}`}
-                        fill={path.closed ? path.fill : "none"}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeDasharray={path.dashed && "10,10"}
-                        markerEnd={path.arrowEnd && "url(#endarrow)"}
-                        markerStart={path.arrowStart && "url(#endarrow)"}
-                        stroke={path.group === "activeGroup" ? "red" : path.color}
-                        strokeWidth={path.line}
-                        //onClick={(e) => handlePathClick(e, index, path.id)}
-                        onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
-                        onPointerMove={(e) => handlePathSelect(e, index, path.id)}
-                        onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
-                        cursor="grabbing"
-                        style={{
-                            cursor: 'grabbing',
-                            pointerEvents: "auto",
-                            filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `,
-                            userSelect: "none",
-                            opacity: path.opacity
-                        }}
+            <defs>
+                <marker id="startarrow" markerWidth="10" markerHeight="7"
+                    refX="10" refY="3.5" orient="auto">
+                    <polygon
+                        points="10 0, 10 7, 0 3.5"
+                        //fill={path.group === "activeGroup" ? "red" : path.color}
+                        // fill={path.color}
+                        fill="currentColor"
                     />
-                </>
+                </marker>
+                <marker id="endarrow" markerWidth="10" markerHeight="7"
+                    refX="0" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                    <polygon
+                        points="0 0, 10 3.5, 0 7"
+                        // fill={path.group === "activeGroup" ? "red" : path.color}
+                        // fill={path.color}
+                        fill="currentColor"
+                    />
+                </marker>
+            </defs>
+            {paths.map((path, index) => (
+                <path
+                    key={index}
+                    // d={svgPath(path["path"])} // Line smoothing to be fixed
+                    //d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}
+                    d={`${renderPath(path["path"])} ${path.closed ? "Z" : ""}`}
+                    fill={path.closed ? path.fill : "none"}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeDasharray={path.dashed && "10,10"}
+                    markerEnd={path.arrowEnd && "url(#endarrow)"}
+                    markerStart={path.arrowStart && "url(#endarrow)"}
+                    stroke={path.group === "activeGroup" ? "red" : path.color}
+                    strokeWidth={path.line}
+                    //onClick={(e) => handlePathClick(e, index, path.id)}
+                    onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                    onPointerMove={(e) => handlePathSelect(e, index, path.id)}
+                    onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
+                    cursor="grabbing"
+                    style={{
+                        cursor: 'grabbing',
+                        pointerEvents: "auto",
+                        filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `,
+                        userSelect: "none",
+                        opacity: path.opacity
+                    }}
+                ></path>
             ))}
         </>)
 }
