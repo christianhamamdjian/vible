@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, info } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, info } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -129,6 +129,41 @@ const ButtonsTop = () => {
 
                 {paths.length > 0 && (
                     <>
+
+                        <button
+                            className={isPartialErasing ? "selected-button" : null}
+                            onClick={handlePartialEraser}>
+                            <div className='erasing-sign'>
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M15.966,2.841 L20.471,7.248 C21.252,8.029 21.252,9.295 20.471,10.076 L10.956,19.591 L20.086,19.591 C20.638,19.591 21.086,20.039 21.086,20.591 C21.086,21.143 20.638,21.591 20.086,21.591 L4.086,21.591 C3.533,21.591 3.086,21.143 3.086,20.591 C3.086,20.039 3.533,19.591 4.086,19.591 L7.358,19.591 L3.5,15.733 C2.719,14.952 2.719,13.686 3.5,12.905 L13.4,3.005 C13.858,2.49 15.029,2.051 15.966,2.841 z M10.783,19.661 L7.386,19.661 L7.386,21.591 L10.783,21.591 L10.783,19.661 z M7.826,11.407 L4.914,14.319 L9.157,18.562 L12.068,15.65 L7.826,11.407 z M14.814,4.419 L9.24,9.993 L13.483,14.236 L19.056,8.662 L14.814,4.419 z" fill="#FFFFFF" />
+                                </svg>
+                            </div>
+                        </button>
+                        <Tooltips
+                            position="bottom"
+                            width="3.5rem"
+                            height="3.7rem"
+                            top="-3rem"
+                            bottom="90%"
+                            left="-.5rem"
+                            right=""
+                            marginRight=""
+                            marginLeft=""
+                            tipTop="-.7rem"
+                            tipLeft="30%"
+                            text="Click to erase lines" />
+                    </>
+                )}
+
+
+                {paths.length > 0 && (
+                    <>
                         <button
                             className={isGrouping ? "selected-button" : null}
                             onClick={handleGrouping}>
@@ -160,6 +195,7 @@ const ButtonsTop = () => {
                     </>
                 )
                 }
+
                 {items.length > 0 && (
                     <>
                         <button

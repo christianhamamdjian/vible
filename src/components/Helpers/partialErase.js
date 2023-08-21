@@ -1,10 +1,11 @@
-function calculateDistance(coord1, coord2) {
+const calculateDistance = (coord1, coord2) => {
     const dx = coord1.x - coord2.x;
     const dy = coord1.y - coord2.y;
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-function partialErase(target, coordinatesArray) {
+const partialErase = (target, coordinatesArray) => {
+    //console.log(target, coordinatesArray)
     let closestIndex = 0;
     let closestDistance = calculateDistance(target, coordinatesArray[0]);
 
@@ -16,8 +17,8 @@ function partialErase(target, coordinatesArray) {
     }
     const p1 = coordinatesArray.slice(0, closestIndex);
     const p2 = coordinatesArray.slice(closestIndex);
-    console.log(p1, p2)
-    // return ({ p1, p2 });
+    //console.log(p1, p2)
+    return ([p1, p2]);
     // return closestIndex;
 }
 

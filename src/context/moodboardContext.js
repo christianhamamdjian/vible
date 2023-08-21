@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
+import partialErase from "../components/Helpers/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
@@ -16,6 +17,7 @@ export default function MoodboardProvider({ children }) {
     const [isEditingPath, setIsEditingPath] = useState(null)
     const [isEditingPaths, setIsEditingPaths] = useState(false)
     const [isErasing, setIsErasing] = useState(false)
+    const [isPartialErasing, setIsPartialErasing] = useState(false)
     const [dragErasing, setDragErasing] = useState(false)
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
@@ -763,6 +765,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handlePathDrag = (e, index, id) => {
         e.stopPropagation()
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
             setSelectedPath(index)
@@ -771,11 +774,43 @@ export default function MoodboardProvider({ children }) {
         if (isErasing) {
             handleDeletePath(id)
         }
+        if (isPartialErasing) {
+            const targetPath = paths.find(el => el.id === id)
+            const startPoint = { x: startX, y: startY }
+            const newPaths = partialErase(startPoint, targetPath["path"])
+            const pathsToCreate = [
+                {
+                    id: Date.now(),
+                    group: "noGroup",
+                    color: pathColor || "#000000",
+                    line: pathLine || 2,
+                    opacity: 1,
+                    path: newPaths[0],
+                    closed: "",
+                    dashed: "",
+                    arrowStart: "",
+                    arrowEnd: ""
+                },
+                {
+                    id: Date.now(),
+                    group: "noGroup",
+                    color: pathColor || "#000000",
+                    line: pathLine || 2,
+                    opacity: 1,
+                    path: newPaths[1],
+                    closed: "",
+                    dashed: "",
+                    arrowStart: "",
+                    arrowEnd: ""
+                }
+            ]
+            setPaths([...paths, ...pathsToCreate])
+        }
         if (isGrouping) {
             handleGroupPaths(id)
         }
 
-        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+
         const handleMouseMove = (e) => {
             e.preventDefault()
             const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
@@ -797,6 +832,9 @@ export default function MoodboardProvider({ children }) {
             }
         }
         const handleMouseUp = () => {
+            if (isPartialErasing) {
+                handleDeletePath(id)
+            }
             window.removeEventListener('pointermove', handleMouseMove)
             window.removeEventListener('pointerup', handleMouseUp)
         }
@@ -970,6 +1008,20 @@ export default function MoodboardProvider({ children }) {
         setDragGrouping(false)
         resetPathsGroup()
     }
+
+
+    const handlePartialEraser = () => {
+        setIsPartialErasing(isPartialErasing => !isPartialErasing)
+        setIsDrawing(false)
+        setSelectedPath(null)
+        setIsEditingPath(false)
+        setIsEditingPaths(false)
+        setIsGrouping(false)
+        setDragGrouping(false)
+        resetPathsGroup()
+        setIsErasing(false)
+    }
+
 
 
     const handleDeletePath = (erased) => {
@@ -1370,7 +1422,9 @@ export default function MoodboardProvider({ children }) {
                 canUndoErase: positionErase > 0,
                 canRedoErase: positionErase < historyErase.length - 1,
                 isGrouping,
+                isPartialErasing,
                 // Methods
+                handlePartialEraser,
                 handleGrouping,
                 handleUndoErase,
                 handleRedoErase,
