@@ -19,6 +19,7 @@ export default function MoodboardProvider({ children }) {
     const [isErasing, setIsErasing] = useState(false)
     const [isPartialErasing, setIsPartialErasing] = useState(false)
     const [dragErasing, setDragErasing] = useState(false)
+    const [dragPartialErasing, setDragPartialErasing] = useState(false)
     const [isGrouping, setIsGrouping] = useState(false)
     const [dragGrouping, setDragGrouping] = useState(false)
     const [groupDragging, setGroupDragging] = useState(false)
@@ -510,6 +511,10 @@ export default function MoodboardProvider({ children }) {
             setDragErasing(true)
             return
         }
+        if (isPartialErasing) {
+            setDragPartialErasing(true)
+            return
+        }
         if (isGrouping) {
             setDragGrouping(true)
             return
@@ -521,7 +526,7 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints({ x: clientX, y: clientY })
         }
 
-        if (!isDrawing && !isErasing) {
+        if (!isDrawing && !isErasing && !isPartialErasing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
                 x: clientX - svgPosition.x,
@@ -531,7 +536,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         // Start drawing
-        if (isDrawing && !isErasing) {
+        if (isDrawing && !isErasing && !isPartialErasing) {
             if (e.targetTouches && e.targetTouches.length > 1) return
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
@@ -632,6 +637,9 @@ export default function MoodboardProvider({ children }) {
         }
         if (dragErasing) {
             setDragErasing(false)
+        }
+        if (dragPartialErasing) {
+            setDragPartialErasing(false)
         }
         if (dragGrouping) {
             setDragGrouping(false)
@@ -755,10 +763,15 @@ export default function MoodboardProvider({ children }) {
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }
+        if (isPartialErasing && dragPartialErasing) {
+            const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+            const startPoint = { x: startX, y: startY }
+            handlePartialErasePath(id, startPoint)
+        }
         if (isGrouping && dragGrouping) {
             handleGroupPaths(id)
         }
-        if (!isErasing && !dragErasing && !isGrouping && !dragGrouping) {
+        if (!isErasing && !dragErasing && !isPartialErasing && !dragPartialErasing && !isGrouping && !dragGrouping) {
             setSelectedPath(index)
             setIsEditingPath({ status: true, id: id })
         }
@@ -961,6 +974,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(false)
         setIsDrawing(false)
         setIsErasing(false)
+        setIsPartialErasing(false)
         setSelectedPath(null)
     }
     const handleDuplicatePath = (id) => {
