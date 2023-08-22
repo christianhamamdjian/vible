@@ -775,42 +775,12 @@ export default function MoodboardProvider({ children }) {
             handleDeletePath(id)
         }
         if (isPartialErasing) {
-            const targetPath = paths.find(el => el.id === id)
             const startPoint = { x: startX, y: startY }
-            const newPaths = partialErase(startPoint, targetPath["path"])
-            const pathsToCreate = [
-                {
-                    id: Date.now(),
-                    group: "noGroup",
-                    color: pathColor || "#000000",
-                    line: pathLine || 2,
-                    opacity: 1,
-                    path: newPaths[0],
-                    closed: "",
-                    dashed: "",
-                    arrowStart: "",
-                    arrowEnd: ""
-                },
-                {
-                    id: Date.now(),
-                    group: "noGroup",
-                    color: pathColor || "#000000",
-                    line: pathLine || 2,
-                    opacity: 1,
-                    path: newPaths[1],
-                    closed: "",
-                    dashed: "",
-                    arrowStart: "",
-                    arrowEnd: ""
-                }
-            ]
-            setPaths([...paths, ...pathsToCreate])
+            handlePartialErasePath(id, startPoint)
         }
         if (isGrouping) {
             handleGroupPaths(id)
         }
-
-
         const handleMouseMove = (e) => {
             e.preventDefault()
             const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
@@ -832,9 +802,6 @@ export default function MoodboardProvider({ children }) {
             }
         }
         const handleMouseUp = () => {
-            if (isPartialErasing) {
-                handleDeletePath(id)
-            }
             window.removeEventListener('pointermove', handleMouseMove)
             window.removeEventListener('pointerup', handleMouseUp)
         }
@@ -842,6 +809,40 @@ export default function MoodboardProvider({ children }) {
         window.addEventListener('pointerup', handleMouseUp)
     }
 
+    const handlePartialErasePath = (id, startPoint) => {
+        const targetPath = paths.find(el => el.id === id)
+        const newPaths = partialErase(startPoint, targetPath["path"])
+        const pathsToCreate = [
+            {
+                id: Date.now(),
+                group: "noGroup",
+                color: targetPath.color,
+                line: targetPath.line,
+                opacity: targetPath.opacity,
+                path: newPaths[0],
+                closed: targetPath.closed,
+                dashed: targetPath.dashed,
+                arrowStart: targetPath.arrowStart,
+                arrowEnd: targetPath.arrowEnd
+            },
+            {
+                id: Date.now() + 1,
+                group: "noGroup",
+                color: targetPath.color,
+                line: targetPath.line,
+                opacity: targetPath.opacity,
+                path: newPaths[1],
+                closed: targetPath.closed,
+                dashed: targetPath.dashed,
+                arrowStart: targetPath.arrowStart,
+                arrowEnd: targetPath.arrowEnd
+            }
+        ]
+        const filteredPaths = paths.filter((path) => path.id !== id)
+        setPaths([...filteredPaths, ...pathsToCreate])
+        setSelectedPath(null)
+        setIsEditingPath(null)
+    }
     // Path Group handling
     const handleGrouping = () => {
         if (isGrouping) {
