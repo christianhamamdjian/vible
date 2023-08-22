@@ -11,7 +11,7 @@ const partialErase = (target, coordinatesArray) => {
     for (let i = 1; i < coordinatesArray.length; i++) {
         const distance = calculateDistance(target, coordinatesArray[i]);
         if (distance < closestDistance) {
-            closestIndex = i - 4;
+            closestIndex = i;
         }
     }
     const p1 = coordinatesArray.slice(0, closestIndex);

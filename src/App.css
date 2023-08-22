@@ -99,6 +99,15 @@ body {
   height: 100vh;
 }
 
+#circle {
+  position: fixed;
+  z-index: 5;
+  width: 32px;
+  height: 32px;
+  background-color: #dddddd;
+  border-radius: 50%;
+  pointer-events: none;
+}
 
 /* Forms */
 input,

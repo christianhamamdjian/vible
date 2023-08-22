@@ -1007,6 +1007,7 @@ export default function MoodboardProvider({ children }) {
         setPathColor("#000000")
         setPathLine(3)
         setIsErasing(false)
+        setIsPartialErasing(false)
         setIsEditingPath(false)
         setIsEditingPaths(false)
         setIsGrouping(false)
@@ -1394,6 +1395,7 @@ export default function MoodboardProvider({ children }) {
                 isDrawing,
                 paths,
                 isErasing,
+                isPartialErasing,
                 pathColor,
                 pathLine,
                 svgRef,
