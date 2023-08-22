@@ -1,21 +1,24 @@
-const calculateDistance = (coord1, coord2) => {
-    const dx = coord1.x - coord2.x;
-    const dy = coord1.y - coord2.y;
+function calculateDistance(point1, point2) {
+    const dx = point2.x - point1.x;
+    const dy = point2.y - point1.y;
     return Math.sqrt(dx * dx + dy * dy);
 }
-
-const partialErase = (target, coordinatesArray) => {
+function partialErase(clickedPoint, pathPoints) {
+    // let closestPoint = null;
     let closestIndex = 0;
-    let closestDistance = calculateDistance(target, coordinatesArray[0]);
+    let closestDistance = Number.MAX_VALUE;
 
-    for (let i = 1; i < coordinatesArray.length; i++) {
-        const distance = calculateDistance(target, coordinatesArray[i]);
+    for (const [i, pathPoint] of pathPoints.entries()) {
+        const distance = calculateDistance(clickedPoint, pathPoint);
+
         if (distance < closestDistance) {
+            closestDistance = distance;
+            // closestPoint = pathPoint;
             closestIndex = i;
         }
     }
-    const p1 = coordinatesArray.slice(0, closestIndex);
-    const p2 = coordinatesArray.slice(closestIndex);
+    const p1 = pathPoints.slice(0, closestIndex);
+    const p2 = pathPoints.slice(closestIndex);
     return ([p1, p2]);
 }
 
