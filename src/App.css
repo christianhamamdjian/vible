@@ -408,6 +408,8 @@ button,
 }
 
 .box-content pre {
+  /* text-wrap: wrap; */
+  white-space: pre-wrap;
   height: 100%;
   overflow: hidden;
 }
@@ -891,7 +893,7 @@ button,
 
 .right-sidebar {
   background: transparent;
-  margin-top: 4rem;
+  /* margin-top: 4rem; */
   /* padding-top: 4rem; */
   max-height: 80vh;
   display: flex;
@@ -909,6 +911,9 @@ button,
 .drawerContents-container {
   margin-top: 0;
   padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 78%;
 }
 
 .drawer-container-left {

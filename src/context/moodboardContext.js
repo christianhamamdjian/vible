@@ -382,7 +382,15 @@ export default function MoodboardProvider({ children }) {
     }
     const handleTextDropUpload = (e) => {
         const text = e.dataTransfer.getData('text')
-        if (text.startsWith('http') || text.startsWith('https')) {
+        const youTubeUrl = e.dataTransfer.getData('url')
+        const urlStart = "https://www.youtube.com/watch?v="
+        if (youTubeUrl && youTubeUrl.includes(urlStart)) {
+            let newText = youTubeUrl
+            let youtubeCode = newText.replace(urlStart, "")
+            console.log(youtubeCode)
+            handleDropVideo(youtubeCode)
+        }
+        if (text && (text.startsWith('http') || text.startsWith('https')) && !text.includes(urlStart)) {
             e.preventDefault()
             const newItem = {
                 id: Date.now(),
@@ -393,7 +401,8 @@ export default function MoodboardProvider({ children }) {
                 type: "imageUrl"
             }
             setItems((prevItems) => [...prevItems, newItem])
-        } else {
+        }
+        if (text && (!text.startsWith('http') || !text.startsWith('https'))) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
@@ -463,6 +472,19 @@ export default function MoodboardProvider({ children }) {
         const newItem = {
             id: Date.now(),
             videoUrl: itemVideoUrl,
+            x: 100,
+            y: 200,
+            width: 300,
+            height: 250,
+            type: "video"
+        }
+        setItems((prevItems) => [...prevItems, newItem])
+        setItemVideoUrl('')
+    }
+    const handleDropVideo = (e) => {
+        const newItem = {
+            id: Date.now(),
+            videoUrl: e,
             x: 100,
             y: 200,
             width: 300,
@@ -1293,7 +1315,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleStopEditItem = () => {
-        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard) {
+        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem) {
+            setEditingItem(null)
             setEditingText(null)
             setIsEditingBoard(null)
             setIsEditingPath(null)
