@@ -390,7 +390,7 @@ export default function MoodboardProvider({ children }) {
             console.log(youtubeCode)
             handleDropVideo(youtubeCode)
         }
-        if (text && (text.startsWith('http') || text.startsWith('https')) && !text.includes(urlStart)) {
+        if (text && ((text.startsWith('http') || text.startsWith('https')) && (text.endsWith('jpg') || text.endsWith('jpeg') || text.endsWith('png') || text.endsWith('webp') || text.endsWith('svg')))) {
             e.preventDefault()
             const newItem = {
                 id: Date.now(),
@@ -1250,7 +1250,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleEditItem = (e, id) => {
         const itemType = items.find(el => el.id === id).type
-        console.log(itemType)
+        // console.log(itemType)
         switch (itemType) {
             case 'box':
                 if (editingImage) {
