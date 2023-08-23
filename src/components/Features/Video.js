@@ -1,9 +1,10 @@
 import React from 'react';
 import { isSafari } from "../utils/browserDetector"
+import TopControls from "../helpers/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditVideo, editingVideo, handleStopEditItem } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -21,7 +22,7 @@ const Video = ({ item }) => {
                         onTouchStart={e => { handleRectPointerDown(e, item.id) }}
                         onTouchMove={(e) => handleRectPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                        onDoubleClick={() => handleEditVideo(item.id)}
+                        onDoubleClick={(e) => handleEditItem(e, item.id)}
                         style={{
                             transform: `rotate(${item.angle || 0}deg)`,
                             transformOrigin: `${item.width / 2, item.height / 2}`,
@@ -51,7 +52,7 @@ const Video = ({ item }) => {
                                 userSelect: "none",
                                 borderRadius: "1rem 1rem 0 0"
                             }}
-                            onDoubleClick={() => handleEditVideo(item.id)}
+                            onDoubleClick={(e) => handleEditItem(e, item.id)}
                         >
                         </div>
                         <iframe
@@ -78,81 +79,9 @@ const Video = ({ item }) => {
                             gyroscope;
                             picture-in-picture;"
                         />
-
                     </foreignObject>
-                    {isEditingBoard &&
-                        <>
-                            <rect
-                                x="10"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="red"
-                                stroke="white"
-                                strokeWidth="2"
-                                className='box-control'
-                                onClick={() => handleDeleteItem(item.id)}
-                            />
-                            <text
-                                x="18"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                onClick={() => handleDeleteItem(item.id)}
-                            >&times;</text>
-                            <rect
-                                x="60"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="green"
-                                stroke="white"
-                                strokeWidth="2"
-                                className='box-control'
-                                onClick={() => handleEditVideo(item.id)}
-                            />
-                            <text
-                                x="68"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                onClick={() => handleEditVideo(item.id)}
-                            >+</text>
-
-                            {editingVideo && editingVideo.id === item.id && <>
-                                <rect
-                                    x="35"
-                                    y="-22"
-                                    height="20"
-                                    width="24"
-                                    rx="6"
-                                    fill="orange"
-                                    stroke="white"
-                                    strokeWidth="2"
-                                    className='box-control'
-                                    onClick={handleStopEditItem}
-                                />
-                                <text
-                                    x="43"
-                                    y="-9"
-                                    width="24"
-                                    height="20"
-                                    fill="white"
-                                    className="box-control-sign"
-                                    onClick={handleStopEditItem}
-                                >-</text>
-                            </>
-                            }
-                        </>
-                    }
+                    <TopControls item={item} />
                 </>
-
             }
         </>
     )

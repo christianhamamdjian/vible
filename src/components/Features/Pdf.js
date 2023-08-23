@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { isSafari } from "../utils/browserDetector"
+import TopControls from "../helpers/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditPdf, handleDeleteItem, editingPdf, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
@@ -70,7 +71,7 @@ const Pdf = ({ item }) => {
                     >
                         <div
                             //    className='pdf-top'
-                            onDoubleClick={() => handleEditPdf(item.id)}
+                            onDoubleClick={(e) => handleEditItem(e, item.id)}
                             style={{
                                 potition: "absolute",
                                 top: item.y,
@@ -112,76 +113,7 @@ const Pdf = ({ item }) => {
                                 <div>No PDF found.</div>
                             )}</div>
                     </foreignObject>
-                    {isEditingBoard && <>
-                        <rect
-                            x="10"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="red"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleDeleteItem(item.id)}
-                        />
-                        <text
-                            x="18"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleDeleteItem(item.id)}
-                        >&times;</text>
-                        <rect
-                            x="60"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="green"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleEditPdf(item.id)}
-                        />
-                        <text
-                            x="68"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleEditPdf(item.id)}
-                        >+</text>
-
-                        {editingPdf && editingPdf.id === item.id && <>
-                            <rect
-                                x="35"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="orange"
-                                stroke="white"
-                                strokeWidth="2"
-                                className='box-control'
-                                onClick={handleStopEditItem}
-                            />
-                            <text
-                                x="43"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                onClick={handleStopEditItem}
-                            >-</text>
-                        </>
-                        }
-                    </>
-                    }
+                    <TopControls item={item} />
                 </>
             }
         </>

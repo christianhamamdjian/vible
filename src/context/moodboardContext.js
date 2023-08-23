@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
-import partialErase from "../components/Helpers/partialErase"
+import partialErase from "../components/helpers/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
@@ -1268,7 +1268,7 @@ export default function MoodboardProvider({ children }) {
                 setIsEditingBoard(true)
                 handleVideo()
                 break;
-            case 'map':
+            case 'mapUrl':
                 setEditingMap({ status: true, id: id })
                 setIsEditingBoard(true)
                 handleMap()
@@ -1289,66 +1289,9 @@ export default function MoodboardProvider({ children }) {
             default:
                 break;
         }
-        // if (editingText) {
-        //     setEditingText(null)
-        // }
-        // setEditingImage({ status: true, id: id })
-        // setIsEditingBoard(true)
-        // handleImage()
         setEditingItem({ status: true, id: id })
     }
 
-
-
-
-    const handleEditImage = (e, id) => {
-        if (editingText) {
-            setEditingText(null)
-        }
-        setEditingImage({ status: true, id: id })
-        setIsEditingBoard(true)
-        handleImage()
-    }
-    const handleEditBox = (e, id) => {
-        if (editingImage) {
-            setEditingImage(null)
-        }
-        if (editingText) {
-            setEditingText(null)
-            setIsEditingBoard(false)
-            setWrite(false)
-        }
-        if (isEditingBoard) {
-            setEditingText({ status: true, id: id })
-            setWrite(false)
-        }
-        setEditingText({ status: true, id: id })
-        setIsEditingBoard(true)
-        handleWrite()
-    }
-    const handleEditVideo = (id) => {
-        setEditingVideo({ status: true, id: id })
-        setIsEditingBoard(true)
-        handleVideo()
-    }
-    const handleEditMap = (id) => {
-        setEditingMap({ status: true, id: id })
-        setIsEditingBoard(true)
-        handleMap()
-    }
-    const handleEditPdf = (id) => {
-        setEditingPdf({ status: true, id: id })
-        setIsEditingBoard(true)
-        setIsEditingPath(false)
-        setIsEditingPaths(false)
-        setEditingVideo(false)
-        setEditingMap(false)
-        setSelectedPath(null)
-        setWrite(false)
-        setImage(false)
-        setVideo(false)
-        setMap(false)
-    }
     const handleStopEditItem = () => {
         if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard) {
             setEditingText(null)
@@ -1519,11 +1462,11 @@ export default function MoodboardProvider({ children }) {
                 handleItemImageUrl,
                 handleItemMapUrl,
                 handleEditItem,
-                handleEditBox,
-                handleEditImage,
-                handleEditVideo,
-                handleEditMap,
-                handleEditPdf,
+                // handleEditBox,
+                // handleEditImage,
+                // handleEditVideo,
+                // handleEditMap,
+                // handleEditPdf,
                 handleStopEditItem,
                 handleItemChange,
                 handleDrawing,

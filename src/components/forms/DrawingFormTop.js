@@ -1,5 +1,5 @@
 import React from 'react';
-import Circle from "../Helpers/CircleCursor"
+import Circle from "../helpers/CircleCursor"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {

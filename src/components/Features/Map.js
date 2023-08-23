@@ -1,9 +1,10 @@
 import React from 'react';
 import { isSafari } from "../utils/browserDetector"
+import TopControls from "../helpers/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, isEditingBoard, handleEditMap, editingMap, handleStopEditItem } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem } = React.useContext(MoodboardContext);
 
     const getUrl = () => {
         let url = ""
@@ -62,7 +63,7 @@ const Map = ({ item }) => {
                                 userSelect: "none",
                                 borderRadius: "1rem 1rem 0 0"
                             }}
-                            onDoubleClick={() => handleEditMap(item.id)}
+                            onDoubleClick={(e) => handleEditItem(e, item.id)}
                         >
                         </div>
                         <iframe
@@ -84,76 +85,7 @@ const Map = ({ item }) => {
                         >
                         </iframe>
                     </foreignObject>
-                    {isEditingBoard && <>
-                        <rect
-                            x="10"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="red"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleDeleteItem(item.id)}
-                        />
-                        <text
-                            x="18"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleDeleteItem(item.id)}
-                        >&times;</text>
-                        <rect
-                            x="60"
-                            y="-22"
-                            height="20"
-                            width="24"
-                            rx="6"
-                            fill="green"
-                            stroke="white"
-                            strokeWidth="2"
-                            className='box-control'
-                            onClick={() => handleEditMap(item.id)}
-                        />
-                        <text
-                            x="68"
-                            y="-9"
-                            width="24"
-                            height="20"
-                            fill="white"
-                            className="box-control-sign"
-                            onClick={() => handleEditMap(item.id)}
-                        >+</text>
-
-                        {editingMap && editingMap.id === item.id && <>
-                            <rect
-                                x="35"
-                                y="-22"
-                                height="20"
-                                width="24"
-                                rx="6"
-                                fill="orange"
-                                stroke="white"
-                                strokeWidth="2"
-                                className='box-control'
-                                onClick={handleStopEditItem}
-                            />
-                            <text
-                                x="43"
-                                y="-9"
-                                width="24"
-                                height="20"
-                                fill="white"
-                                className="box-control-sign"
-                                onClick={handleStopEditItem}
-                            >-</text>
-                        </>
-                        }
-                    </>
-                    }
+                    <TopControls item={item} />
                 </g>
             }</>
     )

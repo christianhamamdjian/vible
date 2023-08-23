@@ -1,9 +1,9 @@
 import React from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
-import renderPath from '../Helpers/pathSmooth';
+import renderPath from '../helpers/pathSmooth';
 
 const Drawing = () => {
-    const { paths, pathRef, selectedPath, handlePathClick, handlePathDrag, handlePathSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
+    const { paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
 
     return (
         <>
