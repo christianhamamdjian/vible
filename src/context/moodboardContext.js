@@ -526,7 +526,7 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints({ x: clientX, y: clientY })
         }
 
-        if (!isDrawing && !isErasing && !isPartialErasing) {
+        if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
                 x: clientX - svgPosition.x,
@@ -657,7 +657,8 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerDown = (e, rectId) => {
         if (isDrawing) return
-
+        const rectItem = items.find(el => el.id === rectId)
+        const rectType = rectItem.type
         if (e.target.id === 'rotate') {
             setIsRotating(true)
             setIsDraggingRect(false)
@@ -667,6 +668,9 @@ export default function MoodboardProvider({ children }) {
             const centerY = rect.y + rect.height / 2
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
             setAngleOffset({ x: angle })
+        }
+        if (rectType === "box" && editingText) {
+            setIsDraggingRect(false)
         }
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
@@ -1224,22 +1228,60 @@ export default function MoodboardProvider({ children }) {
         const itemType = items.find(el => el.id === id).type
         switch (itemType) {
             case 'box':
-
+                if (editingImage) {
+                    setEditingImage(null)
+                }
+                if (editingText) {
+                    setEditingText(null)
+                    setIsEditingBoard(false)
+                    setWrite(false)
+                }
+                if (isEditingBoard) {
+                    setEditingText({ status: true, id: id })
+                    setWrite(false)
+                }
+                setEditingText({ status: true, id: id })
+                setIsEditingBoard(true)
+                handleWrite()
                 break;
             case 'image':
-
+                if (editingText) {
+                    setEditingText(null)
+                }
+                setEditingImage({ status: true, id: id })
+                setIsEditingBoard(true)
+                handleImage()
                 break;
             case 'imageUrl':
-
+                if (editingText) {
+                    setEditingText(null)
+                }
+                setEditingImage({ status: true, id: id })
+                setIsEditingBoard(true)
+                handleImage()
                 break;
             case 'video':
-
+                setEditingVideo({ status: true, id: id })
+                setIsEditingBoard(true)
+                handleVideo()
                 break;
             case 'map':
-
+                setEditingMap({ status: true, id: id })
+                setIsEditingBoard(true)
+                handleMap()
                 break;
             case 'pdf':
-
+                setEditingPdf({ status: true, id: id })
+                setIsEditingBoard(true)
+                setIsEditingPath(false)
+                setIsEditingPaths(false)
+                setEditingVideo(false)
+                setEditingMap(false)
+                setSelectedPath(null)
+                setWrite(false)
+                setImage(false)
+                setVideo(false)
+                setMap(false)
                 break;
             default:
                 break;
@@ -1251,6 +1293,9 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(true)
         handleImage()
     }
+
+
+
 
     const handleEditImage = (e, id) => {
         if (editingText) {

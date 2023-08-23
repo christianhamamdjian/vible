@@ -22,10 +22,10 @@ const Circle = () => {
             window.requestAnimationFrame(updateCirclePosition);
         };
 
-        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('pointermove', handleMouseMove);
 
         return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('pointermove', handleMouseMove);
         };
     }, [mousePosition]);
 

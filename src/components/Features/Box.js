@@ -145,19 +145,21 @@ const Box = ({ item }) => {
                                         <div
                                             className="box-content"
                                         >
-                                            <p
-                                                style={{
-                                                    color: getTextColor(item.color),
-                                                    height: item.link !== "" && "70%",
-                                                    fontFamily: item.font,
-                                                    userSelect: "none",
-                                                }}
-                                            >
-                                                {item.text}
-                                            </p>
-                                            <StartRating
-                                                rating={item.rating} id={item.id}
-                                            />
+                                            <pre>
+                                                <p
+                                                    style={{
+                                                        color: getTextColor(item.color),
+                                                        height: item.link !== "" && "70%",
+                                                        fontFamily: item.font,
+                                                        userSelect: editingText && isEditingBoard ? "all" : "none",
+                                                    }}
+                                                >
+                                                    {item.text}
+                                                </p>
+                                                <StartRating
+                                                    rating={item.rating} id={item.id}
+                                                />
+                                            </pre>
                                         </div>
                                     </>
                                 )

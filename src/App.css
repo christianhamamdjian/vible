@@ -400,15 +400,21 @@ button,
 }
 
 .box-content {
-  height: 80%;
+  height: 100%;
   user-select: none;
   font-family: sans-serif;
+  /* overflow: auto; */
   z-index: 100;
 }
 
-.box-content p {
+.box-content pre {
   height: 100%;
-  overflow: hidden auto;
+  overflow: hidden;
+}
+
+.box-content p {
+  height: 90%;
+  overflow: auto;
   font-size: 1.2rem;
   cursor: move;
   user-select: none;
