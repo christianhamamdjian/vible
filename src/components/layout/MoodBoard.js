@@ -13,7 +13,7 @@ import BoardDrop from "../Helpers/BoardDrop"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, isPartialErasing, handleAddBoxOnSpot
+    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, isPartialErasing, handleAddBoxOnSpot
     } = React.useContext(MoodboardContext);
 
     const renderBoardItems = useMemo(() => {
@@ -31,9 +31,10 @@ const MoodBoard = () => {
                         <Box item={item} />
                     </g>
                 ))}
+                <Drawing />
             </>
         )
-    }, [items])
+    }, [items, paths])
     return (
         <>
             <BoardDrop>
@@ -72,7 +73,7 @@ const MoodBoard = () => {
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
                         {renderBoardItems}
-                        <Drawing />
+
                     </svg>
                 </div >
             </BoardDrop>

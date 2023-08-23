@@ -1028,6 +1028,7 @@ export default function MoodboardProvider({ children }) {
         setIsGrouping(false)
         setDragGrouping(false)
         resetPathsGroup()
+        setIsPartialErasing(false)
     }
 
 
