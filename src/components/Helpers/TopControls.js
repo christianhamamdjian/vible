@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const TopControls = ({ item }) => {
     const { handleDeleteItem, handleEditItem, editingItem, handleStopEditItem, isEditingBoard } = React.useContext(MoodboardContext);

@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import StartRating from "../rating/StarRating"
+import TopControls from "../Helpers/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
     const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleDeleteItem, handleRectPointerUp, handleEditBox, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
-    const [onShow, setOnShow] = useState(false)
+    // const [onShow, setOnShow] = useState(false)
 
-    const confirmDelete = (id) => {
-        handleDeleteItem(id);
-        hideConfirm()
-    }
-    const confirmCancel = () => {
-        hideConfirm()
-        return
-    }
-    const showConfirm = () => {
-        setOnShow(true)
-    }
-    const hideConfirm = () => {
-        setOnShow(false)
-    }
+    // const confirmDelete = (id) => {
+    //     handleDeleteItem(id);
+    //     hideConfirm()
+    // }
+    // const confirmCancel = () => {
+    //     hideConfirm()
+    //     return
+    // }
+    // const showConfirm = () => {
+    //     setOnShow(true)
+    // }
+    // const hideConfirm = () => {
+    //     setOnShow(false)
+    // }
     return (
         <>
             {item && item.type === "box" && (
@@ -166,8 +167,8 @@ const Box = ({ item }) => {
                                 }
                             </div>
                         </foreignObject >
-
-                        {onShow && <>
+                        <TopControls item={item} />
+                        {/* {onShow && <>
                             <rect
                                 x="10"
                                 y="-64"
@@ -257,8 +258,7 @@ const Box = ({ item }) => {
                                 onClick={() => confirmDelete(item.id)}
                             />
                         </>}
-                        {
-                            isEditingBoard && <>
+                        {isEditingBoard && <>
                                 <rect
                                     x="10"
                                     y="-22"
@@ -329,8 +329,9 @@ const Box = ({ item }) => {
                                     >-</text>
 
                                 </>
-                                }</>
-                        }
+                                }
+                                </>
+                        } */}
                     </g >
                 </>)
             }

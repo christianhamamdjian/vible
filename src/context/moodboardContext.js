@@ -38,6 +38,7 @@ export default function MoodboardProvider({ children }) {
     const [itemImageUrl, setItemImageUrl] = useState('')
     const [itemMapUrl, setItemMapUrl] = useState('')
 
+    const [editingItem, setEditingItem] = useState(null)
     const [editingText, setEditingText] = useState(null)
     const [editingImage, setEditingImage] = useState(null)
     const [editingVideo, setEditingVideo] = useState(null)
@@ -1226,6 +1227,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleEditItem = (e, id) => {
         const itemType = items.find(el => el.id === id).type
+        console.log(itemType)
         switch (itemType) {
             case 'box':
                 if (editingImage) {
@@ -1286,12 +1288,13 @@ export default function MoodboardProvider({ children }) {
             default:
                 break;
         }
-        if (editingText) {
-            setEditingText(null)
-        }
-        setEditingImage({ status: true, id: id })
-        setIsEditingBoard(true)
-        handleImage()
+        // if (editingText) {
+        //     setEditingText(null)
+        // }
+        // setEditingImage({ status: true, id: id })
+        // setIsEditingBoard(true)
+        // handleImage()
+        setEditingItem({ status: true, id: id })
     }
 
 
@@ -1454,6 +1457,7 @@ export default function MoodboardProvider({ children }) {
                 itemVideoUrl,
                 itemImageUrl,
                 itemMapUrl,
+                editingItem,
                 editingText,
                 editingImage,
                 editingVideo,

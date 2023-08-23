@@ -414,7 +414,8 @@ button,
 
 .box-content p {
   height: 90%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-size: 1.2rem;
   cursor: move;
   user-select: none;
