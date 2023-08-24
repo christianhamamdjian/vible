@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="app">
       <EditFormTop />
-      <div className="container" >
+      <div className="vible-container" >
         <SidebarDrawer side="left" />
         <MoodBoard />
         <SidebarDrawer side="right" />

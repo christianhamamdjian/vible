@@ -136,13 +136,14 @@ const Gallery = () => {
                 </button >
                 <div className='gallery-container'>
                     <form onSubmit={handleGallerySubmit}>
-                        {/* <div className="custom-select"> */}
-                        <select value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
-                            <option value="color">Color</option>
-                            <option value="image">Image</option>
-                            <option value="link">Link</option>
-                        </select>
-                        {/* </div> */}
+                        <div className="select-container">
+                            <label htmlFor="custom-select"></label>
+                            <select id="custom-select" className="custom-select" value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
+                                <option value="color">Color</option>
+                                <option value="image">Image</option>
+                                <option value="link">Link</option>
+                            </select>
+                        </div>
                         {galleryType === 'color' &&
                             <>
                                 <input
