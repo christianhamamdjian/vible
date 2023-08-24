@@ -161,7 +161,8 @@ const DrawingFormTop = () => {
                 </>
             )
             }
-            {paths.length > -1 && (isErasing || isPartialErasing) && (
+            {/* {paths.length > -1 && (isErasing || isPartialErasing) && ( */}
+            {paths.length > -1 && isErasing && (
                 <>
                     <div className='inputs-top_draw'>
                         <button onClick={handleUndoErase} disabled={!canUndoErase}>

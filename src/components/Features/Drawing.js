@@ -1,4 +1,5 @@
 import React from 'react';
+// import pencilPattern from '../../assets/pencil-pattern-small.jpg';
 import { MoodboardContext } from "../../context/moodboardContext";
 import renderPath from '../helpers/pathSmooth';
 
@@ -24,6 +25,9 @@ const Drawing = () => {
                                 fill={path.color}
                             />
                         </marker>
+                        {/* <pattern id="patt" patternUnits="userSpaceOnUse" width="30" height="30">
+                            <image href={pencilPattern} x="0" y="0" width="80" height="80" />
+                        </pattern> */}
                     </defs>
                     <path
                         key={index}
@@ -38,6 +42,7 @@ const Drawing = () => {
                         markerEnd={path.arrowEnd ? `url(#endarrow-${path.id})` : null}
                         markerStart={path.arrowStart ? `url(#startarrow-${path.id + 1})` : null}
                         stroke={path.group === "activeGroup" ? "red" : path.color}
+                        // stroke="url(#patt)"
                         strokeWidth={path.line}
                         //onClick={(e) => handlePathClick(e, index, path.id)}
                         onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
