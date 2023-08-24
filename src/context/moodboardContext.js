@@ -948,7 +948,6 @@ export default function MoodboardProvider({ children }) {
             }
             return path
         })
-        console.log(rotate)
         setRotation(rotate)
         setPaths(updatedPaths)
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Circle from "../helpers/CircleCursor"
+// import Circle from "../helpers/CircleCursor"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
@@ -41,34 +41,44 @@ const DrawingFormTop = () => {
                             className='input-line-fill'
                             value={paths.find(path => path.id === isEditingPath.id).fill}
                             onChange={(event) => handleLineFillChange(event, isEditingPath.id)} />
-                        <label>Shape/Line:</label>
-                        <input
-                            type="checkbox"
-                            className='input-line-closed'
-                            value={paths.find(path => path.id === isEditingPath.id).closed}
-                            checked={paths.find(path => path.id === isEditingPath.id).closed}
-                            onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
-                        <label>Dashed line:</label>
-                        <input
-                            type="checkbox"
-                            className='input-line-dashed'
-                            value={paths.find(path => path.id === isEditingPath.id).dashed}
-                            checked={paths.find(path => path.id === isEditingPath.id).dashed}
-                            onChange={(event) => handleLineDashedChange(event, isEditingPath.id)} />
-                        <label>Arrow Start:</label>
-                        <input
-                            type="checkbox"
-                            className='input-line-arrowstart'
-                            value={paths.find(path => path.id === isEditingPath.id).arrowStart}
-                            checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
-                            onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
-                        <label>Arrow End:</label>
-                        <input
-                            type="checkbox"
-                            className='input-line-arrowend'
-                            value={paths.find(path => path.id === isEditingPath.id).arrowEnd}
-                            checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
-                            onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
+
+
+                        <label className='checkbox-container'>Shape/Line:
+                            <input
+                                type="checkbox"
+                                className='input-line-closed'
+                                value={paths.find(path => path.id === isEditingPath.id).closed}
+                                checked={paths.find(path => path.id === isEditingPath.id).closed}
+                                onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
+                            <span className="checkmark"></span>
+                        </label>
+                        <label className='checkbox-container'>Dashed line:
+                            <input
+                                type="checkbox"
+                                className='input-line-dashed'
+                                value={paths.find(path => path.id === isEditingPath.id).dashed}
+                                checked={paths.find(path => path.id === isEditingPath.id).dashed}
+                                onChange={(event) => handleLineDashedChange(event, isEditingPath.id)} />
+                            <span className="checkmark"></span>
+                        </label>
+                        <label className='checkbox-container'>Arrow Start:
+                            <input
+                                type="checkbox"
+                                className='input-line-arrowstart'
+                                value={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                                checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                                onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
+                            <span className="checkmark"></span>
+                        </label>
+                        <label className='checkbox-container'>Arrow End:
+                            <input
+                                type="checkbox"
+                                className='input-line-arrowend'
+                                value={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                                checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                                onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
+                            <span className="checkmark"></span>
+                        </label>
                         <label>Change Opacity:</label>
                         <input
                             type="range"
@@ -213,9 +223,9 @@ const DrawingFormTop = () => {
                     </div>
                 </>
             )}
-            {(isErasing || isPartialErasing) &&
+            {/* {(isErasing || isPartialErasing) &&
                 <Circle />
-            }
+            } */}
         </>
     )
 }
