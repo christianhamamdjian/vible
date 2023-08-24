@@ -572,7 +572,7 @@ export default function MoodboardProvider({ children }) {
                 id: Date.now(),
                 group: "noGroup",
                 color: pathColor || "#000000",
-                line: pathLine || 2,
+                line: +pathLine || 2,
                 opacity: 1,
                 path: [transformedPoint],
                 closed: "",
@@ -810,6 +810,12 @@ export default function MoodboardProvider({ children }) {
         if (!drawing || !isDrawing) {
             setSelectedPath(index)
             setIsEditingPath({ status: true, id: id })
+            document.addEventListener('keydown', function (e) {
+                const key = e.key;
+                if (key === "Backspace") {
+                    handleDeletePath(id)
+                }
+            });
         }
         if (isErasing) {
             handleDeletePath(id)
@@ -857,7 +863,7 @@ export default function MoodboardProvider({ children }) {
                 id: Date.now(),
                 group: "noGroup",
                 color: targetPath.color,
-                line: targetPath.line,
+                line: +targetPath.line,
                 opacity: targetPath.opacity,
                 path: newPaths[0],
                 closed: targetPath.closed,
@@ -869,7 +875,7 @@ export default function MoodboardProvider({ children }) {
                 id: Date.now() + 1,
                 group: "noGroup",
                 color: targetPath.color,
-                line: targetPath.line,
+                line: +targetPath.line,
                 opacity: targetPath.opacity,
                 path: newPaths[1],
                 closed: targetPath.closed,
@@ -1109,7 +1115,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, line: e.target.value }
+                    return { ...path, line: +e.target.value }
                 }
                 return path
             })
@@ -1221,6 +1227,9 @@ export default function MoodboardProvider({ children }) {
         setItems((prevItems) => prevItems.filter((item) => item.id !== id))
         setEditingText(null)
         setEditingImage(null)
+        setEditingVideo(null)
+        setEditingMap(null)
+        setEditingPdf(null)
     }
 
     // Text box inputs

@@ -119,8 +119,8 @@ const TopControls = ({ item }) => {
                     width="24"
                     rx="6"
                     fill="red"
-                    stroke="white"
-                    strokeWidth="2"
+                    // stroke="white"
+                    // strokeWidth="2"
                     className='box-control'
                     onClick={() => showConfirm(item.id)}
                     style={{ userSelect: "none" }}
@@ -142,8 +142,8 @@ const TopControls = ({ item }) => {
                     width="24"
                     rx="6"
                     fill="green"
-                    stroke="white"
-                    strokeWidth="2"
+                    // stroke="white"
+                    // strokeWidth="2"
                     className='box-control'
                     onClick={(e) => handleEditItem(e, item.id)}
                 />
@@ -166,8 +166,8 @@ const TopControls = ({ item }) => {
                         width="24"
                         rx="6"
                         fill="orange"
-                        stroke="white"
-                        strokeWidth="2"
+                        // stroke="white"
+                        // strokeWidth="2"
                         className='box-control'
                         style={{ userSelect: "none" }}
                         onClick={handleStopEditItem}
