@@ -2,11 +2,11 @@ import React from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const VideoFormTop = () => {
-    const { items, editingItem, handleItemChange } = React.useContext(MoodboardContext)
+    const { items, editingVideo, handleItemChange } = React.useContext(MoodboardContext)
 
     return (
         <>
-            {editingItem !== null && items.length > 0 && (
+            {editingVideo && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
                         <label>Change width:</label>
@@ -16,8 +16,8 @@ const VideoFormTop = () => {
                             max="600"
                             step="10"
                             name="width"
-                            value={editingItem !== null && items.find(item => item.id === editingItem.id)["width"]}
-                            onChange={(e) => handleItemChange(e, editingItem.id, "width")
+                            value={editingVideo && items.find(item => item.id === editingVideo.id)["width"]}
+                            onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                             } />
                         {/* <label>Change height:</label>
                          <input
@@ -26,8 +26,8 @@ const VideoFormTop = () => {
                             max="600"
                             step="10"
                             name="width"
-                            value={editingItem && items.find(item => item.id === editingItem.id).width * 3/4}
-                            onChange={(e) => handleItemChange(e, editingItem.id, "width")
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).width * 3/4}
+                            onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                             } /> */}
                         <label>Change Angle:</label>
                         <input
@@ -36,8 +36,8 @@ const VideoFormTop = () => {
                             max="180"
                             step="1"
                             name="angle"
-                            value={editingItem !== null && items.find(item => item.id === editingItem.id).angle}
-                            onChange={(e) => handleItemChange(e, editingItem.id, "angle")
+                            value={editingVideo && items.find(item => item.id === editingVideo.id).angle}
+                            onChange={(event) => handleItemChange(event, editingVideo.id, "angle")
                             } />
                     </div>
                 </>

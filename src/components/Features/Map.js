@@ -4,7 +4,7 @@ import TopControls from "../helpers/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem } = React.useContext(MoodboardContext);
+    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const getUrl = () => {
         let url = ""
@@ -26,6 +26,39 @@ const Map = ({ item }) => {
                         position: "absolute",
                     }}
                 >
+                    {isEditingBoard && (
+                        <>
+                            <circle
+                                id="rotate"
+                                fill="#cccccc"
+                                cx="-15"
+                                cy={`${item.height / 2}`}
+                                width="20"
+                                height="20"
+                                r='12'
+                                onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            />
+                            <rect
+                                id="resize"
+                                fill="#cccccc"
+                                x={item.width - 15}
+                                y={item.height - 15}
+                                width="20"
+                                height="20"
+                                rx="4"
+                                onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            />
+                            <rect
+                                id="resize"
+                                fill="white"
+                                x={item.width - 18}
+                                y={item.height - 18}
+                                width="20"
+                                height="20"
+                                rx="2"
+                                onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            />
+                        </>)}
                     <foreignObject
                         x="0"
                         y="0"
