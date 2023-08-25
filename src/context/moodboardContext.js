@@ -390,7 +390,15 @@ export default function MoodboardProvider({ children }) {
             console.log(youtubeCode)
             handleDropVideo(youtubeCode)
         }
-        if (text && ((text.startsWith('http') || text.startsWith('https')) && (text.endsWith('jpg') || text.endsWith('jpeg') || text.endsWith('png') || text.endsWith('webp') || text.endsWith('svg')))) {
+        if (text
+            && ((text.startsWith('http')
+                || text.startsWith('https'))
+                && (text.endsWith('jpg')
+                    || text.endsWith('jpeg')
+                    || text.endsWith('png')
+                    || text.endsWith('webp')
+                    || text.endsWith('svg')
+                ))) {
             e.preventDefault()
             const newItem = {
                 id: Date.now(),
@@ -850,9 +858,13 @@ export default function MoodboardProvider({ children }) {
         const handleMouseUp = () => {
             window.removeEventListener('pointermove', handleMouseMove)
             window.removeEventListener('pointerup', handleMouseUp)
+            window.removeEventListener('touchmove', handleMouseMove)
+            window.removeEventListener('touchend', handleMouseUp)
         }
         window.addEventListener('pointermove', handleMouseMove)
         window.addEventListener('pointerup', handleMouseUp)
+        window.addEventListener('touchmove', handleMouseMove)
+        window.addEventListener('touchend', handleMouseUp)
     }
 
     const handlePartialErasePath = (id, startPoint) => {

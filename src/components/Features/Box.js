@@ -129,7 +129,7 @@ const Box = ({ item }) => {
                                         <div
                                             className="box-content"
                                         >
-                                            <pre>
+                                            <pre style={{ height: "calc(100% - 1.5rem)" }}>
                                                 <p
                                                     style={{
                                                         color: getTextColor(item.color),

@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Circle from "../helpers/CircleCursor"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
     const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, } = React.useContext(MoodboardContext);
+
+    const [tool, setTool] = useState("")
+
+    const toolButtons = {
+        lineColor: "Line Color",
+        lineWidth: "Line width",
+        fillColor: "Fill color",
+        shapeLine: "Shape/Line",
+        dashedLine: "Dashed line",
+        arrowStart: "Arrow Start",
+        arrowEnd: "Arrow End",
+        changeOpacity: "Change Opacity",
+        rotate: "Rotate",
+        scale: "Scale",
+        move: "Move",
+        duplicate: "Duplicate",
+        delete: "Delete",
+        done: "Done",
+    }
 
     return (
         <>
@@ -23,27 +42,36 @@ const DrawingFormTop = () => {
                 </div>)}
             {paths.length > 0 && isEditingPath && !isErasing && (
                 <>
+                    <div className='inputs-top_objects' >
+                        {Object.entries(toolButtons).map((el, i) => {
+                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
+                        })}
+                    </div>
                     <div className='inputs-top_draw'>
-                        <label>Line color:</label>
-                        <input
-                            type="color"
-                            value={paths.find(path => path.id === isEditingPath.id).color}
-                            onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
-                        <label>Line width:</label>
-                        <input
-                            type="number"
-                            className='input-line-width'
-                            value={paths.find(path => path.id === isEditingPath.id).line}
-                            onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
-                        <label>Fill color:</label>
-                        <input
-                            type="color"
-                            className='input-line-fill'
-                            value={paths.find(path => path.id === isEditingPath.id).fill}
-                            onChange={(event) => handleLineFillChange(event, isEditingPath.id)} />
+                        {tool === "lineColor" && <>
+                            <label>Line color:</label>
+                            <input
+                                type="color"
+                                value={paths.find(path => path.id === isEditingPath.id).color}
+                                onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
+                        </>}
+                        {tool === "lineWidth" && <><label>Line width:</label>
+                            <input
+                                type="number"
+                                className='input-line-width'
+                                value={paths.find(path => path.id === isEditingPath.id).line}
+                                onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
+                        </>}
+
+                        {tool === "fillColor" && <>        <label>Fill color:</label>
+                            <input
+                                type="color"
+                                className='input-line-fill'
+                                value={paths.find(path => path.id === isEditingPath.id).fill}
+                                onChange={(event) => handleLineFillChange(event, isEditingPath.id)} /></>}
 
 
-                        <label className='checkbox-container'>Shape/Line:
+                        {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line:
                             <input
                                 type="checkbox"
                                 className='input-line-closed'
@@ -51,8 +79,10 @@ const DrawingFormTop = () => {
                                 checked={paths.find(path => path.id === isEditingPath.id).closed}
                                 onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
                             <span className="checkmark"></span>
-                        </label>
-                        <label className='checkbox-container'>Dashed line:
+                        </label>}
+
+
+                        {tool === "dashedLine" && <label className='checkbox-container'>Dashed line:
                             <input
                                 type="checkbox"
                                 className='input-line-dashed'
@@ -60,8 +90,10 @@ const DrawingFormTop = () => {
                                 checked={paths.find(path => path.id === isEditingPath.id).dashed}
                                 onChange={(event) => handleLineDashedChange(event, isEditingPath.id)} />
                             <span className="checkmark"></span>
-                        </label>
-                        <label className='checkbox-container'>Arrow Start:
+                        </label>}
+
+
+                        {tool === "arrowStart" && <label className='checkbox-container'>Arrow Start:
                             <input
                                 type="checkbox"
                                 className='input-line-arrowstart'
@@ -69,8 +101,10 @@ const DrawingFormTop = () => {
                                 checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
                                 onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
                             <span className="checkmark"></span>
-                        </label>
-                        <label className='checkbox-container'>Arrow End:
+                        </label>}
+
+
+                        {tool === "arrowEnd" && <label className='checkbox-container'>Arrow End:
                             <input
                                 type="checkbox"
                                 className='input-line-arrowend'
@@ -78,33 +112,41 @@ const DrawingFormTop = () => {
                                 checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
                                 onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
                             <span className="checkmark"></span>
-                        </label>
-                        <label>Change Opacity:</label>
-                        <input
-                            type="range"
-                            min="0.1"
-                            max="1"
-                            step="0.1"
-                            name="opacity"
-                            value={paths.find(path => path.id === isEditingPath.id).opacity}
-                            onChange={(e) => handleLineOpacityChange(e, isEditingPath.id, "opacity")}
-                        />
+                        </label>}
 
-                        {selectedPath !== null && (
-                            <>
-                                <div className='path-edit-form'>
-                                    <label htmlFor="rotate"><label>Rotate:</label></label>
-                                    <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
-                                    <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
-                                </div>
-                                <div className='path-edit-form'>
-                                    <label htmlFor="scale"><label>Scale:</label></label>
-                                    <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
-                                    <button onClick={e => handleScaleChange(e, "increase")}>+</button>
-                                </div>
-                            </>
+
+                        {tool === "changeOpacity" && <> <label>Change Opacity:</label>
+                            <input
+                                type="range"
+                                min="0.1"
+                                max="1"
+                                step="0.1"
+                                name="opacity"
+                                value={paths.find(path => path.id === isEditingPath.id).opacity}
+                                onChange={(e) => handleLineOpacityChange(e, isEditingPath.id, "opacity")}
+                            /></>}
+
+                        {/* {selectedPath !== null && (
+                            <> */}
+
+                        {tool === "rotate" && <div className='path-edit-form'>
+                            <label htmlFor="rotate"><label>Rotate:</label></label>
+                            <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
+                            <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
+
+                        </div>}
+
+                        {tool === "scale" && <div className='path-edit-form'>
+                            <label htmlFor="scale"><label>Scale:</label></label>
+                            <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
+                            <button onClick={e => handleScaleChange(e, "increase")}>+</button>
+                        </div>}
+
+                        {/* </>
                         )}
-                        <div className='path-edit-form'>
+                       */}
+
+                        {tool === "move" && <div className='path-edit-form'>
                             <label>Move:</label>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
@@ -122,8 +164,10 @@ const DrawingFormTop = () => {
                                 onClick={() => handleMoveForward(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
                             </button>
-                        </div>
-                        <div className='path-edit-form'>
+                        </div>}
+
+
+                        {tool === "duplicate" && <div className='path-edit-form'>
                             <label>Duplicate:</label>
                             <button
                                 onClick={() => handleDuplicatePath(isEditingPath.id)}>
@@ -138,12 +182,15 @@ const DrawingFormTop = () => {
                                     <path d="M19 9H9V19H19V9Z" fill="currentColor" />
                                 </svg>
                             </button>
-                        </div>
-                        <button
+                        </div>}
+
+
+                        {tool === "delete" && <button
                             onClick={() => handleDeletePath(isEditingPath.id)}>
                             &times;
-                        </button>
-                        <button
+                        </button>}
+
+                        {tool === "done" && <button
                             style={{ padding: ".3rem .6rem" }}
                             onClick={stopLineEditing}>
                             <svg
@@ -164,7 +211,7 @@ const DrawingFormTop = () => {
                                     fill="#ffffff"
                                 />
                             </svg>
-                        </button>
+                        </button>}
 
                     </div>
 

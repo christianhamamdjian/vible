@@ -146,9 +146,9 @@ button,
   border-radius: .4rem;
   user-select: none;
   cursor: pointer;
-  -moz-box-shadow: 0 0 10px 5px hsla(240, 7%, 30%, 0.167);
+  /* -moz-box-shadow: 0 0 10px 5px hsla(240, 7%, 30%, 0.167);
   -webkit-box-shadow: 0 0 10px 5px hsla(240, 7%, 30%, 0.167);
-  box-shadow: 0 0 4px 2px hsla(240, 7%, 30%, 0.167);
+  box-shadow: 0 0 4px 2px hsla(240, 7%, 30%, 0.167); */
 }
 
 @media (hover: hover) {
@@ -425,12 +425,12 @@ button,
 .box-content pre {
   /* text-wrap: wrap; */
   white-space: pre-wrap;
-  height: 100%;
-  overflow: hidden;
+  /* height: 100%; */
+  /* overflow: hidden; */
 }
 
 .box-content p {
-  height: 90%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 1.2rem;

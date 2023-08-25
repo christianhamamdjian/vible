@@ -64,10 +64,10 @@ const MoodBoard = () => {
                         style={{
                             backgroundColor: "#ffffff",
                             userSelect: "none",
-                            cursor: isErasing || isPartialErasing && "none",
+                            // cursor: isErasing || isPartialErasing && "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                            // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
+                            touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`} preserveAspectRatio="none"
                         //transform={`translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`}

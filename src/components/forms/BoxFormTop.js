@@ -4,9 +4,21 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
     const { items, editingText, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext);
-    const [selectedFont, setSelectedFont] = useState('Roboto');
 
+    const [selectedFont, setSelectedFont] = useState('Roboto');
     const [tool, setTool] = useState("")
+
+    const toolButtons = {
+        text: "Text",
+        color: "Color",
+        linktitle: "Link Title",
+        linkurl: "Link Url",
+        width: "Width",
+        height: "Height",
+        angle: "Angle",
+        font: "Font",
+        move: "Move"
+    }
 
     const fontOptions = [
         { value: 'Roboto', label: 'Roboto' },
@@ -24,23 +36,20 @@ const BoxFormTop = () => {
     return (
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
-                <> <div className='inputs-top_objects' >
-                    <button onClick={() => setTool("text")}>Text</button>
-                    <button onClick={() => setTool("color")}>Color</button>
-                    <button onClick={() => setTool("linktitle")}>Link Title</button>
-                    <button onClick={() => setTool("linkurl")}>Link Url</button>
-                    <button onClick={() => setTool("width")}>Width</button>
-                    <button onClick={() => setTool("height")}>Height</button>
-                    <button onClick={() => setTool("angle")}>Angle</button>
-                    <button onClick={() => setTool("font")}>Font</button>
-                    <button onClick={() => setTool("move")}>Move</button>
-                </div>
+                <>
+                    <div className='inputs-top_objects' >
+                        {Object.entries(toolButtons).map((el, i) => {
+                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
+                        })}
+                    </div>
                     <div className='inputs-top_objects' >
                         {tool === "text" && <><label>Change text:</label>
                             <textarea
                                 value={findItem("text")}
                                 onChange={(event) => handleItemChange(event, editingText.id, "text")}
-                            /></>}
+                            />
+                        </>
+                        }
                         {tool === "color" && <><label>Change color:</label>
                             <input
                                 type="color"
@@ -107,25 +116,26 @@ const BoxFormTop = () => {
                                 ))}
                             </select>
                         </div></>}
-                        {tool === "move" && <><div className='item-edit-form'>
-                            <label>Move:</label>
-                            <button
-                                onClick={() => handleMoveItemToBack(editingText.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemToFront(editingText.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemBackward(editingText.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemForward(editingText.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
-                            </button>
-                        </div></>}
+                        {tool === "move" && <>
+                            <div className='item-edit-form' style={{ display: "flex" }}>
+                                <label>Move:</label>
+                                <button
+                                    onClick={() => handleMoveItemToBack(editingText.id)}>
+                                    <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                </button>
+                                <button
+                                    onClick={() => handleMoveItemToFront(editingText.id)}>
+                                    <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                </button>
+                                <button
+                                    onClick={() => handleMoveItemBackward(editingText.id)}>
+                                    <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                </button>
+                                <button
+                                    onClick={() => handleMoveItemForward(editingText.id)}>
+                                    <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                </button>
+                            </div></>}
                     </div>
                 </>)
             }
