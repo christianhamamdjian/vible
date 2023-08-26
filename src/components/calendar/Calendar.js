@@ -16,7 +16,7 @@ export function Calendar() {
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
-
+  // console.log(today.getDate())
   useEffect(() => {
     setDay(date.getDate());
     setMonth(date.getMonth());
@@ -52,26 +52,28 @@ export function Calendar() {
           <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}><i className="gg-chevron-right-o"></i></button>
         </div>
         <div className='body'>
-          {DAYS_OF_THE_WEEK.map((d) => (
-            <div className='day' key={d}>
-              <strong>{d}</strong>
+          {DAYS_OF_THE_WEEK.map((wd) => (
+            <div className='day' key={wd}>
+              <strong>{wd}</strong>
             </div>
           ))}
           {Array(days[month] + (startDay - 1))
             .fill(null)
             .map((_, index) => {
-              const d = index - (startDay - 2)
+              const sd = index - (startDay - 2)
+              console.log(today.getDate())
               return (
                 <div
                   className='day'
                   key={index}
                   style={{
-                    border: `${d === today.getDate() && "1px solid #eee"}`,
-                    backgroundColor: `${d === day && "#eee"}`
+                    // border: `${sd === today.getDate() && "1px solid #eee"}`,
+                    //border: `${index === today.getDate() && month === today.getMonth() && "1px solid #eee"}`,
+                    //backgroundColor: `${sd === day && "#eee"}`
                   }}
-                  onClick={() => addDateToBoard(d)}
+                  onClick={() => addDateToBoard(sd)}
                 >
-                  {d > 0 ? d : ''}
+                  {sd > 0 ? sd : ''}
                 </div>
               );
             })}

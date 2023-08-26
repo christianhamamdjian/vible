@@ -597,17 +597,21 @@ export default function MoodboardProvider({ children }) {
             const currentPoints = { x: clientX, y: clientY };
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
-
-            setRectangleSize((prevSize) => ({
-                // width: prevSize.width + dx,
-                // height: prevSize.height + dy,
-
-                width: Math.max(2, Math.min(20, prevSize.width + dx)),
-                height: Math.max(2, Math.min(20, prevSize.height + dy)),
-
-            }));
-
-            handleResize(e, selectedRectId, rectangleSize)
+            const item = items.find(el => el.id === selectedRectId)
+            if (item.type === "box") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(100, Math.min(300, prevSize.width + dx)),
+                    height: Math.max(100, Math.min(300, prevSize.height + dy)),
+                }))
+            }
+            if (item.type === "image") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(2, Math.min(20, prevSize.width + dx)),
+                    height: Math.max(2, Math.min(20, prevSize.height + dy)),
+                }))
+            }
+            // handleResize(e, selectedRectId, rectangleSize)
+            handleResize(e, selectedRectId)
             setMousedownPoints(currentPoints)
             updateResizeIcon(dx, dy)
 
@@ -753,8 +757,9 @@ export default function MoodboardProvider({ children }) {
         }));
     }
 
-    const handleResize = (e, id, size) => {
+    const handleResize = (e, id) => {
         const resizable = items.find(item => item.id === id)
+        const size = rectangleSize
         if (resizable && resizable.type === "image") {
             setItems(prevItems =>
                 prevItems.map(item => {
