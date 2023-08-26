@@ -8,14 +8,24 @@ const ImageFormTop = () => {
             {editingImage && items.length > 0 &&
                 <>
                     <div className='inputs-top_objects' >
-                        <label>Change width:</label>
+                        {/* <label>Change width:</label>
                         <input
                             type="number"
                             min="10"
                             // max="100"
                             value={editingImage && Math.floor(items.find(item => item.id === editingImage.id).width)}
                             onChange={(e) => handleItemChange(e, editingImage.id, "width")}
-                        />
+                        /> */}
+                        <label>Change width:</label>
+                        <input
+                            type="range"
+                            min="2"
+                            max="100"
+                            step="10"
+                            name="width"
+                            value={editingImage && Math.floor(items.find(item => item.id === editingImage.id).width)}
+                            onChange={(e) => handleItemChange(e, editingImage.id, "width")
+                            } />
                         <label>Change Angle:</label>
                         <input
                             type="range"

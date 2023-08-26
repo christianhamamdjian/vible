@@ -4,7 +4,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 import renderPath from '../helpers/pathSmooth';
 
 const Drawing = () => {
-    const { paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
+    const { paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathDeSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -47,6 +47,8 @@ const Drawing = () => {
                         //onClick={(e) => handlePathClick(e, index, path.id)}
                         onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                         onPointerMove={(e) => handlePathSelect(e, index, path.id)}
+                        // onPointerEnter={(e) => handlePathSelect(e, index, path.id)}
+                        // onPointerLeave={handlePathDeSelect}
                         onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                         onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
                         cursor="grabbing"

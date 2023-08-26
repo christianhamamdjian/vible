@@ -7,7 +7,7 @@ const ImageLinkFormTop = () => {
         <>
             {editingImage && items.length > 0 && (
                 <div className='inputs-top_objects' >
-                    <label>
+                    {/* <label>
                         Change image width:
                         <input
                             type="number"
@@ -16,7 +16,17 @@ const ImageLinkFormTop = () => {
                             value={editingImage && items.find(item => item.id === editingImage.id).width}
                             onChange={(event) => handleItemChange(event, editingImage.id, "width")}
                         />
-                    </label>
+                    </label> */}
+                    <label>Change width:</label>
+                    <input
+                        type="range"
+                        min="5"
+                        max="100"
+                        step="10"
+                        name="width"
+                        value={editingImage && items.find(item => item.id === editingImage.id).width}
+                        onChange={(event) => handleItemChange(event, editingImage.id, "width")
+                        } />
                     <label>Change Angle:</label>
                     <input
                         type="range"

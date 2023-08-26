@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, } = React.useContext(MoodboardContext);
+    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
 
     const [tool, setTool] = useState("")
 
@@ -68,7 +68,9 @@ const DrawingFormTop = () => {
                                 type="color"
                                 className='input-line-fill'
                                 value={paths.find(path => path.id === isEditingPath.id).fill}
-                                onChange={(event) => handleLineFillChange(event, isEditingPath.id)} /></>}
+                                onChange={(event) => handleLineFillChange(event, isEditingPath.id)} />
+                        </>
+                        }
 
 
                         {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line:
@@ -257,6 +259,22 @@ const DrawingFormTop = () => {
             {paths.length > 1 && isGrouping && (
                 <>
                     <div className='inputs-top_draw'>
+                        {/* {tool === "lineColor" && <> */}
+                        <label>Line color:</label>
+                        <input
+                            type="color"
+                            value={pathColor}
+                            onChange={(event) => handleGroupColorChange(event, isEditingPath.id)} />
+                        {/* </>} */}
+                        {/* {tool === "lineWidth" && <> */}
+                        <label>Line width:</label>
+                        <input
+                            type="number"
+                            className='input-line-width'
+                            value={pathLine}
+                            onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />
+                        {/* </>} */}
+
                         <div className='path-edit-form'>
                             <label htmlFor="rotate"><label>Rotate:</label></label>
                             <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
@@ -278,3 +296,5 @@ const DrawingFormTop = () => {
 }
 
 export default DrawingFormTop
+
+

@@ -278,7 +278,7 @@ button,
 }
 
 .inputs-top_draw {
-  width: 60vw;
+  width: 24vw;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -980,7 +980,7 @@ button,
 
 .drawer-right-isOpen,
 .drawer-left-isOpen {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
   width: 240px;
   transition: all .5s;
   transform: translateX(0.2rem) translateY(2rem) scale(1);

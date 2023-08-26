@@ -38,3 +38,7 @@
   justify-content: center;
   cursor: pointer;
 }
+
+.day:hover {
+  background-color: #f5f6fa;
+}

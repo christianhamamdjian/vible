@@ -352,7 +352,7 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: 100,
+                width: 20,
                 opacity: 1,
                 angle: 0,
                 type: "image"
@@ -602,8 +602,8 @@ export default function MoodboardProvider({ children }) {
                 // width: prevSize.width + dx,
                 // height: prevSize.height + dy,
 
-                width: Math.max(100, Math.min(300, prevSize.width + dx)),
-                height: Math.max(100, Math.min(300, prevSize.height + dy)),
+                width: Math.max(2, Math.min(20, prevSize.width + dx)),
+                height: Math.max(2, Math.min(20, prevSize.height + dy)),
 
             }));
 
@@ -688,6 +688,11 @@ export default function MoodboardProvider({ children }) {
 
     const handleRectPointerDown = (e, rectId) => {
         if (isDrawing) return
+        if (isErasing || isPartialErasing || isGrouping) {
+            setIsErasing(false)
+            setIsPartialErasing(false)
+            setIsGrouping(false)
+        }
         const rectItem = items.find(el => el.id === rectId)
         const rectType = rectItem.type
         if (e.target.id === 'rotate') {
@@ -792,9 +797,10 @@ export default function MoodboardProvider({ children }) {
     }
     const handlePathSelect = (e, index, id) => {
         e.preventDefault()
-        if (isDrawing) {
-            return
-        }
+        if (isDraggingRect || isDrawing || isEditingBoard || editingItem) { return }
+        // if (isDrawing) {
+        //     return
+        // }
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }
@@ -810,6 +816,10 @@ export default function MoodboardProvider({ children }) {
             setSelectedPath(index)
             setIsEditingPath({ status: true, id: id })
         }
+    }
+    const handlePathDeSelect = () => {
+        setSelectedPath(null)
+        setIsEditingPath(null)
     }
     const handlePathDrag = (e, index, id) => {
         e.stopPropagation()
@@ -912,6 +922,9 @@ export default function MoodboardProvider({ children }) {
         setSelectedPath(null)
         setIsEditingPath(false)
         setIsDrawing(false)
+        setIsEditingBoard(false)
+        setIsErasing(false)
+        setIsPartialErasing(false)
     }
     const handleGroupPaths = (added) => {
         setPaths(prevPaths => prevPaths.map(el => el.id === added ? { ...el, group: "activeGroup" } : el))
@@ -964,7 +977,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths)
     }
 
-    // Line Group functions
+
     const handleScaleChange = (e, amount) => {
         const scale = (amount === "increase") ? 1.2 : 0.8
         const updatedPaths = paths.map((path, index) => {
@@ -980,6 +993,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(updatedPaths)
     }
 
+    // Line Group functions
     const handleGroupRotateChange = (e, amount) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
@@ -1010,6 +1024,30 @@ export default function MoodboardProvider({ children }) {
             })
         })
         setScaling(scale)
+        setPaths([...notGouped, ...updatedPaths])
+    }
+    const handleGroupLineChange = (e, amount) => {
+        const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const notGouped = paths.filter(path => path.group === "noGroup")
+        const line = e.target.value
+        const updatedPaths = pathGroup.map((path) => {
+            return ({
+                ...path, line: line
+            })
+        })
+        setPathLine(line)
+        setPaths([...notGouped, ...updatedPaths])
+    }
+    const handleGroupColorChange = (e, amount) => {
+        const pathGroup = paths.filter(path => path.group === "activeGroup")
+        const notGouped = paths.filter(path => path.group === "noGroup")
+        const color = e.target.value
+        const updatedPaths = pathGroup.map((path) => {
+            return ({
+                ...path, color: color
+            })
+        })
+        setPathColor(color)
         setPaths([...notGouped, ...updatedPaths])
     }
 
@@ -1057,6 +1095,7 @@ export default function MoodboardProvider({ children }) {
         setIsGrouping(false)
         setDragGrouping(false)
         resetPathsGroup()
+        setIsEditingBoard(false)
     }
     const handleEraser = () => {
         setIsErasing(isErasing => !isErasing)
@@ -1068,6 +1107,7 @@ export default function MoodboardProvider({ children }) {
         setDragGrouping(false)
         resetPathsGroup()
         setIsPartialErasing(false)
+        setIsEditingBoard(false)
     }
 
 
@@ -1081,6 +1121,7 @@ export default function MoodboardProvider({ children }) {
         setDragGrouping(false)
         resetPathsGroup()
         setIsErasing(false)
+        setIsEditingBoard(false)
     }
 
 
@@ -1338,7 +1379,7 @@ export default function MoodboardProvider({ children }) {
         if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem) {
             setEditingItem(null)
             setEditingText(null)
-            setIsEditingBoard(null)
+            setIsEditingBoard(false)
             setIsEditingPath(null)
             setIsEditingPaths(null)
             setEditingImage(null)
@@ -1389,7 +1430,6 @@ export default function MoodboardProvider({ children }) {
         setTodosShow(todosShow => !todosShow)
     }
 
-
     const handleClearBoard = () => {
         setItems([])
         setPaths([])
@@ -1417,9 +1457,32 @@ export default function MoodboardProvider({ children }) {
             setSelectedPath(null)
             setWrite(false)
         }
+        setIsDrawing(false)
+        setIsErasing(false)
+        setIsPartialErasing(false)
+        setIsGrouping(false)
         setZoom(10000)
     }
 
+    // const stopAllTopForms = () => {
+    //     setIsEditingBoard(false)
+
+    //     setEditingItem(null)
+    //     setEditingText(null)
+    //     setIsEditingPath(null)
+    //     setIsEditingPaths(null)
+    //     setSelectedPath(null)
+    //     setEditingImage(null)
+    //     setEditingVideo(null)
+    //     setEditingMap(null)
+    //     setEditingPdf(null)
+
+    //     setWrite(false)
+    //     setImage(false)
+    //     setVideo(false)
+    //     setMap(false)
+    //     setPdf(false)
+    // }
 
 
     return (
@@ -1488,6 +1551,7 @@ export default function MoodboardProvider({ children }) {
                 handlePathDrag,
                 handlePathGroupDrag,
                 handlePathSelect,
+                handlePathDeSelect,
                 handleAddBox,
                 handleImageUpload,
                 handlePdfUpload,
@@ -1568,7 +1632,9 @@ export default function MoodboardProvider({ children }) {
                 handleDuplicatePath,
                 handleGroupRotateChange,
                 handleGroupScaleChange,
-                handleAddDateBox
+                handleAddDateBox,
+                handleGroupLineChange,
+                handleGroupColorChange
             }}>
             {children}
         </MoodboardContext.Provider>
