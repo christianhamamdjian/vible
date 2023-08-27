@@ -23,6 +23,12 @@ const DrawingFormTop = () => {
         delete: "Delete",
         done: "Done",
     }
+    const groupToolButtons = {
+        linesWidth: "Width",
+        linesColor: "Color",
+        linesRotate: "Rotate",
+        linesScale: "Scale",
+    }
 
     return (
         <>
@@ -40,7 +46,7 @@ const DrawingFormTop = () => {
                         value={pathLine}
                         onChange={(event) => handleLineWidth(event)} />
                 </div>)}
-            {paths.length > 0 && isEditingPath && !isErasing && (
+            {paths.length > 0 && isEditingPath && !isErasing && !isGrouping && (
                 <>
                     <div className='inputs-top_objects' >
                         {Object.entries(toolButtons).map((el, i) => {
@@ -258,33 +264,41 @@ const DrawingFormTop = () => {
 
             {paths.length > 1 && isGrouping && (
                 <>
+                    <div className='inputs-top_objects' >
+                        {Object.entries(groupToolButtons).map((el, i) => {
+                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
+                        })}
+                    </div>
                     <div className='inputs-top_draw'>
-                        {/* {tool === "lineColor" && <> */}
-                        <label>Line color:</label>
-                        <input
-                            type="color"
-                            value={pathColor}
-                            onChange={(event) => handleGroupColorChange(event, isEditingPath.id)} />
-                        {/* </>} */}
-                        {/* {tool === "lineWidth" && <> */}
-                        <label>Line width:</label>
-                        <input
-                            type="number"
-                            className='input-line-width'
-                            value={pathLine}
-                            onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />
-                        {/* </>} */}
-
-                        <div className='path-edit-form'>
-                            <label htmlFor="rotate"><label>Rotate:</label></label>
-                            <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
-                            <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
-                        </div>
-                        <div className='path-edit-form'>
-                            <label htmlFor="scale"><label>Scale:</label></label>
-                            <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
-                            <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
-                        </div>
+                        {tool === "linesColor" && <>
+                            <label>Lines color:</label>
+                            <input
+                                type="color"
+                                value={pathColor}
+                                onChange={(event) => handleGroupColorChange(event, isEditingPath.id)} />
+                        </>}
+                        {tool === "linesWidth" && <>
+                            <label>Lines width:</label>
+                            <input
+                                type="number"
+                                className='input-line-width'
+                                value={pathLine}
+                                onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />
+                        </>}
+                        {tool === "linesRotate" && <>
+                            <div className='path-edit-form'>
+                                <label htmlFor="rotate"><label>Group Rotate:</label></label>
+                                <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
+                                <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
+                            </div>
+                        </>}
+                        {tool === "linesScale" && <>
+                            <div className='path-edit-form'>
+                                <label htmlFor="scale"><label>Group Scale:</label></label>
+                                <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
+                                <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
+                            </div>
+                        </>}
                     </div>
                 </>
             )}

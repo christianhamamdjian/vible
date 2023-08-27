@@ -148,6 +148,27 @@ input[type="color"] {
   padding: 0;
 }
 
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  width: 2rem;
+  height: 1.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 1.5rem;
+  /* border: 2px solid #ffffff; */
+}
+
+input[type="color"]::-moz-color-swatch {
+  border-radius: 50%;
+  /* border: 2px solid #ffffff; */
+}
+
 input[type="number"] {
   min-width: 4rem;
 }
@@ -297,7 +318,7 @@ button,
 }
 
 .inputs-top_draw {
-  width: 24vw;
+  width: 60vw;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -305,31 +326,35 @@ button,
   align-items: center;
   padding: .8rem .4rem;
   gap: .2rem .8rem;
+  font-weight: bold;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
 }
 
+.inputs-top_draw button {
+  background: rgba(115, 119, 159, 0.9);
+  font-size: .7rem;
+}
+
 .inputs-top_objects {
-  display: grid;
-  /* grid-template-columns: repeat(6, 1fr); */
-  grid-template-columns: repeat(5, 1fr);
+  width: 60vw;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
   padding: .8rem .4rem;
-  grid-gap: .2rem .8rem;
+  /* grid-gap: .2rem .8rem; */
+  grid-gap: .1rem .1rem;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
-  /* width: 60%; */
-  width: 24%;
   margin: 0 auto;
 }
 
 .inputs-top_objects button {
-  background: rgba(70, 57, 57, 0.9);
+  background: rgba(138, 142, 184, 0.9);
   font-size: .7rem;
-  ;
 }
 
 @media only screen and (max-width: 600px) {
@@ -367,7 +392,7 @@ button,
 
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
-    height: 8rem;
+    height: 5.5rem;
     overflow-y: auto;
     overflow-x: hidden;
     width: 60vw;
@@ -375,7 +400,7 @@ button,
   }
 
   .inputs-top_draw {
-    height: 8rem;
+    height: 4rem;
     overflow-y: auto;
     overflow-x: hidden;
     width: 80%;
@@ -839,7 +864,7 @@ button,
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: .1rem .8rem;
+  padding: .6rem .8rem;
   width: 10rem;
   max-width: 10rem;
   list-style: none;
@@ -1507,12 +1532,12 @@ input[type="range"]:focus::-moz-range-thumb {
 
 #color-style::-webkit-color-swatch {
   border-radius: 1.5rem;
-  border: 7px solid #000000;
+  /* border: 2px solid #ffffff; */
 }
 
 #color-style::-moz-color-swatch {
   border-radius: 50%;
-  border: 7px solid #000000;
+  /* border: 2px solid #ffffff; */
 }
 
 /********** End of Color Input Styles **********/
