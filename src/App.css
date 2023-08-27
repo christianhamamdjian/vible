@@ -162,11 +162,12 @@ button,
   padding: .5rem 1rem;
   margin: .05rem .1rem;
   border-radius: .4rem;
+  /* border: 1px solid#ffffff; */
   user-select: none;
   cursor: pointer;
-  /* -moz-box-shadow: 0 0 10px 5px hsla(240, 7%, 30%, 0.167);
-  -webkit-box-shadow: 0 0 10px 5px hsla(240, 7%, 30%, 0.167);
-  box-shadow: 0 0 4px 2px hsla(240, 7%, 30%, 0.167); */
+  /* -moz-box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167);
+  -webkit-box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167);
+  box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167); */
 }
 
 @media (hover: hover) {

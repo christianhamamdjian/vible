@@ -17,11 +17,6 @@ export function Calendar() {
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
 
-  const formattedDate = date.toLocaleString().split(" ")
-  const splitDate = formattedDate[0].split("/")
-  const formattedDay = +splitDate[1]
-  const formattedMonth = +splitDate[0] - 1
-
   useEffect(() => {
     setDay(date.getDate());
     setMonth(date.getMonth());
@@ -40,7 +35,7 @@ export function Calendar() {
     return startDate === 0 ? 7 : startDate;
   }
 
-  function isLeapYear(year) {
+  const isLeapYear = (year) => {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
   }
 
@@ -66,16 +61,13 @@ export function Calendar() {
             .fill(null)
             .map((_, index) => {
               const sd = index - (startDay - 2)
-              console.log(sd, formattedDay)
-              console.log(month, formattedMonth)
               return (
                 <div
                   className='day'
                   key={index}
                   style={{
-                    // border: `${sd === today.getDate() && "1px solid #eee"}`,
-                    border: `${sd === formattedDay && month === formattedMonth && "1px solid #eee"}`,
-                    //backgroundColor: `${sd === day && "#eee"}`
+                    border: `${sd === new Date().getDate() && month + 1 === new Date().getMonth() + 1 ? "1px solid #eee" : "1px solid transparent"}`,
+                    backgroundColor: `${sd === new Date().getDate() && month + 1 === new Date().getMonth() + 1 ? "#eee" : "transparent"}`
                   }}
                   onClick={() => addDateToBoard(sd)}
                 >
