@@ -230,7 +230,9 @@ export default function MoodboardProvider({ children }) {
             angle: 0,
             type: "box",
             font: "Roboto",
-            rating: 0
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -407,6 +409,23 @@ export default function MoodboardProvider({ children }) {
                 y: 100,
                 width: 100,
                 type: "imageUrl"
+            }
+            setItems((prevItems) => [...prevItems, newItem])
+        }
+        if (text && (text.startsWith('http') || text.startsWith('https'))) {
+            const itemId = Date.now()
+            const newItem = {
+                id: itemId,
+                x: 200,
+                y: 200,
+                text: text,
+                color: "#ffffff",
+                link: "Web link",
+                url: text,
+                width: 140,
+                height: 140,
+                type: "box",
+                font: "Roboto",
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
@@ -1031,7 +1050,7 @@ export default function MoodboardProvider({ children }) {
         setScaling(scale)
         setPaths([...notGouped, ...updatedPaths])
     }
-    const handleGroupLineChange = (e, amount) => {
+    const handleGroupLineChange = (e) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
         const line = e.target.value
@@ -1043,7 +1062,7 @@ export default function MoodboardProvider({ children }) {
         setPathLine(line)
         setPaths([...notGouped, ...updatedPaths])
     }
-    const handleGroupColorChange = (e, amount) => {
+    const handleGroupColorChange = (e) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
         const color = e.target.value
@@ -1075,7 +1094,7 @@ export default function MoodboardProvider({ children }) {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, [property]: e.target.value }
+                    return { ...item, [property]: property === "showRating" || property === "showBorder" ? e.target.checked : e.target.value }
                 }
                 return item
             })

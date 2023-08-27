@@ -16,7 +16,12 @@ export function Calendar() {
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
-  // console.log(today.getDate())
+
+  const formattedDate = date.toLocaleString().split(" ")
+  const splitDate = formattedDate[0].split("/")
+  const formattedDay = +splitDate[1]
+  const formattedMonth = +splitDate[0] - 1
+
   useEffect(() => {
     setDay(date.getDate());
     setMonth(date.getMonth());
@@ -61,14 +66,15 @@ export function Calendar() {
             .fill(null)
             .map((_, index) => {
               const sd = index - (startDay - 2)
-              console.log(today.getDate())
+              console.log(sd, formattedDay)
+              console.log(month, formattedMonth)
               return (
                 <div
                   className='day'
                   key={index}
                   style={{
                     // border: `${sd === today.getDate() && "1px solid #eee"}`,
-                    //border: `${index === today.getDate() && month === today.getMonth() && "1px solid #eee"}`,
+                    border: `${sd === formattedDay && month === formattedMonth && "1px solid #eee"}`,
                     //backgroundColor: `${sd === day && "#eee"}`
                   }}
                   onClick={() => addDateToBoard(sd)}

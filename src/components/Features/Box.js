@@ -64,7 +64,7 @@ const Box = ({ item }) => {
                                 right: "0",
                                 bottom: "0",
                                 left: "0",
-                                userSelect: "none"
+                                userSelect: "none",
                             }}
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                             onPointerMove={(e) => handleRectPointerMove(e, item.id)}
@@ -81,29 +81,33 @@ const Box = ({ item }) => {
                                     backgroundColor: item.color,
                                     width: "100%",
                                     height: "100%",
-                                    userSelect: "none"
+                                    userSelect: "none",
+                                    border: item.showBorder ? "1px solid #dddddd" : "0"
                                 }}
                             >
-                                <a
-                                    href={item.url}
-                                    target="__blank"
+
+                                <p
+                                    fill={getTextColor(item.color)}
                                     style={{
-                                        textAlign: "right",
-                                        userSelect: "none"
+                                        color: getTextColor(item.color),
+                                        textDecoration: "underline",
+                                        marginBottom: ".5rem",
+                                        userSelect: "none",
+                                        textAlign: "right"
                                     }}
                                 >
-                                    <p
-                                        fill={getTextColor(item.color)}
+                                    <a
+                                        href={item.url}
+                                        target="__blank"
                                         style={{
-                                            color: getTextColor(item.color),
-                                            textDecoration: "underline",
-                                            marginBottom: ".5rem",
-                                            userSelect: "none",
+                                            textDecoration: "none",
+                                            userSelect: "none"
                                         }}
                                     >
                                         {item.link}
-                                    </p>
-                                </a>
+                                    </a>
+                                </p>
+
 
                                 {editingText && isEditingBoard && (item.id === editingText.id) ? (
                                     <textarea
@@ -140,9 +144,9 @@ const Box = ({ item }) => {
                                                 >
                                                     {item.text}
                                                 </p>
-                                                <StartRating
+                                                {item.showRating && <StartRating
                                                     rating={item.rating} id={item.id}
-                                                />
+                                                />}
                                             </pre>
                                         </div>
                                     </>

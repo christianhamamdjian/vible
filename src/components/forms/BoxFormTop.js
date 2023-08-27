@@ -17,7 +17,9 @@ const BoxFormTop = () => {
         height: "Height",
         angle: "Angle",
         font: "Font",
-        move: "Move"
+        move: "Move",
+        rating: "Rating",
+        border: "Border"
     }
 
     const fontOptions = [
@@ -46,7 +48,7 @@ const BoxFormTop = () => {
                         {tool === "text" && <><label>Change text:</label>
                             <textarea
                                 value={findItem("text")}
-                                onChange={(event) => handleItemChange(event, editingText.id, "text")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "text")}
                             />
                         </>
                         }
@@ -55,14 +57,14 @@ const BoxFormTop = () => {
                                 type="color"
                                 name="color"
                                 value={findItem("color")}
-                                onChange={(event) => handleItemChange(event, editingText.id, "color")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "color")}
                             /></>}
                         {tool === "linktitle" && <><label>Change link:</label>
                             <input
                                 type="text"
                                 name="link"
                                 value={findItem("link")}
-                                onChange={(event) => handleItemChange(event, editingText.id, "link")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "link")}
                             /></>}
 
                         {tool === "linkurl" && <><label>Change url:</label>
@@ -70,7 +72,7 @@ const BoxFormTop = () => {
                                 type="text"
                                 name="url"
                                 value={findItem("url")}
-                                onChange={(event) => handleItemChange(event, editingText.id, "url")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "url")}
                             /></>}
                         {tool === "width" && <><label>Change width:</label>
                             <input
@@ -80,7 +82,7 @@ const BoxFormTop = () => {
                                 step="10"
                                 name="width"
                                 value={items.find(item => item.id === editingText.id).width}
-                                onChange={(event) => handleItemChange(event, editingText.id, "width")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "width")}
                             /></>}
                         {tool === "height" && <><label>Change height:</label>
                             <input
@@ -90,7 +92,7 @@ const BoxFormTop = () => {
                                 step="10"
                                 name="height"
                                 value={items.find(item => item.id === editingText.id).height}
-                                onChange={(event) => handleItemChange(event, editingText.id, "height")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "height")}
                             /></>}
                         {tool === "angle" && <><label>Change Angle:</label>
                             <input
@@ -100,14 +102,14 @@ const BoxFormTop = () => {
                                 step="1"
                                 name="angle"
                                 value={items.find(item => item.id === editingText.id).angle}
-                                onChange={(event) => handleItemChange(event, editingText.id, "angle")
+                                onChange={(e) => handleItemChange(e, editingText.id, "angle")
                                 } /></>}
                         {tool === "font" && <><div>
                             <h1>Font Selector</h1>
                             <select
                                 style={{ fontSize: "1rem" }}
                                 value={selectedFont}
-                                onChange={(event) => handleItemChange(event, editingText.id, "font")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "font")}
                             >
                                 {fontOptions.map((option) => (
                                     <option style={{ fontSize: "2rem", fontFamily: selectedFont, minHeight: '200px', width: '100%', padding: '10px' }} key={option.value} value={option.value}>
@@ -136,6 +138,24 @@ const BoxFormTop = () => {
                                     <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
                                 </button>
                             </div></>}
+                        {tool === "rating" && <label className='checkbox-container'>Rating:
+                            <input
+                                type="checkbox"
+                                className='input-line-closed'
+                                value={items.find(item => item.id === editingText.id).showRating}
+                                checked={items.find(item => item.id === editingText.id).showRating}
+                                onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
+                            <span className="checkmark"></span>
+                        </label>}
+                        {tool === "border" && <label className='checkbox-container'>Border:
+                            <input
+                                type="checkbox"
+                                className='input-line-closed'
+                                value={items.find(item => item.id === editingText.id).border}
+                                checked={items.find(item => item.id === editingText.id).border}
+                                onChange={(e) => handleItemChange(e, editingText.id, "showBorder")} />
+                            <span className="checkmark"></span>
+                        </label>}
                     </div>
                 </>)
             }
