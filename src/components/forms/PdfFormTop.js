@@ -6,6 +6,7 @@ const PdfFormTop = () => {
     const [tool, setTool] = useState("")
     const toolButtons = {
         width: "Width",
+        height: "Height",
         angle: "Angle",
         opacity: "Opacity",
         order: "Order"
@@ -20,7 +21,7 @@ const PdfFormTop = () => {
                         })}
                     </div>
                     <div className='inputs-top_objects' >
-                        {tool === "opacity" && <>
+                        {tool === "width" && <>
                             <label>Change width:</label>
                             <input
                                 type="range"
@@ -32,7 +33,7 @@ const PdfFormTop = () => {
                                 onChange={(event) => handleItemChange(event, editingPdf.id, "width")
                                 } />
                         </>}
-                        {tool === "opacity" && <>
+                        {tool === "height" && <>
                             <label>Change height:</label>
                             <input
                                 type="range"
@@ -44,7 +45,7 @@ const PdfFormTop = () => {
                                 onChange={(event) => handleItemChange(event, editingPdf.id, "height")
                                 } />
                         </>}
-                        {tool === "opacity" && <>
+                        {tool === "angle" && <>
                             <label>Change Angle:</label>
                             <input
                                 type="range"

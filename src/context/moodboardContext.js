@@ -626,6 +626,24 @@ export default function MoodboardProvider({ children }) {
                     height: Math.max(2, Math.min(20, prevSize.height + dy)),
                 }))
             }
+            if (item.type === "video") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                }))
+            }
+            if (item.type === "mapUrl") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(50, Math.min(400, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(400, prevSize.height + dy)),
+                }))
+            }
+            if (item.type === "pdf") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(50, Math.min(300, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(300, prevSize.height + dy)),
+                }))
+            }
             // handleResize(e, selectedRectId, rectangleSize)
             handleResize(e, selectedRectId)
             setMousedownPoints(currentPoints)
@@ -804,7 +822,35 @@ export default function MoodboardProvider({ children }) {
                 })
             )
         }
-        if (resizable && resizable.type === "box" && size.width >= 100 && size.height >= 100) {
+        if (resizable && resizable.type === "box") {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        }
+        if (resizable && resizable.type === "video") {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        } if (resizable && resizable.type === "mapUrl") {
+            setItems(prevItems =>
+                prevItems.map(item => {
+                    if (item.id === id) {
+                        return { ...item, width: size.width, height: size.height }
+                    }
+                    return item
+                })
+            )
+        } if (resizable && resizable.type === "pdf") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {

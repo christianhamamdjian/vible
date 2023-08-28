@@ -6,6 +6,7 @@ const MapFormTop = () => {
     const [tool, setTool] = useState("")
     const toolButtons = {
         width: "Width",
+        height: "Height",
         angle: "Angle",
         opacity: "Opacity",
         order: "Order"
@@ -20,36 +21,42 @@ const MapFormTop = () => {
                         })}
                     </div>
                     <div className='inputs-top_objects' >
-                        <label>Change width:</label>
-                        <input
-                            type="range"
-                            min="100"
-                            max="600"
-                            step="10"
-                            name="width"
-                            value={editingMap && items.find(item => item.id === editingMap.id).width}
-                            onChange={(event) => handleItemChange(event, editingMap.id, "width")
-                            } />
-                        <label>Change height:</label>
-                        <input
-                            type="range"
-                            min="60"
-                            max="600"
-                            step="10"
-                            name="height"
-                            value={editingMap && items.find(item => item.id === editingMap.id).height}
-                            onChange={(event) => handleItemChange(event, editingMap.id, "height")
-                            } />
-                        <label>Change Angle:</label>
-                        <input
-                            type="range"
-                            min="-180"
-                            max="180"
-                            step="1"
-                            name="angle"
-                            value={editingMap && items.find(item => item.id === editingMap.id).angle}
-                            onChange={(event) => handleItemChange(event, editingMap.id, "angle")
-                            } />
+                        {tool === "width" && <>
+                            <label>Change width:</label>
+                            <input
+                                type="range"
+                                min="100"
+                                max="600"
+                                step="10"
+                                name="width"
+                                value={editingMap && items.find(item => item.id === editingMap.id).width}
+                                onChange={(event) => handleItemChange(event, editingMap.id, "width")
+                                } />
+                        </>}
+                        {tool === "height" && <>
+                            <label>Change height:</label>
+                            <input
+                                type="range"
+                                min="60"
+                                max="600"
+                                step="10"
+                                name="height"
+                                value={editingMap && items.find(item => item.id === editingMap.id).height}
+                                onChange={(event) => handleItemChange(event, editingMap.id, "height")
+                                } />
+                        </>}
+                        {tool === "angle" && <>
+                            <label>Change Angle:</label>
+                            <input
+                                type="range"
+                                min="-180"
+                                max="180"
+                                step="1"
+                                name="angle"
+                                value={editingMap && items.find(item => item.id === editingMap.id).angle}
+                                onChange={(event) => handleItemChange(event, editingMap.id, "angle")
+                                } />
+                        </>}
                         {tool === "opacity" && <>
                             <label>Change Opacity:</label>
                             <input

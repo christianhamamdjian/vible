@@ -6,6 +6,7 @@ const VideoFormTop = () => {
     const [tool, setTool] = useState("")
     const toolButtons = {
         width: "Width",
+        height: "Height",
         angle: "Angle",
         opacity: "Opacity",
         order: "Order"
@@ -32,16 +33,18 @@ const VideoFormTop = () => {
                                 onChange={(event) => handleItemChange(event, editingVideo.id, "width")
                                 } />
                         </>}
-                        {/* <label>Change height:</label>
-                         <input
-                            type="range"
-                            min="60"
-                            max="600"
-                            step="10"
-                            name="width"
-                            value={editingVideo && items.find(item => item.id === editingVideo.id).width * 3/4}
-                            onChange={(event) => handleItemChange(event, editingVideo.id, "width")
-                            } /> */}
+                        {tool === "height" && <>
+                            <label>Change height:</label>
+                            <input
+                                type="range"
+                                min="60"
+                                max="600"
+                                step="10"
+                                name="width"
+                                value={editingVideo && items.find(item => item.id === editingVideo.id).width * 3 / 4}
+                                onChange={(event) => handleItemChange(event, editingVideo.id, "width")
+                                } />
+                        </>}
                         {tool === "angle" && <>
                             <label>Change Angle:</label>
                             <input
