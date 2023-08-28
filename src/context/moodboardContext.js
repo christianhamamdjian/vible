@@ -550,9 +550,7 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e) => {
-
         resetPathsGroup()
-
         if (selectedPath || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
@@ -569,13 +567,13 @@ export default function MoodboardProvider({ children }) {
             setDragGrouping(true)
             return
         }
-        if (e.target.id === 'resize') {
-            setIsResizing(true)
-            setIsDraggingRect(false)
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
-            setMousedownPoints({ x: clientX, y: clientY })
-        }
-
+        // if (e.target.id === 'resize') {
+        //     console.log(e.target.id)
+        //     setIsResizing(true)
+        //     setIsDraggingRect(false)
+        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
+        //     setMousedownPoints({ x: clientX, y: clientY })
+        // }
         if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -584,7 +582,6 @@ export default function MoodboardProvider({ children }) {
             })
             setDraggingSvg(true)
         }
-
         // Start drawing
         if (isDrawing && !isErasing && !isPartialErasing) {
             if (e.targetTouches && e.targetTouches.length > 1) return
@@ -718,7 +715,15 @@ export default function MoodboardProvider({ children }) {
         }
         const rectItem = items.find(el => el.id === rectId)
         const rectType = rectItem.type
+        if (e.target.id === 'resize') {
+            console.log(e.target.id)
+            setIsResizing(true)
+            setIsDraggingRect(false)
+            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            setMousedownPoints({ x: clientX, y: clientY })
+        }
         if (e.target.id === 'rotate') {
+            console.log(e.target.id)
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -935,6 +940,7 @@ export default function MoodboardProvider({ children }) {
         setSelectedPath(null)
         setIsEditingPath(null)
     }
+
     // Path Group handling
     const handleGrouping = () => {
         if (isGrouping) {
@@ -1133,8 +1139,6 @@ export default function MoodboardProvider({ children }) {
         setIsPartialErasing(false)
         setIsEditingBoard(false)
     }
-
-
     const handlePartialEraser = () => {
         setIsPartialErasing(isPartialErasing => !isPartialErasing)
         setIsDrawing(false)
@@ -1147,9 +1151,6 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(false)
         setIsEditingBoard(false)
     }
-
-
-
     const handleDeletePath = (erased) => {
         const newPaths = paths.filter((path) => path.id !== erased)
         handleChangeErase(newPaths)
@@ -1158,7 +1159,6 @@ export default function MoodboardProvider({ children }) {
         setPathColor("#000000")
         setPathLine(2)
     }
-
     const handleChangeErase = (newPaths) => {
         setPaths(newPaths);
         setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: newPaths }]);
