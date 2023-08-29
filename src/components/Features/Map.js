@@ -21,6 +21,7 @@ const Map = ({ item }) => {
             {item.type === "mapUrl" &&
                 <g
                     className='map-object'
+                    transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}
                     // clipPath="url(#my-clippath)"
                     style={{
                         position: "absolute",

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 // import Circle from "../helpers/CircleCursor"
+import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
@@ -29,7 +30,9 @@ const DrawingFormTop = () => {
         linesRotate: "Rotate",
         linesScale: "Scale",
     }
-
+    const changeTool = (tool) => {
+        setTool(tool)
+    }
     // const intervalRef = useRef(null)
 
     // const startCountUp = (e) => {
@@ -77,9 +80,7 @@ const DrawingFormTop = () => {
             {paths.length > 0 && isEditingPath && !isErasing && !isGrouping && (
                 <>
                     <div className='inputs-top_objects' >
-                        {Object.entries(toolButtons).map((el, i) => {
-                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
-                        })}
+                        <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     <div className='inputs-top_draw'>
                         {tool === "lineColor" && <>

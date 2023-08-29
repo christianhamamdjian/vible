@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageFormTop = () => {
@@ -11,14 +12,15 @@ const ImageFormTop = () => {
         opacity: "Opacity",
         order: "Order"
     }
+    const changeTool = (tool) => {
+        setTool(tool)
+    }
     return (
         <>
             {editingImage && items.length > 0 &&
                 <>
                     <div className='inputs-top_objects' >
-                        {Object.entries(toolButtons).map((el, i) => {
-                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
-                        })}
+                        <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     <div className='inputs-top_objects' >
                         {/* <label>Change width:</label>
@@ -33,8 +35,8 @@ const ImageFormTop = () => {
                             <label>Change width:</label>
                             <input
                                 type="range"
-                                min="2"
-                                max="100"
+                                min="50"
+                                max="600"
                                 step="10"
                                 name="width"
                                 value={editingImage && Math.floor(items.find(item => item.id === editingImage.id).width)}

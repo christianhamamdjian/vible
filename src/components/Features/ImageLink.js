@@ -14,7 +14,7 @@ const ImageLink = ({ item }) => {
             setLoadedImage(newImage)
         }
     }, [])
-
+    const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
     return (
         <>
             {item.type === "imageUrl" &&
@@ -22,7 +22,7 @@ const ImageLink = ({ item }) => {
                     <g
                         style={{
                             transform: `rotate(${item.angle || 0}deg)`,
-                            transformOrigin: `${(loadedImage && (loadedImage.naturalWidth * item.width / 100)) / 2}, ${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}`,
+                            transformOrigin: `${item.width / 2}, ${calculatedHeight / 2}`,
                         }}
                     >
                         {isEditingBoard && (
@@ -31,7 +31,7 @@ const ImageLink = ({ item }) => {
                                     id="rotate"
                                     fill="#cccccc"
                                     cx="-15"
-                                    cy={`${(loadedImage && (loadedImage.naturalHeight * item.width / 100)) / 2}`}
+                                    cy={calculatedHeight / 2}
                                     width="20"
                                     height="20"
                                     r='12'
@@ -40,8 +40,8 @@ const ImageLink = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="#cccccc"
-                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100)) - 15}
-                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100)) - 15}
+                                    x={item.width - 15}
+                                    y={calculatedHeight - 15}
                                     width="20"
                                     height="20"
                                     rx="4"
@@ -50,27 +50,27 @@ const ImageLink = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="white"
-                                    x={(loadedImage && (loadedImage.naturalWidth * item.width / 100)) - 18}
-                                    y={(loadedImage && (loadedImage.naturalHeight * item.width / 100)) - 18}
+                                    x={item.width - 18}
+                                    y={calculatedHeight - 18}
                                     width="20"
                                     height="20"
                                     rx="2"
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
                             </>)}
-                        <rect
+                        {/* <rect
                             width="120"
                             height="20"
                             fill="transparent"
                             className='imagelink-object'
-                        />
+                        /> */}
                         <image
                             ref={itemRef}
                             href={item.imageUrl}
                             x="0"
                             y="0"
-                            width={loadedImage && (loadedImage.naturalWidth * item.width / 100) || "100"}
-                            height={loadedImage && (loadedImage.naturalHeight * item.width / 100) || "100"}
+                            width={item.width}
+                            // height={calculatedHeight}
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                             onPointerMove={(e) => handleRectPointerMove(e, item.id)}
                             onPointerUp={(e) => handleRectPointerUp(e, item.id)}
@@ -80,8 +80,6 @@ const ImageLink = ({ item }) => {
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                             className='imagelink-media'
                             style={{
-                                // transform: `rotate(${item.angle || 0}deg)`,
-                                // transformOrigin: `${item.width / 2, item.height / 2}`,
                                 display: "block",
                                 zIndex: "999999",
                                 position: "absolute",

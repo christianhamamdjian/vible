@@ -354,7 +354,9 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                width: 20,
+                // width: 20,
+                width: 100,
+                height: "auto",
                 opacity: 1,
                 angle: 0,
                 type: "image"
@@ -529,6 +531,7 @@ export default function MoodboardProvider({ children }) {
             x: 100,
             y: 100,
             width: 100,
+            height: "auto",
             type: "imageUrl"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -622,8 +625,14 @@ export default function MoodboardProvider({ children }) {
             }
             if (item.type === "image") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(2, Math.min(20, prevSize.width + dx)),
-                    height: Math.max(2, Math.min(20, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                }))
+            }
+            if (item.type === "imageUrl") {
+                setRectangleSize((prevSize) => ({
+                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
                 }))
             }
             if (item.type === "video") {
@@ -734,14 +743,14 @@ export default function MoodboardProvider({ children }) {
         const rectItem = items.find(el => el.id === rectId)
         const rectType = rectItem.type
         if (e.target.id === 'resize') {
-            console.log(e.target.id)
+            // console.log(e.target.id)
             setIsResizing(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
         }
         if (e.target.id === 'rotate') {
-            console.log(e.target.id)
+            // console.log(e.target.id)
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e

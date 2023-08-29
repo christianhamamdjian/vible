@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const PdfFormTop = () => {
@@ -11,14 +12,15 @@ const PdfFormTop = () => {
         opacity: "Opacity",
         order: "Order"
     }
+    const changeTool = (tool) => {
+        setTool(tool)
+    }
     return (
         <>
             {editingPdf && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
-                        {Object.entries(toolButtons).map((el, i) => {
-                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
-                        })}
+                        <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     <div className='inputs-top_objects' >
                         {tool === "width" && <>
