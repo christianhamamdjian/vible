@@ -91,8 +91,8 @@ const Pdf = ({ item }) => {
                             className='pdf-object'
                             style={{
                                 backgroundColor: item.color,
-                                transform: `rotate(${item.angle || 0}deg)`,
-                                transformOrigin: `${item.width / 2, item.height / 2}`,
+                                // transform: `rotate(${item.angle || 0}deg)`,
+                                // transformOrigin: `${item.width / 2, item.height / 2}`,
                                 display: "block",
                                 zIndex: "999999",
                                 position: "absolute",

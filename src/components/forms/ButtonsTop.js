@@ -148,7 +148,7 @@ const ButtonsTop = () => {
                         <Tooltips
                             position="bottom"
                             width="3.5rem"
-                            height="3.7rem"
+                            height="4.7rem"
                             top="-3rem"
                             bottom="90%"
                             left="-.5rem"
@@ -157,7 +157,7 @@ const ButtonsTop = () => {
                             marginLeft=""
                             tipTop="-.7rem"
                             tipLeft="30%"
-                            text="Click to erase lines" />
+                            text="Click to partially erase lines" />
                     </>
                 )}
 
