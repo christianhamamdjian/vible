@@ -616,8 +616,8 @@ export default function MoodboardProvider({ children }) {
             const item = items.find(el => el.id === selectedRectId)
             if (item.type === "box") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(100, Math.min(300, prevSize.width + dx)),
-                    height: Math.max(100, Math.min(300, prevSize.height + dy)),
+                    width: Math.max(100, Math.min(600, prevSize.width + dx)),
+                    height: Math.max(100, Math.min(600, prevSize.height + dy)),
                 }))
             }
             if (item.type === "image") {
@@ -1083,7 +1083,6 @@ export default function MoodboardProvider({ children }) {
             })
         })
         setRotation(rotate)
-        console.log()
         setPaths([...notGouped, ...updatedPaths])
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 // import Circle from "../helpers/CircleCursor"
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -29,6 +29,34 @@ const DrawingFormTop = () => {
         linesRotate: "Rotate",
         linesScale: "Scale",
     }
+
+    // const intervalRef = useRef(null)
+
+    // const startCountUp = (e) => {
+    //     if (intervalRef.current) return;
+    //     intervalRef.current = setInterval(() => {
+    //         handleScaleChange(e, "increase")
+    //     }, 1000)
+    // }
+
+    // const startCountDown = (e) => {
+    //     if (intervalRef.current) return;
+    //     intervalRef.current = setInterval(() => {
+    //         handleScaleChange(e, "decrease")
+    //     }, 1000)
+    // }
+
+    // const stopCounter = () => {
+    //     if (intervalRef.current) {
+    //         clearInterval(intervalRef.current)
+    //         intervalRef.current = null
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     return () => stopCounter()
+    // }, [])
+
 
     return (
         <>
@@ -69,7 +97,8 @@ const DrawingFormTop = () => {
                                 onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
                         </>}
 
-                        {tool === "fillColor" && <>        <label>Fill color:</label>
+                        {tool === "fillColor" && <>
+                            <label>Fill color:</label>
                             <input
                                 type="color"
                                 className='input-line-fill'
@@ -141,13 +170,40 @@ const DrawingFormTop = () => {
                             <label htmlFor="rotate"><label>Rotate:</label></label>
                             <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                             <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
-
+                            {/* <button
+                                onMouseDown={e => startCountDown(e)}
+                                onMouseUp={stopCounter}
+                                onMouseLeave={stopCounter}
+                            >
+                                <span>−</span>
+                            </button>
+                            <button
+                                onMouseDown={e => startCountUp(e)}
+                                onMouseUp={stopCounter}
+                                onMouseLeave={stopCounter}
+                            >
+                                <span>+</span>
+                            </button> */}
                         </div>}
 
                         {tool === "scale" && <div className='path-edit-form'>
                             <label htmlFor="scale"><label>Scale:</label></label>
                             <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                             <button onClick={e => handleScaleChange(e, "increase")}>+</button>
+                            {/* <button
+                                onMouseDown={e => startCountDown(e)}
+                                onMouseUp={stopCounter}
+                                onMouseLeave={stopCounter}
+                            >
+                                <span>−</span>
+                            </button>
+                            <button
+                                onMouseDown={e => startCountUp(e)}
+                                onMouseUp={stopCounter}
+                                onMouseLeave={stopCounter}
+                            >
+                                <span>+</span>
+                            </button> */}
                         </div>}
 
                         {/* </>
