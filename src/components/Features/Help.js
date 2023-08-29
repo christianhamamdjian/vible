@@ -1,4 +1,5 @@
 import React from 'react'
+import AccodionUnique from '../documentation/AccodionUnique'
 
 const Help = () => {
     return (
@@ -10,6 +11,7 @@ const Help = () => {
                 <li>Add a text box</li>
 
             </ol>
+            <AccodionUnique />
         </div>
     )
 }

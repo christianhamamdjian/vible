@@ -114,8 +114,8 @@ const Pdf = ({ item }) => {
                                 onDoubleClick={(e) => handleEditItem(e, item.id)}
                                 style={{
                                     potition: "absolute",
-                                    top: item.y,
-                                    left: item.x,
+                                    top: "0",
+                                    left: "0",
                                     width: item.width,
                                     height: item.width * 9 / 12,
                                     backgroundColor: "#000000",

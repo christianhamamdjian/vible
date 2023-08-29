@@ -548,7 +548,7 @@ button,
 /* Pdf */
 .pdf-object {
   cursor: move;
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 6px;
 }
 
