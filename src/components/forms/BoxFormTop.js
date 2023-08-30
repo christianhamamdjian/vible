@@ -4,10 +4,9 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
-    const { items, editingText, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext);
+    const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext);
 
     const [selectedFont, setSelectedFont] = useState('Roboto');
-    const [tool, setTool] = useState("")
 
     const toolButtons = {
         text: "Text",
@@ -18,6 +17,8 @@ const BoxFormTop = () => {
         height: "Height",
         angle: "Angle",
         font: "Font",
+        fontSize: "Font size",
+        fontStyle: "Font style",
         move: "Move",
         rating: "Rating",
         border: "Border"
@@ -32,9 +33,6 @@ const BoxFormTop = () => {
 
         // Add more font options as needed
     ];
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
 
     const findItem = (term) => {
         return items.find(item => item.id === editingText.id)[`${term}`]
@@ -133,6 +131,28 @@ const BoxFormTop = () => {
                             </select>
                         </div>
                         </>}
+                        {tool === "fontSize" && <>
+                            <label>Font size:</label>
+                            <input
+                                type="range"
+                                min="8"
+                                max="72"
+                                step="4"
+                                name="fontSize"
+                                value={items.find(item => item.id === editingText.id).fontSize}
+                                onChange={(e) => handleItemChange(e, editingText.id, "fontSize")}
+                            />
+                        </>}
+                        {tool === "fontStyle" &&
+                            <label className='checkbox-container'>Font style:
+                                <input
+                                    type="checkbox"
+                                    className='input-line-closed'
+                                    value={items.find(item => item.id === editingText.id).fontStyle}
+                                    checked={items.find(item => item.id === editingText.id).fontStyle}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
+                                <span className="checkmark"></span>
+                            </label>}
                         {tool === "move" && <>
                             <div className='item-edit-form' style={{ display: "flex" }}>
                                 <label>Order:</label>

@@ -4,9 +4,7 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
-
-    const [tool, setTool] = useState("")
+    const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
 
     const toolButtons = {
         lineColor: "Line Color",
@@ -30,9 +28,7 @@ const DrawingFormTop = () => {
         linesRotate: "Rotate",
         linesScale: "Scale",
     }
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
+
     // const intervalRef = useRef(null)
 
     // const startCountUp = (e) => {
@@ -323,7 +319,7 @@ const DrawingFormTop = () => {
                 <>
                     <div className='inputs-top_objects' >
                         {Object.entries(groupToolButtons).map((el, i) => {
-                            return (<button key={i} onClick={() => setTool(el[0])}>{el[1]}</button>)
+                            return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
                         })}
                     </div>
                     <div className='inputs-top_draw'>

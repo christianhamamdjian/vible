@@ -3,8 +3,8 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const MapFormTop = () => {
-    const { items, editingMap, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
-    const [tool, setTool] = useState("")
+    const { items, editingMap, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
+
     const toolButtons = {
         width: "Width",
         height: "Height",
@@ -12,9 +12,7 @@ const MapFormTop = () => {
         opacity: "Opacity",
         order: "Order"
     }
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
+
     return (
         <>
             {editingMap && items.length > 0 && (

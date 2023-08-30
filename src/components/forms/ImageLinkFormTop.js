@@ -3,17 +3,15 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageLinkFormTop = () => {
-    const { editingImage, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
-    const [tool, setTool] = useState("")
+    const { editingImage, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
+
     const toolButtons = {
         width: "Width",
         angle: "Angle",
         opacity: "Opacity",
         order: "Order"
     }
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
+
     return (
         <>
             {editingImage && items.length > 0 && (

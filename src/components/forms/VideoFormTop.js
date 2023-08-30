@@ -3,8 +3,8 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const VideoFormTop = () => {
-    const { items, editingVideo, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
-    const [tool, setTool] = useState("")
+    const { items, editingVideo, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
+
     const toolButtons = {
         width: "Width",
         height: "Height",
@@ -12,9 +12,7 @@ const VideoFormTop = () => {
         opacity: "Opacity",
         order: "Order"
     }
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
+
     return (
         <>
             {editingVideo && items.length > 0 && (

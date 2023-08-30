@@ -3,8 +3,8 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const PdfFormTop = () => {
-    const { items, editingPdf, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
-    const [tool, setTool] = useState("")
+    const { items, editingPdf, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
+
     const toolButtons = {
         width: "Width",
         height: "Height",
@@ -12,9 +12,7 @@ const PdfFormTop = () => {
         opacity: "Opacity",
         order: "Order"
     }
-    const changeTool = (tool) => {
-        setTool(tool)
-    }
+
     return (
         <>
             {editingPdf && items.length > 0 && (

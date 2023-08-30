@@ -88,6 +88,11 @@ export default function MoodboardProvider({ children }) {
     const [historyErase, setHistoryErase] = useState([])
     const [positionErase, setPositionErase] = useState(0);
 
+    const [tool, setTool] = useState("")
+    const changeTool = (tool) => {
+        setTool(tool)
+    }
+
     const handleRating = (i, id) => {
         setSelectedStars(i + 1)
         setItems(prevItems =>
@@ -230,6 +235,8 @@ export default function MoodboardProvider({ children }) {
             angle: 0,
             type: "box",
             font: "Roboto",
+            fontStyle: false,
+            fontSize: "10",
             rating: 0,
             showRating: "",
             showBorder: ""
@@ -256,7 +263,11 @@ export default function MoodboardProvider({ children }) {
             angle: 0,
             type: "box",
             font: "Roboto",
-            rating: 0
+            fontStyle: false,
+            fontSize: "10",
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -276,7 +287,11 @@ export default function MoodboardProvider({ children }) {
             height: 140,
             type: "box",
             font: "Roboto",
-            rating: 0
+            fontStyle: false,
+            fontSize: "10",
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -297,6 +312,11 @@ export default function MoodboardProvider({ children }) {
             height: 140,
             type: "box",
             font: "Roboto",
+            fontStyle: false,
+            fontSize: "10",
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -318,6 +338,11 @@ export default function MoodboardProvider({ children }) {
             height: 140,
             type: "box",
             font: "Roboto",
+            fontStyle: false,
+            fontSize: "10",
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -339,7 +364,13 @@ export default function MoodboardProvider({ children }) {
             width: 140,
             height: 140,
             type: "box",
+            type: "box",
             font: "Roboto",
+            fontStyle: false,
+            fontSize: "10",
+            rating: 0,
+            showRating: "",
+            showBorder: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -1154,7 +1185,7 @@ export default function MoodboardProvider({ children }) {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, [property]: property === "showRating" || property === "showBorder" ? e.target.checked : e.target.value }
+                    return { ...item, [property]: property === "showRating" || property === "showBorder" || property === "fontStyle" ? e.target.checked : e.target.value }
                 }
                 return item
             })
@@ -1163,6 +1194,7 @@ export default function MoodboardProvider({ children }) {
 
     // Drawing
     const handleDrawing = () => {
+        if (editingItem) return
         if (isDrawing || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
@@ -1388,6 +1420,7 @@ export default function MoodboardProvider({ children }) {
     // Editing functions
 
     const handleEditItem = (e, id) => {
+        if (isDrawing) return
         const itemType = items.find(el => el.id === id).type
         // console.log(itemType)
         switch (itemType) {
@@ -1451,10 +1484,13 @@ export default function MoodboardProvider({ children }) {
                 break;
         }
         setEditingItem({ status: true, id: id })
+        if (tool !== "") {
+            setTool("")
+        }
     }
 
     const handleStopEditItem = () => {
-        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem) {
+        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem || tool !== "") {
             setEditingItem(null)
             setEditingText(null)
             setIsEditingBoard(false)
@@ -1470,6 +1506,7 @@ export default function MoodboardProvider({ children }) {
             setVideo(false)
             setMap(false)
             setPdf(false)
+            setTool("")
         }
     }
 
@@ -1617,7 +1654,9 @@ export default function MoodboardProvider({ children }) {
                 canRedoErase: positionErase < historyErase.length - 1,
                 isGrouping,
                 isPartialErasing,
+                tool,
                 // Methods
+                changeTool,
                 handlePartialEraser,
                 handleGrouping,
                 handleUndoErase,
@@ -1647,11 +1686,6 @@ export default function MoodboardProvider({ children }) {
                 handleItemImageUrl,
                 handleItemMapUrl,
                 handleEditItem,
-                // handleEditBox,
-                // handleEditImage,
-                // handleEditVideo,
-                // handleEditMap,
-                // handleEditPdf,
                 handleStopEditItem,
                 handleItemChange,
                 handleDrawing,

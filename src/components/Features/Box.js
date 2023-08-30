@@ -5,7 +5,6 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
     const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
-
     return (
         <>
             {item && item.type === "box" && (
@@ -121,7 +120,9 @@ const Box = ({ item }) => {
                                             color: getTextColor(item.color),
                                             overflowX: "hidden",
                                             overflowY: "auto",
-                                            fontFamily: item.font
+                                            fontFamily: item.font,
+                                            fontSize: `${item.fontSize}pt`,
+                                            fontWeight: `${item.fontStyle ? "bold" : "normal"}`
                                         }}
                                         cols="10"
                                         rows="2"
@@ -140,6 +141,8 @@ const Box = ({ item }) => {
                                                         height: item.link !== "" && "70%",
                                                         fontFamily: item.font,
                                                         userSelect: editingText && isEditingBoard ? "all" : "none",
+                                                        fontSize: `${item.fontSize}pt`,
+                                                        fontWeight: `${item.fontStyle ? "bold" : "normal"}`
                                                     }}
                                                 >
                                                     {item.text}

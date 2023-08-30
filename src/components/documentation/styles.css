@@ -5,6 +5,11 @@
 }
 
 .accordion-container {
-  margin: 60px auto;
-  width: 80%;
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.accordion-container button {
+  color: #ffffff;
+  border-radius: 0;
 }
