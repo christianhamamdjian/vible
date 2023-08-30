@@ -54,7 +54,8 @@ const Video = ({ item }) => {
                             x="0"
                             y="0"
                             width={item.width}
-                            height={item.width * 9 / 11}
+                            // height={item.width * 9 / 11}
+                            height={item.height}
                             draggable="true"
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                             onPointerMove={(e) => handleRectPointerMove(e, item.id)}

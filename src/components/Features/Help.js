@@ -1,5 +1,5 @@
 import React from 'react'
-import AccodionUnique from '../documentation/AccodionUnique'
+import Documentation from '../documentation/Documentation'
 
 const Help = () => {
     return (
@@ -11,7 +11,7 @@ const Help = () => {
                 <li>Add a text box</li>
 
             </ol>
-            <AccodionUnique />
+            <Documentation />
         </div>
     )
 }

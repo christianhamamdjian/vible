@@ -4,7 +4,7 @@ import Accordion from "./components/Accordion";
 
 import "./styles.css";
 
-const AccodionUnique = () => {
+const Documentation = () => {
   return (
     <div className="accordion-container">
       <Accordion title="What is your return policy?">
@@ -21,4 +21,4 @@ const AccodionUnique = () => {
   );
 };
 
-export default AccodionUnique
+export default Documentation
