@@ -1197,6 +1197,11 @@ export default function MoodboardProvider({ children }) {
             })
         )
     }
+    const handleDuplicateBox = (id) => {
+        const boxToCopy = items.find(item => item.id === id)
+        const boxCopy = { ...boxToCopy, id: Date.now() }
+        setItems(prevItems => [...prevItems, boxCopy])
+    }
 
     // Drawing
     const handleDrawing = () => {
@@ -1568,6 +1573,10 @@ export default function MoodboardProvider({ children }) {
     const handleZoomOut = () => {
         setZoom(zoom => zoom += 400)
     }
+    const handleZoomSlider = (e) => {
+        setZoom(e.target.value)
+    }
+
     const handleEditingBoard = () => {
         setIsEditingBoard(isEditingBoard => !isEditingBoard)
         if (isEditingBoard) {
@@ -1661,6 +1670,7 @@ export default function MoodboardProvider({ children }) {
                 isGrouping,
                 isPartialErasing,
                 tool,
+                zoom,
                 // Methods
                 changeTool,
                 handlePartialEraser,
@@ -1717,6 +1727,7 @@ export default function MoodboardProvider({ children }) {
                 handleZoomIn,
                 handleZoomOut,
                 handleResetZoom,
+                handleZoomSlider,
                 handleEditingBoard,
                 handleTodosToggle,
                 handleLineWidthChange,
@@ -1748,6 +1759,7 @@ export default function MoodboardProvider({ children }) {
                 handleMoveItemForward,
                 handleMoveItemBackward,
                 handleDuplicatePath,
+                handleDuplicateBox,
                 handleGroupRotateChange,
                 handleGroupScaleChange,
                 handleAddDateBox,

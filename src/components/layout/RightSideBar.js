@@ -9,9 +9,8 @@ import DownloadUploadData from "../utils/DownloadUploadData"
 // import FontSelector from '../utils/FontSelector';
 import { MoodboardContext } from "../../context/moodboardContext";
 
-
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleResetZoom } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -205,7 +204,19 @@ const RightSidebard = () => {
                         />
                     </svg>
                 </button>
+
+
             </div>
+            <label>Zoom slider:</label>
+            <input
+                type="range"
+                min="5000"
+                max="30000"
+                step="400"
+                name="zoomSlider"
+                value={zoom}
+                onChange={(e) => handleZoomSlider(e)}
+            />
             <Calculator />
             <Calendar />
         </div>

@@ -4,7 +4,7 @@ import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
-    const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, } = React.useContext(MoodboardContext);
+    const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, handleDuplicateBox } = React.useContext(MoodboardContext);
 
     const [selectedFont, setSelectedFont] = useState('Roboto');
 
@@ -20,17 +20,43 @@ const BoxFormTop = () => {
         fontSize: "Font size",
         fontStyle: "Font style",
         move: "Move",
+        duplicate: "Duplicate",
         rating: "Rating",
         border: "Border",
         roundedCorners: "Rounded corners"
     }
 
     const fontOptions = [
+        { value: 'Poppins', label: 'Poppins' },
+        { value: 'Montserrat', label: 'Montserrat' },
+        { value: 'Lato', label: 'Lato' },
         { value: 'Roboto', label: 'Roboto' },
         { value: 'Open Sans', label: 'Open Sans' },
-        { value: 'Lato', label: 'Lato' },
-        { value: 'Playfair', label: 'Playfair' },
-        { value: 'Poppins', label: 'Poppins' },
+        { value: 'Quicksand', label: 'Quicksand' },
+        { value: 'Playfair Display', label: 'Playfair Display' },
+        { value: 'Nunito', label: 'Nunito' },
+        { value: 'Raleway', label: 'Raleway' },
+        { value: 'Source Sans Pro', label: 'Source Sans Pro' },
+        { value: 'Oswald', label: 'Oswald' },
+        { value: 'Roboto Condensed', label: 'Roboto Condensed' },
+        { value: 'Ubuntu', label: 'Ubuntu' },
+        { value: 'Merriweather', label: 'Merriweather' },
+        { value: 'Dancing Script', label: 'Dancing Script' },
+        { value: 'Fira Sans', label: 'Fira Sans' },
+        { value: 'Work Sans', label: 'Work Sans' },
+        { value: 'Inter', label: 'Inter' },
+        { value: 'Exo', label: 'Exo' },
+        { value: 'Archivo', label: 'Archivo' },
+        { value: 'Rubik', label: 'Rubik' },
+        { value: 'Lora', label: 'Lora' },
+        { value: 'Josefin Sans', label: 'Josefin Sans' },
+        { value: 'Pacifico', label: 'Pacifico' },
+        { value: 'Noto Sans', label: 'Noto Sans' },
+        { value: 'Muli', label: 'Muli' },
+        { value: 'Cabin', label: 'Cabin' },
+        { value: 'Hind', label: 'Hind' },
+        { value: 'Manrope', label: 'Manrope' },
+        { value: 'Lalezar', label: 'Lalezar' },
 
         // Add more font options as needed
     ];
@@ -121,7 +147,8 @@ const BoxFormTop = () => {
                             <h1>Font</h1>
                             <select
                                 style={{ fontSize: "1rem" }}
-                                value={selectedFont}
+                                // value={selectedFont}
+                                value={items.find(item => item.id === editingText.id).font}
                                 onChange={(e) => handleItemChange(e, editingText.id, "font")}
                             >
                                 {fontOptions.map((option) => (
@@ -187,6 +214,22 @@ const BoxFormTop = () => {
                                 </button>
                             </div>
                         </>}
+                        {tool === "duplicate" && <div className='item-edit-form'>
+                            <label>Duplicate:</label>
+                            <button
+                                onClick={() => handleDuplicateBox(editingText.id)}>
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M5 5H15V8H8V15H5V5Z" fill="currentColor" />
+                                    <path d="M19 9H9V19H19V9Z" fill="currentColor" />
+                                </svg>
+                            </button>
+                        </div>}
                         {tool === "rating" &&
                             <label className='checkbox-container'>Rating:
                                 <input
