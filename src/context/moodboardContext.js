@@ -239,7 +239,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -267,7 +268,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -291,7 +293,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -316,7 +319,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -342,7 +346,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -370,7 +375,8 @@ export default function MoodboardProvider({ children }) {
             fontSize: "10",
             rating: 0,
             showRating: "",
-            showBorder: ""
+            showBorder: "",
+            roundedCorners: "6"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')

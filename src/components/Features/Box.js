@@ -5,6 +5,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
     const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+
     return (
         <>
             {item && item.type === "box" && (
@@ -81,7 +82,8 @@ const Box = ({ item }) => {
                                     width: "100%",
                                     height: "100%",
                                     userSelect: "none",
-                                    border: item.showBorder ? "1px solid #dddddd" : "0"
+                                    border: item.showBorder ? "1px solid #dddddd" : "0",
+                                    borderRadius: `${item.roundedCorners}px`
                                 }}
                             >
 

@@ -21,7 +21,8 @@ const BoxFormTop = () => {
         fontStyle: "Font style",
         move: "Move",
         rating: "Rating",
-        border: "Border"
+        border: "Border",
+        roundedCorners: "Rounded corners"
     }
 
     const fontOptions = [
@@ -153,6 +154,18 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
                             </label>}
+                        {tool === "roundedCorners" && <>
+                            <label>Rounded corners:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="20"
+                                step="1"
+                                name="roundedCorners"
+                                value={items.find(item => item.id === editingText.id).roundedCorners}
+                                onChange={(e) => handleItemChange(e, editingText.id, "roundedCorners")}
+                            />
+                        </>}
                         {tool === "move" && <>
                             <div className='item-edit-form' style={{ display: "flex" }}>
                                 <label>Order:</label>
