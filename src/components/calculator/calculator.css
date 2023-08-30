@@ -16,7 +16,7 @@
 }
 
 .component-button.main button {
-  background-color: transparent;
+  background-color: transparent !important;
   color: #868282;
   border: 0;
   font-size: 1.5rem;

@@ -86,6 +86,18 @@
   /* best */
   --clr-mill-5: hsl(29deg 23% 58%);
   /* best */
+
+
+  --clr-theme-1: #5856d6;
+  --clr-theme-2: #007aff;
+  --clr-theme-3: #34aadc;
+  --clr-theme-4: #5ac8fa;
+  --clr-theme-5: #4cd964;
+  --clr-theme-6: #ff2d55;
+  --clr-theme-7: #ff3b30;
+  --clr-theme-8: #ff9500;
+  --clr-theme-9: #ffCc00;
+  --clr-theme-10: #8e8e93;
 }
 
 /*
@@ -343,6 +355,7 @@ button,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   padding: .8rem .4rem;
   /* grid-gap: .2rem .8rem; */
   grid-gap: .1rem .1rem;

@@ -21,14 +21,26 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
 
     return (
         <>
-            <button style={{ backgroundColor: "#ffffff", color: "#cccccc", border: "1px solid #cccccc" }}
+            <button style={{
+                backgroundColor: `${index === 0 ? "#ffffff" : "#8e8e93"}`,
+                color: "#cccccc",
+                fontWeight: "bold",
+                fontSize: "1rem",
+                border: "1px solid #dddddd"
+            }}
                 onClick={() => setIndex(index - 1)}
                 className="prev"
                 disabled={index === 0}
             >&lt;</button>
             {chunk}
             <button
-                style={{ backgroundColor: "#ffffff", color: "#cccccc", border: "1px solid #cccccc" }}
+                style={{
+                    backgroundColor: `${index === maxIndex ? "#ffffff" : "#8e8e93"} `,
+                    color: "#dddddd",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                    border: "1px solid #cccccc"
+                }}
                 onClick={() => setIndex(index + 1)}
                 className="next"
                 disabled={index === maxIndex}
