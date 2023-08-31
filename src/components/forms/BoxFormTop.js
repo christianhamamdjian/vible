@@ -11,6 +11,7 @@ const BoxFormTop = () => {
     const toolButtons = {
         text: "Text",
         color: "Color",
+        textColor: "Text Color",
         linktitle: "Link Title",
         linkurl: "Link Url",
         width: "Width",
@@ -57,9 +58,7 @@ const BoxFormTop = () => {
         { value: 'Hind', label: 'Hind' },
         { value: 'Manrope', label: 'Manrope' },
         { value: 'Lalezar', label: 'Lalezar' },
-
-        // Add more font options as needed
-    ];
+    ]
 
     const findItem = (term) => {
         return items.find(item => item.id === editingText.id)[`${term}`]
@@ -87,6 +86,15 @@ const BoxFormTop = () => {
                                 name="color"
                                 value={findItem("color")}
                                 onChange={(e) => handleItemChange(e, editingText.id, "color")}
+                            />
+                        </>}
+                        {tool === "textColor" && <>
+                            <label>Color:</label>
+                            <input
+                                type="color"
+                                name="color"
+                                value={findItem("textColor")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "textColor")}
                             />
                         </>}
                         {tool === "linktitle" && <>
@@ -144,19 +152,24 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "font" && <><div>
-                            <h1>Font</h1>
+                            <label htmlFor="fonts">Choose a font:</label>
                             <select
+                                name="fonts"
+                                id="fonts"
                                 style={{ fontSize: "1rem" }}
-                                // value={selectedFont}
                                 value={items.find(item => item.id === editingText.id).font}
                                 onChange={(e) => handleItemChange(e, editingText.id, "font")}
                             >
                                 {fontOptions.map((option) => (
-                                    <option style={{ fontSize: "2rem", fontFamily: selectedFont, minHeight: '200px', width: '100%', padding: '10px' }} key={option.value} value={option.value}>
+                                    <option
+                                        style={{ fontSize: "2rem", fontFamily: `${option.value}`, minHeight: '200px', width: '100%', padding: '10px' }}
+                                        key={option.value}
+                                        value={option.value}>
                                         {option.label}
                                     </option>
                                 ))}
                             </select>
+                            <span style={{ fontSize: "2rem", fontFamily: `${items.find(item => item.id === editingText.id).font}` }}> {items.find(item => item.id === editingText.id).font}</span>
                         </div>
                         </>}
                         {tool === "fontSize" && <>

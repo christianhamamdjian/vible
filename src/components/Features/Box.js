@@ -119,7 +119,8 @@ const Box = ({ item }) => {
                                         onChange={(event) => handleItemChange(event, editingText.id, "text")}
                                         className="box-textarea"
                                         style={{
-                                            color: getTextColor(item.color),
+                                            // color: getTextColor(item.color),
+                                            color: item.textColor,
                                             overflowX: "hidden",
                                             overflowY: "auto",
                                             fontFamily: item.font,
@@ -139,7 +140,8 @@ const Box = ({ item }) => {
                                             <pre style={{ height: "calc(100% - 1.5rem)" }}>
                                                 <p
                                                     style={{
-                                                        color: getTextColor(item.color),
+                                                        // color: getTextColor(item.color),
+                                                        color: item.textColor,
                                                         height: item.link !== "" && "70%",
                                                         fontFamily: item.font,
                                                         userSelect: editingText && isEditingBoard ? "all" : "none",
