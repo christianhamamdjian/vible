@@ -9,6 +9,7 @@ import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
 import BoardDrop from "../helpers/BoardDrop"
+import Documentation from '../documentation/Documentation'
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -79,8 +80,10 @@ const MoodBoard = () => {
                     </svg>
                 </div >
             </BoardDrop>
+
             <Gallery />
             <Todo />
+            <Documentation />
         </>
     )
 }

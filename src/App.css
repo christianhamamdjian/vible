@@ -571,6 +571,73 @@ button,
   background-color: #000000;
 }
 
+/* Documentation */
+
+.toggle-documentation {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 23rem;
+  left: 22rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* border-radius: 0px 12px 0px 0px; */
+  border-radius: 50%;
+  padding-top: .8rem;
+  padding-left: .85rem;
+  /* transform: rotate(30deg); */
+}
+
+.documentation-sign {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #ffffff;
+  border-radius: .6rem;
+}
+
+.toggle-documentation div {
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.documentation-show {
+  margin: 0 auto;
+  top: 0;
+}
+
+.documentation-hide {
+  top: -22rem;
+}
+
+.documentation-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: .4rem;
+  padding: .5rem;
+  overflow-y: auto;
+}
+
+.documentation {
+  padding: 1rem;
+  position: fixed;
+  background: rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  width: 100%;
+  height: 12rem;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  z-index: 101;
+  transition: all 0.3s ease-in-out;
+}
+
+
 /* Todos */
 .toggle-todo {
   position: absolute;
