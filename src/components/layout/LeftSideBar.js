@@ -4,7 +4,6 @@ import ImageForm from "../forms/ImageForm"
 import VideoForm from "../forms/VideoForm"
 import MapForm from "../forms/MapForm"
 import PdfForm from "../forms/PdfForm"
-import Help from '../Features/Help'
 import ImageLinkForm from "../forms/ImageLinkForm"
 
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -132,7 +131,6 @@ const LeftSidebard = () => {
                 </button>
                 {pdf && <PdfForm />}
             </div>
-            <Help />
         </div>
     )
 }

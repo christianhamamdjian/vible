@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-// import FontSelector from '../utils/FontSelector';
 import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
     const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, handleDuplicateBox } = React.useContext(MoodboardContext);
-
-    const [selectedFont, setSelectedFont] = useState('Roboto');
 
     const toolButtons = {
         text: "Text",

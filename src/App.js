@@ -2,6 +2,7 @@ import React from 'react';
 import MoodBoard from './components/layout/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import EditFormTop from "./components/forms/EditFormTop"
+// import ConnectionLine from './components/DraggableConnection';
 
 import './App.css'
 
@@ -15,6 +16,7 @@ function App() {
         <MoodBoard />
         <SidebarDrawer side="right" />
       </div>
+      {/* <ConnectionLine /> */}
     </div>
   );
 }

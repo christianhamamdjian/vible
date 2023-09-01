@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Accordion from "./components/Accordion";
-
+// import Accordion from "./accordion/Accordion";
 import "./styles.css";
 
 const Documentation = () => {
@@ -15,6 +15,7 @@ const Documentation = () => {
         <button onClick={handleDocumentationToggle} className="toggle-documentation">?</button>
         <div className='documentation-container'>
           <div className="accordion-container">
+            {/* <Accordion /> */}
             <Accordion title="Drawing">
               Click the drawing button at the top
               Choose a color and line width and start drawing
@@ -27,9 +28,11 @@ const Documentation = () => {
               Add todos
             </Accordion>
             <Accordion title="Gallery">
-              Click the gallery button at the bottom left to reveal the gallery pane
-              Select the type you want to add from the dropdown menu they will stay there.
-              Later you can add these items to the board (add options to drag items to and from the gallery and add more types to the selection
+              <ul>
+                <li>Click the gallery button at the bottom left to reveal the gallery pane</li>
+                <li>Select the type you want to add from the dropdown menu they will stay there.</li>
+                <li>Later you can add these items to the board (add options to drag items to and from the gallery and add more types to the selection</li>
+              </ul>
             </Accordion>
             <Accordion title="Add items">
               Click the add item button at the top left to reveal the options

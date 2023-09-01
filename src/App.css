@@ -367,7 +367,8 @@ button,
 
 .inputs-top_objects button {
   background: rgba(138, 142, 184, 0.9);
-  font-size: .7rem;
+  font-size: .8rem;
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {
@@ -577,8 +578,8 @@ button,
   position: absolute;
   width: 50px;
   height: 50px;
-  top: 23rem;
-  left: 22rem;
+  top: 31rem;
+  left: 12%;
   font-size: 1.5rem;
   font-weight: bold;
   /* border-radius: 0px 12px 0px 0px; */
@@ -607,18 +608,18 @@ button,
 }
 
 .documentation-hide {
-  top: -22rem;
+  top: -30rem;
 }
 
 .documentation-container {
   width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: .4rem;
   padding: .5rem;
-  overflow-y: auto;
 }
 
 .documentation {
@@ -627,7 +628,7 @@ button,
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 100%;
-  height: 12rem;
+  height: 30rem;
   left: 0;
   display: flex;
   justify-content: center;
@@ -637,6 +638,14 @@ button,
   transition: all 0.3s ease-in-out;
 }
 
+.documentation button {
+  /* background-color: #007bff; */
+  background-color: hsl(240, 32%, 90%);
+}
+
+.documentation .accordion-container {
+  overflow-y: auto;
+}
 
 /* Todos */
 .toggle-todo {
