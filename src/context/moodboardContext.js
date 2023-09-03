@@ -275,7 +275,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -301,7 +305,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -328,7 +336,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -356,7 +368,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -386,7 +402,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -435,10 +455,10 @@ export default function MoodboardProvider({ children }) {
         const text = e.dataTransfer.getData('text')
         const youTubeUrl = e.dataTransfer.getData('url')
         const urlStart = "https://www.youtube.com/watch?v="
+        let newText = youTubeUrl
+        let youtubeCode = newText.replace(urlStart, "")
         if (youTubeUrl && youTubeUrl.includes(urlStart)) {
-            let newText = youTubeUrl
-            let youtubeCode = newText.replace(urlStart, "")
-            console.log(youtubeCode)
+            // console.log(youtubeCode)
             handleDropVideo(youtubeCode)
         }
         if (text
@@ -461,7 +481,7 @@ export default function MoodboardProvider({ children }) {
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (text && (text.startsWith('http') || text.startsWith('https'))) {
+        if (text && !youTubeUrl && (text.startsWith('http') || text.startsWith('https'))) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
@@ -479,7 +499,7 @@ export default function MoodboardProvider({ children }) {
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (text && (!text.startsWith('http') || !text.startsWith('https'))) {
+        if (text && !youTubeUrl && (!text.startsWith('http') || !text.startsWith('https'))) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
