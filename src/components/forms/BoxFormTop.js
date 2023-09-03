@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TopButtonsSlider from "../helpers/TopButtonsSlider"
+import { fontOptions } from "../helpers/fontOptions"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
@@ -7,8 +8,10 @@ const BoxFormTop = () => {
 
     const toolButtons = {
         text: "Text",
-        color: "Color",
-        textColor: "Text Color",
+        BoxColor: "Box color",
+        textColor: "Text Color", // color
+        textAlignLeft: "Text align left", // boolean
+        textAlignCenter: "Text align center", // boolean
         linktitle: "Link Title",
         linkurl: "Link Url",
         width: "Width",
@@ -20,42 +23,13 @@ const BoxFormTop = () => {
         move: "Move",
         duplicate: "Duplicate",
         rating: "Rating",
-        border: "Border",
+        // border: "Border",
+        // borderWidth 0 replaces border
+        borderWidth: "Border width", // range
+        borderColor: "Border color", // color
+        // backgroundOpacity: "Background opacity", // range
         roundedCorners: "Rounded corners"
     }
-
-    const fontOptions = [
-        { value: 'Poppins', label: 'Poppins' },
-        { value: 'Montserrat', label: 'Montserrat' },
-        { value: 'Lato', label: 'Lato' },
-        { value: 'Roboto', label: 'Roboto' },
-        { value: 'Open Sans', label: 'Open Sans' },
-        { value: 'Quicksand', label: 'Quicksand' },
-        { value: 'Playfair Display', label: 'Playfair Display' },
-        { value: 'Nunito', label: 'Nunito' },
-        { value: 'Raleway', label: 'Raleway' },
-        { value: 'Source Sans Pro', label: 'Source Sans Pro' },
-        { value: 'Oswald', label: 'Oswald' },
-        { value: 'Roboto Condensed', label: 'Roboto Condensed' },
-        { value: 'Ubuntu', label: 'Ubuntu' },
-        { value: 'Merriweather', label: 'Merriweather' },
-        { value: 'Dancing Script', label: 'Dancing Script' },
-        { value: 'Fira Sans', label: 'Fira Sans' },
-        { value: 'Work Sans', label: 'Work Sans' },
-        { value: 'Inter', label: 'Inter' },
-        { value: 'Exo', label: 'Exo' },
-        { value: 'Archivo', label: 'Archivo' },
-        { value: 'Rubik', label: 'Rubik' },
-        { value: 'Lora', label: 'Lora' },
-        { value: 'Josefin Sans', label: 'Josefin Sans' },
-        { value: 'Pacifico', label: 'Pacifico' },
-        { value: 'Noto Sans', label: 'Noto Sans' },
-        { value: 'Muli', label: 'Muli' },
-        { value: 'Cabin', label: 'Cabin' },
-        { value: 'Hind', label: 'Hind' },
-        { value: 'Manrope', label: 'Manrope' },
-        { value: 'Lalezar', label: 'Lalezar' },
-    ]
 
     const findItem = (term) => {
         return items.find(item => item.id === editingText.id)[`${term}`]
@@ -76,8 +50,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "text")}
                             />
                         </>}
-                        {tool === "color" && <>
-                            <label>Color:</label>
+                        {tool === "BoxColor" && <>
+                            <label>Box color:</label>
                             <input
                                 type="color"
                                 name="color"
@@ -86,7 +60,7 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "textColor" && <>
-                            <label>Color:</label>
+                            <label>Text Color:</label>
                             <input
                                 type="color"
                                 name="color"
@@ -191,12 +165,32 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
                             </label>}
+                        {tool === "textAlignLeft" &&
+                            <label className='checkbox-container'>Text align left:
+                                <input
+                                    type="checkbox"
+                                    className='input-line-closed'
+                                    value={items.find(item => item.id === editingText.id).textAlignLeft}
+                                    checked={items.find(item => item.id === editingText.id).textAlignLeft}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "textAlignLeft")} />
+                                <span className="checkmark"></span>
+                            </label>}
+                        {tool === "textAlignCenter" &&
+                            <label className='checkbox-container'>Text align center:
+                                <input
+                                    type="checkbox"
+                                    className='input-line-closed'
+                                    value={items.find(item => item.id === editingText.id).textAlignCenter}
+                                    checked={items.find(item => item.id === editingText.id).textAlignCenter}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "textAlignCenter")} />
+                                <span className="checkmark"></span>
+                            </label>}
                         {tool === "roundedCorners" && <>
                             <label>Rounded corners:</label>
                             <input
                                 type="range"
                                 min="0"
-                                max="20"
+                                max="55"
                                 step="1"
                                 name="roundedCorners"
                                 value={items.find(item => item.id === editingText.id).roundedCorners}
@@ -250,7 +244,7 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {tool === "border" &&
+                        {/* {tool === "border" &&
                             <label className='checkbox-container'>Border:
                                 <input
                                     type="checkbox"
@@ -259,7 +253,40 @@ const BoxFormTop = () => {
                                     checked={items.find(item => item.id === editingText.id).border}
                                     onChange={(e) => handleItemChange(e, editingText.id, "showBorder")} />
                                 <span className="checkmark"></span>
-                            </label>}
+                            </label>} */}
+                        {tool === "borderWidth" && <>
+                            <label>Border width:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="55"
+                                step="1"
+                                name="borderWidth"
+                                value={items.find(item => item.id === editingText.id).borderWidth}
+                                onChange={(e) => handleItemChange(e, editingText.id, "borderWidth")}
+                            />
+                        </>}
+                        {tool === "borderColor" && <>
+                            <label>Border color:</label>
+                            <input
+                                type="color"
+                                name="color"
+                                value={findItem("borderColor")}
+                                onChange={(e) => handleItemChange(e, editingText.id, "borderColor")}
+                            />
+                        </>}
+                        {/* {tool === "backgroundOpacity" && <>
+                            <label>Background opacity:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="55"
+                                step="1"
+                                name="backgroundOpacity"
+                                value={items.find(item => item.id === editingText.id).backgroundOpacity}
+                                onChange={(e) => handleItemChange(e, editingText.id, "backgroundOpacity")}
+                            />
+                        </>} */}
                     </div>
                 </>)
             }

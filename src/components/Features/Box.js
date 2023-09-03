@@ -82,8 +82,9 @@ const Box = ({ item }) => {
                                     width: "100%",
                                     height: "100%",
                                     userSelect: "none",
-                                    border: item.showBorder ? "1px solid #dddddd" : "0",
-                                    borderRadius: `${item.roundedCorners}px`
+                                    //border: item.showBorder ? "1px solid #dddddd" : "0",
+                                    border: `${item.borderWidth}px solid ${item.borderColor}`,
+                                    borderRadius: `${item.roundedCorners}px`,
                                 }}
                             >
 
@@ -125,7 +126,8 @@ const Box = ({ item }) => {
                                             overflowY: "auto",
                                             fontFamily: item.font,
                                             fontSize: `${item.fontSize}pt`,
-                                            fontWeight: `${item.fontStyle ? "bold" : "normal"}`
+                                            fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
+                                            textAlign: `${item.textAlignCenter ? "center" : "left"}`
                                         }}
                                         cols="10"
                                         rows="2"
@@ -146,7 +148,8 @@ const Box = ({ item }) => {
                                                         fontFamily: item.font,
                                                         userSelect: editingText && isEditingBoard ? "all" : "none",
                                                         fontSize: `${item.fontSize}pt`,
-                                                        fontWeight: `${item.fontStyle ? "bold" : "normal"}`
+                                                        fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
+                                                        textAlign: `${item.textAlignCenter ? "center" : "left"}`
                                                     }}
                                                 >
                                                     {item.text}

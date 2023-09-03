@@ -241,7 +241,11 @@ export default function MoodboardProvider({ children }) {
             rating: 0,
             showRating: "",
             showBorder: "",
-            roundedCorners: "6"
+            roundedCorners: "6",
+            textAlignCenter: "",
+            textAlignLeft: "",
+            borderWidth: "",
+            borderColor: ""
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -1199,7 +1203,7 @@ export default function MoodboardProvider({ children }) {
         setItems(prevItems =>
             prevItems.map(item => {
                 if (item.id === id) {
-                    return { ...item, [property]: property === "showRating" || property === "showBorder" || property === "fontStyle" ? e.target.checked : e.target.value }
+                    return { ...item, [property]: property === "showRating" || property === "showBorder" || property === "fontStyle" || property === "textAlignLeft" || property === "textAlignCenter" ? e.target.checked : e.target.value }
                 }
                 return item
             })
