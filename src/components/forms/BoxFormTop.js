@@ -10,7 +10,7 @@ const BoxFormTop = () => {
         text: "Text",
         BoxColor: "Box color",
         textColor: "Text Color", // color
-        textAlignLeft: "Text align left", // boolean
+        // textAlignLeft: "Text align left", // boolean
         textAlignCenter: "Text align center", // boolean
         linktitle: "Link Title",
         linkurl: "Link Url",
@@ -20,7 +20,7 @@ const BoxFormTop = () => {
         font: "Font",
         fontSize: "Font size",
         fontStyle: "Font style",
-        move: "Move",
+        order: "Order",
         duplicate: "Duplicate",
         rating: "Rating",
         // border: "Border",
@@ -165,7 +165,7 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {tool === "textAlignLeft" &&
+                        {/* {tool === "textAlignLeft" &&
                             <label className='checkbox-container'>Text align left:
                                 <input
                                     type="checkbox"
@@ -174,7 +174,7 @@ const BoxFormTop = () => {
                                     checked={items.find(item => item.id === editingText.id).textAlignLeft}
                                     onChange={(e) => handleItemChange(e, editingText.id, "textAlignLeft")} />
                                 <span className="checkmark"></span>
-                            </label>}
+                            </label>} */}
                         {tool === "textAlignCenter" &&
                             <label className='checkbox-container'>Text align center:
                                 <input
@@ -197,7 +197,7 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "roundedCorners")}
                             />
                         </>}
-                        {tool === "move" && <>
+                        {tool === "order" && <>
                             <div className='item-edit-form' style={{ display: "flex" }}>
                                 <label>Order:</label>
                                 <button

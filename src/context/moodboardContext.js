@@ -639,13 +639,6 @@ export default function MoodboardProvider({ children }) {
             setDragGrouping(true)
             return
         }
-        // if (e.target.id === 'resize') {
-        //     console.log(e.target.id)
-        //     setIsResizing(true)
-        //     setIsDraggingRect(false)
-        //     const { clientX, clientY } = e.touches ? e.touches[0] : e
-        //     setMousedownPoints({ x: clientX, y: clientY })
-        // }
         if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -688,8 +681,8 @@ export default function MoodboardProvider({ children }) {
             const item = items.find(el => el.id === selectedRectId)
             if (item.type === "box") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(100, Math.min(600, prevSize.width + dx)),
-                    height: Math.max(100, Math.min(600, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
                 }))
             }
             if (item.type === "image") {
@@ -722,7 +715,7 @@ export default function MoodboardProvider({ children }) {
                     height: Math.max(50, Math.min(300, prevSize.height + dy)),
                 }))
             }
-            // handleResize(e, selectedRectId, rectangleSize)
+
             handleResize(e, selectedRectId)
             setMousedownPoints(currentPoints)
             updateResizeIcon(dx, dy)
@@ -748,7 +741,6 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
-            // e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
@@ -812,14 +804,12 @@ export default function MoodboardProvider({ children }) {
         const rectItem = items.find(el => el.id === rectId)
         const rectType = rectItem.type
         if (e.target.id === 'resize') {
-            // console.log(e.target.id)
             setIsResizing(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
         }
         if (e.target.id === 'rotate') {
-            // console.log(e.target.id)
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -1067,6 +1057,7 @@ export default function MoodboardProvider({ children }) {
 
     // Path Group handling
     const handleGrouping = () => {
+        stopAllTopForms()
         if (isGrouping) {
             resetPathsGroup()
             setSelectedPath(null)
@@ -1257,6 +1248,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(false)
     }
     const handleEraser = () => {
+        stopAllTopForms()
         setIsErasing(isErasing => !isErasing)
         setIsDrawing(false)
         setSelectedPath(null)
@@ -1269,6 +1261,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(false)
     }
     const handlePartialEraser = () => {
+        stopAllTopForms()
         setIsPartialErasing(isPartialErasing => !isPartialErasing)
         setIsDrawing(false)
         setSelectedPath(null)
@@ -1468,6 +1461,7 @@ export default function MoodboardProvider({ children }) {
         // console.log(itemType)
         switch (itemType) {
             case 'box':
+                stopAllTopForms()
                 if (editingImage) {
                     setEditingImage(null)
                 }
@@ -1485,6 +1479,7 @@ export default function MoodboardProvider({ children }) {
                 handleWrite()
                 break;
             case 'image':
+                stopAllTopForms()
                 if (editingText) {
                     setEditingText(null)
                 }
@@ -1493,6 +1488,7 @@ export default function MoodboardProvider({ children }) {
                 handleImage()
                 break;
             case 'imageUrl':
+                stopAllTopForms()
                 if (editingText) {
                     setEditingText(null)
                 }
@@ -1501,27 +1497,30 @@ export default function MoodboardProvider({ children }) {
                 handleImage()
                 break;
             case 'video':
+                stopAllTopForms()
                 setEditingVideo({ status: true, id: id })
                 setIsEditingBoard(true)
                 handleVideo()
                 break;
             case 'mapUrl':
+                stopAllTopForms()
                 setEditingMap({ status: true, id: id })
                 setIsEditingBoard(true)
                 handleMap()
                 break;
             case 'pdf':
+                stopAllTopForms()
                 setEditingPdf({ status: true, id: id })
                 setIsEditingBoard(true)
-                setIsEditingPath(false)
-                setIsEditingPaths(false)
-                setEditingVideo(false)
-                setEditingMap(false)
-                setSelectedPath(null)
-                setWrite(false)
-                setImage(false)
-                setVideo(false)
-                setMap(false)
+                // setIsEditingPath(false)
+                // setIsEditingPaths(false)
+                // setEditingVideo(false)
+                // setEditingMap(false)
+                // setSelectedPath(null)
+                // setWrite(false)
+                // setImage(false)
+                // setVideo(false)
+                // setMap(false)
                 break;
             default:
                 break;
@@ -1612,12 +1611,7 @@ export default function MoodboardProvider({ children }) {
     const handleEditingBoard = () => {
         setIsEditingBoard(isEditingBoard => !isEditingBoard)
         if (isEditingBoard) {
-            setEditingText(null)
-            setIsEditingBoard(false)
-            setIsEditingPath(false)
-            setIsEditingPaths(false)
-            setSelectedPath(null)
-            setWrite(false)
+            stopAllTopForms()
         }
         setIsDrawing(false)
         setIsErasing(false)
@@ -1626,25 +1620,25 @@ export default function MoodboardProvider({ children }) {
         setZoom(10000)
     }
 
-    // const stopAllTopForms = () => {
-    //     setIsEditingBoard(false)
+    const stopAllTopForms = () => {
+        setIsEditingBoard(false)
 
-    //     setEditingItem(null)
-    //     setEditingText(null)
-    //     setIsEditingPath(null)
-    //     setIsEditingPaths(null)
-    //     setSelectedPath(null)
-    //     setEditingImage(null)
-    //     setEditingVideo(null)
-    //     setEditingMap(null)
-    //     setEditingPdf(null)
+        setEditingItem(null)
+        setEditingText(null)
+        setIsEditingPath(null)
+        setIsEditingPaths(null)
+        setSelectedPath(null)
+        setEditingImage(null)
+        setEditingVideo(null)
+        setEditingMap(null)
+        setEditingPdf(null)
 
-    //     setWrite(false)
-    //     setImage(false)
-    //     setVideo(false)
-    //     setMap(false)
-    //     setPdf(false)
-    // }
+        setWrite(false)
+        setImage(false)
+        setVideo(false)
+        setMap(false)
+        setPdf(false)
+    }
 
 
     return (

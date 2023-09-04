@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 // import Circle from "../helperFunctions/CircleCursor"
 import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, isPartialErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, selectedPath, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
+    const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
 
     const toolButtons = {
         lineColor: "Line Color",
@@ -17,7 +17,7 @@ const DrawingFormTop = () => {
         changeOpacity: "Change Opacity",
         rotate: "Rotate",
         scale: "Scale",
-        move: "Move",
+        order: "Order",
         duplicate: "Duplicate",
         delete: "Delete",
         done: "Done",
@@ -28,34 +28,6 @@ const DrawingFormTop = () => {
         linesRotate: "Rotate",
         linesScale: "Scale",
     }
-
-    // const intervalRef = useRef(null)
-
-    // const startCountUp = (e) => {
-    //     if (intervalRef.current) return;
-    //     intervalRef.current = setInterval(() => {
-    //         handleScaleChange(e, "increase")
-    //     }, 1000)
-    // }
-
-    // const startCountDown = (e) => {
-    //     if (intervalRef.current) return;
-    //     intervalRef.current = setInterval(() => {
-    //         handleScaleChange(e, "decrease")
-    //     }, 1000)
-    // }
-
-    // const stopCounter = () => {
-    //     if (intervalRef.current) {
-    //         clearInterval(intervalRef.current)
-    //         intervalRef.current = null
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     return () => stopCounter()
-    // }, [])
-
 
     return (
         <>
@@ -161,55 +133,24 @@ const DrawingFormTop = () => {
                                 onChange={(e) => handleLineOpacityChange(e, isEditingPath.id, "opacity")}
                             /></>}
 
-                        {/* {selectedPath !== null && (
-                            <> */}
-
                         {tool === "rotate" && <div className='path-edit-form'>
                             <label htmlFor="rotate"><label>Rotate:</label></label>
                             <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                             <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
-                            {/* <button
-                                onMouseDown={e => startCountDown(e)}
-                                onMouseUp={stopCounter}
-                                onMouseLeave={stopCounter}
-                            >
-                                <span>−</span>
-                            </button>
-                            <button
-                                onMouseDown={e => startCountUp(e)}
-                                onMouseUp={stopCounter}
-                                onMouseLeave={stopCounter}
-                            >
-                                <span>+</span>
-                            </button> */}
                         </div>}
 
                         {tool === "scale" && <div className='path-edit-form'>
                             <label htmlFor="scale"><label>Scale:</label></label>
                             <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                             <button onClick={e => handleScaleChange(e, "increase")}>+</button>
-                            {/* <button
-                                onMouseDown={e => startCountDown(e)}
-                                onMouseUp={stopCounter}
-                                onMouseLeave={stopCounter}
-                            >
-                                <span>−</span>
-                            </button>
-                            <button
-                                onMouseDown={e => startCountUp(e)}
-                                onMouseUp={stopCounter}
-                                onMouseLeave={stopCounter}
-                            >
-                                <span>+</span>
-                            </button> */}
                         </div>}
 
                         {/* </>
                         )}
                        */}
 
-                        {tool === "move" && <div className='path-edit-form'>
-                            <label>Move:</label>
+                        {tool === "order" && <div className='path-edit-form'>
+                            <label>Order:</label>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
@@ -280,7 +221,6 @@ const DrawingFormTop = () => {
                 </>
             )
             }
-            {/* {paths.length > -1 && (isErasing || isPartialErasing) && ( */}
             {paths.length > -1 && isErasing && (
                 <>
                     {tool !== "" && <div className='inputs-top_draw'>
@@ -356,9 +296,6 @@ const DrawingFormTop = () => {
                     </div>}
                 </>
             )}
-            {/* {(isErasing || isPartialErasing) &&
-                <Circle />
-            } */}
         </>
     )
 }

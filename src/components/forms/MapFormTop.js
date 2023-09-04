@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
@@ -70,7 +70,7 @@ const MapFormTop = () => {
                             />
                         </>}
                         {tool === "order" && <>
-                            <label>Move:</label>
+                            <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingMap.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>

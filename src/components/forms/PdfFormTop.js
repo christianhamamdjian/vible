@@ -70,7 +70,7 @@ const PdfFormTop = () => {
                             />
                         </>}
                         {tool === "order" && <>
-                            <label>Move:</label>
+                            <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingPdf.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>

@@ -648,6 +648,11 @@ button,
   background-color: hsl(240, 32%, 90%);
 }
 
+.documentation button:hover {
+  /* background-color: #007bff; */
+  background-color: rgb(11, 9, 112);
+}
+
 .documentation .accordion-container {
   overflow-y: auto;
 }
