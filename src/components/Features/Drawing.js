@@ -1,7 +1,7 @@
 import React from 'react';
 // import pencilPattern from '../../assets/pencil-pattern-small.jpg';
 import { MoodboardContext } from "../../context/moodboardContext";
-import renderPath from '../helpers/pathSmooth';
+import renderPath from '../helperFunctions/pathSmooth';
 
 const Drawing = () => {
     const { paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathDeSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TopButtonsSlider from "../helpers/TopButtonsSlider"
+import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const PdfFormTop = () => {

@@ -4,7 +4,7 @@ import { printPdf } from '../utils/printPdf'
 import Calculator from "../calculator/Calculator"
 import Calendar from "../calendar/Calendar"
 import Tooltips from '../tooltips/Tooltips'
-import Confirm from "../helpers/Confirm"
+import Confirm from "../helperFunctions/Confirm"
 import DownloadUploadData from "../utils/DownloadUploadData"
 // import FontSelector from '../utils/FontSelector';
 import { MoodboardContext } from "../../context/moodboardContext";

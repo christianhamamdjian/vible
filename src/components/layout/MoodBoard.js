@@ -8,7 +8,7 @@ import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
-import BoardDrop from "../helpers/BoardDrop"
+import BoardDrop from "../helperFunctions/BoardDrop"
 import Documentation from '../documentation/Documentation'
 
 import { MoodboardContext } from "../../context/moodboardContext";

@@ -1,6 +1,6 @@
 import React from 'react';
 import { isSafari } from "../utils/browserDetector"
-import TopControls from "../helpers/TopControls"
+import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {

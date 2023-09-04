@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
-// import partialErase from "../components/helpers/partialErase"
+import partialErase from "../components/helperFunctions/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
@@ -92,29 +92,7 @@ export default function MoodboardProvider({ children }) {
     const changeTool = (tool) => {
         setTool(tool)
     }
-    const calculateDistance = (point1, point2) => {
-        const dx = point2.x - point1.x;
-        const dy = point2.y - point1.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-    const partialErase = (clickedPoint, pathPoints) => {
-        // let closestPoint = null;
-        let closestIndex = 0;
-        let closestDistance = Number.MAX_VALUE;
 
-        for (const [i, pathPoint] of pathPoints.entries()) {
-            const distance = calculateDistance(clickedPoint, pathPoint);
-
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                // closestPoint = pathPoint;
-                closestIndex = i;
-            }
-        }
-        const p1 = pathPoints.slice(0, closestIndex);
-        const p2 = pathPoints.slice(closestIndex);
-        return ([p1, p2]);
-    }
     const handleRating = (i, id) => {
         setSelectedStars(i + 1)
         setItems(prevItems =>

@@ -1,5 +1,5 @@
 import React from 'react';
-import DragDropUpload from "../helpers/DragDropUpload"
+import DragDropUpload from "../helperFunctions/DragDropUpload"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageForm = () => {

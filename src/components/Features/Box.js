@@ -1,6 +1,6 @@
 import React from 'react';
 import StartRating from "../rating/StarRating"
-import TopControls from "../helpers/TopControls"
+import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {

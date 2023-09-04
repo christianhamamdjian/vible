@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TopControls from "../helpers/TopControls"
+import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {

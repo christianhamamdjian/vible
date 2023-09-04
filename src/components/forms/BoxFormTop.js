@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import TopButtonsSlider from "../helpers/TopButtonsSlider"
-import { fontOptions } from "../helpers/fontOptions"
+import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
+import { fontOptions } from "../helperFunctions/fontOptions"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {

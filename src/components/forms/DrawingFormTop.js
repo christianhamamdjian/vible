@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-// import Circle from "../helpers/CircleCursor"
-import TopButtonsSlider from "../helpers/TopButtonsSlider"
+// import Circle from "../helperFunctions/CircleCursor"
+import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
