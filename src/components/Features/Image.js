@@ -31,7 +31,7 @@ const Image = ({ item }) => {
                                 <circle
                                     id="rotate"
                                     fill="#cccccc"
-                                    cx="-15"
+                                    cx="-20"
                                     cy={calculatedHeight / 2}
                                     width="20"
                                     height="20"
@@ -41,14 +41,14 @@ const Image = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="#cccccc"
-                                    x={item.width - 15}
-                                    y={calculatedHeight - 15}
+                                    x={item.width}
+                                    y={calculatedHeight}
                                     width="20"
                                     height="20"
                                     rx="4"
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
-                                <rect
+                                {/* <rect
                                     id="resize"
                                     fill="white"
                                     x={item.width - 18}
@@ -57,7 +57,7 @@ const Image = ({ item }) => {
                                     height="20"
                                     rx="2"
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
+                                /> */}
                             </>)}
                         <image
                             ref={itemRef}

@@ -5,7 +5,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
     const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
-
+    const position = `translate${(item.width - 15, item.height - 15)}`
     return (
         <>
             {item && item.type === "box" && (
@@ -17,39 +17,7 @@ const Box = ({ item }) => {
                             userSelect: "none"
                         }}
                     >
-                        {(editingText || isEditingBoard) && (
-                            <>
-                                <circle
-                                    id="rotate"
-                                    fill="#cccccc"
-                                    cx="-15"
-                                    cy={`${item.height / 2}`}
-                                    width="20"
-                                    height="20"
-                                    r='12'
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                <rect
-                                    id="resize"
-                                    fill="#cccccc"
-                                    x={item.width - 15}
-                                    y={item.height - 15}
-                                    width="20"
-                                    height="20"
-                                    rx="4"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={item.height - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                            </>)}
+
                         <foreignObject
                             x="0"
                             y="0"
@@ -165,6 +133,40 @@ const Box = ({ item }) => {
                             </div>
                         </foreignObject >
                         <TopControls item={item} />
+                        {(editingText || isEditingBoard) && (
+                            <>
+                                <circle
+                                    id="rotate"
+                                    fill="#cccccc"
+                                    cx="-20"
+                                    cy={`${item.height / 2}`}
+                                    width="20"
+                                    height="20"
+                                    r='12'
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="#cccccc"
+                                    x={item.width}
+                                    y={item.height}
+                                    width="20"
+                                    height="20"
+                                    rx="4"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                {/*    <rect
+                                    id="resize"
+                                    fill="white"
+                                    x={item.width - 18}
+                                    y={item.height - 18}
+                                    width="20"
+                                    height="20"
+                                    rx="2"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                /> */}
+
+                            </>)}
                     </g>
                 </>)
             }

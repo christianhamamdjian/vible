@@ -20,7 +20,7 @@ const MapFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    <div className='inputs-top_objects' >
+                    {tool !== "" && <div className='inputs-top_objects' >
                         {tool === "width" && <>
                             <label>Change width:</label>
                             <input
@@ -88,7 +88,7 @@ const MapFormTop = () => {
                                 <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
                             </button>
                         </>}
-                    </div>
+                    </div>}
                 </>
             )
             }

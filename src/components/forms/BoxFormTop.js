@@ -42,7 +42,7 @@ const BoxFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    <div className='inputs-top_objects' >
+                    {tool !== "" && <div className='inputs-top_objects' >
                         {tool === "text" && <>
                             <label>Text:</label>
                             <textarea
@@ -287,7 +287,7 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "backgroundOpacity")}
                             />
                         </>} */}
-                    </div>
+                    </div>}
                 </>)
             }
         </>)

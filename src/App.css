@@ -44,7 +44,7 @@
 
 :root {
   /* Color schemes */
-
+  --clr-background-1: #f4f2f1;
   /* Boomers */
   --clr-boom-1: hsl(46deg 35% 63%);
 
@@ -99,6 +99,8 @@
   --clr-theme-9: #ffCc00;
   --clr-theme-10: #8e8e93;
 }
+
+
 
 /*
 Blues 
@@ -330,8 +332,9 @@ button,
 }
 
 .inputs-top_draw {
-  width: 60vw;
+  /* width: 60vw; */
   margin: 0 auto;
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -342,6 +345,7 @@ button,
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
+  border-radius: 1rem;
 }
 
 .inputs-top_draw button {
@@ -350,7 +354,7 @@ button,
 }
 
 .inputs-top_objects {
-  width: 60vw;
+  /* width: 60vw; */
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -363,6 +367,7 @@ button,
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
+  border-radius: 1rem;
 }
 
 .inputs-top_objects button {
@@ -436,7 +441,7 @@ button,
   cursor: move;
   user-select: none;
   text-align: left;
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 6px;
 }
 
@@ -1465,7 +1470,8 @@ input[type="range"]::-webkit-slider-thumb {
   /* Centers thumb on the track */
 
   /*custom styles*/
-  background-color: #5cd5eb;
+  background-color: #d9d9d9;
+  border-radius: 1rem;
   height: 2rem;
   width: 1rem;
 }
@@ -1494,7 +1500,7 @@ input[type="range"]::-moz-range-thumb {
   /*Removes default border-radius that FF applies*/
 
   /*custom styles*/
-  background-color: #5cd5eb;
+  background-color: #d9d9d9;
   height: 2rem;
   width: 1rem;
 }
@@ -1549,7 +1555,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* When the checkbox is checked, add a blue background */
 .checkbox-container input:checked~.checkmark {
-  background-color: #2196F3;
+  background-color: #b4b2b2;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

@@ -63,7 +63,7 @@ const MoodBoard = () => {
                         onDoubleClick={handleStopEditItem}
                         onContextMenu={handleAddBoxOnSpot}
                         style={{
-                            backgroundColor: "#ffffff",
+                            backgroundColor: "#f4f2f1",
                             userSelect: "none",
                             // cursor: isErasing || isPartialErasing && "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,

@@ -72,13 +72,14 @@ const DrawingFormTop = () => {
                         className='input-line-width'
                         value={pathLine}
                         onChange={(event) => handleLineWidth(event)} />
-                </div>)}
+                </div>
+            )}
             {paths.length > 0 && isEditingPath && !isErasing && !isGrouping && (
                 <>
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    <div className='inputs-top_draw'>
+                    {tool !== "" && <div className='inputs-top_draw'>
                         {tool === "lineColor" && <>
                             <label>Line color:</label>
                             <input
@@ -274,7 +275,7 @@ const DrawingFormTop = () => {
                             </svg>
                         </button>}
 
-                    </div>
+                    </div>}
 
                 </>
             )
@@ -282,7 +283,7 @@ const DrawingFormTop = () => {
             {/* {paths.length > -1 && (isErasing || isPartialErasing) && ( */}
             {paths.length > -1 && isErasing && (
                 <>
-                    <div className='inputs-top_draw'>
+                    {tool !== "" && <div className='inputs-top_draw'>
                         <button onClick={handleUndoErase} disabled={!canUndoErase}>
                             <svg
                                 width="24"
@@ -311,7 +312,7 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
-                    </div>
+                    </div>}
                 </>
             )}
 
@@ -322,7 +323,7 @@ const DrawingFormTop = () => {
                             return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
                         })}
                     </div>
-                    <div className='inputs-top_draw'>
+                    {tool !== "" && <div className='inputs-top_draw'>
                         {tool === "linesColor" && <>
                             <label>Lines color:</label>
                             <input
@@ -352,7 +353,7 @@ const DrawingFormTop = () => {
                                 <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
                             </div>
                         </>}
-                    </div>
+                    </div>}
                 </>
             )}
             {/* {(isErasing || isPartialErasing) &&
