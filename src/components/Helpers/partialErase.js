@@ -3,7 +3,7 @@ const calculateDistance = (point1, point2) => {
     const dy = point2.y - point1.y;
     return Math.sqrt(dx * dx + dy * dy);
 }
-export const partialErase = (clickedPoint, pathPoints) => {
+const partialErase = (clickedPoint, pathPoints) => {
     // let closestPoint = null;
     let closestIndex = 0;
     let closestDistance = Number.MAX_VALUE;
@@ -21,3 +21,5 @@ export const partialErase = (clickedPoint, pathPoints) => {
     const p2 = pathPoints.slice(closestIndex);
     return ([p1, p2]);
 }
+
+export default partialErase
