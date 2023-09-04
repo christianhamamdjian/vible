@@ -12,12 +12,12 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
             : [arr];
 
     const chunk = (<div>
-        {chunkArray(buttons, 6)[index].map((el, i) => {
+        {chunkArray(buttons, 4)[index].map((el, i) => {
             return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
         })}
     </div>)
 
-    const maxIndex = chunkArray(buttons, 6).length - 1
+    const maxIndex = chunkArray(buttons, 4).length - 1
 
     return (
         <>

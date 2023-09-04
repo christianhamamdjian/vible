@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
-import partialErase from "../components/helpers/partialErase"
+import { partialErase } from "../components/helpers/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
 import { handlePdfDelete } from "../components/utils/itemsOperations"
 
