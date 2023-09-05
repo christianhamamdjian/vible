@@ -63,7 +63,7 @@ const RightSidebard = () => {
                     text="Click to download a pdf copy!"
                 >
                     <button className='toggler' onClick={() => printPdf(divRef.current)}>
-                        <div className="prnt-board">
+                        <div className="print-board">
                             <svg
                                 width="24"
                                 height="24"
@@ -204,19 +204,19 @@ const RightSidebard = () => {
                         />
                     </svg>
                 </button>
-
-
             </div>
-            <label>Zoom slider:</label>
-            <input
-                type="range"
-                min="5000"
-                max="30000"
-                step="400"
-                name="zoomSlider"
-                value={zoom}
-                onChange={(e) => handleZoomSlider(e)}
-            />
+            <div className='zoom-slider' >
+                <label style={{ whiteSpace: "nowrap", marginBottom: "0" }}>Zoom slider:</label>
+                <input
+                    type="range"
+                    min="5000"
+                    max="30000"
+                    step="400"
+                    name="zoomSlider"
+                    value={zoom}
+                    onChange={(e) => handleZoomSlider(e)}
+                />
+            </div>
             <Calculator />
             <Calendar />
         </div>

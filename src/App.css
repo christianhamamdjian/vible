@@ -339,13 +339,17 @@ button,
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: .8rem .4rem;
+  padding: .8rem 1.2rem 1.2rem;
   gap: .2rem .8rem;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.9);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   border-radius: 1rem;
+}
+
+.inputs-top_draw label {
+  margin-bottom: 0;
 }
 
 .inputs-top_draw button {
@@ -943,7 +947,7 @@ button,
 }
 
 .gallery form button {
-  padding: .4rem.8rem;
+  padding: .2rem .8rem .4rem;
   font-size: 1.2rem;
   background-color: rgb(46, 81, 237);
 }
@@ -1168,9 +1172,18 @@ button,
 
 .sidebar-zoom {
   display: flex;
+  white-space: nowrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+.zoom-slider {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Sidebar forms */
@@ -1526,9 +1539,10 @@ input[type="range"]:focus::-moz-range-thumb {
   display: block;
   position: relative;
   padding-left: 35px;
+  padding-top: .4rem;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  /* font-size: 1rem; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

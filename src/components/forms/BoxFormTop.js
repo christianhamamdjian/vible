@@ -156,7 +156,7 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "fontStyle" &&
-                            <label className='checkbox-container'>Font style:
+                            <label className='checkbox-container'>Font Bold
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -166,7 +166,7 @@ const BoxFormTop = () => {
                                 <span className="checkmark"></span>
                             </label>}
                         {/* {tool === "textAlignLeft" &&
-                            <label className='checkbox-container'>Text align left:
+                            <label className='checkbox-container'>Text align left
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -176,7 +176,7 @@ const BoxFormTop = () => {
                                 <span className="checkmark"></span>
                             </label>} */}
                         {tool === "textAlignCenter" &&
-                            <label className='checkbox-container'>Text align center:
+                            <label className='checkbox-container'>Text align center
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -235,7 +235,7 @@ const BoxFormTop = () => {
                             </button>
                         </div>}
                         {tool === "rating" &&
-                            <label className='checkbox-container'>Rating:
+                            <label className='checkbox-container'>Rating
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -245,7 +245,7 @@ const BoxFormTop = () => {
                                 <span className="checkmark"></span>
                             </label>}
                         {/* {tool === "border" &&
-                            <label className='checkbox-container'>Border:
+                            <label className='checkbox-container'>Border
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'

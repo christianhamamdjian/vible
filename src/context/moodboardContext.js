@@ -315,16 +315,17 @@ export default function MoodboardProvider({ children }) {
         setItemText('Text')
         setItemColor('#f4b416')
     }
-    const handleAddTodoBox = (text) => {
+    const handleAddTodoBox = (text, completed) => {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
             x: 200,
             y: 200,
-            text: text,
+            text: `${text} ${completed ? "(Completed)" : ""}`,
             //color: itemColor,
             color: "#940019",
-            textColor: getTextColor(itemColor),
+            // textColor: getTextColor(itemColor),
+            textColor: "#ffffff",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -681,38 +682,38 @@ export default function MoodboardProvider({ children }) {
             const item = items.find(el => el.id === selectedRectId)
             if (item.type === "box") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
             if (item.type === "image") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
             if (item.type === "imageUrl") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
             if (item.type === "video") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(600, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(600, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
             if (item.type === "mapUrl") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(400, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(400, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
             if (item.type === "pdf") {
                 setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(300, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(300, prevSize.height + dy)),
+                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
                 }))
             }
 
@@ -969,6 +970,7 @@ export default function MoodboardProvider({ children }) {
         const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
+            stopAllTopForms()
             setSelectedPath(index)
             setIsEditingPath({ status: true, id: id })
             document.addEventListener('keydown', function (e) {
@@ -1058,6 +1060,7 @@ export default function MoodboardProvider({ children }) {
     // Path Group handling
     const handleGrouping = () => {
         stopAllTopForms()
+        setTool("")
         if (isGrouping) {
             resetPathsGroup()
             setSelectedPath(null)
@@ -1407,9 +1410,9 @@ export default function MoodboardProvider({ children }) {
         setGalleryItems(newItems)
     }
 
-    const handleTodoAddToBoard = (text) => {
+    const handleTodoAddToBoard = (text, completed) => {
         if (text !== "") {
-            handleAddTodoBox(text)
+            handleAddTodoBox(text, completed)
         }
     }
 

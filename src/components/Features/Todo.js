@@ -17,7 +17,7 @@ const Todo = () => {
 
     const windowSize = useRef([window.innerWidth, window.innerHeight])
 
-    function dragStart(e, index, text) {
+    function dragStart(e, index, text, completed) {
         if (e.button === 2 || editingTodoId || editingTodoText) return
         setIsDragging(index)
         const todoContainer = containerRef.current
@@ -94,7 +94,7 @@ const Todo = () => {
             const posY = e.clientY - y
             if (e.clientX < (windowSize.current[0] - todoRef.current.offsetWidth) || e.clientY < (windowSize.current[1] - todoRef.current.offsetHeight)) {
                 dragItem.style.transform = `translate(${posX}px, ${posY}px)`
-                handleTodoAddToBoard(text)
+                handleTodoAddToBoard(text, completed)
             }
 
             document.onpointerup = ""
@@ -227,7 +227,7 @@ const Todo = () => {
                         {
                             todos.map((todo, index) => (
                                 <li key={todo.id}
-                                    onPointerDown={e => dragStart(e, index, todo.text)}
+                                    onPointerDown={e => dragStart(e, index, todo.text, todo.completed)}
                                 >
                                     <div
                                         className={`card ${isDragging === index ? 'dragging' : ''}`}

@@ -33,12 +33,12 @@ const DrawingFormTop = () => {
         <>
             {isDrawing && !isEditingPath && (
                 <div className='inputs-top_draw'>
-                    <label>Line color:</label>
+                    <label>Line color: </label>
                     <input
                         type="color"
                         value={pathColor}
                         onChange={(event) => handleLineColor(event)} />
-                    <label>Line width:</label>
+                    <label>Line width: </label>
                     <input
                         type="number"
                         className='input-line-width'
@@ -53,13 +53,13 @@ const DrawingFormTop = () => {
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>
                         {tool === "lineColor" && <>
-                            <label>Line color:</label>
+                            <label>Line color: </label>
                             <input
                                 type="color"
                                 value={paths.find(path => path.id === isEditingPath.id).color}
                                 onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         </>}
-                        {tool === "lineWidth" && <><label>Line width:</label>
+                        {tool === "lineWidth" && <><label>Line width: </label>
                             <input
                                 type="number"
                                 className='input-line-width'
@@ -68,7 +68,7 @@ const DrawingFormTop = () => {
                         </>}
 
                         {tool === "fillColor" && <>
-                            <label>Fill color:</label>
+                            <label>Fill color: </label>
                             <input
                                 type="color"
                                 className='input-line-fill'
@@ -78,7 +78,7 @@ const DrawingFormTop = () => {
                         }
 
 
-                        {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line:
+                        {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line
                             <input
                                 type="checkbox"
                                 className='input-line-closed'
@@ -89,7 +89,7 @@ const DrawingFormTop = () => {
                         </label>}
 
 
-                        {tool === "dashedLine" && <label className='checkbox-container'>Dashed line:
+                        {tool === "dashedLine" && <label className='checkbox-container'>Dashed line
                             <input
                                 type="checkbox"
                                 className='input-line-dashed'
@@ -100,7 +100,7 @@ const DrawingFormTop = () => {
                         </label>}
 
 
-                        {tool === "arrowStart" && <label className='checkbox-container'>Arrow Start:
+                        {tool === "arrowStart" && <label className='checkbox-container'>Arrow Start
                             <input
                                 type="checkbox"
                                 className='input-line-arrowstart'
@@ -111,7 +111,7 @@ const DrawingFormTop = () => {
                         </label>}
 
 
-                        {tool === "arrowEnd" && <label className='checkbox-container'>Arrow End:
+                        {tool === "arrowEnd" && <label className='checkbox-container'>Arrow End
                             <input
                                 type="checkbox"
                                 className='input-line-arrowend'
@@ -122,7 +122,7 @@ const DrawingFormTop = () => {
                         </label>}
 
 
-                        {tool === "changeOpacity" && <> <label>Change Opacity:</label>
+                        {tool === "changeOpacity" && <> <label>Change Opacity: </label>
                             <input
                                 type="range"
                                 min="0.1"
@@ -134,13 +134,13 @@ const DrawingFormTop = () => {
                             /></>}
 
                         {tool === "rotate" && <div className='path-edit-form'>
-                            <label htmlFor="rotate"><label>Rotate:</label></label>
+                            <label htmlFor="rotate"><label>Rotate: </label></label>
                             <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                             <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                         </div>}
 
                         {tool === "scale" && <div className='path-edit-form'>
-                            <label htmlFor="scale"><label>Scale:</label></label>
+                            <label htmlFor="scale"><label>Scale: </label></label>
                             <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                             <button onClick={e => handleScaleChange(e, "increase")}>+</button>
                         </div>}
@@ -150,7 +150,7 @@ const DrawingFormTop = () => {
                        */}
 
                         {tool === "order" && <div className='path-edit-form'>
-                            <label>Order:</label>
+                            <label>Order: </label>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
                                 <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
@@ -171,7 +171,7 @@ const DrawingFormTop = () => {
 
 
                         {tool === "duplicate" && <div className='path-edit-form'>
-                            <label>Duplicate:</label>
+                            <label>Duplicate: </label>
                             <button
                                 onClick={() => handleDuplicatePath(isEditingPath.id)}>
                                 <svg
@@ -265,14 +265,14 @@ const DrawingFormTop = () => {
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>
                         {tool === "linesColor" && <>
-                            <label>Lines color:</label>
+                            <label>Lines color: </label>
                             <input
                                 type="color"
                                 value={pathColor}
                                 onChange={(event) => handleGroupColorChange(event, isEditingPath.id)} />
                         </>}
                         {tool === "linesWidth" && <>
-                            <label>Lines width:</label>
+                            <label>Lines width: </label>
                             <input
                                 type="number"
                                 className='input-line-width'
@@ -281,14 +281,14 @@ const DrawingFormTop = () => {
                         </>}
                         {tool === "linesRotate" && <>
                             <div className='path-edit-form'>
-                                <label htmlFor="rotate"><label>Group Rotate:</label></label>
+                                <label htmlFor="rotate"><label>Group Rotate: </label></label>
                                 <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
                                 <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
                             </div>
                         </>}
                         {tool === "linesScale" && <>
                             <div className='path-edit-form'>
-                                <label htmlFor="scale"><label>Group Scale:</label></label>
+                                <label htmlFor="scale"><label>Group Scale: </label></label>
                                 <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
                                 <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
                             </div>
