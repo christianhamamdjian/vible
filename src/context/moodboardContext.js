@@ -460,12 +460,34 @@ export default function MoodboardProvider({ children }) {
     const handleTextDropUpload = (e) => {
         const text = e.dataTransfer.getData('text')
         const youTubeUrl = e.dataTransfer.getData('url')
+        const googleMapUrlStart = "https://www.google.com/maps"
+        const googleMapUrlEnd = "z?entry=ttu"
         const urlStart = "https://www.youtube.com/watch?v="
         let newText = youTubeUrl
         let youtubeCode = newText.replace(urlStart, "")
         if (youTubeUrl && youTubeUrl.includes(urlStart)) {
-            // console.log(youtubeCode)
             handleDropVideo(youtubeCode)
+        }
+        if (text && (text.startsWith(googleMapUrlStart))) {
+            function extractword(str, start, end) {
+                let startindex = str.indexOf(start) + 1;
+                let endindex = str.indexOf(end, startindex);
+                if (startindex != -1 && endindex != -1 && endindex > startindex)
+                    return str.substring(startindex, endindex)
+            }
+            // const minusStart = text.replace(googleMapUrlStart, "")
+            // const minusEnd = minusStart.replace(googleMapUrlEnd, "")
+            const googleCoordinates = () => extractword(text, "@", "z")
+            const newItem = {
+                id: Date.now(),
+                mapUrl: googleCoordinates(),
+                x: 100,
+                y: 200,
+                width: 300,
+                height: 250,
+                type: "mapUrl"
+            }
+            setItems((prevItems) => [...prevItems, newItem])
         }
         if (text
             && ((text.startsWith('http')

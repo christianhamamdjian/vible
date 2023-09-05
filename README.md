@@ -54,7 +54,7 @@ You can change an image opacity to be able to trace over it. Drawn lines are in 
 
 You can use the erase board or the erase all lines button on the right controls panel
 
-Mix vector freeform drawings and handwriting with typed text, uploaded images, linked images, Youtube videos, Google maps and Pdf files.
+Mix vector freeform drawings and handwriting with typed text, uploaded images, linked images, Youtube videos, Google maps (https://www.google.com/maps/) and Pdf files.
 
 On mobile devices you can add Vible to the homescreen and use it as one of you apps.
 
@@ -70,8 +70,4 @@ You can zoom in and out by clicking or using a slider. Zooming out permits to pr
 
 The theme switcher offers different colors to suit your taste.
 
-You get access to the documentation using the "?" button at the top.
-
-If you want to draw a rectangle, a circle or a rounded rectangle you can use a text box without text and modify the corner roundness.
-
-Images can be cropped and their corners rounded.
+You get access to the documentation using the (?) button at the top.
