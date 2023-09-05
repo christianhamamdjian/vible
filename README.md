@@ -17,7 +17,7 @@ Boards can also be saved in Json format for backup, sharing or transfer.
 The lef add items panel shows forms to upload or embed images, videos, maps and pdf files
 
 Select text from web pages or applications windows an drag it to the board.
-Select and drag a youtube link from the address bar to embed the video.
+Select and drag a youtube or a google maps (https://www.google.com/maps/...) link from the address bar and drop it anywhere on the board to embed the video.
 Select and drag an image and if you're lucky it will show on the board. Not all images can be linked to unfortunately.
 
 Click a calendar date to get a box with the date on the board.
@@ -54,7 +54,7 @@ You can change an image opacity to be able to trace over it. Drawn lines are in 
 
 You can use the erase board or the erase all lines button on the right controls panel
 
-Mix vector freeform drawings and handwriting with typed text, uploaded images, linked images, Youtube videos, Google maps (https://www.google.com/maps/) and Pdf files.
+Mix vector freeform drawings and handwriting with typed text, uploaded images, linked images, Youtube videos, Google maps and Pdf files.
 
 On mobile devices you can add Vible to the homescreen and use it as one of you apps.
 

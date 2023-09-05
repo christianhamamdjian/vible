@@ -10,7 +10,7 @@ import DownloadUploadData from "../utils/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -40,6 +40,30 @@ const RightSidebard = () => {
     return (
         <div className='right-sidebar'>
             <ThemeSwitcher />
+            <div>
+                <div className='right-sidebar-buttons' style={{ padding: ".5rem" }}>
+                    <label>Board color: </label>
+                    <input
+                        type="color"
+                        className='board-color'
+                        value={boardColor}
+                        onChange={(e) => handleBoardColorChange(e)}
+                    />
+                    <label>Buttons color: </label>
+                    <input
+                        type="color"
+                        className='theme-color'
+                        value={buttonsColor}
+                        onChange={(e) => handleButtonsColorChange(e)}
+                    />
+                </div>
+                <div className='right-sidebar-buttons' style={{ marginTop: "-.5rem" }}>
+                    <button
+                        style={{ margin: "0 auto" }}
+                        onClick={handleColorReset}
+                    >Reset Colors</button>
+                </div>
+            </div>
             {/* <div>
                 <h1>Font Selector</h1>
                 <FontSelector selectedFont={selectedFont} setSelectedFont={setSelectedFont} />

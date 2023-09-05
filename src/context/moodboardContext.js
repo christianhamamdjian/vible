@@ -8,6 +8,10 @@ import { handlePdfDelete } from "../components/utils/itemsOperations"
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
+    const [boards, setBoards] = useLocalStorage("boards", ["0", "1", "2"])
+    const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", [])
+    const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#f4f2f1")
+    const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [items, setItems] = useLocalStorage("items", [])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
@@ -93,6 +97,36 @@ export default function MoodboardProvider({ children }) {
         setTool(tool)
     }
 
+    const handleBoardColorChange = (e) => {
+        const newColor = e.target.value
+        setBoardColor(newColor)
+        localStorage.setItem('boardColor', JSON.stringify(newColor))
+        let board = document.getElementById("my-svg")
+        board.style.backgroundColor = boardColor;
+    }
+
+    const handleButtonsColorChange = (e) => {
+        const newColor = e.target.value
+        setButtonsColor(newColor)
+        localStorage.setItem('buttonsColor', JSON.stringify(newColor))
+        let buttons = document.getElementsByTagName("button" || "input")
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.backgroundColor = buttonsColor;
+        }
+    }
+    const handleColorReset = () => {
+        localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
+        localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
+        setBoardColor("#f4f2f1")
+        setButtonsColor("#ddddee")
+        let board = document.getElementById("my-svg")
+        board.style.backgroundColor = "#f4f2f1";
+        let buttons = document.getElementsByTagName("button" || "input")
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.backgroundColor = "#ddddee";
+        }
+    }
+
     const handleRating = (i, id) => {
         setSelectedStars(i + 1)
         setItems(prevItems =>
@@ -107,13 +141,32 @@ export default function MoodboardProvider({ children }) {
     }
 
     useEffect(() => {
-        setPdfId(Date.now())
-    }, [items])
+        const updateColors = () => {
+            const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
+            setBoardColor(applyBoardColor)
+            let board = document.getElementById("my-svg")
+            board.style.backgroundColor = applyBoardColor
+
+            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
+            setButtonsColor(applyButtonsColor)
+            let buttons = document.getElementsByTagName("button" || "input")
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.backgroundColor = applyButtonsColor
+            }
+        }
+
+
+        updateColors()
+    }, [])
 
     useEffect(() => {
         loadPathsFromLocalStorage()
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }, [])
+
+    useEffect(() => {
+        setPdfId(Date.now())
+    }, [items])
 
     useEffect(() => {
         savePathsToLocalStorage()
@@ -1732,7 +1785,12 @@ export default function MoodboardProvider({ children }) {
                 isPartialErasing,
                 tool,
                 zoom,
+                boardColor,
+                buttonsColor,
                 // Methods
+                handleBoardColorChange,
+                handleButtonsColorChange,
+                handleColorReset,
                 changeTool,
                 handlePartialEraser,
                 handleGrouping,
