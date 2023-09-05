@@ -16,6 +16,7 @@ const Image = ({ item }) => {
         }
     }, [])
     const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
+
     return (
         <>
             {item.type === "image" &&
@@ -26,44 +27,12 @@ const Image = ({ item }) => {
                             transformOrigin: `${item.width / 2}, ${calculatedHeight / 2}`,
                         }}
                     >
-                        {isEditingBoard && (
-                            <>
-                                <circle
-                                    id="rotate"
-                                    fill="#cccccc"
-                                    cx="-20"
-                                    cy={calculatedHeight / 2}
-                                    width="20"
-                                    height="20"
-                                    r='12'
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                <rect
-                                    id="resize"
-                                    fill="#cccccc"
-                                    x={item.width}
-                                    y={calculatedHeight}
-                                    width="20"
-                                    height="20"
-                                    rx="4"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                {/* <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={calculatedHeight - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                /> */}
-                            </>)}
                         <image
                             ref={itemRef}
                             href={item.src}
                             x="0"
                             y="0"
+                            clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
                             width={item.width}
                             height={calculatedHeight}
                             onPointerDown={(e) => handleRectPointerDown(e, item.id)}
@@ -86,6 +55,29 @@ const Image = ({ item }) => {
                             }}
                         />
                         <TopControls item={item} />
+                        {isEditingBoard && (
+                            <>
+                                <circle
+                                    id="rotate"
+                                    fill="#cccccc"
+                                    cx="-20"
+                                    cy={calculatedHeight / 2}
+                                    width="20"
+                                    height="20"
+                                    r='12'
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="#cccccc"
+                                    x={item.width}
+                                    y={calculatedHeight}
+                                    width="20"
+                                    height="20"
+                                    rx="4"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                            </>)}
                     </g >
                 </>
             }

@@ -380,56 +380,6 @@ button,
   font-weight: bold;
 }
 
-@media only screen and (max-width: 600px) {
-  .top-buttons {
-    width: 60vw;
-    margin: 0 auto;
-    flex-wrap: nowrap;
-    /* justify-content: stretch; */
-    border-radius: 0 0 12px 12px;
-    /* overflow: hidden; */
-    gap: 0;
-  }
-
-  .itemForms-top {
-    flex-direction: column;
-  }
-
-  .top-buttons button {
-    flex-basis: 0;
-    font-size: .7rem;
-  }
-
-  .inputs-top_draw {
-    width: 75%;
-  }
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-  }
-
-
-}
-
-@media only screen and (max-width: 800px) {
-  .inputs-top_objects {
-    height: 5.5rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 60vw;
-    grid-template-columns: 1fr 6rem;
-  }
-
-  .inputs-top_draw {
-    height: 4rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 80%;
-  }
-}
-
 /* Board */
 
 .frame {
@@ -1258,14 +1208,9 @@ button,
 
 /* File upload to Board */
 #board-form-file-upload {
-  /* font-size: .8rem; */
-  /* height: 8rem; */
   width: 100%;
   height: 100%;
   background-color: azure;
-  /* max-width: 100%; */
-  /* text-align: center;
-  position: relative; */
 }
 
 #board-input-file-upload {
@@ -1275,43 +1220,21 @@ button,
 #board-label-file-upload {
   width: 100%;
   height: 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-  /* border-width: 2px; */
-  /* border-radius: 1rem; */
-  /* border-style: dashed; */
-  /* border-color: transparent; */
-  /* background-color: transparent; */
   background-color: azure;
-  /* color: transparent; */
 }
 
 #board-label-file-upload.drag-active {
   background-color: azure;
-  /* background-color: transparent; */
 }
 
 .board-upload-button {
-  /* cursor: pointer; */
-  /* padding: 0.25rem;
-  font-size: 1rem; */
-  /* border: none; */
-  /* font-family: 'Oswald', sans-serif; */
-  /* background-color: transparent; */
   background-color: azure;
 }
-
-/* .board-upload-button:hover {
-  text-decoration-line: underline; 
-}
-*/
 
 #drag-file-element {
   position: absolute;
   width: 100%;
   height: 100%;
-  /* border-radius: 1rem; */
   top: 0px;
   right: 0px;
   bottom: 0px;
@@ -1420,7 +1343,20 @@ button,
   top: 6px;
 }
 
-
+.toggle-documentation {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 31rem;
+  left: 12%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* border-radius: 0px 12px 0px 0px; */
+  border-radius: 50%;
+  padding-top: .8rem;
+  padding-left: .85rem;
+  /* transform: rotate(30deg); */
+}
 
 
 /********** Range Input Styles **********/
@@ -1485,9 +1421,6 @@ input[type="range"]::-webkit-slider-thumb {
   /* Override default look */
   appearance: none;
   margin-top: -12px;
-  /* Centers thumb on the track */
-
-  /*custom styles*/
   background-color: #d9d9d9;
   border-radius: 1rem;
   height: 2rem;
@@ -1513,11 +1446,7 @@ input[type="range"]::-moz-range-track {
 
 input[type="range"]::-moz-range-thumb {
   border: none;
-  /*Removes extra border that FF applies*/
   border-radius: 0;
-  /*Removes default border-radius that FF applies*/
-
-  /*custom styles*/
   background-color: #d9d9d9;
   height: 2rem;
   width: 1rem;
@@ -1528,10 +1457,6 @@ input[type="range"]:focus::-moz-range-thumb {
   outline: 3px solid #053a5f;
   outline-offset: 0.125rem;
 }
-
-
-/********** End of Range Input Styles **********/
-
 
 /********** Checkbox Input Styles **********/
 
@@ -1655,3 +1580,59 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 /********** End of Color Input Styles **********/
+
+
+
+@media only screen and (max-width: 600px) {
+  .top-buttons {
+    width: 60vw;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+    /* justify-content: stretch; */
+    border-radius: 0 0 12px 12px;
+    /* overflow: hidden; */
+    gap: 0;
+  }
+
+  .itemForms-top {
+    flex-direction: column;
+  }
+
+  .top-buttons button {
+    flex-basis: 0;
+    font-size: .7rem;
+  }
+
+  .inputs-top_draw {
+    width: 75%;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+  .inputs-top_objects {
+    height: 5.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 60vw;
+    grid-template-columns: 1fr 6rem;
+  }
+
+  .inputs-top_draw {
+    height: 4rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 80%;
+  }
+
+  .toggle-documentation {
+    top: 36rem;
+    left: 1rem;
+  }
+}

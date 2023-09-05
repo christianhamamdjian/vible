@@ -25,6 +25,33 @@ const ImageLink = ({ item }) => {
                             transformOrigin: `${item.width / 2}, ${calculatedHeight / 2}`,
                         }}
                     >
+
+                        <image
+                            ref={itemRef}
+                            href={item.imageUrl}
+                            x="0"
+                            y="0"
+                            width={item.width}
+                            clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
+                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                            onDoubleClick={(e) => handleEditItem(e, item.id)}
+                            className='imagelink-media'
+                            style={{
+                                display: "block",
+                                zIndex: "999999",
+                                position: "absolute",
+                                top: "0",
+                                right: "0",
+                                bottom: "0",
+                                left: "0",
+                                opacity: item.opacity,
+                            }}
+                        />
                         {isEditingBoard && (
                             <>
                                 <circle
@@ -47,49 +74,7 @@ const ImageLink = ({ item }) => {
                                     rx="4"
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
-                                {/* <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={calculatedHeight - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                /> */}
                             </>)}
-                        {/* <rect
-                            width="120"
-                            height="20"
-                            fill="transparent"
-                            className='imagelink-object'
-                        /> */}
-                        <image
-                            ref={itemRef}
-                            href={item.imageUrl}
-                            x="0"
-                            y="0"
-                            width={item.width}
-                            // height={calculatedHeight}
-                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
-                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
-                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
-                            onDoubleClick={(e) => handleEditItem(e, item.id)}
-                            className='imagelink-media'
-                            style={{
-                                display: "block",
-                                zIndex: "999999",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
-                                opacity: item.opacity,
-                            }}
-                        />
                         <TopControls item={item} />
                     </g >
                 </>

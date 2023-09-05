@@ -71,3 +71,7 @@ You can zoom in and out by clicking or using a slider. Zooming out permits to pr
 The theme switcher offers different colors to suit your taste.
 
 You get access to the documentation using the "?" button at the top.
+
+If you want to draw a rectangle, a circle or a rounded rectangle you can use a text box without text and modify the corner roundness.
+
+Images can be cropped and their corners rounded.

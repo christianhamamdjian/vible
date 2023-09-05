@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TopButtonsSlider from "../helpers/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
@@ -9,7 +9,9 @@ const ImageLinkFormTop = () => {
         width: "Width",
         angle: "Angle",
         opacity: "Opacity",
-        order: "Order"
+        order: "Order",
+        crop: "Crop",
+        roundCorners: "Round corners"
     }
 
     return (
@@ -64,6 +66,42 @@ const ImageLinkFormTop = () => {
                                 name="opacity"
                                 value={editingImage && items.find(item => item.id === editingImage.id).opacity}
                                 onChange={(e) => handleItemChange(e, editingImage.id, "opacity")}
+                            />
+                        </>}
+                        {tool === "crop" && <>
+                            <label>Crop width:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropWidth"
+                                value={editingImage && items.find(item => item.id === editingImage.id).cropWidth}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "cropWidth")}
+                            />
+                        </>}
+                        {tool === "crop" && <>
+                            <label>Crop height:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropHeight"
+                                value={editingImage && items.find(item => item.id === editingImage.id).cropHeight}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "cropHeight")}
+                            />
+                        </>}
+                        {tool === "roundCorners" && <>
+                            <label>Round corners:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="roundCorners"
+                                value={editingImage && items.find(item => item.id === editingImage.id).roundCorners}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "roundCorners")}
                             />
                         </>}
                         {tool === "order" && <>

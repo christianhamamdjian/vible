@@ -9,7 +9,9 @@ const ImageFormTop = () => {
         width: "Width",
         angle: "Angle",
         opacity: "Opacity",
-        order: "Order"
+        order: "Order",
+        crop: "Crop",
+        roundCorners: "Round corners"
     }
 
     return (
@@ -20,14 +22,6 @@ const ImageFormTop = () => {
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_objects' >
-                        {/* <label>Change width:</label>
-                        <input
-                            type="number"
-                            min="10"
-                            // max="100"
-                            value={editingImage && Math.floor(items.find(item => item.id === editingImage.id).width)}
-                            onChange={(e) => handleItemChange(e, editingImage.id, "width")}
-                        /> */}
                         {tool === "width" && <>
                             <label>Change width:</label>
                             <input
@@ -62,6 +56,42 @@ const ImageFormTop = () => {
                                 name="opacity"
                                 value={editingImage && items.find(item => item.id === editingImage.id).opacity}
                                 onChange={(e) => handleItemChange(e, editingImage.id, "opacity")}
+                            />
+                        </>}
+                        {tool === "crop" && <>
+                            <label>Crop width:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropWidth"
+                                value={editingImage && items.find(item => item.id === editingImage.id).cropWidth}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "cropWidth")}
+                            />
+                        </>}
+                        {tool === "crop" && <>
+                            <label>Crop height:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropHeight"
+                                value={editingImage && items.find(item => item.id === editingImage.id).cropHeight}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "cropHeight")}
+                            />
+                        </>}
+                        {tool === "roundCorners" && <>
+                            <label>Round corners:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="roundCorners"
+                                value={editingImage && items.find(item => item.id === editingImage.id).roundCorners}
+                                onChange={(e) => handleItemChange(e, editingImage.id, "roundCorners")}
                             />
                         </>}
                         {tool === "order" && <>

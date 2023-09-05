@@ -422,12 +422,14 @@ export default function MoodboardProvider({ children }) {
                 src: e.target.result,
                 x: 100,
                 y: 100,
-                // width: 20,
                 width: 100,
                 height: "auto",
                 opacity: 1,
                 angle: 0,
-                type: "image"
+                type: "image",
+                cropHeight: 0,
+                cropWidth: 0,
+                roundCorners: 0,
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
@@ -446,7 +448,10 @@ export default function MoodboardProvider({ children }) {
                 opacity: 1,
                 angle: 0,
                 height: "auto",
-                type: "image"
+                type: "image",
+                cropHeight: 0,
+                cropWidth: 0,
+                roundCorners: 0,
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
@@ -478,7 +483,11 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: 100,
-                type: "imageUrl"
+                type: "imageUrl",
+                opacity: 1,
+                cropHeight: 0,
+                cropWidth: 0,
+                roundCorners: 0,
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
@@ -602,7 +611,11 @@ export default function MoodboardProvider({ children }) {
             y: 100,
             width: 100,
             height: "auto",
-            type: "imageUrl"
+            type: "imageUrl",
+            opacity: 1,
+            cropHeight: 0,
+            cropWidth: 0,
+            roundCorners: 0,
         }
         setItems((prevItems) => [...prevItems, newItem])
     }
@@ -942,9 +955,6 @@ export default function MoodboardProvider({ children }) {
     const handlePathSelect = (e, index, id) => {
         e.preventDefault()
         if (isDraggingRect || isDrawing || isEditingBoard || editingItem) { return }
-        // if (isDrawing) {
-        //     return
-        // }
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }
