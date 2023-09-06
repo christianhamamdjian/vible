@@ -265,7 +265,6 @@ const ButtonsTop = () => {
                         </div>
                     </button>
                 </>
-
             </div>
         </>
     )

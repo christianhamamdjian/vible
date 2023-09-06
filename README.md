@@ -14,7 +14,7 @@ Boards can be printed and downloaded as a Pdf file.
 
 Boards can also be saved in Json format for backup, sharing or transfer.
 
-The lef add items panel shows forms to upload or embed images, videos, maps and pdf files
+The left add items panel shows forms to upload or embed images, videos, maps and pdf files
 
 Select text from web pages or applications windows an drag it to the board.
 Select and drag a youtube or a google maps (https://www.google.com/maps/...) link from the address bar and drop it anywhere on the board to embed the video.
@@ -71,3 +71,5 @@ You can zoom in and out by clicking or using a slider. Zooming out permits to pr
 The theme switcher offers different colors to suit your taste.
 
 You get access to the documentation using the (?) button at the top.
+
+Set the board and buttons colors or choose from suggested colors.
