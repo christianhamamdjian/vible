@@ -2,7 +2,7 @@ import React from 'react';
 import MoodBoard from './components/layout/MoodBoard'
 import SidebarDrawer from "./components/layout/SidebarDrawer"
 import EditFormTop from "./components/forms/EditFormTop"
-import TopBoardsSlider from "./components/helperFunctions/TopBoardsSlider"
+// import TopBoardsSlider from "./components/helperFunctions/TopBoardsSlider"
 // import ConnectionLine from './components/DraggableConnection';
 
 import './App.css'
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="app">
       <EditFormTop />
-      <TopBoardsSlider />
+      {/* <TopBoardsSlider /> */}
       <div className="vible-container" >
         <SidebarDrawer side="left" />
         <MoodBoard />

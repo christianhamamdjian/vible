@@ -266,6 +266,12 @@ button,
   background-color: #ffffff;
   border-radius: 0 0 .2rem .2rem;
 } */
+.boards-sign {
+  min-width: 1.2rem;
+  letter-spacing: -.1rem;
+  margin-top: -.1rem;
+  margin-left: -.55rem;
+}
 
 .editing-sign {
   min-width: 1.2rem;

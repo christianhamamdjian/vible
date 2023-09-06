@@ -6,14 +6,16 @@ import ImageFormTop from "./ImageFormTop"
 import VideoFormTop from "./VideoFormTop"
 import MapFormTop from "./MapFormTop"
 import PdfFormTop from "./PdfFormTop"
+import TopBoardsSlider from "../helperFunctions/TopBoardsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const EditFormTop = () => {
-    const { } = React.useContext(MoodboardContext)
+    const { showBoards } = React.useContext(MoodboardContext)
 
     return (
         <div className='itemForms-top'>
             <ButtonsTop />
+            {showBoards && <TopBoardsSlider />}
             <BoxFormTop />
             <DrawingFormTop />
             <ImageFormTop />

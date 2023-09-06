@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, info } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -80,7 +80,7 @@ const ButtonsTop = () => {
                     height="4.5rem"
                     top="-3rem"
                     bottom="90%"
-                    left="-1rem"
+                    left="-1.2rem"
                     right=""
                     marginRight=""
                     marginLeft=""
@@ -117,7 +117,7 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.5rem"
+                            left="-.9rem"
                             right=""
                             marginRight=""
                             marginLeft=""
@@ -151,7 +151,7 @@ const ButtonsTop = () => {
                             height="4.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.5rem"
+                            left="-.6rem"
                             right=""
                             marginRight=""
                             marginLeft=""
@@ -185,7 +185,7 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.5rem"
+                            left="-.3rem"
                             right=""
                             marginRight=""
                             marginLeft=""
@@ -237,6 +237,44 @@ const ButtonsTop = () => {
                 }
                 <>
                     <button
+                        className={showBoards ? "selected-button" : null}
+                        onClick={handleShowBoards}>
+                        <div className='boards-sign'>
+                            <svg
+                                x="0"
+                                y="0"
+                                width="28"
+                                height="28"
+                                viewBox="0, 0, 28, 28"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g>
+                                    <path d="M23.75,2.5 C25.821,2.5 27.5,4.179 27.5,6.25 L27.5,23.75 C27.5,25.821 25.821,27.5 23.75,27.5 L6.25,27.5 C4.179,27.5 2.5,25.821 2.5,23.75 L2.5,6.25 C2.5,4.179 4.179,2.5 6.25,2.5 L23.75,2.5 z" fillOpacity="0" stroke="#ffffff" strokeWidth="1.25" />
+                                    <path d="M11.894,17.129 C12.446,17.129 12.894,17.577 12.894,18.129 L12.894,23.886 C12.894,24.438 12.446,24.886 11.894,24.886 L6.009,24.886 C5.457,24.886 5.009,24.438 5.009,23.886 L5.009,18.129 C5.009,17.577 5.457,17.129 6.009,17.129 L11.894,17.129 z" fill="#ffffff" />
+                                    <path d="M23.991,17.129 C24.543,17.129 24.991,17.577 24.991,18.129 L24.991,23.886 C24.991,24.438 24.543,24.886 23.991,24.886 L18.106,24.886 C17.554,24.886 17.106,24.438 17.106,23.886 L17.106,18.129 C17.106,17.577 17.554,17.129 18.106,17.129 L23.991,17.129 z" fill="#ffffff" />
+                                    <path d="M11.894,5.16 C12.446,5.16 12.894,5.608 12.894,6.16 L12.894,11.917 C12.894,12.469 12.446,12.917 11.894,12.917 L6.009,12.917 C5.457,12.917 5.009,12.469 5.009,11.917 L5.009,6.16 C5.009,5.608 5.457,5.16 6.009,5.16 L11.894,5.16 z" fill="#ffffff" />
+                                    <path d="M23.991,5.16 C24.543,5.16 24.991,5.608 24.991,6.16 L24.991,11.917 C24.991,12.469 24.543,12.917 23.991,12.917 L18.106,12.917 C17.554,12.917 17.106,12.469 17.106,11.917 L17.106,6.16 C17.106,5.608 17.554,5.16 18.106,5.16 L23.991,5.16 z" fill="#ffffff" />
+                                </g>
+                            </svg>
+                        </div>
+                    </button>
+                    <Tooltips
+                        position="bottom"
+                        width="3.5rem"
+                        height="3.8rem"
+                        top="-3rem"
+                        bottom="90%"
+                        left="-.1rem"
+                        right=""
+                        marginRight=""
+                        marginLeft=""
+                        tipTop="-.7rem"
+                        tipLeft="25%"
+                        text="Click to edit boards"
+                    />
+                </>
+                <>
+                    <button
                         className={info ? "selected-button" : null}
                         onClick={handleInfo}>
                         <div className='info-sign'>
@@ -265,6 +303,7 @@ const ButtonsTop = () => {
                         </div>
                     </button>
                 </>
+
             </div>
         </>
     )

@@ -8,9 +8,10 @@ import { handlePdfDelete } from "../components/utils/itemsOperations"
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
-    const [boards, setBoards] = useLocalStorage("boards", ["0", "1", "2"])
+    const [boards, setBoards] = useLocalStorage("boards", [])
     const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", [])
     const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#f4f2f1")
+    const [boardIndex, setBoardIndex] = useState(0);
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [items, setItems] = useLocalStorage("items", [])
@@ -79,6 +80,11 @@ export default function MoodboardProvider({ children }) {
     const [angleOffset, setAngleOffset] = useState({ x: 0, y: 0 })
 
     const [info, setInfo] = useState(false)
+    const [showBoards, setShowBoards] = useState(false)
+
+    const handleShowBoards = () => {
+        setShowBoards(showBoards => !showBoards)
+    }
 
     const divRef = useRef(null)
     const svgRef = useRef(null)
@@ -93,10 +99,42 @@ export default function MoodboardProvider({ children }) {
     const [positionErase, setPositionErase] = useState(0);
 
     const [tool, setTool] = useState("")
+
     const changeTool = (tool) => {
         setTool(tool)
     }
 
+    const handleChangeBoard = (boardId) => {
+        const toDelete = boards.find((el) => el.id === boardId)
+        setActiveBoard(toDelete)
+    }
+
+    const handleAddNewBoard = () => {
+        // const newBoard = { id: Date().now, mame:"Board" }
+        // setBoards(prevBoards => [...prevBoards, prevBoards.length + 1])
+        const newId = Date.now()
+        setBoards(prevBoards => [...prevBoards, { id: newId, name: prevBoards.length + 1 }])
+    }
+    const handleBoardIndexUpdate = (index) => {
+        setBoardIndex(index)
+    }
+    const handleDeleteBoard = (chunkContent) => {
+        if (chunkContent.length - 1 === 0) {
+            setBoardIndex(boardIndex - 1)
+        }
+        const newBoards = boards.filter((el) => el.id !== activeBoard.id)
+        const newItems = items.filter((el) => el.board !== activeBoard.id)
+        const newPaths = paths.filter((el) => el.board !== activeBoard.id)
+        setItems(newItems)
+        setPaths(newPaths)
+        // handlePdfDelete()
+        if (boards.length === 1) {
+            handleAddNewBoard()
+            setActiveBoard(boards[0])
+        }
+        const reorderedBoards = newBoards.map((el, index) => ({ ...el, name: index + 1 }))
+        setBoards(reorderedBoards)
+    }
     const handleBoardColorChange = (e) => {
         const newColor = e.target.value
         setBoardColor(newColor)
@@ -119,12 +157,12 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
         setBoardColor("#f4f2f1")
         setButtonsColor("#ddddee")
-        let board = document.getElementById("my-svg")
-        board.style.backgroundColor = "#f4f2f1";
-        let buttons = document.getElementsByTagName("button" || "input")
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].style.backgroundColor = "#ddddee";
-        }
+        // let board = document.getElementById("my-svg")
+        // board.style.backgroundColor = "#f4f2f1";
+        // let buttons = document.getElementsByTagName("button" || "input")
+        // for (var i = 0; i < buttons.length; i++) {
+        //     buttons[i].style.backgroundColor = "#ddddee";
+        // }
     }
 
     const handleRating = (i, id) => {
@@ -147,15 +185,13 @@ export default function MoodboardProvider({ children }) {
             let board = document.getElementById("my-svg")
             board.style.backgroundColor = applyBoardColor
 
-            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
-            setButtonsColor(applyButtonsColor)
-            let buttons = document.getElementsByTagName("button" || "input")
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].style.backgroundColor = applyButtonsColor
-            }
+            // const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
+            // setButtonsColor(applyButtonsColor)
+            // let buttons = document.getElementsByTagName("button" || "input")
+            // for (var i = 0; i < buttons.length; i++) {
+            //     buttons[i].style.backgroundColor = applyButtonsColor
+            // }
         }
-
-
         updateColors()
     }, [])
 
@@ -449,7 +485,6 @@ export default function MoodboardProvider({ children }) {
             width: 140,
             height: 140,
             type: "box",
-            type: "box",
             font: "Roboto",
             fontStyle: false,
             fontSize: "10",
@@ -525,7 +560,7 @@ export default function MoodboardProvider({ children }) {
             function extractword(str, start, end) {
                 let startindex = str.indexOf(start) + 1;
                 let endindex = str.indexOf(end, startindex);
-                if (startindex != -1 && endindex != -1 && endindex > startindex)
+                if (startindex !== -1 && endindex !== -1 && endindex > startindex)
                     return str.substring(startindex, endindex)
             }
             // const minusStart = text.replace(googleMapUrlStart, "")
@@ -748,6 +783,7 @@ export default function MoodboardProvider({ children }) {
             setDrawing(true)
             setPaths([...paths, {
                 id: Date.now(),
+                board: activeBoard.id,
                 group: "noGroup",
                 color: pathColor || "#000000",
                 line: +pathLine || 2,
@@ -1782,12 +1818,15 @@ export default function MoodboardProvider({ children }) {
                 canUndoErase: positionErase > 0,
                 canRedoErase: positionErase < historyErase.length - 1,
                 isGrouping,
-                isPartialErasing,
                 tool,
-                zoom,
+                boards,
+                activeBoard,
+                boardIndex,
                 boardColor,
                 buttonsColor,
+                showBoards,
                 // Methods
+                handleShowBoards,
                 handleBoardColorChange,
                 handleButtonsColorChange,
                 handleColorReset,
@@ -1883,7 +1922,11 @@ export default function MoodboardProvider({ children }) {
                 handleGroupScaleChange,
                 handleAddDateBox,
                 handleGroupLineChange,
-                handleGroupColorChange
+                handleGroupColorChange,
+                handleChangeBoard,
+                handleAddNewBoard,
+                handleDeleteBoard,
+                handleBoardIndexUpdate
             }}>
             {children}
         </MoodboardContext.Provider>
