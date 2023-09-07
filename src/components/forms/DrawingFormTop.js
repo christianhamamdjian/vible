@@ -223,7 +223,7 @@ const DrawingFormTop = () => {
             }
             {paths.length > -1 && isErasing && (
                 <>
-                    {tool !== "" && <div className='inputs-top_draw'>
+                    <div className='inputs-top_draw'>
                         <button onClick={handleUndoErase} disabled={!canUndoErase}>
                             <svg
                                 width="24"
@@ -252,7 +252,7 @@ const DrawingFormTop = () => {
                                 />
                             </svg>
                         </button>
-                    </div>}
+                    </div>
                 </>
             )}
 
