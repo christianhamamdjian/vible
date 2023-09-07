@@ -1250,7 +1250,7 @@ export default function MoodboardProvider({ children }) {
 
 
     const handleRotateChange = (e, amount) => {
-        const rotate = (amount === "increase") ? +1 : -1
+        const rotate = (amount === "increase") ? +.5 : -.5
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
                 const center = getCenterPoint(path["path"])
@@ -1266,7 +1266,7 @@ export default function MoodboardProvider({ children }) {
 
 
     const handleScaleChange = (e, amount) => {
-        const scale = (amount === "increase") ? 1.1 : 0.9
+        const scale = (amount === "increase") ? 1.09 : 0.9
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
                 const center = getCenterPoint(path["path"])
@@ -1302,7 +1302,7 @@ export default function MoodboardProvider({ children }) {
         const notGouped = paths.filter(path => path.group === "noGroup")
         const pathCollect = pathGroup.map(el => el.path)
         const pathPoints = pathCollect.flat()
-        const scale = (amount === "increase") ? 1.1 : 0.9
+        const scale = (amount === "increase") ? 1.09 : 0.9
         const center = getCenterPoint(pathPoints)
         const updatedPaths = pathGroup.map((path) => {
             return ({

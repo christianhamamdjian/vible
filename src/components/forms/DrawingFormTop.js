@@ -7,7 +7,7 @@ const DrawingFormTop = () => {
     const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
 
     const [rotating, setRotating] = useState(180)
-    const [scaling, setScaling] = useState(100)
+    const [scaling, setScaling] = useState(20)
 
     console.log(rotating)
     const toolButtons = {
@@ -48,17 +48,17 @@ const DrawingFormTop = () => {
     }
 
     const handleScale = (e) => {
-        if (e.target.value < 100) {
+        if (e.target.value < 20) {
             setScaling(+scaling - 1)
             handleScaleChange(e, "decrease")
         }
-        if (e.target.value > 100) {
+        if (e.target.value > 20) {
             setScaling(+scaling + 1)
             handleScaleChange(e, "increase")
         }
     }
     const handleScaleReset = () => {
-        setScaling(100)
+        setScaling(20)
     }
 
     const handleGroupRotation = (e) => {
@@ -76,17 +76,17 @@ const DrawingFormTop = () => {
     }
 
     const handleGroupScale = (e) => {
-        if (e.target.value < 100) {
+        if (e.target.value < 20) {
             setScaling(+scaling - 1)
             handleGroupScaleChange(e, "decrease")
         }
-        if (e.target.value > 100) {
+        if (e.target.value > 20) {
             setScaling(+scaling + 1)
             handleGroupScaleChange(e, "increase")
         }
     }
     const handleGroupScaleReset = () => {
-        setScaling(100)
+        setScaling(20)
     }
 
 
@@ -215,7 +215,7 @@ const DrawingFormTop = () => {
                             <input
                                 type="range"
                                 min="10"
-                                max="200"
+                                max="30"
                                 step="1"
                                 name="scale"
                                 value={scaling}
@@ -383,7 +383,7 @@ const DrawingFormTop = () => {
                                 <input
                                     type="range"
                                     min="10"
-                                    max="200"
+                                    max="30"
                                     step="1"
                                     name="scale"
                                     value={scaling}
