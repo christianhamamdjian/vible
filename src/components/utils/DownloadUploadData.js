@@ -5,7 +5,7 @@ import { useLocalStorage } from "../../components/hooks/useLocalStorage"
 import Tooltips from '../tooltips/Tooltips'
 const DownloadUploadData = () => {
 
-    const { items, galleryItems } = React.useContext(MoodboardContext);
+    const { items, galleryItems, boards, activeBoard, boardColor, buttonsColor } = React.useContext(MoodboardContext);
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [todos, setTodos] = useLocalStorage("todos", [])
     const [fileDownloadUrl, setFileDownloadUrl] = useState(null)
@@ -17,9 +17,16 @@ const DownloadUploadData = () => {
         })
         return savingPaths
     }
+
+    const boardItems = items.filter(el => el.board === activeBoard.id)
+    const boardPaths = paths.filter(el => el.board === activeBoard.id)
+    const currentBoard = [{ ...activeBoard }]
+
     const data = [
-        { items },
-        { paths: savePathsToLocalStorage() },
+        { items: boardItems },
+        // { paths: savePathsToLocalStorage() },
+        { paths: boardPaths },
+        { boards: currentBoard },
         { galleryItems },
         { todos }
     ]
@@ -66,10 +73,12 @@ const DownloadUploadData = () => {
             const data = JSON.parse(e.target.result)
             const { items: newItems } = data.vible[0]
             const { paths: newPaths } = data.vible[1]
-            const { galleryItems: newGalleryItems } = data.vible[2]
-            const { todos: newTodos } = data.vible[3]
+            const { boards: newBoards } = data.vible[2]
+            const { galleryItems: newGalleryItems } = data.vible[3]
+            const { todos: newTodos } = data.vible[4]
             localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
             localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
+            localStorage.setItem('boards', JSON.stringify([...boards, ...newBoards]))
             localStorage.setItem('galleryItems', JSON.stringify([...galleryItems, ...newGalleryItems]))
             localStorage.setItem('todos', JSON.stringify([...todos, ...newTodos]))
             refresh()

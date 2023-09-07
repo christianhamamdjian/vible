@@ -73,3 +73,5 @@ The theme switcher offers different colors to suit your taste.
 You get access to the documentation using the (?) button at the top.
 
 Set the board and buttons colors or choose from suggested colors.
+
+You can create multiple boards
