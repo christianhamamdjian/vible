@@ -4,11 +4,11 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
     const position = `translate${(item.width - 15, item.height - 15)}`
     return (
         <>
-            {item && item.type === "box" && (
+            {item && item.type === "box" && item.board === activeBoard.id && (
                 <>
                     <g
                         draggable="true"

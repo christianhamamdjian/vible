@@ -4,7 +4,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const getUrl = () => {
         let url = ""
@@ -18,7 +18,7 @@ const Map = ({ item }) => {
     }
     return (
         <>
-            {item.type === "mapUrl" &&
+            {item.type === "mapUrl" && item.board === activeBoard.id &&
                 <g
                     className='map-object'
                     transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}

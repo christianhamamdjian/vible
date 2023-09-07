@@ -313,6 +313,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: 200,
             y: 200,
             text: itemText,
@@ -347,6 +348,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: clientX,
             y: clientY,
             text: itemText,
@@ -378,6 +380,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: 200,
             y: 200,
             text: color,
@@ -408,6 +411,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: 200,
             y: 200,
             text: `${text} ${completed ? "(Completed)" : ""}`,
@@ -441,6 +445,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: 200,
             y: 200,
             text: text.toLocaleString(),
@@ -475,6 +480,7 @@ export default function MoodboardProvider({ children }) {
         const itemId = Date.now()
         const newItem = {
             id: itemId,
+            board: activeBoard.id,
             x: 0,
             y: 0,
             text: link.content,
@@ -507,6 +513,7 @@ export default function MoodboardProvider({ children }) {
         reader.onload = (e) => {
             const newItem = {
                 id: Date.now(),
+                board: activeBoard.id,
                 src: e.target.result,
                 x: 100,
                 y: 100,
@@ -529,6 +536,7 @@ export default function MoodboardProvider({ children }) {
         reader.onload = (e) => {
             const newItem = {
                 id: Date.now(),
+                board: activeBoard.id,
                 src: e.target.result,
                 x: 100,
                 y: 100,
@@ -568,6 +576,7 @@ export default function MoodboardProvider({ children }) {
             const googleCoordinates = () => extractword(text, "@", "z")
             const newItem = {
                 id: Date.now(),
+                board: activeBoard.id,
                 mapUrl: googleCoordinates(),
                 x: 100,
                 y: 200,
@@ -589,6 +598,7 @@ export default function MoodboardProvider({ children }) {
             e.preventDefault()
             const newItem = {
                 id: Date.now(),
+                board: activeBoard.id,
                 imageUrl: text,
                 x: 100,
                 y: 100,
@@ -605,6 +615,7 @@ export default function MoodboardProvider({ children }) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
+                board: activeBoard.id,
                 x: 200,
                 y: 200,
                 text: text,
@@ -623,6 +634,7 @@ export default function MoodboardProvider({ children }) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
+                board: activeBoard.id,
                 x: 200,
                 y: 200,
                 text: text,
@@ -647,6 +659,7 @@ export default function MoodboardProvider({ children }) {
                 uploadToIndexedDB(arrayBuffer);
                 const newItem = {
                     id: pdfId,
+                    board: activeBoard.id,
                     x: 100,
                     y: 200,
                     width: "100",
@@ -689,6 +702,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
+            board: activeBoard.id,
             videoUrl: itemVideoUrl,
             x: 100,
             y: 200,
@@ -702,6 +716,7 @@ export default function MoodboardProvider({ children }) {
     const handleDropVideo = (e) => {
         const newItem = {
             id: Date.now(),
+            board: activeBoard.id,
             videoUrl: e,
             x: 100,
             y: 200,
@@ -716,6 +731,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
+            board: activeBoard.id,
             imageUrl: itemImageUrl,
             x: 100,
             y: 100,
@@ -733,6 +749,7 @@ export default function MoodboardProvider({ children }) {
         e.preventDefault()
         const newItem = {
             id: Date.now(),
+            board: activeBoard.id,
             mapUrl: itemMapUrl,
             x: 100,
             y: 200,

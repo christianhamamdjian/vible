@@ -3,7 +3,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard, } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard, } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
 
@@ -19,7 +19,7 @@ const Image = ({ item }) => {
 
     return (
         <>
-            {item.type === "image" &&
+            {item.type === "image" && item.board === activeBoard.id &&
                 <>
                     <g
                         style={{

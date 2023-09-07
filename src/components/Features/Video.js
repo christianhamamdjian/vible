@@ -4,11 +4,11 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     return (
         <>
-            {item.type === "video" &&
+            {item.type === "video" && item.board === activeBoard.id &&
                 <>
                     <g
                         draggable="true"

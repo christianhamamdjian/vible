@@ -4,7 +4,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {
-    const { handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
 
     const [pdfData, setPdfData] = useState('');
 
@@ -40,7 +40,7 @@ const Pdf = ({ item }) => {
     };
     return (
         <>
-            {item.type === "pdf" &&
+            {item.type === "pdf" && item.board === activeBoard.id &&
                 <>
                     <g
                         draggable="true"

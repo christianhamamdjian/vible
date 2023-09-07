@@ -33,7 +33,10 @@ const TopBoardsSlider = () => {
 
     return (
         <>
-            <div className='inputs-top_objects' style={{ position: "absolute", right: "12%", top: "5rem", zIndex: "100" }} >
+            <div
+                className='inputs-top_objects'
+            // style={{ position: "absolute", right: "12%", top: "5rem", zIndex: "100" }}
+            >
                 <h4>Boards:</h4>
                 <button style={{
                     backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,

@@ -3,7 +3,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
-    const { itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard } = React.useContext(MoodboardContext);
     const [loadedImage, setLoadedImage] = useState(null)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const ImageLink = ({ item }) => {
     const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
     return (
         <>
-            {item.type === "imageUrl" &&
+            {item.type === "imageUrl" && item.board === activeBoard.id &&
                 <>
                     <g
                         style={{
