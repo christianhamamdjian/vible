@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Circle from "../helperFunctions/CircleCursor"
 import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -6,6 +6,10 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const DrawingFormTop = () => {
     const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
 
+    const [rotating, setRotating] = useState(180)
+    const [scaling, setScaling] = useState(100)
+
+    console.log(rotating)
     const toolButtons = {
         lineColor: "Line Color",
         lineWidth: "Line width",
@@ -28,6 +32,63 @@ const DrawingFormTop = () => {
         linesRotate: "Rotate",
         linesScale: "Scale",
     }
+
+    const handleRotation = (e) => {
+        if (e.target.value < 180) {
+            setRotating(+rotating - 1)
+            handleRotateChange(e, "decrease")
+        }
+        if (e.target.value > 180) {
+            setRotating(+rotating + 1)
+            handleRotateChange(e, "increase")
+        }
+    }
+    const handleRotationReset = () => {
+        setRotating(180)
+    }
+
+    const handleScale = (e) => {
+        if (e.target.value < 100) {
+            setScaling(+scaling - 1)
+            handleScaleChange(e, "decrease")
+        }
+        if (e.target.value > 100) {
+            setScaling(+scaling + 1)
+            handleScaleChange(e, "increase")
+        }
+    }
+    const handleScaleReset = () => {
+        setScaling(100)
+    }
+
+    const handleGroupRotation = (e) => {
+        if (e.target.value < 180) {
+            setRotating(+rotating - 1)
+            handleGroupRotateChange(e, "decrease")
+        }
+        if (e.target.value > 180) {
+            setRotating(+rotating + 1)
+            handleGroupRotateChange(e, "increase")
+        }
+    }
+    const handleGroupRotationReset = () => {
+        setRotating(180)
+    }
+
+    const handleGroupScale = (e) => {
+        if (e.target.value < 100) {
+            setScaling(+scaling - 1)
+            handleGroupScaleChange(e, "decrease")
+        }
+        if (e.target.value > 100) {
+            setScaling(+scaling + 1)
+            handleGroupScaleChange(e, "increase")
+        }
+    }
+    const handleGroupScaleReset = () => {
+        setScaling(100)
+    }
+
 
     return (
         <>
@@ -135,12 +196,32 @@ const DrawingFormTop = () => {
 
                         {tool === "rotate" && <div className='path-edit-form'>
                             <label htmlFor="rotate"><label>Rotate: </label></label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="360"
+                                step="1"
+                                name="rotate"
+                                value={rotating}
+                                onChange={(e) => handleRotation(e)}
+                                onPointerUp={handleRotationReset}
+                            />
                             <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                             <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                         </div>}
 
                         {tool === "scale" && <div className='path-edit-form'>
                             <label htmlFor="scale"><label>Scale: </label></label>
+                            <input
+                                type="range"
+                                min="10"
+                                max="200"
+                                step="1"
+                                name="scale"
+                                value={scaling}
+                                onChange={(e) => handleScale(e)}
+                                onPointerUp={handleScaleReset}
+                            />
                             <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
                             <button onClick={e => handleScaleChange(e, "increase")}>+</button>
                         </div>}
@@ -282,6 +363,16 @@ const DrawingFormTop = () => {
                         {tool === "linesRotate" && <>
                             <div className='path-edit-form'>
                                 <label htmlFor="rotate"><label>Group Rotate: </label></label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="360"
+                                    step="1"
+                                    name="rotate"
+                                    value={rotating}
+                                    onChange={(e) => handleGroupRotation(e)}
+                                    onPointerUp={handleGroupRotationReset}
+                                />
                                 <button onClick={e => handleGroupRotateChange(e, "decrease")}>&lt;</button>
                                 <button onClick={e => handleGroupRotateChange(e, "increase")}>&gt;</button>
                             </div>
@@ -289,6 +380,16 @@ const DrawingFormTop = () => {
                         {tool === "linesScale" && <>
                             <div className='path-edit-form'>
                                 <label htmlFor="scale"><label>Group Scale: </label></label>
+                                <input
+                                    type="range"
+                                    min="10"
+                                    max="200"
+                                    step="1"
+                                    name="scale"
+                                    value={scaling}
+                                    onChange={(e) => handleGroupScale(e)}
+                                    onPointerUp={handleGroupScaleReset}
+                                />
                                 <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
                                 <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
                             </div>

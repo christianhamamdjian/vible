@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- common.css -->
+  <style>
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    html {
+      -webkit-text-size-adjust: none;
+    }
+
+    body {
+      font-family: -apple-system, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+
+    img {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    blockquote {
+      margin: 0;
+      padding: 0 15px;
+      color: #777;
+      border-left: 4px solid #ddd;
+    }
+
+    hr {
+      background-color: #ddd;
+      border: 0;
+      height: 1px;
+      margin: 15px 0;
+    }
+
+    code {
+      font-family: Menlo, Consolas, 'Ubuntu Mono', Monaco, 'source-code-pro', monospace;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0.2em 0;
+      font-size: 90%;
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 3px;
+    }
+
+    pre>code {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      word-break: normal;
+      background: transparent;
+      border: 0;
+    }
+
+    ol {
+      list-style-type: decimal;
+    }
+
+    ol ol,
+    ul ol {
+      list-style-type: lower-latin;
+    }
+
+    ol ol ol,
+    ul ol ol,
+    ul ul ol,
+    ol ul ol {
+      list-style-type: lower-roman;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    table th,
+    table td {
+      padding: 6px 13px;
+      border: 1px solid #ddd;
+    }
+
+    table tr {
+      border-top: 1px solid #ccc;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f8f8f8;
+    }
+
+    input[type="checkbox"] {
+      cursor: default;
+      margin-right: 0.5em;
+      font-size: 13px;
+    }
+
+    .task-list-item {
+      list-style-type: none;
+    }
+
+    .task-list-item+.task-list-item {
+      margin-top: 3px;
+    }
+
+    .task-list-item input {
+      float: left;
+      margin: 0.3em 1em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+
+    #tag-field {
+      margin: 8px 2px 10px;
+    }
+
+    #tag-field .tag {
+      display: inline-block;
+      background: #cadff3;
+      border-radius: 4px;
+      padding: 1px 8px;
+      color: black;
+      font-size: 12px;
+      margin-right: 10px;
+      line-height: 1.4;
+    }
+  </style>
+  <!-- ace-static.css -->
+  <style>
+    .ace_static_highlight {
+      white-space: pre-wrap;
+    }
+
+    .ace_static_highlight .ace_gutter {
+      width: 2em;
+      text-align: right;
+      padding: 0 3px 0 0;
+      margin-right: 3px;
+    }
+
+    .ace_static_highlight.ace_show_gutter>.ace_line {
+      padding-left: 2.6em;
+    }
+
+    .ace_static_highlight .ace_line {
+      position: relative;
+    }
+
+    .ace_static_highlight .ace_gutter-cell {
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+    }
+
+    .ace_static_highlight .ace_gutter-cell:before {
+      content: counter(ace_line, decimal);
+      counter-increment: ace_line;
+    }
+
+    .ace_static_highlight {
+      counter-reset: ace_line;
+    }
+  </style>
+  <style>
+    .ace-chrome .ace_gutter {
+      background: #ebebeb;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .ace-chrome .ace_print-margin {
+      width: 1px;
+      background: #e8e8e8;
+    }
+
+    .ace-chrome {
+      background-color: #FFFFFF;
+      color: black;
+    }
+
+    .ace-chrome .ace_cursor {
+      color: black;
+    }
+
+    .ace-chrome .ace_invisible {
+      color: rgb(191, 191, 191);
+    }
+
+    .ace-chrome .ace_constant.ace_buildin {
+      color: rgb(88, 72, 246);
+    }
+
+    .ace-chrome .ace_constant.ace_language {
+      color: rgb(88, 92, 246);
+    }
+
+    .ace-chrome .ace_constant.ace_library {
+      color: rgb(6, 150, 14);
+    }
+
+    .ace-chrome .ace_invalid {
+      background-color: rgb(153, 0, 0);
+      color: white;
+    }
+
+    .ace-chrome .ace_fold {}
+
+    .ace-chrome .ace_support.ace_function {
+      color: rgb(60, 76, 114);
+    }
+
+    .ace-chrome .ace_support.ace_constant {
+      color: rgb(6, 150, 14);
+    }
+
+    .ace-chrome .ace_support.ace_type,
+    .ace-chrome .ace_support.ace_class.ace-chrome .ace_support.ace_other {
+      color: rgb(109, 121, 222);
+    }
+
+    .ace-chrome .ace_variable.ace_parameter {
+      font-style: italic;
+      color: #FD971F;
+    }
+
+    .ace-chrome .ace_keyword.ace_operator {
+      color: rgb(104, 118, 135);
+    }
+
+    .ace-chrome .ace_comment {
+      color: #236e24;
+    }
+
+    .ace-chrome .ace_comment.ace_doc {
+      color: #236e24;
+    }
+
+    .ace-chrome .ace_comment.ace_doc.ace_tag {
+      color: #236e24;
+    }
+
+    .ace-chrome .ace_constant.ace_numeric {
+      color: rgb(0, 0, 205);
+    }
+
+    .ace-chrome .ace_variable {
+      color: rgb(49, 132, 149);
+    }
+
+    .ace-chrome .ace_xml-pe {
+      color: rgb(104, 104, 91);
+    }
+
+    .ace-chrome .ace_entity.ace_name.ace_function {
+      color: #0000A2;
+    }
+
+    .ace-chrome .ace_heading {
+      color: rgb(12, 7, 255);
+    }
+
+    .ace-chrome .ace_list {
+      color: rgb(185, 6, 144);
+    }
+
+    .ace-chrome .ace_marker-layer .ace_selection {
+      background: rgb(181, 213, 255);
+    }
+
+    .ace-chrome .ace_marker-layer .ace_step {
+      background: rgb(252, 255, 0);
+    }
+
+    .ace-chrome .ace_marker-layer .ace_stack {
+      background: rgb(164, 229, 101);
+    }
+
+    .ace-chrome .ace_marker-layer .ace_bracket {
+      margin: -1px 0 0 -1px;
+      border: 1px solid rgb(192, 192, 192);
+    }
+
+    .ace-chrome .ace_marker-layer .ace_active-line {
+      background: rgba(0, 0, 0, 0.07);
+    }
+
+    .ace-chrome .ace_gutter-active-line {
+      background-color: #dcdcdc;
+    }
+
+    .ace-chrome .ace_marker-layer .ace_selected-word {
+      background: rgb(250, 250, 255);
+      border: 1px solid rgb(200, 200, 250);
+    }
+
+    .ace-chrome .ace_storage,
+    .ace-chrome .ace_keyword,
+    .ace-chrome .ace_meta.ace_tag {
+      color: rgb(147, 15, 128);
+    }
+
+    .ace-chrome .ace_string.ace_regex {
+      color: rgb(255, 0, 0)
+    }
+
+    .ace-chrome .ace_string {
+      color: #1A1AA6;
+    }
+
+    .ace-chrome .ace_entity.ace_other.ace_attribute-name {
+      color: #994409;
+    }
+
+    .ace-chrome .ace_indent-guide {
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+    }
+  </style>
+  <!-- export.css -->
+  <style>
+    body {
+      margin: 0 auto;
+      max-width: 800px;
+      line-height: 1.4
+    }
+
+    #nav {
+      margin: 5px 0 10px;
+      font-size: 15px
+    }
+
+    #titlearea {
+      border-bottom: 1px solid #ccc;
+      font-size: 17px;
+      padding: 10px 0;
+    }
+
+    #contentarea {
+      font-size: 15px;
+      margin: 16px 0
+    }
+
+    .cell {
+      outline: 0;
+      min-height: 20px;
+      margin: 5px 0;
+      padding: 5px 0;
+    }
+
+    .code-cell {
+      font-family: Menlo, Consolas, 'Ubuntu Mono', Monaco, 'source-code-pro', monospace;
+      font-size: 12px;
+    }
+
+    .latex-cell {
+      white-space: pre-wrap;
+    }
+  </style>
+  <!-- User CSS -->
+  <style>
+    .text-cell {
+      font-size: 15px;
+    }
+
+    .code-cell {
+      font-size: 12px;
+    }
+
+    .markdown-cell {
+      font-size: 15px;
+    }
+
+    .latex-cell {
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="titlearea">
+    <h2>Vible</h2>
+  </div>
+  <div id="contentarea">
+    <div class="cell markdown-cell">
+      <h1>Vible</h1>
+      <h2>A moodboard app</h2>
+      <h3>Build with React</h3>
+      <h3>no extra libraries or dependencies</h3>
+      <p><strong>Vible</strong> stores anything you <strong>drop</strong> on it in your browser's memory, no external
+        database is accessed so your board data lives only on the browser you use it on and will remain there as long as
+        you don't erase it.</p>
+      <p>Everything you add to the board is <strong>automatically saved</strong> and all changes are applied and saved
+        instantly.</p>
+      <p><strong>Boards</strong> can be <strong>printed</strong> and <strong>downloaded</strong> as a Pdf file.</p>
+      <p><strong>Boards</strong> can also be <strong>saved</strong> in Json format for backup, sharing or transfer.</p>
+      <p>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf
+        files</p>
+      <p>Select <strong>text from web pages</strong> or applications windows an drag it to the board.</p>
+      <p>Select and drag a <strong>Youtube</strong> or a <strong>Google maps</strong> (<a
+          href="https://www.google.com/maps/">https://www.google.com/maps/</a>...) <strong>link from the address
+          bar</strong> and drop it anywhere on the board to embed the video.</p>
+      <p>Select and drag an image **from a web page **and if you're lucky it will show on the board. Not all images can
+        be linked to unfortunately.</p>
+      <p>Click a <strong>calendar</strong> <strong>date</strong> to get a <strong>box</strong> with the date on the
+        board.</p>
+      <p>Write <strong>todos</strong>, <strong>drag</strong> them to <strong>reorder</strong> them. Edit them, or mark
+        them as completed.</p>
+      <p>You can also <strong>drag</strong> todos to the <strong>board</strong> with and expand on them. Completed todos
+        will have a (<strong>complete</strong>) text on them.</p>
+      <p><strong>Double click</strong> on the <strong>board</strong> will stop editing operations.</p>
+      <p>To add a <strong>text box</strong> you can <strong>right click</strong> with the mouse to see a box appear at
+        the cursor position.</p>
+      <p>You can click the <strong>text tool</strong> at the top. Added todos, calendar dates, gallery color boxes and
+        web links are all text boxes and can be edited the same way.</p>
+      <p><strong>Double click</strong> a <strong>text box</strong> to modify its size, angle, color, border width,
+        border color, text content, text color, text alignment, font family, font size, font style and corner roundness.
+      </p>
+      <p>Boxes can be <strong>reordered</strong> forward, backwars or brought to the front and sent to the back or
+        <strong>duplicated</strong>.
+      </p>
+      <p>Show or hide the <strong>rating</strong> marks at the bottom right.</p>
+      <p>You can also add a <strong>web link</strong> that will show at the top of the box.</p>
+      <p><strong>Grab</strong> a box or an image from any point on it to <strong>drag</strong> it around.</p>
+      <p><strong>Grab</strong> videos, maps and pdfs from the top bar to <strong>drag</strong> them around. The item
+        itself can be interacted with.</p>
+      <p>The embedded videos, images, maps and pdfs can be <strong>resized</strong>, <strong>rotated</strong> and
+        <strong>reordered</strong>.
+      </p>
+      <p>When you <strong>hover over any line</strong> it will get automatically <strong>selected</strong> so you can
+        grab it and move it around or edit it.</p>
+      <p>All drawn <strong>lines</strong> will show at the <strong>front</strong> of other objects, they can be
+        <strong>dragged</strong> around, <strong>resized</strong> and <strong>rotated</strong>, <strong>dashed</strong>,
+        have <strong>arrow heads</strong>, turn them into <strong>filled shapes</strong>, change their
+        <strong>width</strong>, their <strong>color</strong>, their <strong>opacity,</strong> <strong>reorder</strong>
+        them or <strong>duplicate</strong> them.
+      </p>
+      <p>To <strong>delete a line</strong> you can select it and press the <strong>delete key</strong> on your keyboard
+        or click the <strong>delete option</strong> on the top form or use the <strong>eraser</strong>.</p>
+      <p>When you click the <strong>edit board button</strong> at the top or **double click **a box or an
+        <strong>image</strong> or the <strong>top bar</strong> or the other <strong>objects</strong> you will see a
+        <strong>rotation handle</strong> on the left side and a <strong>resize handle</strong> at the bottom right that
+        you can use to <strong>directly modify</strong> the selected object.
+      </p>
+      <p>The selected object will show three <strong>control buttons</strong> at the top left, the <strong>red</strong>
+        one is to delete the object and will give you a <strong>confirmation</strong> <strong>warning</strong> as it is
+        not reversible. The <strong>green</strong> button will activate the editing mode for the selected object and
+        show the <strong>orange</strong> button, clicking the orange button it will stop the editing operation.</p>
+      <p>You can use the <strong>drag eraser</strong> to remove whole lines or the <strong>partial eraser</strong> to
+        erase only parts of them.</p>
+      <p>When you use the eraser you can <strong>undo</strong> if you erased something by error.</p>
+      <p>With the <strong>line group</strong> tool at the top one can drag over mutiple lines, their color will become
+        <strong>red</strong> then you can <strong>grab</strong> one of them and <strong>drag</strong> the
+        <strong>group</strong> around or resize and rotate it or change the lines width and color.
+      </p>
+      <p>Clicking the group button or double clicking the board will finish the grouping operation.</p>
+      <p>You can change an <strong>image's opacity</strong> to be able to <strong>trace</strong> over it. Drawn lines
+        are in <strong>vector format</strong> and can be edited later in a vector illustration app.</p>
+      <p>You can use the <strong>erase board</strong> or the <strong>erase all lines</strong> button on the right-side
+        controls panel</p>
+      <p>Mix <strong>vector freeform drawings</strong> and <strong>handwriting</strong> with <strong>typed
+          text</strong>, <strong>uploaded images</strong>, <strong>linked images</strong>, <strong>Youtube
+          videos</strong>, <strong>Google maps</strong> and <strong>Pdf files</strong>.</p>
+      <p>On <strong>mobile devices</strong> you can add multiple <strong>Vible</strong> instances to the
+        <strong>homescreen</strong> and use it as one of you apps.
+      </p>
+      <p>There is also a <strong>calculator</strong> that can come in handy. You can select the result and drag it to
+        the board.</p>
+      <p>In the <strong>gallery</strong> at the bottom you can add color boxes with color code, uplodad images and add
+        web links that will all stay there and can be added later to the board.</p>
+      <p>If you click the <strong>red delete button</strong> an object you will get a <strong>confirmation</strong>
+        <strong>warning</strong> as that operation <strong>cannot be undone</strong>.
+      </p>
+      <p>When you <strong>upload</strong> a saved board in Json format it will be added as a new board. to the existing
+        content so be careful to backup the existing content in its own Json file as some lines will be difficult to
+        separate if the overlap.</p>
+      <p>You can create and edit <strong>multiple boards</strong> using the <strong>Boards</strong> tool at the top.</p>
+      <p>You can <strong>zoom</strong> in and out by <strong>clicking</strong> or using a <strong>slider</strong>.
+        Zooming out permits to print more of the board content into one page.</p>
+      <p>Set the <strong>board</strong> and <strong>buttons</strong> <strong>colors</strong> or choose from
+        <strong>suggested</strong> <strong>colors</strong>.
+      </p>
+      <p>Clicking the <strong>(i) button</strong> at the top will show <strong>tool tips</strong> next to the buttons.
+        Click the button again to hide them.</p>
+      <p>You get access to the <strong>documentation</strong> using the (?) button at the top.</p>
+    </div>
+  </div>
+  <script></script>
+</body>
+
+</html>
