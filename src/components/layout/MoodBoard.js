@@ -36,6 +36,15 @@ const MoodBoard = () => {
             </>
         )
     }, [items, paths])
+    const renderInterfaceItems = useMemo(() => {
+        return (
+            <>
+                <Gallery />
+                <Todo />
+                <Documentation />
+            </>
+        )
+    }, [items, paths])
     return (
         <>
             <BoardDrop>
@@ -76,14 +85,13 @@ const MoodBoard = () => {
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
                         {renderBoardItems}
-
                     </svg>
                 </div >
             </BoardDrop>
-
-            <Gallery />
+            {renderInterfaceItems}
+            {/* <Gallery />
             <Todo />
-            <Documentation />
+            <Documentation /> */}
         </>
     )
 }

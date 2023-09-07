@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Confirm from "./Confirm"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const TopBoardsSlider = () => {
     const { boards, boardIndex, handleChangeBoard, handleAddNewBoard, handleDeleteBoard, activeBoard, handleBoardIndexUpdate } = React.useContext(MoodboardContext)
+
+    const [onShow, setOnShow] = useState(false)
+    const [item, setItem] = useState("")
 
     const chunkArray = (arr, size) =>
         arr.length > size
@@ -31,12 +35,33 @@ const TopBoardsSlider = () => {
 
     const maxIndex = chunkArray(boards, 2).length - 1
 
+    const confirmClear = (foo) => {
+        if (foo === "board") {
+            handleDeleteBoard(chunkContent)
+        }
+        hideConfirm()
+    }
+    const confirmCancel = () => {
+        hideConfirm()
+        return
+    }
+    const showConfirm = (bar) => {
+        setItem(bar)
+        setOnShow(true)
+    }
+    const hideConfirm = () => {
+        setOnShow(false)
+    }
     return (
         <>
             <div
                 className='inputs-top_objects'
             // style={{ position: "absolute", right: "12%", top: "5rem", zIndex: "100" }}
             >
+                {onShow &&
+                    <div className='inputs-top_objects'>
+                        <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
+                    </div>}
                 <h4>Boards:</h4>
                 <button style={{
                     backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
@@ -66,7 +91,8 @@ const TopBoardsSlider = () => {
                     border: "1px solid #dddddd"
                 }}
                     disabled={boards.length < 2}
-                    onClick={() => handleDeleteBoard(chunkContent)}
+                    // onClick={() => handleDeleteBoard(chunkContent)}
+                    onClick={() => showConfirm("board")}
                 >-</button>
                 {chunk}
                 <button
@@ -81,7 +107,9 @@ const TopBoardsSlider = () => {
                     className="next"
                     disabled={boardIndex === maxIndex}
                 >&gt;</button>
+
             </div>
+
         </>
     )
 }

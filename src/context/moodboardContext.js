@@ -134,6 +134,7 @@ export default function MoodboardProvider({ children }) {
         }
         const reorderedBoards = newBoards.map((el, index) => ({ ...el, name: index + 1 }))
         setBoards(reorderedBoards)
+        setActiveBoard(boards[0])
     }
     const handleBoardColorChange = (e) => {
         const newColor = e.target.value
@@ -1729,12 +1730,15 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleClearBoard = () => {
-        setItems([])
-        setPaths([])
+        const currentBoardItems = items.filter((el) => el.board !== activeBoard.id)
+        const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
+        setItems(currentBoardItems)
+        setPaths(currentBoardPaths)
         handlePdfDelete()
     }
     const handleClearPaths = () => {
-        setPaths([])
+        const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
+        setPaths(currentBoardPaths)
     }
     const handleZoomIn = () => {
         setZoom(zoom => zoom -= 400)
