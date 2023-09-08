@@ -14,11 +14,13 @@ const TopBoardsSlider = () => {
             : [arr];
 
     const chunkContent = chunkArray(boards, 2)[boardIndex]
+
     const chunkButtons = () => {
         if (chunkContent && chunkContent.length > 0) {
             return chunkArray(boards, 2)[boardIndex]
         }
     }
+
     const chunk = (<div>
         {chunkButtons() && chunkButtons().map((el, i) => {
             return (<button

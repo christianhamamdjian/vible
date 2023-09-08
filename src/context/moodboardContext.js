@@ -113,7 +113,10 @@ export default function MoodboardProvider({ children }) {
         // const newBoard = { id: Date().now, mame:"Board" }
         // setBoards(prevBoards => [...prevBoards, prevBoards.length + 1])
         const newId = Date.now()
-        setBoards(prevBoards => [...prevBoards, { id: newId, name: prevBoards.length + 1 }])
+        const newBoard = { id: newId, name: boards.length + 1 }
+        setBoards(prevBoards => [...prevBoards, newBoard])
+        setActiveBoard(newBoard)
+        setBoardIndex(parseInt(boards.length / 2))
     }
     const handleBoardIndexUpdate = (index) => {
         setBoardIndex(index)
@@ -178,7 +181,10 @@ export default function MoodboardProvider({ children }) {
         )
         setSelectedStars(0)
     }
-
+    useEffect(() => {
+        const activeBoardIndex = boards.findIndex(el => el.id === activeBoard.id)
+        setBoardIndex(parseInt(activeBoardIndex / 2))
+    }, [])
     useEffect(() => {
         const updateColors = () => {
             const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
