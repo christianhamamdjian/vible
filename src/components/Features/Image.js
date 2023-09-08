@@ -22,10 +22,7 @@ const Image = ({ item }) => {
             {item.type === "image" && item.board === activeBoard.id &&
                 <>
                     <g
-                        style={{
-                            transform: `rotate(${item.angle || 0}deg)`,
-                            transformOrigin: `${item.width / 2}, ${calculatedHeight / 2}`,
-                        }}
+                        transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${calculatedHeight / 2})`}
                     >
                         <image
                             ref={itemRef}

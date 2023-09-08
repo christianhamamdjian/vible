@@ -908,13 +908,19 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (isRotating) {
+            const imageSource = itemRef.current.href.baseVal
+            const newImage = document.createElement("img")
+            newImage.src = imageSource
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rect = items.find((r) => r.id === selectedRectId)
+            const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
             const centerX = rect.x + rect.width / 2;
-            const centerY = rect.y + rect.height / 2;
+            // const centerY = rect.y + rect.height / 2;
+            const centerY = rect.y + calculatedHeight / 2;
             const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
             const angleDiff = newAngle - angleOffset.x;
             const newRotation = (angleDiff * 180) / Math.PI;
+            console.log(angleOffset.x)
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === selectedRectId) {
@@ -995,13 +1001,19 @@ export default function MoodboardProvider({ children }) {
             setMousedownPoints({ x: clientX, y: clientY })
         }
         if (e.target.id === 'rotate') {
+            const imageSource = itemRef.current.href.baseVal
+            const newImage = document.createElement("img")
+            newImage.src = imageSource
             setIsRotating(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rect = items.find((item) => item.id === rectId)
+            const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
             const centerX = rect.x + rect.width / 2
-            const centerY = rect.y + rect.height / 2
+            //const centerY = rect.y + rect.height / 2
+            const centerY = rect.y + calculatedHeight / 2
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
+            console.log(calculatedHeight)
             setAngleOffset({ x: angle })
         }
         if (rectType === "box" && editingText) {
@@ -1059,7 +1071,8 @@ export default function MoodboardProvider({ children }) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
-                        return { ...item, width: size.width, height: size.height }
+                        // return { ...item, width: size.width, height: size.height }
+                        return { ...item, width: size.width, height: "auto" }
                     }
                     return item
                 })

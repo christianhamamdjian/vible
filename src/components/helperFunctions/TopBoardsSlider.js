@@ -24,6 +24,7 @@ const TopBoardsSlider = () => {
     const chunk = (<div>
         {chunkButtons() && chunkButtons().map((el, i) => {
             return (<button
+                className={`${boardIndex === 0 ? "active-board" : ""}`}
                 style={{ backgroundColor: el.id === activeBoard.id ? "red" : "" }}
                 key={i}
                 onClick={() => handleChangeBoard(el.id)}

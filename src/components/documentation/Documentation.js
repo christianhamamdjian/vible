@@ -121,7 +121,7 @@ const Documentation = () => {
             <p>Clicking the <strong>(i) button</strong> at the top will show <strong>tool tips</strong> next to the buttons.
               Click the button again to hide them.</p>
             <p>You get access to the <strong>documentation</strong> using the (?) button at the top.</p>
-
+            <p>You can use a tablet with a pencil with palm rejection.</p>
 
 
 

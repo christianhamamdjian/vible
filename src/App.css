@@ -205,6 +205,10 @@ button,
   box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167); */
 }
 
+.active-board {
+  background-color: #ff2d55;
+}
+
 @media (hover: hover) {
 
   button:hover,
