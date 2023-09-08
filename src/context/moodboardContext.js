@@ -1731,9 +1731,9 @@ export default function MoodboardProvider({ children }) {
 
     const handleClearBoard = () => {
         const currentBoardItems = items.filter((el) => el.board !== activeBoard.id)
-        const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
+        // const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
         setItems(currentBoardItems)
-        setPaths(currentBoardPaths)
+        // setPaths(currentBoardPaths)
         handlePdfDelete()
     }
     const handleClearPaths = () => {

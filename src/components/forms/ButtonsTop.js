@@ -10,6 +10,7 @@ const ButtonsTop = () => {
             <div className='top-buttons'>
                 <button
                     className={isDrawing ? "selected-button" : null}
+                    title="Start drawing"
                     onClick={handleDrawing}>
                     <div className="drawing-sign">
                         <div className="drawing-sign-container">
@@ -49,7 +50,9 @@ const ButtonsTop = () => {
                     text="Click to start drawing"
                 />
                 <button
-                    onClick={handleAddBox}>
+                    onClick={handleAddBox}
+                    title="Add a text box"
+                >
                     <div className='writing-sign'>
                         <svg
                             width="20"
@@ -93,6 +96,7 @@ const ButtonsTop = () => {
 
                         <button
                             className={isErasing ? "selected-button" : null}
+                            title="Drag Eraser"
                             onClick={handleEraser}>
                             <div className='erasing-sign'>
                                 <svg
@@ -132,6 +136,7 @@ const ButtonsTop = () => {
 
                         <button
                             className={isPartialErasing ? "selected-button" : null}
+                            title="Partial Eraser"
                             onClick={handlePartialEraser}>
                             <div className='erasing-sign'>
                                 <svg
@@ -166,6 +171,7 @@ const ButtonsTop = () => {
                     <>
                         <button
                             className={isGrouping ? "selected-button" : null}
+                            title="Drag select multiple lines"
                             onClick={handleGrouping}>
                             <div className='grouping-sign'>
                                 <svg
@@ -200,6 +206,7 @@ const ButtonsTop = () => {
                     <>
                         <button
                             className={isEditingBoard ? "selected-button" : null}
+                            title="Activate board editing"
                             onClick={handleEditingBoard}>
                             <div className='editing-sign'>
                                 <svg
@@ -238,6 +245,7 @@ const ButtonsTop = () => {
                 <>
                     <button
                         className={showBoards ? "selected-button" : null}
+                        title="Add and edit boards"
                         onClick={handleShowBoards}>
                         <div className='boards-sign'>
                             <svg
@@ -276,6 +284,7 @@ const ButtonsTop = () => {
                 <>
                     <button
                         className={info ? "selected-button" : null}
+                        title="Show buttons info"
                         onClick={handleInfo}>
                         <div className='info-sign'>
                             <svg

@@ -176,6 +176,7 @@ const Todo = () => {
                 ref={todoRef}>
                 <button
                     className="toggle-todo"
+                    title="Todo list"
                     onClick={handleTodosToggle}
                 >
                     <svg

@@ -117,7 +117,7 @@ const RightSidebard = () => {
                     marginLeft=""
                     tipTop="4rem"
                     tipLeft="50%"
-                    text="Click to clear the board!"
+                    text="Click to clear all items!"
                 >
                     <button className='toggler' onClick={() => showConfirm("board")}>
                         <div className="clear-board">

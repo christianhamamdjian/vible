@@ -20,6 +20,7 @@ const DrawerButton = ({ onClick, side, isOpen }) => (
 
     <button
       className={`drawer-toggle-${side}`}
+      title={`${side === "left" ? "Add items" : "Control panel"}`}
       onClick={onClick}
     >
       {side === "left" ?

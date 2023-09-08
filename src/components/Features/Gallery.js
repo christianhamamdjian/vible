@@ -103,6 +103,7 @@ const Gallery = () => {
 
                 <button
                     className="toggle-gallery"
+                    title="The Gallery"
                     onClick={handleGalleryToggle}
                 >
                     <div>

@@ -12,7 +12,13 @@ const Documentation = () => {
   return (
     <>
       <div className={` documentation ${documentationShow ? "documentation-show" : "documentation-hide"}`}>
-        <button onClick={handleDocumentationToggle} className="toggle-documentation">?</button>
+        <button
+          onClick={handleDocumentationToggle}
+          className="toggle-documentation"
+          title="Documentation"
+        >
+          ?
+        </button>
         <div className='documentation-container'>
           <div className="accordion-container">
             <Accordion>
