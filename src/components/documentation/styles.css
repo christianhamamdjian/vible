@@ -13,3 +13,7 @@
   color: #ffffff;
   border-radius: 0;
 }
+
+p {
+  margin: .5rem;
+}
