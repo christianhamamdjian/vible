@@ -84,6 +84,27 @@ export default function MoodboardProvider({ children }) {
 
     const handleShowBoards = () => {
         setShowBoards(showBoards => !showBoards)
+        setIsDrawing(false)
+        setIsErasing(false)
+        setIsPartialErasing(false)
+        setIsGrouping(false)
+        setIsEditingBoard(false)
+        setEditingItem(null)
+        setEditingText(null)
+        setIsEditingPath(null)
+        setIsEditingPaths(null)
+        setSelectedPath(null)
+        setEditingImage(null)
+        setEditingVideo(null)
+        setEditingMap(null)
+        setEditingPdf(null)
+
+        setDraw(false)
+        setWrite(false)
+        setImage(false)
+        setVideo(false)
+        setMap(false)
+        setPdf(false)
     }
 
     const divRef = useRef(null)
@@ -181,10 +202,15 @@ export default function MoodboardProvider({ children }) {
         )
         setSelectedStars(0)
     }
+
     useEffect(() => {
+        if (boards.length === 0) {
+            handleAddNewBoard()
+        }
         const activeBoardIndex = boards.findIndex(el => el.id === activeBoard.id)
         setBoardIndex(parseInt(activeBoardIndex / 2))
     }, [])
+
     useEffect(() => {
         const updateColors = () => {
             const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
@@ -1396,6 +1422,7 @@ export default function MoodboardProvider({ children }) {
         setDragGrouping(false)
         resetPathsGroup()
         setIsEditingBoard(false)
+        setShowBoards(false)
     }
     const handleEraser = () => {
         stopAllTopForms()
@@ -1775,7 +1802,7 @@ export default function MoodboardProvider({ children }) {
 
     const stopAllTopForms = () => {
         setIsEditingBoard(false)
-
+        setShowBoards(false)
         setEditingItem(null)
         setEditingText(null)
         setIsEditingPath(null)
