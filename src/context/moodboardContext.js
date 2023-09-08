@@ -1167,6 +1167,7 @@ export default function MoodboardProvider({ children }) {
         const pathsToCreate = [
             {
                 id: Date.now(),
+                board: activeBoard.id,
                 group: "noGroup",
                 color: targetPath.color,
                 line: +targetPath.line,
@@ -1179,6 +1180,7 @@ export default function MoodboardProvider({ children }) {
             },
             {
                 id: Date.now() + 1,
+                board: activeBoard.id,
                 group: "noGroup",
                 color: targetPath.color,
                 line: +targetPath.line,
