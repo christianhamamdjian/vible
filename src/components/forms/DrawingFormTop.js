@@ -9,7 +9,6 @@ const DrawingFormTop = () => {
     const [rotating, setRotating] = useState(180)
     const [scaling, setScaling] = useState(20)
 
-    console.log(rotating)
     const toolButtons = {
         lineColor: "Line Color",
         lineWidth: "Line width",

@@ -1088,6 +1088,11 @@ button,
   width: 240px;
   transition: all .5s;
   transform: translateX(0.2rem) translateY(2rem) scale(1);
+  border-radius: 0 1.2rem 0 0;
+}
+
+.drawer-right-isOpen {
+  border-radius: 1.2rem 0 0 0;
 }
 
 .drawer-toggle-right {
