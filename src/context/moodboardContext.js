@@ -82,6 +82,15 @@ export default function MoodboardProvider({ children }) {
     const [info, setInfo] = useState(false)
     const [showBoards, setShowBoards] = useState(false)
 
+    const [pdfId, setPdfId] = useState("")
+
+    const [selectedStars, setSelectedStars] = useState(0)
+
+    const [historyErase, setHistoryErase] = useState([])
+    const [positionErase, setPositionErase] = useState(0);
+
+    const [tool, setTool] = useState("")
+
     const handleShowBoards = () => {
         setShowBoards(showBoards => !showBoards)
         setIsDrawing(false)
@@ -112,14 +121,6 @@ export default function MoodboardProvider({ children }) {
     const itemRef = useRef(null)
     const pathRef = useRef(null)
 
-    const [pdfId, setPdfId] = useState("")
-
-    const [selectedStars, setSelectedStars] = useState(0)
-
-    const [historyErase, setHistoryErase] = useState([])
-    const [positionErase, setPositionErase] = useState(0);
-
-    const [tool, setTool] = useState("")
 
     const changeTool = (tool) => {
         setTool(tool)
@@ -128,6 +129,9 @@ export default function MoodboardProvider({ children }) {
     const handleChangeBoard = (boardId) => {
         const toDelete = boards.find((el) => el.id === boardId)
         setActiveBoard(toDelete)
+        setHistoryErase([])
+        setPositionErase(0)
+        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }
 
     const handleAddNewBoard = () => {
@@ -138,6 +142,9 @@ export default function MoodboardProvider({ children }) {
         setBoards(prevBoards => [...prevBoards, newBoard])
         setActiveBoard(newBoard)
         setBoardIndex(parseInt(boards.length / 2))
+        setHistoryErase([])
+        setPositionErase(0)
+        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }
     const handleBoardIndexUpdate = (index) => {
         setBoardIndex(index)
@@ -159,6 +166,9 @@ export default function MoodboardProvider({ children }) {
         const reorderedBoards = newBoards.map((el, index) => ({ ...el, name: index + 1 }))
         setBoards(reorderedBoards)
         setActiveBoard(boards[0])
+        setHistoryErase([])
+        setPositionErase(0)
+        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }
     const handleBoardColorChange = (e) => {
         const newColor = e.target.value
