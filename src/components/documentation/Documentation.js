@@ -21,81 +21,54 @@ const Documentation = () => {
         <div className='documentation-container'>
           <div className="accordion-container">
             <img style={{ width: "80px" }} src={vibleLlogo} alt="" />
+            <br />
             <h1>Vible</h1>
-            <h2>A moodboard with some extras</h2>
-
-
-
-            <p><strong>Click or touch</strong> videos, maps and pdfs from the top bar to <strong>drag</strong> them around. The item itself can be interacted with.</p>
-
-            <p>The embedded videos, images, maps and pdfs can be <strong>resized</strong>, <strong>rotated</strong> and <strong> reordered</strong>. </p>
-
-            <p>When you click the <strong>edit board button</strong> at the top or <strong>double click </strong>a box or an <strong> image</strong> or the <strong>top bar</strong> or the other <strong>objects</strong> you will see a <strong> rotation handle</strong> on the left side and a <strong>resize handle</strong> at the bottom right that you can use to <strong>directly modify</strong> the selected item. </p>
-
-
-
-            <p>You can use the <strong>drag eraser</strong> to remove whole lines or the <strong>partial eraser</strong> to erase only parts of them.</p>
-
-            <p>When you use the eraser you can <strong>undo</strong> if you erased something by error.</p>
-
-            <p>With the <strong>line group</strong> tool at the top one can drag over mutiple lines, their color will become <strong> red</strong> then you can <strong>click or touch</strong> one of them and <strong>drag</strong> the <strong> group</strong> around or resize and rotate it or change the lines width and color.</p>
-            <p>Clicking the group button or double clicking the board will finish the grouping operation.</p>
-
-            <p>You can change an <strong>image's opacity</strong> to be able to <strong>trace</strong> over it. </p>
-
-            <p>You can use the <strong>erase all items</strong> or the <strong>erase all lines</strong> button on the right-side controls panel</p>
-
-            <p>Mix <strong>vector freeform drawings</strong> and <strong>handwriting</strong> with <strong>typed text</strong>, <strong>uploaded images</strong>, <strong>linked images</strong>, <strong>Youtube videos</strong>, <strong>Google maps</strong> and <strong>Pdf files</strong>.</p>
-
-            <p>On <strong>mobile devices</strong> you can add multiple <strong>Vible</strong> instances to the<strong> homescreen</strong> and use it as one of you apps. </p>
-
-            <p>There is also a <strong>calculator</strong> that can come in handy. You can select the result and drag it to the board.</p>
-
-            <p>In the <strong>gallery</strong> at the bottom you can add color boxes with color code, uplodad images and add web links that will all stay there and can be added later to the board.</p>
-
-            <p>If you click the <strong>red delete button</strong> an object you will get a <strong>confirmation warning</strong> as that operation <strong>cannot be undone</strong>.</p>
-
-            <p>When you <strong>upload</strong> a saved board in Json format it will be added as a new board. to the existing content so be careful to backup the existing content in its own Json file as some lines will be difficult to separate if the overlap.</p>
-
-
-
-            <p>You can <strong>zoom</strong> in and out by <strong>clicking</strong> or using a <strong>slider</strong>. Zooming out permits to print more of the board content into one page.</p>
-
-            <p>Set the <strong>board</strong> and <strong>buttons</strong> <strong>colors</strong> or choose from <strong> suggested colors</strong>. </p>
-
-            <p>Clicking the <strong>(i) button</strong> at the top will show <strong>tool tips</strong> next to the buttons. Click the button again to hide them.</p>
-
-            <p>You get access to the <strong>documentation</strong> using the (?) button at the top.</p>
-
-            <p>You can use a tablet with a pencil with palm rejection.</p>
-
-
-
-            {/* <Accordion> */}
+            <br />
+            <h2>A moodboard and more</h2>
+            <br />
             <Accordion title="The Board">
-              <p><strong>Vible</strong> stores anything you <strong>drop</strong> on it in your browser's memory, no external
-                database is accessed so your board data lives only on the browser you use it on and will remain there as long as
-                you don't erase it.</p>
-              <p>Everything you add to the board is <strong>automatically saved</strong> and all changes are applied and saved
-                instantly.</p>
+              <p><strong>Vible</strong> stores anything you <strong>drop</strong> on it in your browser's memory, no external database is accessed so your board data lives only on the browser you use it on and will remain there as long as you don't erase it.</p>
+              <p>Mix <strong>vector freeform drawings</strong> and <strong>handwriting</strong> with <strong>typed text</strong>, <strong>uploaded images</strong>, <strong>linked images</strong>, <strong>Youtube videos</strong>, <strong>Google maps</strong> and <strong>Pdf files</strong>.</p>
+              <p>Everything you add to the board is <strong>automatically saved</strong> and all changes are applied and saved instantly.</p>
               <p><strong>Boards</strong> can be <strong>printed</strong> and <strong>downloaded</strong> as a Pdf file.</p>
               <p><strong>Boards</strong> can also be <strong>saved</strong> in Json format for backup, sharing or transfer.</p>
-              <p>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf
-                files</p>
+              <p>When you <strong>upload</strong> a saved board in Json format it will be added as a new board to your existing set.</p>
+              <p>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf files</p>
               <p>Select <strong>text from web pages</strong> or applications windows an drag it to the board.</p>
-              <p>Select and drag a <strong>Youtube</strong> or a <strong>Google maps</strong> (<a
-                href="https://www.google.com/maps/">https://www.google.com/maps/</a>...) <strong>link from the address
-                  bar</strong> and drop it anywhere on the board to embed the video.</p>
-              <p>Select and drag an image <strong>from a web page </strong>and it should show on the board. Note that not all images can
-                be linked to.</p>
-              <p>Click a <strong>calendar</strong> <strong>date</strong> to get a <strong>box</strong> with the date on the
-                board.</p>
-              <p>Write <strong>todos</strong>, <strong>drag</strong> them to <strong>reorder</strong> them. Edit them, or mark
-                them as completed.</p>
-              <p>You can also <strong>drag</strong> todos to the <strong>board</strong> with and expand on them. Completed todos
-                will have a (<strong>complete</strong>) text on them.</p>
+              <p>Select and drag a <strong>Youtube</strong> or a <strong>Google maps</strong> (<a href="https://www.google.com/maps/">https://www.google.com/maps/</a>...) <strong>link from the address bar</strong> and drop it anywhere on the board to embed the video.</p>
+              <p>Select and drag an image <strong>from a web page </strong>and it should show on the board. Note that not all images can be linked to.</p>
+              <p>Click a <strong>calendar</strong> <strong>date</strong> to get a <strong>box</strong> with the date on the board.</p>
               <p><strong>Double click</strong> on the <strong>board</strong> will stop editing operations.</p>
               <p>You can create and edit <strong>multiple boards</strong> using the <strong>Boards</strong> tool at the top.</p>
+              <p>You can use the <strong>erase all items</strong> or the <strong>erase all lines</strong> button on the right-side controls panel</p>
+              <p>On <strong>mobile devices</strong> you can add multiple <strong>Vible</strong> instances to the<strong> homescreen</strong> and use it as one of you apps. </p>
+            </Accordion>
+
+            <Accordion title="The Board Colours">
+              <p>Set the <strong>board</strong> and <strong>buttons</strong> <strong>colors</strong> or choose from <strong> suggested colors</strong>. </p>
+            </Accordion>
+
+            <Accordion title="The Tools">
+
+              <Accordion title="The lines">
+                <p><em>Click the pen button at the top to activate lines drawing.</em></p>
+                <p>When you <strong>hover over any line</strong> it will get automatically <strong>selected</strong> so you can click or touch it and move it around or edit it.</p>
+                <p>All drawn <strong>lines</strong> will show at the <strong>front</strong> of other objects, they can be <strong> dragged</strong> around, <strong>resized</strong> and <strong>rotated</strong>, <strong>dashed</strong>, have <strong>arrow heads</strong>, turn them into <strong>filled shapes</strong>, change their <strong> width</strong>, their <strong>color</strong>, their <strong>opacity,</strong>  <strong>reorder </strong> them or <strong>duplicate</strong> them. </p>
+                <p>To <strong>delete a line</strong> you can select it and press the <strong>delete key</strong> on your keyboard or click the <strong>delete option</strong> on the top form or use the <strong>eraser</strong>.</p>
+                <p>Drawn lines are in <strong>vector format</strong> and can be edited later in a vector illustration application.</p>
+                <p>You can use a tablet with a stylus with palm rejection.</p>
+              </Accordion>
+
+              <Accordion title="The Erasers">
+                <p>You can use the <strong>drag eraser</strong> to remove whole lines or the <strong>partial eraser</strong> to erase only parts of them.</p>
+                <p>When you use the eraser you can <strong>undo</strong> if you erased something by error.</p>
+              </Accordion>
+
+              <Accordion title="Line Group Editing">
+                <p>With the <strong>line group</strong> tool at the top one can drag over mutiple lines, their color will become <strong> red</strong> then you can <strong>click or touch</strong> one of them and <strong>drag</strong> the <strong> group</strong> around or resize and rotate it or change the lines width and color.</p>
+                <p>Clicking the group button or double clicking the board will finish the grouping operation.</p>
+              </Accordion>
+
             </Accordion>
 
             <Accordion title="The Text Box">
@@ -108,48 +81,50 @@ const Documentation = () => {
               <p>You can also add a <strong>web link</strong> that will show at the top of the box.</p>
             </Accordion>
 
-            <Accordion title="The lines">
-              <p>When you <strong>hover over any line</strong> it will get automatically <strong>selected</strong> so you can click or touch it and move it around or edit it.</p>
-              <p>All drawn <strong>lines</strong> will show at the <strong>front</strong> of other objects, they can be <strong> dragged</strong> around, <strong>resized</strong> and <strong>rotated</strong>, <strong>dashed</strong>, have <strong>arrow heads</strong>, turn them into <strong>filled shapes</strong>, change their <strong> width</strong>, their <strong>color</strong>, their <strong>opacity,</strong>  <strong>reorder </strong> them or <strong>duplicate</strong> them.
-              </p>
-              <p>To <strong>delete a line</strong> you can select it and press the <strong>delete key</strong> on your keyboard or click the <strong>delete option</strong> on the top form or use the <strong>eraser</strong>.</p>
-              <p>Drawn lines are in <strong>vector format</strong> and can be edited later in a vector illustration application.</p>
+
+
+            <Accordion title="The Images">
+              <p>You can change an <strong>image's opacity</strong> to be able to <strong>trace</strong> over it. </p>
+              <p>The images can be <strong>resized</strong>, <strong>rotated</strong> and <strong> reordered</strong>. </p>
+            </Accordion>
+
+            <Accordion title="The Videos">
+              <p><strong>Click or touch</strong> videos to <strong>drag</strong> them around. The item itself can be interacted with.</p>
+              <p>The embedded videos can be <strong>resized</strong>, <strong>rotated</strong> and <strong> reordered</strong>. </p>
+
+            </Accordion>
+            <Accordion title="The Maps">
+              <p><strong>Click or touch</strong> maps from the top bar to <strong>drag</strong> them around. The item itself can be interacted with.</p>
+              <p>The embedded maps can be <strong>resized</strong>, <strong>rotated</strong> and <strong> reordered</strong>. </p>
+            </Accordion>
+
+            <Accordion title="The Pdfs">
+              <p><strong>Click or touch</strong> pdfs from the top bar to <strong>drag</strong> them around. The item itself can be interacted with.</p>
+              <p>The embedded pdfs can be <strong>resized</strong>, <strong>rotated</strong> and <strong> reordered</strong>. </p>
             </Accordion>
 
             <Accordion title="Todo">
               <p><em>Click the todo button at the bottom right to reveal the todo pane</em></p>
-              <p>Add todos</p>
-              <p>Mark as complete</p>
-              <p>Edit todo</p>
-              <p>Change order with drap and drop</p>
-              <p>Drag and drop todo on board</p>
+              <p>Write <strong>todos</strong>, <strong>drag</strong> them to <strong>reorder</strong> them. Edit them, or mark
+                them as completed.</p>
+              <p>You can also <strong>drag</strong> todos to the <strong>board</strong> with and expand on them. Completed todos
+                will have a (<strong>complete</strong>) text on them.</p>
             </Accordion>
 
             <Accordion title="Gallery">
               <p><em>Click the gallery button at the bottom left to reveal the gallery pane</em></p>
-              <p><em>In the gallery ou can add color boxes, web links and upload images to add later to the board</em></p>
-              <p>Select the type you want to add from the dropdown menu they will stay there.</p>
+              <p><em>In the gallery you can add color boxes that show the color code, web links and upload images.</em></p>
+              <p>Select the type you want to add from the dropdown menu they will remain there.</p>
               <p>Later you can add these items to the board (add options to drag items to and from the gallery and add more types to the selection</p>
             </Accordion>
 
-            <Accordion title="The Erasers">
-            </Accordion>
-
             <Accordion title="Zooming">
-            </Accordion>
-
-            <Accordion title="The Images">
-            </Accordion>
-            <Accordion title="The Videos">
-            </Accordion>
-            <Accordion title="The Maps">
-            </Accordion>
-            <Accordion title="The Pdfs">
+              <p>You can <strong>zoom</strong> in and out by <strong>clicking</strong> or using a <strong>slider</strong>. Zooming out permits to print more of the board content into one page.</p>
             </Accordion>
 
             <Accordion title="The Calculator">
               <p><strong>Calculator:</strong></p>
-              <p>Select and drag the result to the board</p>
+              <p>There is also a <strong>calculator</strong> that can come in handy. You can select the result and drag it to the board.</p>
             </Accordion>
 
             <Accordion title="The Calendar">
@@ -181,11 +156,7 @@ const Documentation = () => {
               <p>Zoom slider</p>
             </Accordion>
 
-            <Accordion title="Tools">
-              <p>Eraser:</p>
-              <p>Partial eraser:</p>
-              <p>Lines group:</p>
-            </Accordion>
+
 
             <Accordion title="Interactions">
               <p>Hovering over a line selects it</p>
@@ -194,7 +165,6 @@ const Documentation = () => {
               <p>Double click to activate editing</p>
               <p>Click and drag around any video, map or pdf from its top bar</p>
               <p>Double click bar to activate editing</p>
-
             </Accordion>
 
             <Accordion title="The Control Buttons">
@@ -202,15 +172,23 @@ const Documentation = () => {
             </Accordion>
 
             <Accordion title="Warnings">
+              <p>If you click the <strong>red delete button</strong> an object you will get a <strong>confirmation warning</strong> as that operation <strong>cannot be undone</strong>.</p>
+            </Accordion>
 
+            <Accordion title="The Documentation">
+              <p>You get access to the <strong>documentation</strong> using the (?) button at the top.</p>
             </Accordion>
 
             <Accordion title="Tool tips">
-              <p>Click the "i" button at top to show a description next to each tool.</p>
+              <p>Clicking the <strong>(i) button</strong> at the top will show <strong>tool tips</strong> next to the buttons. Click the button again to hide them.</p>
+              <p>You will also get an information popup when you hover over a button and wait.</p>
             </Accordion>
 
-
             <Accordion title="Editing">
+              <p>When you click the <strong>edit board button</strong> at the top or <strong>double click </strong>a box or an <strong> image</strong> or the <strong>top bar</strong> or the other <strong>objects</strong> you will see a <strong> rotation handle</strong> on the left side and a <strong>resize handle</strong> at the bottom right that you can use to <strong>directly modify</strong> the selected item. </p>
+
+              <p><strong>The editing options by item:</strong></p>
+
               <p><strong>Lines:</strong></p>
               <p>Color</p>
               <p>Width</p>
@@ -271,8 +249,6 @@ const Documentation = () => {
               <p>Opacity</p>
               <p>Order?</p>
             </Accordion>
-
-            {/* </Accordion> */}
 
           </div>
         </div>
