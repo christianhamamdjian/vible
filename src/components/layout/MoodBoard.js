@@ -14,7 +14,7 @@ import Documentation from '../documentation/Documentation'
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, isPartialErasing, handleAddBoxOnSpot
+    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, handleAddBoxOnSpot
     } = React.useContext(MoodboardContext);
 
     const renderBoardItems = useMemo(() => {
@@ -55,9 +55,8 @@ const MoodBoard = () => {
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
                         userSelect: "none",
-                        // backgroundColor: "lightgray",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                        touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
+                        touchAction: "none"
                     }}
                 >
                     <svg
@@ -74,14 +73,12 @@ const MoodBoard = () => {
                         style={{
                             backgroundColor: "#f4f2f1",
                             userSelect: "none",
-                            // cursor: isErasing || isPartialErasing && "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                            touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`
+                            touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`,
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`}
                         preserveAspectRatio="none"
-                        //transform={`translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`}
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
                         {renderBoardItems}
@@ -89,9 +86,6 @@ const MoodBoard = () => {
                 </div >
             </BoardDrop>
             {renderInterfaceItems}
-            {/* <Gallery />
-            <Todo />
-            <Documentation /> */}
         </>
     )
 }
