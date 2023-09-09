@@ -17,39 +17,7 @@ const Video = ({ item }) => {
                             userSelect: "none"
                         }}
                     >
-                        {isEditingBoard && (
-                            <>
-                                <circle
-                                    id="rotate"
-                                    fill="#cccccc"
-                                    cx="-20"
-                                    cy={`${item.height / 2}`}
-                                    width="20"
-                                    height="20"
-                                    r='12'
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                <rect
-                                    id="resize"
-                                    fill="#cccccc"
-                                    x={item.width}
-                                    y={item.height}
-                                    width="20"
-                                    height="20"
-                                    rx="4"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                />
-                                {/* <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={item.height - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                /> */}
-                            </>)}
+
                         <foreignObject
                             x="0"
                             y="0"
@@ -121,6 +89,39 @@ const Video = ({ item }) => {
                             picture-in-picture;"
                             />
                         </foreignObject>
+                        {isEditingBoard && (
+                            <>
+                                <circle
+                                    id="rotate"
+                                    fill="#cccccc"
+                                    cx="-20"
+                                    cy={`${item.height / 2}`}
+                                    width="20"
+                                    height="20"
+                                    r='12'
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="#cccccc"
+                                    x={item.width}
+                                    y={item.height}
+                                    width="20"
+                                    height="20"
+                                    rx="4"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                {/* <rect
+                                    id="resize"
+                                    fill="white"
+                                    x={item.width - 18}
+                                    y={item.height - 18}
+                                    width="20"
+                                    height="20"
+                                    rx="2"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                /> */}
+                            </>)}
                         <TopControls item={item} />
                     </g>
                 </>

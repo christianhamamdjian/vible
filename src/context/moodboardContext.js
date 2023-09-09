@@ -992,13 +992,17 @@ export default function MoodboardProvider({ children }) {
             setIsGrouping(false)
         }
         const rectItem = items.find(el => el.id === rectId)
+
         const rectType = rectItem.type
+
         if (e.target.id === 'resize') {
             setIsResizing(true)
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
         }
+
+
         if (e.target.id === 'rotate') {
             const imageSource = itemRef.current.href.baseVal
             const newImage = document.createElement("img")
@@ -1015,9 +1019,11 @@ export default function MoodboardProvider({ children }) {
             console.log(calculatedHeight)
             setAngleOffset({ x: angle })
         }
+
         if (rectType === "box" && editingText) {
             setIsDraggingRect(false)
         }
+
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
         const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -1026,6 +1032,7 @@ export default function MoodboardProvider({ children }) {
             x: Math.floor(clientX) - rect.x,
             y: Math.floor(clientY) - rect.y,
         }
+
         setRectOffsets((prevOffsets) => ({
             ...prevOffsets,
             [rectId]: rectOffset,
@@ -1033,6 +1040,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
+        e.preventDefault()
         if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e

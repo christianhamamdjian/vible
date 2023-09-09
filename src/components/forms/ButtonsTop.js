@@ -263,7 +263,7 @@ const ButtonsTop = () => {
                                     <path d="M23.991,5.16 C24.543,5.16 24.991,5.608 24.991,6.16 L24.991,11.917 C24.991,12.469 24.543,12.917 23.991,12.917 L18.106,12.917 C17.554,12.917 17.106,12.469 17.106,11.917 L17.106,6.16 C17.106,5.608 17.554,5.16 18.106,5.16 L23.991,5.16 z" fill="#ffffff" />
                                 </g>
                             </svg>
-                            <div style={{ width: "1rem", height: "1rem", backgroundColor: "#ffffff", borderRadius: "50%", color: "#3c3c3c", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", bottom: "-.1rem", right: "-.6rem" }}>{activeBoard.name}</div>
+                            <div style={{ width: "1rem", height: "1rem", backgroundColor: "#ffffff", borderRadius: "50%", color: "hsl(240, 11%, 66%)", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", bottom: "-.1rem", right: "-.6rem" }}>{activeBoard.name}</div>
                         </div>
                     </button>
                     <Tooltips

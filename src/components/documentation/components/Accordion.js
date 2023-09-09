@@ -30,7 +30,7 @@ const Accordion = ({ title, children }) => {
 
   return (
     <div className="accordion__section" ref={sensitive}>
-      <button className={`accordion ${active}`} onClick={toggleAccordion}>
+      <button className={`accordion ${active}`} onPointerUp={toggleAccordion}>
         <p className="accordion__title">{title}</p>
         <Chevron width={10} fill={"#777"} className={`${rotation}`} />
       </button>
