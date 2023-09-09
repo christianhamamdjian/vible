@@ -3,8 +3,8 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard } = React.useContext(MoodboardContext);
-
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard } = React.useContext(MoodboardContext);
+    console.log(clipBoard)
     return (
         <>
             <div className='top-buttons'>
@@ -312,7 +312,52 @@ const ButtonsTop = () => {
                         </div>
                     </button>
                 </>
-
+                {clipBoard && <>
+                    <button
+                        title="Paste clipboard content"
+                        style={{ position: "relative" }}
+                        onClick={handlePaste}>
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            style={{ marginLeft: "-.3rem" }}
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M3 19V1H17V5H21V23H7V19H3ZM15  "
+                                fill="currentColor"
+                            />
+                            <path
+                                d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z"
+                                fill="#ddddee"
+                            />
+                        </svg>
+                        <button
+                            title="Clear the clipboard"
+                            onClick={handleClearClipBoard}
+                            style={{
+                                width: ".5rem",
+                                height: "1rem",
+                                backgroundColor: "#ffffff",
+                                borderRadius: "50%",
+                                color: "hsl(240, 11%, 66%)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                position: "absolute",
+                                bottom: "-.1rem",
+                                right: "-.6rem",
+                                padding: ".6rem"
+                            }}
+                        >
+                            &times;
+                        </button>
+                    </button>
+                </>}
             </div>
         </>
     )

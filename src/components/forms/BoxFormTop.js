@@ -4,7 +4,7 @@ import { fontOptions } from "../helperFunctions/fontOptions"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
-    const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, handleDuplicateBox } = React.useContext(MoodboardContext);
+    const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, handleDuplicateBox, handleCopy } = React.useContext(MoodboardContext);
 
     const toolButtons = {
         text: "Text",
@@ -28,7 +28,8 @@ const BoxFormTop = () => {
         borderWidth: "Border width", // range
         borderColor: "Border color", // color
         // backgroundOpacity: "Background opacity", // range
-        roundedCorners: "Rounded corners"
+        roundedCorners: "Rounded corners",
+        copy: "Copy"
     }
 
     const findItem = (term) => {
@@ -275,6 +276,10 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "borderColor")}
                             />
                         </>}
+                        {tool === "copy" && <>
+                            <button onClick={e => handleCopy(e, editingText.id)}>Copy</button>
+                        </>}
+
                         {/* {tool === "backgroundOpacity" && <>
                             <label>Background opacity:</label>
                             <input

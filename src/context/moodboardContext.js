@@ -60,6 +60,7 @@ export default function MoodboardProvider({ children }) {
     const [map, setMap] = useState(false)
     const [pdf, setPdf] = useState(false)
 
+    const [clipBoard, setClipBoard] = useState(null)
     const [zoom, setZoom] = useState(10000)
     const [isEditingBoard, setIsEditingBoard] = useState(false)
 
@@ -125,7 +126,26 @@ export default function MoodboardProvider({ children }) {
     const changeTool = (tool) => {
         setTool(tool)
     }
-
+    const handleCopy = (e, id) => {
+        console.log(id)
+        const copiedItem = items.find(el => el.id === id)
+        console.log(copiedItem)
+        setClipBoard(copiedItem)
+    }
+    const handlePaste = () => {
+        const pastedItem = {
+            ...clipBoard,
+            id: Date.now(),
+            board: activeBoard.id,
+            x: 200,
+            y: 200,
+        }
+        setItems(prevItems => [...prevItems, pastedItem])
+    }
+    const handleClearClipBoard = (e) => {
+        e.stopPropagation()
+        setClipBoard(null)
+    }
     const handleChangeBoard = (boardId) => {
         const toDelete = boards.find((el) => el.id === boardId)
         setActiveBoard(toDelete)
@@ -863,6 +883,7 @@ export default function MoodboardProvider({ children }) {
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
             const item = items.find(el => el.id === selectedRectId)
+
             if (item.type === "box") {
                 setRectangleSize((prevSize) => ({
                     width: Math.max(50, Math.min(900, prevSize.width + dx)),
@@ -919,7 +940,7 @@ export default function MoodboardProvider({ children }) {
             const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
             const angleDiff = newAngle - angleOffset.x;
             const newRotation = (angleDiff * 180) / Math.PI;
-            console.log(angleOffset.x)
+
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === selectedRectId) {
@@ -1016,7 +1037,7 @@ export default function MoodboardProvider({ children }) {
             //const centerY = rect.y + rect.height / 2
             const centerY = rect.y + calculatedHeight / 2
             const angle = Math.atan2(centerY - clientY, centerX - clientX)
-            console.log(calculatedHeight)
+
             setAngleOffset({ x: angle })
         }
 
@@ -1915,6 +1936,7 @@ export default function MoodboardProvider({ children }) {
                 boardColor,
                 buttonsColor,
                 showBoards,
+                clipBoard,
                 // Methods
                 handleShowBoards,
                 handleBoardColorChange,
@@ -2016,7 +2038,10 @@ export default function MoodboardProvider({ children }) {
                 handleChangeBoard,
                 handleAddNewBoard,
                 handleDeleteBoard,
-                handleBoardIndexUpdate
+                handleBoardIndexUpdate,
+                handleCopy,
+                handlePaste,
+                handleClearClipBoard
             }}>
             {children}
         </MoodboardContext.Provider>
