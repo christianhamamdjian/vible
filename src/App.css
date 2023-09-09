@@ -544,14 +544,15 @@ button,
 /* Documentation */
 
 .toggle-documentation {
-  position: absolute;
+  position: fixed;
   width: 50px;
   height: 50px;
-  top: 31rem;
+  top: 1rem;
   left: 12%;
   font-size: 1.5rem;
   font-weight: bold;
   /* border-radius: 0px 12px 0px 0px; */
+  background-color: hsl(240, 32%, 90%) !important;
   border-radius: 50%;
   padding-top: .8rem;
   padding-left: .85rem;
@@ -577,7 +578,8 @@ button,
 }
 
 .documentation-hide {
-  top: -30rem;
+  /* top: -30rem; */
+  top: -100vh;
 }
 
 .documentation-container {
@@ -594,10 +596,11 @@ button,
 .documentation {
   padding: 1rem;
   position: fixed;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 1);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   width: 100%;
-  height: 30rem;
+  /* height: 30rem; */
+  height: 100vh;
   left: 0;
   display: flex;
   justify-content: center;
@@ -607,9 +610,19 @@ button,
   transition: all 0.3s ease-in-out;
 }
 
+.documentation h1,
+h2,
+p,
+span,
+strong,
+em,
+a {
+  font-size: 1.2rem;
+}
+
 .documentation button {
   /* background-color: #007bff; */
-  background-color: hsl(240, 32%, 90%);
+  background-color: hsl(240, 8%, 65%);
 }
 
 .documentation button:hover {
@@ -1356,21 +1369,6 @@ button,
   transform: rotate(45deg);
   left: 7px;
   top: 6px;
-}
-
-.toggle-documentation {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 31rem;
-  left: 12%;
-  font-size: 1.5rem;
-  font-weight: bold;
-  /* border-radius: 0px 12px 0px 0px; */
-  border-radius: 50%;
-  padding-top: .8rem;
-  padding-left: .85rem;
-  /* transform: rotate(30deg); */
 }
 
 
