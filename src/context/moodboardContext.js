@@ -600,7 +600,6 @@ export default function MoodboardProvider({ children }) {
         const text = e.dataTransfer.getData('text')
         const youTubeUrl = e.dataTransfer.getData('url')
         const googleMapUrlStart = "https://www.google.com/maps"
-        const googleMapUrlEnd = "z?entry=ttu"
         const urlStart = "https://www.youtube.com/watch?v="
         let newText = youTubeUrl
         let youtubeCode = newText.replace(urlStart, "")
@@ -1788,11 +1787,15 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleClearBoard = () => {
-        const currentBoardItems = items.filter((el) => el.board !== activeBoard.id)
+        const currentBoardItems = items.filter(el => el.board !== activeBoard.id)
+        const boardPdfs = items.filter(el => el.type === "pdf" && el.board === activeBoard.id)
+        if (boardPdfs.length > 0) {
+            boardPdfs.forEach(el => handlePdfDelete(el.id))
+        }
         // const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
         setItems(currentBoardItems)
         // setPaths(currentBoardPaths)
-        handlePdfDelete()
+        // handlePdfDelete()
     }
     const handleClearPaths = () => {
         const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)

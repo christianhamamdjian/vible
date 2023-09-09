@@ -8,7 +8,7 @@ const Confirm = ({ confirmClear, confirmCancel, item }) => {
         >
             <>
                 <div
-                    style={{ padding: "1rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center" }}
+                    style={{ padding: "1rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", transition: "all 0.3s ease-in-out" }}
                     className="box-control"
                 ><h3 style={{ color: "#ffffff" }}>Delete {item}?</h3>
                     <svg

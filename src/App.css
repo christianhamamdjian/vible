@@ -425,6 +425,7 @@ button,
   cursor: pointer;
   border-radius: 12px;
   user-select: none;
+  /* transition: all 0.3s ease-in-out; */
 }
 
 .box-control-sign {
@@ -583,7 +584,7 @@ button,
 }
 
 .documentation-container {
-  width: 50%;
+  width: 60%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -611,12 +612,12 @@ button,
 }
 
 .documentation h1,
-h2,
-p,
-span,
-strong,
-em,
-a {
+.documentation h2,
+.documentation p,
+.documentation span,
+.documentation strong,
+.documentation em,
+.documentation a {
   font-size: 1.2rem;
 }
 
@@ -1628,13 +1629,6 @@ input[type="range"]:focus::-moz-range-thumb {
 
   .documentation-container {
     width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    gap: .4rem;
-    padding: .5rem;
   }
 
 
@@ -1659,5 +1653,9 @@ input[type="range"]:focus::-moz-range-thumb {
   .toggle-documentation {
     top: 16rem;
     left: 1.2rem;
+  }
+
+  .documentation-container {
+    width: 70%;
   }
 }

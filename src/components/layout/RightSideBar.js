@@ -119,7 +119,7 @@ const RightSidebard = () => {
                     tipLeft="50%"
                     text="Click to clear all items!"
                 >
-                    <button className='toggler' onClick={() => showConfirm("board")}>
+                    <button className='toggler' onClick={() => showConfirm("board items")}>
                         <div className="clear-board">
                             <svg
                                 width="24"
@@ -157,7 +157,7 @@ const RightSidebard = () => {
                     tipLeft="70%"
                     text="Click to clear all lines!"
                 >
-                    <button className='toggler' onClick={() => showConfirm("lines")}>
+                    <button className='toggler' onClick={() => showConfirm("board lines")}>
                         <div className="clear-lines">
                             <svg
                                 width="30"
