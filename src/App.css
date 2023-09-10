@@ -641,10 +641,12 @@ button,
 .documentation h2,
 .documentation p,
 .documentation span,
+.documentation li,
 .documentation strong,
 .documentation em,
 .documentation a {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin-bottom: .4rem;
 }
 
 .documentation button {
