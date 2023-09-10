@@ -6,7 +6,6 @@ import Calendar from "../calendar/Calendar"
 import Tooltips from '../tooltips/Tooltips'
 import Confirm from "../helperFunctions/Confirm"
 import DownloadUploadData from "../utils/DownloadUploadData"
-// import FontSelector from '../utils/FontSelector';
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
@@ -14,13 +13,12 @@ const RightSidebard = () => {
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
-    // const [selectedFont, setSelectedFont] = useState('Roboto');
 
     const confirmClear = (foo) => {
-        if (foo === "board") {
+        if (foo === "board items") {
             handleClearBoard()
         }
-        if (foo === "lines") {
+        if (foo === "board lines") {
             handleClearPaths()
         }
         hideConfirm()
@@ -64,10 +62,7 @@ const RightSidebard = () => {
                     >Reset Colors</button>
                 </div>
             </div>
-            {/* <div>
-                <h1>Font Selector</h1>
-                <FontSelector selectedFont={selectedFont} setSelectedFont={setSelectedFont} />
-            </div> */}
+
             {onShow &&
                 <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
             }

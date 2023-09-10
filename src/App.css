@@ -205,6 +205,17 @@ button,
   box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167); */
 }
 
+::file-selector-button {
+  background-color: hsl(240, 19%, 76%);
+  font-size: .8rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 1rem;
+  margin-left: -.3rem;
+  margin-bottom: .3rem;
+}
+
 .active-board {
   background-color: #ff2d55;
 }

@@ -208,17 +208,21 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handleColorReset = () => {
-        localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
-        localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
+        // localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
+        // localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
+        // setBoardColor("#f4f2f1")
+        // setButtonsColor("#ddddee")
+        localStorage.setItem('boardColor', JSON.stringify(""))
+        localStorage.setItem('buttonsColor', JSON.stringify(""))
         setBoardColor("#f4f2f1")
         setButtonsColor("#ddddee")
 
-        let board = document.getElementById("my-svg")
-        board.style.backgroundColor = "#f4f2f1";
-        let buttons = document.getElementsByTagName("button" || "input")
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].style.backgroundColor = "#ddddee";
-        }
+        // let board = document.getElementById("my-svg")
+        // board.style.backgroundColor = "#f4f2f1";
+        // let buttons = document.getElementsByTagName("button" || "input")
+        // for (var i = 0; i < buttons.length; i++) {
+        //     buttons[i].style.backgroundColor = "#ddddee";
+        // }
     }
 
     const handleRating = (i, id) => {
@@ -249,15 +253,15 @@ export default function MoodboardProvider({ children }) {
             let board = document.getElementById("my-svg")
             board.style.backgroundColor = applyBoardColor
 
-            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
-            setButtonsColor(applyButtonsColor)
-            let buttons = document.getElementsByTagName("button" || "input")
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].style.backgroundColor = applyButtonsColor
-            }
+            // const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
+            // setButtonsColor(applyButtonsColor)
+            // let buttons = document.getElementsByTagName("button" || "input")
+            // for (var i = 0; i < buttons.length; i++) {
+            //     buttons[i].style.backgroundColor = applyButtonsColor
+            // }
         }
         updateColors()
-    }, [])
+    }, [boardColor, buttonsColor])
 
     useEffect(() => {
         loadPathsFromLocalStorage()
@@ -938,35 +942,55 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (isRotating) {
-            const imageSource = itemRef.current.href.baseVal
-            const newImage = document.createElement("img")
-            newImage.src = imageSource
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
-            const rect = items.find((r) => r.id === selectedRectId)
-            const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
-            const centerX = rect.x + rect.width / 2;
-            // const centerY = rect.y + rect.height / 2;
-            const centerY = rect.y + calculatedHeight / 2;
-            const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-            const angleDiff = newAngle - angleOffset.x;
-            const newRotation = (angleDiff * 180) / Math.PI;
+            const item = items.find(el => el.id === selectedRectId)
+            if (item.type === "image") {
+                // const imageSource = itemRef.current.href.baseVal
+                // const newImage = document.createElement("img")
+                // newImage.src = imageSource
+                let newImage = document.createElement("img")
+                newImage.src = item.src
+                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const rect = items.find((r) => r.id === selectedRectId)
+                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                const centerX = rect.x + rect.width / 2;
+                // const centerY = rect.y + rect.height / 2;
+                const centerY = rect.y + calculatedHeight / 2;
+                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                const angleDiff = newAngle - angleOffset.x;
+                const newRotation = (angleDiff * 180) / Math.PI;
 
-            // const currentPoints = { x: clientX, y: clientY };
+                setItems(prevItems =>
+                    prevItems.map(item => {
+                        if (item.id === selectedRectId) {
+                            return { ...item, angle: newRotation }
+                        }
+                        return item
+                    })
+                )
+            } else {
+                // const currentPoints = { x: clientX, y: clientY };
 
-            // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
-            //     setIsRotating(false)
-            //     setIsDraggingRect(false)
-            //     setDraggingSvg(false)
-            // }
-
-            setItems(prevItems =>
-                prevItems.map(item => {
-                    if (item.id === selectedRectId) {
-                        return { ...item, angle: newRotation }
-                    }
-                    return item
-                })
-            )
+                // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+                //     setIsRotating(false)
+                //     setIsDraggingRect(false)
+                //     setDraggingSvg(false)
+                // }
+                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const rect = items.find((r) => r.id === selectedRectId)
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + rect.height / 2;
+                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                const angleDiff = newAngle - angleOffset.x;
+                const newRotation = (angleDiff * 180) / Math.PI;
+                setItems(prevItems =>
+                    prevItems.map(item => {
+                        if (item.id === selectedRectId) {
+                            return { ...item, angle: newRotation }
+                        }
+                        return item
+                    })
+                )
+            }
         }
 
         if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
@@ -1044,9 +1068,11 @@ export default function MoodboardProvider({ children }) {
 
         if (e.target.id === 'rotate') {
             if (rectType === "image" || rectType === "imageUrl") {
-                const imageSource = itemRef.current.href.baseVal
-                const newImage = document.createElement("img")
-                newImage.src = imageSource
+                // const imageSource = itemRef.current.href.baseVal
+                // const newImage = document.createElement("img")
+                // newImage.src = imageSource
+                let newImage = document.createElement("img")
+                newImage.src = rectItem.src
                 setIsRotating(true)
                 setIsDraggingRect(false)
                 const { clientX, clientY } = e.touches ? e.touches[0] : e

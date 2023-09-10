@@ -9,9 +9,11 @@ const Image = ({ item }) => {
 
     useEffect(() => {
         if (item.type === "image" && item.board === activeBoard.id) {
-            const imageSource = itemRef.current.href.baseVal
-            const newImage = document.createElement("img")
-            newImage.src = imageSource
+            // const imageSource = itemRef.current.href.baseVal
+            // const newImage = document.createElement("img")
+            // newImage.src = imageSource
+            let newImage = document.createElement("img")
+            newImage.src = item.src
             setLoadedImage(newImage)
         }
     }, [])
