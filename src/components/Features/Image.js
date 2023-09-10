@@ -16,7 +16,14 @@ const Image = ({ item }) => {
             newImage.src = item.src
             setLoadedImage(newImage)
         }
-    }, [])
+    }, [item, activeBoard])
+    // let loadedImage = () => {
+    //     if (item.type === "image" && item.board === activeBoard.id) {
+    //         let newImage = document.createElement("img")
+    //         newImage.src = item.src
+    //         return newImage
+    //     }
+    // }
     const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
 
     return (
