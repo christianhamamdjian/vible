@@ -212,12 +212,13 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
         setBoardColor("#f4f2f1")
         setButtonsColor("#ddddee")
-        // let board = document.getElementById("my-svg")
-        // board.style.backgroundColor = "#f4f2f1";
-        // let buttons = document.getElementsByTagName("button" || "input")
-        // for (var i = 0; i < buttons.length; i++) {
-        //     buttons[i].style.backgroundColor = "#ddddee";
-        // }
+
+        let board = document.getElementById("my-svg")
+        board.style.backgroundColor = "#f4f2f1";
+        let buttons = document.getElementsByTagName("button" || "input")
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.backgroundColor = "#ddddee";
+        }
     }
 
     const handleRating = (i, id) => {
@@ -248,12 +249,12 @@ export default function MoodboardProvider({ children }) {
             let board = document.getElementById("my-svg")
             board.style.backgroundColor = applyBoardColor
 
-            // const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
-            // setButtonsColor(applyButtonsColor)
-            // let buttons = document.getElementsByTagName("button" || "input")
-            // for (var i = 0; i < buttons.length; i++) {
-            //     buttons[i].style.backgroundColor = applyButtonsColor
-            // }
+            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
+            setButtonsColor(applyButtonsColor)
+            let buttons = document.getElementsByTagName("button" || "input")
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.backgroundColor = applyButtonsColor
+            }
         }
         updateColors()
     }, [])
@@ -884,6 +885,13 @@ export default function MoodboardProvider({ children }) {
             const dy = currentPoints.y - mousedownPoints.y;
             const item = items.find(el => el.id === selectedRectId)
 
+            if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+                setIsResizing(false)
+                setIsDraggingRect(false)
+                setDraggingSvg(false)
+            }
+
+
             if (item.type === "box") {
                 setRectangleSize((prevSize) => ({
                     width: Math.max(50, Math.min(900, prevSize.width + dx)),
@@ -940,6 +948,14 @@ export default function MoodboardProvider({ children }) {
             const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
             const angleDiff = newAngle - angleOffset.x;
             const newRotation = (angleDiff * 180) / Math.PI;
+
+            // const currentPoints = { x: clientX, y: clientY };
+
+            // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+            //     setIsRotating(false)
+            //     setIsDraggingRect(false)
+            //     setDraggingSvg(false)
+            // }
 
             setItems(prevItems =>
                 prevItems.map(item => {
@@ -1025,24 +1041,35 @@ export default function MoodboardProvider({ children }) {
 
 
         if (e.target.id === 'rotate') {
-            const imageSource = itemRef.current.href.baseVal
-            const newImage = document.createElement("img")
-            newImage.src = imageSource
-            setIsRotating(true)
-            setIsDraggingRect(false)
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
-            const rect = items.find((item) => item.id === rectId)
-            const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
-            const centerX = rect.x + rect.width / 2
-            //const centerY = rect.y + rect.height / 2
-            const centerY = rect.y + calculatedHeight / 2
-            const angle = Math.atan2(centerY - clientY, centerX - clientX)
+            if (rectType === "image" || rectType === "imageUrl") {
+                const imageSource = itemRef.current.href.baseVal
+                const newImage = document.createElement("img")
+                newImage.src = imageSource
+                setIsRotating(true)
+                setIsDraggingRect(false)
+                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const rect = items.find((item) => item.id === rectId)
+                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                const centerX = rect.x + rect.width / 2
+                //const centerY = rect.y + rect.height / 2
+                const centerY = rect.y + calculatedHeight / 2
+                const angle = Math.atan2(centerY - clientY, centerX - clientX)
+                setAngleOffset({ x: angle })
 
-            setAngleOffset({ x: angle })
-        }
+            } else {
+                setIsRotating(true)
+                setIsDraggingRect(false)
+                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const rect = items.find((item) => item.id === rectId)
+                const centerX = rect.x + rect.width / 2
+                const centerY = rect.y + rect.height / 2
+                const angle = Math.atan2(centerY - clientY, centerX - clientX)
+                setAngleOffset({ x: angle })
+            }
 
-        if (rectType === "box" && editingText) {
-            setIsDraggingRect(false)
+            if (rectType === "box" && editingText) {
+                setIsDraggingRect(false)
+            }
         }
 
         setSelectedRectId(rectId)
@@ -1077,6 +1104,12 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerUp = (rectId) => {
+        if (isResizing) {
+            setIsResizing(false)
+        }
+        if (isRotating) {
+            setIsRotating(false)
+        }
         setRectOffsets((prevOffsets) => {
             const { [rectId]: deletedOffset, ...restOffsets } = prevOffsets
             return restOffsets
@@ -1135,7 +1168,8 @@ export default function MoodboardProvider({ children }) {
                     return item
                 })
             )
-        } if (resizable && resizable.type === "mapUrl") {
+        }
+        if (resizable && resizable.type === "mapUrl") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -1144,7 +1178,8 @@ export default function MoodboardProvider({ children }) {
                     return item
                 })
             )
-        } if (resizable && resizable.type === "pdf") {
+        }
+        if (resizable && resizable.type === "pdf") {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
@@ -1335,7 +1370,7 @@ export default function MoodboardProvider({ children }) {
 
 
     const handleRotateChange = (e, amount) => {
-        const rotate = (amount === "increase") ? +.5 : -.5
+        const rotate = (amount === "increase") ? +1 : -1
         const updatedPaths = paths.map((path, index) => {
             if (index === selectedPath) {
                 const center = getCenterPoint(path["path"])
@@ -1686,7 +1721,6 @@ export default function MoodboardProvider({ children }) {
     const handleEditItem = (e, id) => {
         if (isDrawing) return
         const itemType = items.find(el => el.id === id).type
-        // console.log(itemType)
         switch (itemType) {
             case 'box':
                 stopAllTopForms()
@@ -1740,15 +1774,6 @@ export default function MoodboardProvider({ children }) {
                 stopAllTopForms()
                 setEditingPdf({ status: true, id: id })
                 setIsEditingBoard(true)
-                // setIsEditingPath(false)
-                // setIsEditingPaths(false)
-                // setEditingVideo(false)
-                // setEditingMap(false)
-                // setSelectedPath(null)
-                // setWrite(false)
-                // setImage(false)
-                // setVideo(false)
-                // setMap(false)
                 break;
             default:
                 break;
@@ -1821,10 +1846,7 @@ export default function MoodboardProvider({ children }) {
         if (boardPdfs.length > 0) {
             boardPdfs.forEach(el => handlePdfDelete(el.id))
         }
-        // const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)
         setItems(currentBoardItems)
-        // setPaths(currentBoardPaths)
-        // handlePdfDelete()
     }
     const handleClearPaths = () => {
         const currentBoardPaths = paths.filter((el) => el.board !== activeBoard.id)

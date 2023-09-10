@@ -4,7 +4,7 @@ import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
     const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard } = React.useContext(MoodboardContext);
-    console.log(clipBoard)
+
     return (
         <>
             <div className='top-buttons'>

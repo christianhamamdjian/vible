@@ -59,6 +59,7 @@ const Documentation = () => {
               <p>Boxes can be <strong>reordered</strong> forward, backwars or brought to the front and sent to the back or <strong> duplicated</strong>. </p>
               <p>Show or hide the <strong>rating</strong> marks at the bottom right of the box.</p>
               <p>You can also add a <strong>web link</strong> that will show at the top of the box.</p>
+              <p>Text boxes can be copied and pasted on the same board and between boards.</p>
             </Accordion>
 
             <Accordion title="The Erasers">
@@ -211,6 +212,7 @@ const Documentation = () => {
               <p>Dashed</p>
               <p>Arrow heads</p>
               <p>Duplicate</p>
+              <p>Copy and Paste</p>
 
               <p><strong>Text boxes:</strong></p>
               <p>Text content</p>
