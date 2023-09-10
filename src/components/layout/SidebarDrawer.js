@@ -74,7 +74,7 @@ const Drawer = ({ isOpen, side }) => (
   <div
     className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen` : ""}`}
   >
-    <DrawerContents side={side} />
+    {isOpen && side && <DrawerContents side={side} />}
   </div>
 );
 export default SidebarDrawer

@@ -886,9 +886,11 @@ export default function MoodboardProvider({ children }) {
             const item = items.find(el => el.id === selectedRectId)
 
             if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+                e.preventDefault()
+                e.stopPropagation()
                 setIsResizing(false)
                 setIsDraggingRect(false)
-                setDraggingSvg(false)
+                // setDraggingSvg(false)
             }
 
 

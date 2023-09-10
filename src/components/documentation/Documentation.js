@@ -18,7 +18,7 @@ const Documentation = () => {
         >
           ?
         </button>
-        <div className='documentation-container'>
+        {documentationShow && <div className='documentation-container'>
           <div className="accordion-container">
             <img style={{ width: "80px" }} src={vibleLlogo} alt="" />
             <br />
@@ -269,7 +269,7 @@ const Documentation = () => {
             </Accordion>
 
           </div>
-        </div>
+        </div>}
       </div>
     </>
   );

@@ -135,7 +135,7 @@ const Gallery = () => {
                             text="Add items to use later" />
                     </div>
                 </button >
-                <div className='gallery-container'>
+                {galleryShow && <> <div className='gallery-container'>
                     <form onSubmit={handleGallerySubmit}>
                         <div className="select-container">
                             <label htmlFor="custom-select"></label>
@@ -252,6 +252,7 @@ const Gallery = () => {
                         }
                     </ul>
                 </div>
+                </>}
             </div>
         </>
     )

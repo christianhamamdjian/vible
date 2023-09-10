@@ -174,6 +174,7 @@ const Todo = () => {
             <div
                 className={`todo ${todosShow ? "todo-show" : "todo-hide"}`}
                 ref={todoRef}>
+
                 <button
                     className="toggle-todo"
                     title="Todo list"
@@ -208,7 +209,7 @@ const Todo = () => {
                         text="Add todos then drop them on the board"
                     />
                 </button >
-                <div
+                {todosShow && <>  <div
                     className='todo-list'
                 >
                     <form onSubmit={handleFormSubmit}>
@@ -327,6 +328,7 @@ const Todo = () => {
                         }
                     </ul >
                 </div >
+                </>}
             </div >
         </>
     )
