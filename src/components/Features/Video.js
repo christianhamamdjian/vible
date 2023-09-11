@@ -53,12 +53,8 @@ const Video = ({ item }) => {
                             y="-30"
                             width={item.width}
                             height={item.height}
-                            //height={item.width * 9 / 12}
                             rx="16"
-                        // style={{ zIndex: "-10" }}
-                        //transform={`rotate(${item.angle || 0})`}
                         />
-
                         }
                         <foreignObject
                             x="0"
@@ -66,16 +62,11 @@ const Video = ({ item }) => {
                             width={item.width}
                             height={item.height}
                             draggable="true"
-                            //transform={isSafari && `rotate(${item.angle || 0})`}
                             style={{
-                                // transform: isSafari && `rotate(${item.angle || 0}deg)`,
-                                // transformOrigin: isSafari && `${item.width / 2, item.height / 2}`,
                                 display: "block",
-                                // zIndex: "999999",
                                 zIndex: "-100",
                                 position: "absolute",
                                 backgroundColor: "transparent",
-                                // paddingTop: "2rem",
                                 top: "0",
                                 right: "0",
                                 bottom: "0",
@@ -104,7 +95,6 @@ const Video = ({ item }) => {
                                 className='videoIf'
                                 style={{
                                     transform: isSafari && `rotate(${item.angle || 0}deg)`,
-                                    // transformOrigin: isSafari && `${item.width / 2, item.height / 2}`,
                                     position: "absolute",
                                     top: isSafari ? item.y : "2rem",
                                     left: isSafari ? item.x : "0",
@@ -113,8 +103,6 @@ const Video = ({ item }) => {
                                     zIndex: "1",
                                     userSelect: "none",
                                     pointerEvents: "all",
-                                    // webkitTransformStyle: "preserve-3d",
-                                    // webkitTransform: "translateZ(0)"
                                 }}
                                 draggable="true"
                                 width="100%"

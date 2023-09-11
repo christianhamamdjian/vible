@@ -25,7 +25,7 @@ const TopControls = ({ item }) => {
     }
     return (
         <>
-            {onShow && <>
+            {onShow && isEditingBoard && <>
                 <rect
                     x="10"
                     // y="-64"

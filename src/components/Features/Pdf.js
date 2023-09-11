@@ -48,79 +48,14 @@ const Pdf = ({ item }) => {
                         style={{
                             userSelect: "none"
                         }}
+                        onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                        onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                        onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                        onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                        onDoubleClick={(e) => handleEditItem(e, item.id)}
                     >
-
-                        <foreignObject
-                            x="0"
-                            y="0"
-                            width={item.width}
-                            height={item.height}
-                            draggable="true"
-                            className='pdf-object'
-                            style={{
-                                backgroundColor: item.color,
-                                // transform: `rotate(${item.angle || 0}deg)`,
-                                // transformOrigin: `${item.width / 2, item.height / 2}`,
-                                display: "block",
-                                zIndex: "999999",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
-                                borderRadius: ".5rem"
-                            }}
-                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
-                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
-                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                            onTouchEnd={() => handleRectPointerUp(item.id)}
-                        >
-                            <div
-                                //    className='pdf-top'
-                                onDoubleClick={(e) => handleEditItem(e, item.id)}
-                                style={{
-                                    potition: "absolute",
-                                    top: "0",
-                                    left: "0",
-                                    width: item.width,
-                                    height: item.width * 9 / 12,
-                                    backgroundColor: "#000000",
-                                    userSelect: "none",
-                                    borderRadius: "1rem 1rem 0 0"
-                                }}
-                            >
-                            </div>
-                            <div
-                                onMouseDown={handleMouseDown}
-                            >
-                                {pdfData ? (
-                                    // <embed
-                                    //     draggable="true"
-                                    //     src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}
-                                    //     type="application/pdf"
-                                    //     width="100%"
-                                    //     height={item.height}
-                                    // />
-                                    <iframe
-
-                                        title="Pdf"
-                                        draggable="true"
-                                        src={URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}
-                                        type="application/pdf"
-                                        width="100%"
-                                        height={item.height}
-                                        style={{
-                                            position: "absolute",
-                                            top: isSafari ? item.y + 25 : "2rem",
-                                            left: isSafari ? item.x : "0",
-                                        }}
-                                    />
-                                ) : (
-                                    <div>No PDF found.</div>
-                                )}</div>
-                        </foreignObject>
                         {isEditingBoard && (
                             <>
                                 <circle
@@ -143,17 +78,82 @@ const Pdf = ({ item }) => {
                                     rx="4"
                                     onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
-                                {/* <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={item.height - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                                /> */}
                             </>)}
+                        {isSafari && <rect
+                            fill="#000000"
+                            x="0"
+                            y="-30"
+                            width={item.width}
+                            height={item.height}
+                            rx="16"
+                        />
+                        }
+                        <foreignObject
+                            x="0"
+                            y="0"
+                            width={item.width}
+                            height={item.height}
+                            draggable="true"
+                            className='pdf-object'
+                            style={{
+                                display: "block",
+                                zIndex: "-100",
+                                position: "absolute",
+                                backgroundColor: "transparent",
+                                top: "0",
+                                right: "0",
+                                bottom: "0",
+                                left: "0",
+                                borderRadius: ".5rem",
+                                userSelect: "none",
+                                pointerEvents: "all"
+                            }}
+                        >
+                            {!isSafari && <div
+                                xmlns="http://www.w3.org/1999/xhtml"
+                                // className='video-top'
+                                style={{
+                                    potition: "absolute",
+                                    top: item.y,
+                                    left: item.x,
+                                    height: item.width * 9 / 12,
+                                    backgroundColor: "#000000",
+                                    userSelect: "none",
+                                    borderRadius: "1rem 1rem 0 0"
+                                }}
+                                onDoubleClick={(e) => handleEditItem(e, item.id)}
+                            >
+                            </div>}
+                            {/* <div
+                                onMouseDown={handleMouseDown}
+                            > */}
+                            {pdfData && (
+                                <iframe
+                                    title="Pdf"
+                                    draggable="true"
+                                    // src={`${URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}#toolbar=0&navpanes=0&scrollbar=0`}
+                                    src={`${URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}`}
+                                    type="application/pdf"
+                                    style={{
+                                        transform: isSafari && `rotate(${item.angle || 0}deg)`,
+                                        position: "absolute",
+                                        top: isSafari ? item.y : "2rem",
+                                        left: isSafari ? item.x : "0",
+                                        right: "0",
+                                        bottom: "0",
+                                        zIndex: "1",
+                                        userSelect: "none",
+                                        pointerEvents: "all",
+                                    }}
+                                    width="100%"
+                                    height="100%"
+                                />
+                                // ) : (
+                                //     <div>No PDF found.</div>
+                            )
+                            }
+                            {/* </div> */}
+                        </foreignObject>
                         <TopControls item={item} />
                     </g>
                 </>
