@@ -56,7 +56,7 @@ const MoodBoard = () => {
                         height: `${window.innerHeight}`,
                         userSelect: "none",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                        touchAction: "none"
+                        touchAction: "none",
                     }}
                 >
                     <svg
@@ -75,7 +75,8 @@ const MoodBoard = () => {
                             userSelect: "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                            touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`,
+                            // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`,
+                            touchAction: "none",
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`}
                         preserveAspectRatio="none"

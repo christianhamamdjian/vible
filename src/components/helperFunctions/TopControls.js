@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const TopControls = ({ item }) => {
@@ -19,12 +20,16 @@ const TopControls = ({ item }) => {
     const hideConfirm = () => {
         setOnShow(false)
     }
+    const safariBrowser = () => {
+        return isSafari && (item.type === "video" || item.type === "mapUrl" || item.type === "pdf")
+    }
     return (
         <>
             {onShow && <>
                 <rect
                     x="10"
-                    y="-64"
+                    // y="-64"
+                    y={`${safariBrowser() ? "-94" : "-64"}`}
                     height="40"
                     width="124"
                     rx="6"
@@ -33,7 +38,8 @@ const TopControls = ({ item }) => {
                 />
                 <text
                     x="18"
-                    y="-42"
+                    // y="-42"
+                    y={`${safariBrowser() ? "-72" : "-42"}`}
                     width="24"
                     height="20"
                     fill="white"
@@ -41,7 +47,8 @@ const TopControls = ({ item }) => {
                 >Really?</text>
                 <svg
                     x="68"
-                    y="-57"
+                    // y="-57"
+                    y={`${safariBrowser() ? "-87" : "-57"}`}
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -65,7 +72,8 @@ const TopControls = ({ item }) => {
                 </svg>
                 <rect
                     x="68"
-                    y="-57"
+                    // y="-57"
+                    y={`${safariBrowser() ? "-87" : "-57"}`}
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -77,7 +85,8 @@ const TopControls = ({ item }) => {
                 />
                 <svg
                     x="104"
-                    y="-57"
+                    // y="-57"
+                    y={`${safariBrowser() ? "-87" : "-57"}`}
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -101,7 +110,8 @@ const TopControls = ({ item }) => {
                 </svg>
                 <rect
                     x="104"
-                    y="-57"
+                    // y="-57"
+                    y={`${safariBrowser() ? "-87" : "-57"}`}
                     width="24"
                     height="24"
                     fill="transparent"
@@ -114,7 +124,8 @@ const TopControls = ({ item }) => {
             {isEditingBoard && <>
                 <rect
                     x="10"
-                    y="-22"
+                    // y="-22"
+                    y={`${safariBrowser() ? "-52" : "-22"}`}
                     height="20"
                     width="24"
                     rx="6"
@@ -127,7 +138,8 @@ const TopControls = ({ item }) => {
                 />
                 <text
                     x="18"
-                    y="-9"
+                    // y="-9"
+                    y={`${safariBrowser() ? "-39" : "-9"}`}
                     width="24"
                     height="20"
                     fill="white"
@@ -137,7 +149,8 @@ const TopControls = ({ item }) => {
                 >&times;</text>
                 <rect
                     x="60"
-                    y="-22"
+                    // y="-22"
+                    y={`${safariBrowser() ? "-52" : "-22"}`}
                     height="20"
                     width="24"
                     rx="6"
@@ -149,7 +162,8 @@ const TopControls = ({ item }) => {
                 />
                 <text
                     x="68"
-                    y="-9"
+                    // y="-9"
+                    y={`${safariBrowser() ? "-39" : "-9"}`}
                     width="24"
                     height="20"
                     fill="white"
@@ -161,7 +175,7 @@ const TopControls = ({ item }) => {
                 {editingItem && editingItem.id === item.id && <>
                     <rect
                         x="35"
-                        y="-22"
+                        y={`${safariBrowser() ? "-52" : "-22"}`}
                         height="20"
                         width="24"
                         rx="6"
@@ -174,7 +188,7 @@ const TopControls = ({ item }) => {
                     />
                     <text
                         x="43"
-                        y="-9"
+                        y={`${safariBrowser() ? "-39" : "-9"}`}
                         width="24"
                         height="20"
                         fill="white"

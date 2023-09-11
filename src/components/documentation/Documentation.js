@@ -24,7 +24,7 @@ const Documentation = () => {
             <br />
             {/* <h1>Vible</h1> */}
             <br />
-            <li><strong>A moodboard and more</strong></li>
+            <p><strong>A moodboard and more</strong></p>
             <br />
             <h2>The Board</h2>
             <Accordion title="What Is Vible And Why You Would Use It?">
@@ -99,7 +99,7 @@ const Documentation = () => {
               <li>Boxes can be <strong>reordered</strong> forward, backwars or brought to the front and sent to the back or <strong> duplicated</strong>. </li>
               <li>Show or hide the <strong>rating</strong> marks at the bottom right of the box.</li>
               <li>You can also add a <strong>web link</strong> that will show at the top of the box.</li>
-              <li>Text boxes can be copied and pasted on the same board and between boards.</li>
+              <li>Text boxes can be copied and pasted on the same board and between boards. While editing the box you have the option to copy it, a paste button will appear at the top, navigate to another board and paste it or click the (x) sign at the bottom of the button to erase the clipboard content. </li>
             </Accordion>
 
             <Accordion title="The Erasers">
