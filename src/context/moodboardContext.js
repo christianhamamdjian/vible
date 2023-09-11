@@ -857,6 +857,7 @@ export default function MoodboardProvider({ children }) {
         }
         // Start drawing
         if (isDrawing && !isErasing && !isPartialErasing) {
+            e.preventDefault()
             if (e.targetTouches && e.targetTouches.length > 1) return
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
@@ -1007,6 +1008,7 @@ export default function MoodboardProvider({ children }) {
 
         // Drawing
         if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
+            e.preventDefault()
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = clientX
@@ -1116,7 +1118,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        e.preventDefault()
+        // e.preventDefault()
         if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e

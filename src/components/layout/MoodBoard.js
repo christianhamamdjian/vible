@@ -55,6 +55,7 @@ const MoodBoard = () => {
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
                         userSelect: "none",
+                        WebkitUserSelect: "none",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                         touchAction: "none",
                     }}
@@ -69,10 +70,11 @@ const MoodBoard = () => {
                         onPointerMove={handleSvgPointerMove}
                         onPointerUp={handleSvgPointerUp}
                         onDoubleClick={handleStopEditItem}
-                        onContextMenu={handleAddBoxOnSpot}
+                        // onContextMenu={handleAddBoxOnSpot}
                         style={{
                             backgroundColor: "#f4f2f1",
                             userSelect: "none",
+                            WebkitUserSelect: "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                             // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`,

@@ -92,7 +92,7 @@ const Documentation = () => {
             </Accordion>
 
             <Accordion title="The Text Box">
-              <li>To add a <strong>text box</strong> you can <strong>right click</strong> with the mouse to see a box appear at the cursor position.</li>
+              {/* <li>To add a <strong>text box</strong> you can <strong>right click</strong> with the mouse to see a box appear at the cursor position.</li> */}
               <li>You can click the <strong>text tool</strong> at the top. Added todos, calendar dates, gallery color boxes and web links are all text boxes and can be edited the same way.</li>
               <li><strong>Double click</strong> a <strong>text box</strong> to modify its size, angle, color, border width, border color, text content, text color, text alignment, font family, font size, font style and corner roundness. </li>
               <li><strong>Click or touch</strong> a box or an image from any point on it to <strong>drag</strong> it around.</li>

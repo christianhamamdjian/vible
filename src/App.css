@@ -1672,18 +1672,30 @@ input[type="range"]:focus::-moz-range-thumb {
 
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
-    height: 5.5rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 60vw;
+    height: 3rem;
+    /* overflow-y: auto; 
+    overflow-x: hidden;*/
+    overflow: hidden;
+    width: 95vw;
     grid-template-columns: 1fr 6rem;
   }
 
+  .inputs-top_objects button {
+    font-size: .7rem;
+    padding: 0.2rem 0.3rem;
+    margin: 0.05rem 0.1rem;
+  }
+
+  .itemForms-top {
+    gap: .2rem;
+  }
+
   .inputs-top_draw {
-    height: 4rem;
+    height: 3rem;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 80%;
+    /* overflow: hidden; */
+    width: 85vw;
   }
 
   .toggle-documentation {
