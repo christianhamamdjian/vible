@@ -35,9 +35,7 @@ const Pdf = ({ item }) => {
             console.error('Error opening IndexedDB.');
         }
     }
-    const handleMouseDown = (event) => {
-        event.preventDefault()
-    };
+
     return (
         <>
             {item.type === "pdf" && item.board === activeBoard.id &&
@@ -124,16 +122,15 @@ const Pdf = ({ item }) => {
                                 onDoubleClick={(e) => handleEditItem(e, item.id)}
                             >
                             </div>}
-                            {/* <div
-                                onMouseDown={handleMouseDown}
-                            > */}
                             {pdfData && (
                                 <iframe
                                     title="Pdf"
                                     draggable="true"
-                                    // src={`${URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}#toolbar=0&navpanes=0&scrollbar=0`}
+                                    width="100%"
+                                    height="100%"
                                     src={`${URL.createObjectURL(new Blob([pdfData], { type: 'application/pdf' }))}`}
                                     type="application/pdf"
+                                    // transform={`rotate(${item.angle}`}
                                     style={{
                                         transform: isSafari && `rotate(${item.angle || 0}deg)`,
                                         position: "absolute",
@@ -144,15 +141,15 @@ const Pdf = ({ item }) => {
                                         zIndex: "1",
                                         userSelect: "none",
                                         pointerEvents: "all",
+                                        // toolbar: "hidden",
+                                        // navpanes: "false",
+                                        // zoom: "0",
+                                        // overflow: "clip"
                                     }}
-                                    width="100%"
-                                    height="100%"
+
                                 />
-                                // ) : (
-                                //     <div>No PDF found.</div>
                             )
                             }
-                            {/* </div> */}
                         </foreignObject>
                         <TopControls item={item} />
                     </g>

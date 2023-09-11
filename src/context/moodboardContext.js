@@ -1352,6 +1352,7 @@ export default function MoodboardProvider({ children }) {
             resetPathsGroup()
             setSelectedPath(null)
             setIsEditingPath(false)
+            setPathLine(1)
         }
         setIsGrouping(isGrouping => !isGrouping)
         setSelectedPath(null)
@@ -1460,18 +1461,27 @@ export default function MoodboardProvider({ children }) {
         setScaling(scale)
         setPaths([...notGouped, ...updatedPaths])
     }
-    const handleGroupLineChange = (e) => {
+    const handleGroupLineChange = (e, op) => {
+        setPathLine(1)
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
-        const line = e.target.value
         const updatedPaths = pathGroup.map((path) => {
-            return ({
-                ...path, line: line
-            })
+            let line = op === "increase" ? pathLine + 1 : pathLine - 1
+            if (line >= 1) {
+                setPathLine(line)
+                return ({
+                    ...path, line: line
+                })
+            } else {
+                setPathLine(1)
+                return ({
+                    ...path, line: 1
+                })
+            }
         })
-        setPathLine(line)
         setPaths([...notGouped, ...updatedPaths])
     }
+
     const handleGroupColorChange = (e) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
@@ -1600,11 +1610,12 @@ export default function MoodboardProvider({ children }) {
 
 
     // Line Change function 
-    const handleLineWidthChange = (e, id) => {
+    const handleLineWidthChange = (e, id, op) => {
         setPaths(prevPaths =>
             prevPaths.map(path => {
                 if (path.id === id) {
-                    return { ...path, line: +e.target.value }
+                    let line = op === "increase" ? path.line + 1 : path.line - 1
+                    return { ...path, line: line >= 1 ? line : 1 }
                 }
                 return path
             })

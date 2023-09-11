@@ -220,6 +220,13 @@ button,
   background-color: #ff2d55;
 }
 
+/* iframe {
+  toolbar: hidden !important;
+  navpanes: false !important;
+  zoom: 0 !important;
+  overflow: clip !important;
+} */
+
 @media (hover: hover) {
 
   button:hover,

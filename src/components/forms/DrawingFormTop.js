@@ -120,11 +120,14 @@ const DrawingFormTop = () => {
                                 onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         </>}
                         {tool === "lineWidth" && <><label>Line width: </label>
-                            <input
+                            {/* <input
                                 type="number"
                                 className='input-line-width'
                                 value={paths.find(path => path.id === isEditingPath.id).line}
-                                onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} />
+                                onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} /> */}
+                            <span>{paths.find(path => path.id === isEditingPath.id).line}</span>
+                            <button onClick={e => handleLineWidthChange(e, isEditingPath.id, "decrease")}>&lt;</button>
+                            <button onClick={e => handleLineWidthChange(e, isEditingPath.id, "increase")}>&gt;</button>
                         </>}
 
                         {tool === "fillColor" && <>
@@ -353,11 +356,14 @@ const DrawingFormTop = () => {
                         </>}
                         {tool === "linesWidth" && <>
                             <label>Lines width: </label>
-                            <input
+                            {/* <input
                                 type="number"
                                 className='input-line-width'
-                                value={pathLine}
-                                onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />
+                                value={pathLine >= 2 && pathLine}
+                                onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />*/}
+                            <span>{pathLine}</span>
+                            <button onClick={e => handleGroupLineChange(e, "decrease")}>&lt;</button>
+                            <button onClick={e => handleGroupLineChange(e, "increase")}>&gt;</button>
                         </>}
                         {tool === "linesRotate" && <>
                             <div className='path-edit-form'>
