@@ -53,6 +53,7 @@ const Box = ({ item }) => {
 
                                 className="box-container"
                                 style={{
+                                    // backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2))",
                                     backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                     width: "100%",
                                     height: "100%",

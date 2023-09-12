@@ -124,6 +124,7 @@ const Pdf = ({ item }) => {
                             </div>}
                             {pdfData && (
                                 <iframe
+                                    // onload={alert("I should be called")}
                                     title="Pdf"
                                     draggable="true"
                                     width="100%"
