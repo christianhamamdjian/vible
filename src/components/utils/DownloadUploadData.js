@@ -11,8 +11,9 @@ const DownloadUploadData = () => {
     const [fileDownloadUrl, setFileDownloadUrl] = useState(null)
     const [isUploading, setIsUploading] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false)
-    const savePathsToLocalStorage = () => {
-        const savingPaths = paths.map((path) => {
+    const savePathsToLocalStorage = (selectedBoardPaths) => {
+        const newPaths = selectedBoardPaths ? selectedBoardPaths : paths
+        const savingPaths = newPaths.map((path) => {
             return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
         })
         return savingPaths
@@ -25,7 +26,7 @@ const DownloadUploadData = () => {
     const data = [
         { items: boardItems },
         // { paths: savePathsToLocalStorage() },
-        { paths: boardPaths },
+        { paths: savePathsToLocalStorage(boardPaths) },
         { boards: currentBoard },
         { galleryItems },
         { todos }
@@ -70,17 +71,18 @@ const DownloadUploadData = () => {
         const fileObj = e.target.files[0]
         const reader = new FileReader()
         reader.onload = (e) => {
+            const newBoardId = Date.now()
+            const newBoard = { id: newBoardId, name: boards.length + 1 }
             const data = JSON.parse(e.target.result)
-            const { items: newItems } = data.vible[0]
-            const { paths: newPaths } = data.vible[1]
-            const { boards: newBoards } = data.vible[2]
-            const { galleryItems: newGalleryItems } = data.vible[3]
-            const { todos: newTodos } = data.vible[4]
+
+            const uploadedItems = data.vible[0]["items"]
+            const uploadedPaths = data.vible[1]["paths"]
+            const newItems = uploadedItems.map(el => ({ ...el, id: el.id + 1, board: newBoardId }))
+            const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + 1, board: newBoardId }))
+            console.log(newItems, newPaths)
             localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
             localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
-            localStorage.setItem('boards', JSON.stringify([...boards, ...newBoards]))
-            localStorage.setItem('galleryItems', JSON.stringify([...galleryItems, ...newGalleryItems]))
-            localStorage.setItem('todos', JSON.stringify([...todos, ...newTodos]))
+            localStorage.setItem('boards', JSON.stringify([...boards, newBoard]))
             refresh()
         }
         reader.readAsText(fileObj)
