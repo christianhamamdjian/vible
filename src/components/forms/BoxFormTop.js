@@ -40,7 +40,7 @@ const BoxFormTop = () => {
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
                 <>
-                    <div className='inputs-top_objects themable' >
+                    <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_objects themable' >

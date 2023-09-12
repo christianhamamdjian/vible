@@ -279,7 +279,7 @@ const Documentation = () => {
               <br />
               <li>Create a box by clicking the "Add Text" button at the top.</li>
               <li>Double click the box or click the edit button at the top and click the green button to target the box.</li>
-              <li>Change its color by selecting a color using the color picker over an image.</li>
+              <li>Change its color by selecting a color using the eye dropper from the color picker over an image.</li>
               <li>Turn the box into a circle using the round corners tool.</li>
               <li>Change its opacity.</li>
               <li>Type the color formula.</li>

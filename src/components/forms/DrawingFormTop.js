@@ -108,7 +108,7 @@ const DrawingFormTop = () => {
             )}
             {paths.length > 0 && isEditingPath && !isErasing && !isGrouping && (
                 <>
-                    <div className='inputs-top_objects themable' >
+                    <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>

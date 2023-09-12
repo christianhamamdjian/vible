@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LeftSideBar from "./LeftSideBar"
 import RightSideBar from "./RightSideBar"
 import Tooltips from '../tooltips/Tooltips'
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const SidebarDrawer = ({ side }) => {
+  const { image, imageLink, video, map, pdf } = useContext(MoodboardContext)
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => setIsOpen(!isOpen);
 
   return (
     <>
       <DrawerButton side={side} isOpen={isOpen} onClick={toggleDrawer} />
-      <Drawer isOpen={isOpen} side={side} />
+      <Drawer image={image} imageLink={imageLink} video={video} map={map} pdf={pdf} isOpen={isOpen} side={side} />
     </>
   )
 }
@@ -70,11 +72,12 @@ const DrawerContents = ({ side }) => (
   </div>
 );
 
-const Drawer = ({ isOpen, side }) => (
+const Drawer = ({ isOpen, side, image, imageLink, video, map, pdf }) => (
   <div
-    className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen` : ""}`}
+    className={`drawer-container-${side} ${isOpen ? `drawer-${side}-isOpen` : ""} ${isOpen && (image || imageLink || video || map || pdf) ? `drawer-${side}-isMoreOpen` : ""}`}
   >
     {isOpen && side && <DrawerContents side={side} />}
   </div>
-);
+)
+
 export default SidebarDrawer
