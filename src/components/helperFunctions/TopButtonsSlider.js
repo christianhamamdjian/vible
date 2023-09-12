@@ -21,6 +21,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
 
     return (
         <>
+
             <button style={{
                 backgroundColor: `${index === 0 ? "#ffffff" : "#8e8e93"}`,
                 color: "#cccccc",
@@ -32,7 +33,9 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 className="prev"
                 disabled={index === 0}
             >&lt;</button>
-            {chunk}
+            <div style={{ display: "flex", justifyContent: "space-evenly", width: "32rem" }}>
+                {chunk}
+            </div>
             <button
                 style={{
                     backgroundColor: `${index === maxIndex ? "#ffffff" : "#8e8e93"} `,
@@ -45,6 +48,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 className="next"
                 disabled={index === maxIndex}
             >&gt;</button>
+
         </>
     )
 }

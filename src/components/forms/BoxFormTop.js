@@ -27,7 +27,7 @@ const BoxFormTop = () => {
         // borderWidth 0 replaces border
         borderWidth: "Border width", // range
         borderColor: "Border color", // color
-        // backgroundOpacity: "Background opacity", // range
+        backgroundOpacity: "Background opacity", // range
         roundedCorners: "Rounded corners",
         copy: "Copy"
     }
@@ -280,18 +280,18 @@ const BoxFormTop = () => {
                             <button onClick={e => handleCopy(e, editingText.id)}>Copy</button>
                         </>}
 
-                        {/* {tool === "backgroundOpacity" && <>
+                        {tool === "backgroundOpacity" && <>
                             <label>Background opacity:</label>
                             <input
                                 type="range"
-                                min="0"
-                                max="55"
-                                step="1"
+                                min="0.1"
+                                max="1"
+                                step="0.1"
                                 name="backgroundOpacity"
                                 value={items.find(item => item.id === editingText.id).backgroundOpacity}
                                 onChange={(e) => handleItemChange(e, editingText.id, "backgroundOpacity")}
                             />
-                        </>} */}
+                        </>}
                     </div>}
                 </>)
             }

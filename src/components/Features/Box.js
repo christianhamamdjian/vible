@@ -6,6 +6,13 @@ import { MoodboardContext } from "../../context/moodboardContext";
 const Box = ({ item }) => {
     const { activeBoard, itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
     const position = `translate${(item.width - 15, item.height - 15)}`
+
+    function addAlpha(color, opacity) {
+        // coerce values so ti is between 0 and 1.
+        var _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+        return color + _opacity.toString(16).toUpperCase();
+    }
+
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -46,7 +53,7 @@ const Box = ({ item }) => {
 
                                 className="box-container"
                                 style={{
-                                    backgroundColor: item.color,
+                                    backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                     width: "100%",
                                     height: "100%",
                                     userSelect: "none",

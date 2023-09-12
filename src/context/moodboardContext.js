@@ -403,7 +403,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -438,7 +439,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -469,7 +471,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -502,7 +505,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -535,7 +539,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -569,7 +574,8 @@ export default function MoodboardProvider({ children }) {
             textAlignCenter: "",
             textAlignLeft: "",
             borderWidth: "",
-            borderColor: ""
+            borderColor: "",
+            backgroundOpacity: "1"
         }
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -694,6 +700,11 @@ export default function MoodboardProvider({ children }) {
                 height: 140,
                 type: "box",
                 font: "Roboto",
+                textAlignCenter: "",
+                textAlignLeft: "",
+                borderWidth: "",
+                borderColor: "",
+                backgroundOpacity: "1"
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
@@ -713,6 +724,11 @@ export default function MoodboardProvider({ children }) {
                 height: 140,
                 type: "box",
                 font: "Roboto",
+                textAlignCenter: "",
+                textAlignLeft: "",
+                borderWidth: "",
+                borderColor: "",
+                backgroundOpacity: "1"
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
