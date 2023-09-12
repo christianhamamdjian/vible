@@ -27,7 +27,8 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 color: "#cccccc",
                 fontWeight: "bold",
                 fontSize: "1rem",
-                border: "1px solid #dddddd"
+                border: "1px solid #dddddd",
+                borderRadius: "2rem"
             }}
                 onClick={() => setIndex(index - 1)}
                 className="prev"
@@ -42,7 +43,8 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                     color: "#dddddd",
                     fontWeight: "bold",
                     fontSize: "1rem",
-                    border: "1px solid #cccccc"
+                    border: "1px solid #cccccc",
+                    borderRadius: "2rem"
                 }}
                 onClick={() => setIndex(index + 1)}
                 className="next"

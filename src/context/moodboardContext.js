@@ -202,27 +202,16 @@ export default function MoodboardProvider({ children }) {
         const newColor = e.target.value
         setButtonsColor(newColor)
         localStorage.setItem('buttonsColor', JSON.stringify(newColor))
-        let buttons = document.getElementsByTagName("button" || "input")
+        let buttons = document.getElementsByClassName("themable")
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].style.backgroundColor = buttonsColor;
+            buttons[i].style.backgroundColor = newColor;
         }
     }
     const handleColorReset = () => {
-        // localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
-        // localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
-        // setBoardColor("#f4f2f1")
-        // setButtonsColor("#ddddee")
-        localStorage.setItem('boardColor', JSON.stringify(""))
-        localStorage.setItem('buttonsColor', JSON.stringify(""))
         setBoardColor("#f4f2f1")
         setButtonsColor("#ddddee")
-
-        // let board = document.getElementById("my-svg")
-        // board.style.backgroundColor = "#f4f2f1";
-        // let buttons = document.getElementsByTagName("button" || "input")
-        // for (var i = 0; i < buttons.length; i++) {
-        //     buttons[i].style.backgroundColor = "#ddddee";
-        // }
+        localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
+        localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
     }
 
     const handleRating = (i, id) => {
@@ -253,8 +242,12 @@ export default function MoodboardProvider({ children }) {
             let board = document.getElementById("my-svg")
             board.style.backgroundColor = applyBoardColor
 
-            // const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
-            // setButtonsColor(applyButtonsColor)
+            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
+            setButtonsColor(applyButtonsColor)
+            let buttons = document.getElementsByClassName("themable")
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].style.backgroundColor = applyButtonsColor;
+            }
             // let buttons = document.getElementsByTagName("button" || "input")
             // for (var i = 0; i < buttons.length; i++) {
             //     buttons[i].style.backgroundColor = applyButtonsColor
@@ -629,12 +622,12 @@ export default function MoodboardProvider({ children }) {
     }
     const handleTextDropUpload = (e) => {
         const text = e.dataTransfer.getData('text')
-        const youTubeUrl = e.dataTransfer.getData('url')
+        const isUrl = e.dataTransfer.getData('url')
         const googleMapUrlStart = "https://www.google.com/maps"
         const urlStart = "https://www.youtube.com/watch?v="
-        let newText = youTubeUrl
+        let newText = isUrl
         let youtubeCode = newText.replace(urlStart, "")
-        if (youTubeUrl && youTubeUrl.includes(urlStart)) {
+        if (isUrl && isUrl.includes(urlStart)) {
             handleDropVideo(youtubeCode)
         }
         if (text && (text.startsWith(googleMapUrlStart))) {
@@ -684,7 +677,8 @@ export default function MoodboardProvider({ children }) {
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (text && !youTubeUrl && (text.startsWith('http') || text.startsWith('https'))) {
+        if (text && !isUrl && (text.startsWith('http') || text.startsWith('https'))) {
+            console.log(text)
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
@@ -708,7 +702,31 @@ export default function MoodboardProvider({ children }) {
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (text && !youTubeUrl && (!text.startsWith('http') || !text.startsWith('https'))) {
+        if (text && !isUrl && (!text.startsWith('http') || !text.startsWith('https'))) {
+            const itemId = Date.now()
+            const newItem = {
+                id: itemId,
+                board: activeBoard.id,
+                x: 200,
+                y: 200,
+                text: text,
+                color: "#ffffff",
+                textColor: getTextColor(itemColor),
+                link: "",
+                url: "",
+                width: 140,
+                height: 140,
+                type: "box",
+                font: "Roboto",
+                textAlignCenter: "",
+                textAlignLeft: "",
+                borderWidth: "",
+                borderColor: "",
+                backgroundOpacity: "1"
+            }
+            setItems((prevItems) => [...prevItems, newItem])
+        }
+        if (isUrl && (text.startsWith('http') || text.startsWith('https'))) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
@@ -1523,7 +1541,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDuplicatePath = (id) => {
         const pathToCopy = paths.find(path => path.id === id)
-        const pathCopy = { ...pathToCopy, id: Date.now() }
+        const pathCopy = { ...pathToCopy, board: activeBoard.id, id: Date.now() }
         setPaths(prevPaths => [...prevPaths, pathCopy])
     }
 
@@ -1540,7 +1558,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleDuplicateBox = (id) => {
         const boxToCopy = items.find(item => item.id === id)
-        const boxCopy = { ...boxToCopy, id: Date.now() }
+        const boxCopy = { ...boxToCopy, board: activeBoard.id, id: Date.now() }
         setItems(prevItems => [...prevItems, boxCopy])
     }
 

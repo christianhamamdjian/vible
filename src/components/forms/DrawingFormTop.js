@@ -108,7 +108,7 @@ const DrawingFormTop = () => {
             )}
             {paths.length > 0 && isEditingPath && !isErasing && !isGrouping && (
                 <>
-                    <div className='inputs-top_objects' >
+                    <div className='inputs-top_objects themable' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>
@@ -341,7 +341,7 @@ const DrawingFormTop = () => {
 
             {paths.length > 1 && isGrouping && (
                 <>
-                    <div className='inputs-top_objects' >
+                    <div className='inputs-top_objects themable' >
                         {Object.entries(groupToolButtons).map((el, i) => {
                             return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
                         })}

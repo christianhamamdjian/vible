@@ -71,28 +71,37 @@ const TopBoardsSlider = () => {
                     color: "#cccccc",
                     fontWeight: "bold",
                     fontSize: "1rem",
-                    border: "1px solid #dddddd"
+                    border: "1px solid #eeeeee",
+                    borderRadius: "3rem"
                 }}
                     onClick={() => handleBoardIndexUpdate(boardIndex - 1)}
                     className="prev"
                     disabled={boardIndex === 0}
                 >&lt;</button>
-                <button style={{
-                    backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                    color: "#cccccc",
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    border: "1px solid #dddddd"
-                }}
+                <button
+                    title="Add new board"
+                    style={{
+                        // backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
+                        backgroundColor: "#ffffff",
+                        color: "#cccccc",
+                        fontWeight: "bold",
+                        fontSize: "1.2rem",
+                        border: "1px solid #eeeeee",
+                        borderRadius: "3rem"
+                    }}
                     onClick={handleAddNewBoard}
                 >+</button>
-                <button style={{
-                    backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                    color: "#cccccc",
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    border: "1px solid #dddddd"
-                }}
+                <button
+                    title="Remove active board"
+                    style={{
+                        // backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
+                        backgroundColor: "#ffffff",
+                        color: "#cccccc",
+                        fontWeight: "bold",
+                        fontSize: "1.2rem",
+                        border: "1px solid #eeeeee",
+                        borderRadius: "3rem"
+                    }}
                     disabled={boards.length < 2}
                     // onClick={() => handleDeleteBoard(chunkContent)}
                     onClick={() => showConfirm("board")}
@@ -104,7 +113,8 @@ const TopBoardsSlider = () => {
                         color: "#dddddd",
                         fontWeight: "bold",
                         fontSize: "1rem",
-                        border: "1px solid #cccccc"
+                        border: "1px solid #eeeeee",
+                        borderRadius: "3rem"
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex + 1)}
                     className="next"

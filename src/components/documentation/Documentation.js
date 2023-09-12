@@ -13,7 +13,7 @@ const Documentation = () => {
       <div className={` documentation ${documentationShow ? "documentation-show" : "documentation-hide"}`}>
         <button
           onClick={handleDocumentationToggle}
-          className="toggle-documentation"
+          className="toggle-documentation themable"
           title="Documentation"
         >
           ?
@@ -272,6 +272,30 @@ const Documentation = () => {
 
             </Accordion>
 
+
+            <Accordion title="Use cases">
+              <li>Drag images from your desktop to the board.</li>
+              <li>Resize, crop, rotate, reorder or give them round corners to your taste.</li>
+              <br />
+              <li>Create a box by clicking the "Add Text" button at the top.</li>
+              <li>Double click the box or click the edit button at the top and click the green button to target the box.</li>
+              <li>Change its color by selecting a color using the color picker over an image.</li>
+              <li>Turn the box into a circle using the round corners tool.</li>
+              <li>Change its opacity.</li>
+              <li>Type the color formula.</li>
+              <br />
+              <li>Change the text font and resize it.</li>
+              <li>Change its color and style.</li>
+              <li>Change its border color and width.</li>
+              <li>Activate the rating.</li>
+              <li>Duplicate it and give the copy a different color.</li>
+              <li>Give your favourite a higher rating.</li>
+              <br />
+              <li>Enter a location's coordinates in the Google maps tool on the left sidebar.</li>
+              <li>Write a comment.</li>
+              <li>Draw a line from the comment to the map.</li>
+              <li>Make the line dashed and activate the arrow head.</li>
+            </Accordion>
             {/* <h2>The Documentation</h2>
             <Accordion title="The Documentation">
               <li>You get access to the <strong>documentation</strong> using the (?) button at the top.</li>

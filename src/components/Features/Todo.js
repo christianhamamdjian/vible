@@ -176,7 +176,7 @@ const Todo = () => {
                 ref={todoRef}>
 
                 <button
-                    className="toggle-todo"
+                    className="themable toggle-todo"
                     title="Todo list"
                     onClick={handleTodosToggle}
                 >

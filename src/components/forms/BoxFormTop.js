@@ -40,10 +40,10 @@ const BoxFormTop = () => {
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
                 <>
-                    <div className='inputs-top_objects' >
+                    <div className='inputs-top_objects themable' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_objects' >
+                    {tool !== "" && <div className='inputs-top_objects themable' >
                         {tool === "text" && <>
                             <label>Text:</label>
                             <textarea
@@ -191,7 +191,7 @@ const BoxFormTop = () => {
                             <input
                                 type="range"
                                 min="0"
-                                max="55"
+                                max="100"
                                 step="1"
                                 name="roundedCorners"
                                 value={items.find(item => item.id === editingText.id).roundedCorners}
@@ -202,18 +202,22 @@ const BoxFormTop = () => {
                             <div className='item-edit-form' style={{ display: "flex" }}>
                                 <label>Order:</label>
                                 <button
+                                    className='themable'
                                     onClick={() => handleMoveItemToBack(editingText.id)}>
                                     <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
                                 </button>
                                 <button
+                                    className='themable'
                                     onClick={() => handleMoveItemToFront(editingText.id)}>
                                     <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
                                 </button>
                                 <button
+                                    className='themable'
                                     onClick={() => handleMoveItemBackward(editingText.id)}>
                                     <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
                                 </button>
                                 <button
+                                    className='themable'
                                     onClick={() => handleMoveItemForward(editingText.id)}>
                                     <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
                                 </button>
@@ -222,6 +226,7 @@ const BoxFormTop = () => {
                         {tool === "duplicate" && <div className='item-edit-form'>
                             <label>Duplicate:</label>
                             <button
+                                className='themable'
                                 onClick={() => handleDuplicateBox(editingText.id)}>
                                 <svg
                                     width="24"
@@ -277,7 +282,12 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "copy" && <>
-                            <button onClick={e => handleCopy(e, editingText.id)}>Copy</button>
+                            <button
+                                className='themable'
+                                onClick={e => handleCopy(e, editingText.id)}
+                            >
+                                Copy
+                            </button>
                         </>}
 
                         {tool === "backgroundOpacity" && <>

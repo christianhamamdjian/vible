@@ -47,13 +47,13 @@ const RightSidebard = () => {
                         value={boardColor}
                         onChange={(e) => handleBoardColorChange(e)}
                     />
-                    {/* <label>Buttons color: </label>
+                    <label>Buttons color: </label>
                     <input
                         type="color"
                         className='theme-color'
                         value={buttonsColor}
                         onChange={(e) => handleButtonsColorChange(e)}
-                    /> */}
+                    />
                 </div>
                 <div className='right-sidebar-buttons' style={{ marginTop: "-.5rem" }}>
                     <button

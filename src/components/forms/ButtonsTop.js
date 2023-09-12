@@ -9,7 +9,7 @@ const ButtonsTop = () => {
         <>
             <div className='top-buttons'>
                 <button
-                    className={isDrawing ? "selected-button" : null}
+                    className={`${isDrawing ? "selected-button" : null} themable`}
                     title="Start drawing"
                     onClick={handleDrawing}>
                     <div className="drawing-sign">
@@ -50,6 +50,7 @@ const ButtonsTop = () => {
                     text="Click to start drawing"
                 />
                 <button
+                    className='themable'
                     onClick={handleAddBox}
                     title="Add a text box"
                 >
@@ -94,7 +95,7 @@ const ButtonsTop = () => {
                 {paths.length > 0 && (
                     <>
                         <button
-                            className={isErasing ? "selected-button" : null}
+                            className={`${isErasing ? "selected-button" : null} themable`}
                             title="Drag Eraser"
                             onClick={handleEraser}>
                             <div className='erasing-sign'>
@@ -134,7 +135,7 @@ const ButtonsTop = () => {
                     <>
 
                         <button
-                            className={isPartialErasing ? "selected-button" : null}
+                            className={`${isPartialErasing ? "selected-button" : null} themable`}
                             title="Partial Eraser"
                             onClick={handlePartialEraser}>
                             <div className='erasing-sign'>
@@ -169,7 +170,7 @@ const ButtonsTop = () => {
                 {paths.length > 0 && (
                     <>
                         <button
-                            className={isGrouping ? "selected-button" : null}
+                            className={`${isGrouping ? "selected-button" : null} themable`}
                             title="Drag select multiple lines"
                             onClick={handleGrouping}>
                             <div className='grouping-sign'>
@@ -204,7 +205,7 @@ const ButtonsTop = () => {
                 {items.length > 0 && (
                     <>
                         <button
-                            className={isEditingBoard ? "selected-button" : null}
+                            className={`${isEditingBoard ? "selected-button" : null} themable`}
                             title="Activate board editing"
                             onClick={handleEditingBoard}>
                             <div className='editing-sign'>
@@ -243,7 +244,7 @@ const ButtonsTop = () => {
                 }
                 <>
                     <button
-                        className={showBoards ? "selected-button" : null}
+                        className={`${showBoards ? "selected-button" : null} themable`}
                         title="Add and edit boards"
                         onClick={handleShowBoards}>
                         <div style={{ position: "relative" }} className='boards-sign'>
@@ -283,7 +284,7 @@ const ButtonsTop = () => {
                 </>
                 <>
                     <button
-                        className={info ? "selected-button" : null}
+                        className={`${info ? "selected-button" : null} themable`}
                         title="Show buttons info"
                         onClick={handleInfo}>
                         <div className='info-sign'>
@@ -314,6 +315,7 @@ const ButtonsTop = () => {
                 </>
                 {clipBoard && <>
                     <button
+                        className='themable'
                         title="Paste clipboard content"
                         style={{ position: "relative" }}
                         onClick={handlePaste}>

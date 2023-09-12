@@ -102,7 +102,7 @@ const Gallery = () => {
             <div className={` gallery ${galleryShow ? "gallery-show" : "gallery-hide"}`}>
 
                 <button
-                    className="toggle-gallery"
+                    className="toggle-gallery themable"
                     title="The Gallery"
                     onClick={handleGalleryToggle}
                 >

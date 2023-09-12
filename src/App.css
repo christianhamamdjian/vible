@@ -237,6 +237,10 @@ button,
   }
 }
 
+.themable:hover {
+  background-color: rgb(11, 9, 112) !important;
+}
+
 .selected-button {
   background-color: rgb(130, 70, 186);
 }
@@ -367,13 +371,13 @@ button,
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: .8rem 1.2rem 1.2rem;
+  padding: .2rem .6rem;
   gap: .2rem .8rem;
   font-weight: bold;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.4);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
-  border-radius: 1rem;
+  border-radius: 3rem;
 }
 
 .inputs-top_draw label {
@@ -383,6 +387,7 @@ button,
 .inputs-top_draw button {
   background: rgba(115, 119, 159, 0.9);
   font-size: .7rem;
+  border-radius: 3rem;
 }
 
 .inputs-top_objects {
@@ -392,20 +397,21 @@ button,
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: .2rem .3rem;
   /* grid-gap: .2rem .8rem; */
   grid-gap: .1rem .1rem;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
-  border-radius: 1rem;
+  border-radius: 5rem;
 }
 
 .inputs-top_objects button {
   background: rgba(138, 142, 184, 0.9);
   font-size: .8rem;
   font-weight: bold;
+  border-radius: 3rem;
 }
 
 /* Board */
@@ -570,8 +576,6 @@ button,
   left: 12%;
   font-size: 1.5rem;
   font-weight: bold;
-  /* border-radius: 0px 12px 0px 0px; */
-  background-color: hsl(240, 32%, 90%) !important;
   color: #ffffff !important;
   border-radius: 50%;
   padding-top: .8rem;
@@ -579,8 +583,13 @@ button,
   /* transform: rotate(30deg); */
 }
 
-.toggle-documentation:hover {
-  background-color: rgb(11, 9, 112) !important;
+.toggle-documentation button {
+  background-color: hsl(240, 26%, 93%);
+  color: #000000;
+}
+
+.toggle-documentation:hover button {
+  background-color: rgb(11, 9, 112);
 }
 
 .documentation-sign {
@@ -656,13 +665,13 @@ button,
   margin-bottom: .4rem;
 }
 
-.documentation button {
-  /* background-color: #007bff; */
-  background-color: hsl(240, 26%, 93%);
-  color: #000000;
-}
+/* .documentation button {
+   
+background-color: hsl(240, 26%, 93%);
+color: #000000;
+}*/
 
-.documentation button:hover {
+*/ .documentation button:hover {
   /* background-color: #007bff; */
   background-color: hsl(240, 32%, 90%);
 }
