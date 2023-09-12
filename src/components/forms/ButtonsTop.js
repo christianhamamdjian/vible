@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, buttonsColor } = React.useContext(MoodboardContext);
 
     return (
         <>
             <div className='top-buttons'>
                 <button
-                    className={`${isDrawing ? "selected-button" : null} themable`}
+                    className={`${isDrawing ? "selected-button" : "null"} themable`}
+                    style={{ backgroundColor: isDrawing ? "rgb(130, 70, 186)" : buttonsColor }}
                     title="Start drawing"
                     onClick={handleDrawing}>
                     <div className="drawing-sign">
@@ -50,7 +51,7 @@ const ButtonsTop = () => {
                     text="Click to start drawing"
                 />
                 <button
-                    className='themable'
+                    className="themable"
                     onClick={handleAddBox}
                     title="Add a text box"
                 >
@@ -95,7 +96,8 @@ const ButtonsTop = () => {
                 {paths.length > 0 && (
                     <>
                         <button
-                            className={`${isErasing ? "selected-button" : null} themable`}
+                            className={`${isErasing ? "selected-button" : "null"} themable`}
+                            style={{ backgroundColor: isErasing ? "rgb(130, 70, 186)" : buttonsColor }}
                             title="Drag Eraser"
                             onClick={handleEraser}>
                             <div className='erasing-sign'>
@@ -136,6 +138,7 @@ const ButtonsTop = () => {
 
                         <button
                             className={`${isPartialErasing ? "selected-button" : null} themable`}
+                            style={{ backgroundColor: isPartialErasing ? "rgb(130, 70, 186)" : buttonsColor }}
                             title="Partial Eraser"
                             onClick={handlePartialEraser}>
                             <div className='erasing-sign'>
@@ -171,6 +174,7 @@ const ButtonsTop = () => {
                     <>
                         <button
                             className={`${isGrouping ? "selected-button" : null} themable`}
+                            style={{ backgroundColor: isGrouping ? "rgb(130, 70, 186)" : buttonsColor }}
                             title="Drag select multiple lines"
                             onClick={handleGrouping}>
                             <div className='grouping-sign'>
@@ -206,6 +210,7 @@ const ButtonsTop = () => {
                     <>
                         <button
                             className={`${isEditingBoard ? "selected-button" : null} themable`}
+                            style={{ backgroundColor: isEditingBoard ? "rgb(130, 70, 186)" : buttonsColor }}
                             title="Activate board editing"
                             onClick={handleEditingBoard}>
                             <div className='editing-sign'>
@@ -245,6 +250,7 @@ const ButtonsTop = () => {
                 <>
                     <button
                         className={`${showBoards ? "selected-button" : null} themable`}
+                        style={{ backgroundColor: showBoards ? "rgb(130, 70, 186)" : buttonsColor }}
                         title="Add and edit boards"
                         onClick={handleShowBoards}>
                         <div style={{ position: "relative" }} className='boards-sign'>
@@ -285,6 +291,7 @@ const ButtonsTop = () => {
                 <>
                     <button
                         className={`${info ? "selected-button" : null} themable`}
+                        style={{ backgroundColor: info ? "rgb(130, 70, 186)" : buttonsColor }}
                         title="Show buttons info"
                         onClick={handleInfo}>
                         <div className='info-sign'>
@@ -315,7 +322,7 @@ const ButtonsTop = () => {
                 </>
                 {clipBoard && <>
                     <button
-                        className='themable'
+                        className="themable"
                         title="Paste clipboard content"
                         style={{ position: "relative" }}
                         onClick={handlePaste}>

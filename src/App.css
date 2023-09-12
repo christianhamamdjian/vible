@@ -414,6 +414,17 @@ button,
   border-radius: 3rem;
 }
 
+.inputs-top_objects input[type="text"],
+.inputs-top_objects textarea {
+  border-radius: .5rem;
+
+}
+
+.inputs-top_objects label {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
 .inputs-boards_objects {
   /* width: 60vw; */
   margin: 0 auto;
@@ -602,8 +613,8 @@ button,
   font-weight: bold;
   color: #ffffff !important;
   border-radius: 50%;
-  padding-top: .8rem;
-  padding-left: .85rem;
+  padding-top: .6rem;
+  padding-left: 1rem;
   /* transform: rotate(30deg); */
 }
 
@@ -1114,7 +1125,15 @@ color: #000000;
   gap: .8rem;
 }
 
-.drawerContents-container {
+.drawerContents-container-left {
+  margin-top: 0;
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 90%;
+}
+
+.drawerContents-container-right {
   margin-top: 0;
   padding-top: 0;
   overflow-x: hidden;
@@ -1133,7 +1152,7 @@ color: #000000;
   background: transparent;
   transition: all 0.3s ease-in-out;
   z-index: 100;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .drawer-container-right {
@@ -1581,6 +1600,8 @@ input[type="range"]:focus::-moz-range-thumb {
   height: 25px;
   width: 25px;
   background-color: #eee;
+  border: 1px solid #bbbbbb;
+  border-radius: .4rem;
 }
 
 /* On mouse-over, add a grey background color */
@@ -1607,8 +1628,8 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* Style the checkmark/indicator */
 .checkbox-container .checkmark:after {
-  left: 9px;
-  top: 5px;
+  left: 7px;
+  top: 3px;
   width: 5px;
   height: 10px;
   border: solid white;

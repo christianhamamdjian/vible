@@ -4,7 +4,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Todo = () => {
-    const { handleTodosToggle, todosShow, handleTodoAddToBoard } = React.useContext(MoodboardContext)
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard, buttonsColor } = React.useContext(MoodboardContext)
 
     const [todos, setTodos] = useLocalStorage("todos", [])
     const [inputValue, setInputValue] = useState('')
@@ -177,6 +177,7 @@ const Todo = () => {
 
                 <button
                     className="themable toggle-todo"
+                    style={{ backgroundColor: todosShow ? "rgb(130, 70, 186)" : buttonsColor }}
                     title="Todo list"
                     onClick={handleTodosToggle}
                 >

@@ -341,7 +341,7 @@ const DrawingFormTop = () => {
 
             {paths.length > 1 && isGrouping && (
                 <>
-                    <div className='inputs-top_objects themable' >
+                    <div className='inputs-top_objects' >
                         {Object.entries(groupToolButtons).map((el, i) => {
                             return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
                         })}

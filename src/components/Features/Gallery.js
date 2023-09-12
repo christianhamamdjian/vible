@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
-    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink } = React.useContext(MoodboardContext);
+    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, buttonsColor } = React.useContext(MoodboardContext);
     const [galleryType, setGalleryType] = useState('color')
     const [galleryContent, setGalleryContent] = useState("#000000")
     const [galleryLink, seGalleryLink] = useState('')
@@ -103,6 +103,7 @@ const Gallery = () => {
 
                 <button
                     className="toggle-gallery themable"
+                    style={{ backgroundColor: galleryShow ? "rgb(130, 70, 186)" : buttonsColor }}
                     title="The Gallery"
                     onClick={handleGalleryToggle}
                 >

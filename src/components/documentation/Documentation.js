@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import vibleLlogo from "../../assets/logo512.png"
 import Accordion from "./components/Accordion";
+import { MoodboardContext } from "../../context/moodboardContext"
 import "./styles.css";
 
 const Documentation = () => {
+  const { buttonsColor } = React.useContext(MoodboardContext)
+
   const [documentationShow, setDocumentationShow] = useState(false)
   const handleDocumentationToggle = () => {
     setDocumentationShow(documentationShow => !documentationShow)
@@ -14,6 +17,7 @@ const Documentation = () => {
         <button
           onClick={handleDocumentationToggle}
           className="toggle-documentation themable"
+          style={{ backgroundColor: documentationShow ? "rgb(130, 70, 186)" : buttonsColor }}
           title="Documentation"
         >
           ?
