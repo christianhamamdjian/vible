@@ -706,7 +706,7 @@ background-color: hsl(240, 26%, 93%);
 color: #000000;
 }*/
 
-*/ .documentation button:hover {
+.documentation button:hover {
   /* background-color: #007bff; */
   background-color: hsl(240, 32%, 90%);
 }
