@@ -71,7 +71,7 @@ const TopBoardsSlider = () => {
                     color: "#cccccc",
                     fontWeight: "bold",
                     fontSize: "2rem",
-                    border: "1px solid #eeeeee",
+                    // border: "1px solid #eeeeee",
                     borderRadius: "2rem"
                 }}
                     onClick={() => handleBoardIndexUpdate(boardIndex - 1)}
@@ -86,7 +86,7 @@ const TopBoardsSlider = () => {
                         color: "#cccccc",
                         fontWeight: "bold",
                         fontSize: "2rem",
-                        border: "1px solid #eeeeee",
+                        // border: "1px solid #eeeeee",
                         borderRadius: "2rem"
                     }}
                     onClick={handleAddNewBoard}
@@ -99,7 +99,7 @@ const TopBoardsSlider = () => {
                         color: "#cccccc",
                         fontWeight: "bold",
                         fontSize: "2rem",
-                        border: "1px solid #eeeeee",
+                        // border: "1px solid #eeeeee",
                         borderRadius: "2rem"
                     }}
                     disabled={boards.length < 2}
@@ -113,7 +113,7 @@ const TopBoardsSlider = () => {
                         color: "#dddddd",
                         fontWeight: "bold",
                         fontSize: "2rem",
-                        border: "1px solid #eeeeee",
+                        // border: "1px solid #eeeeee",
                         borderRadius: "2rem"
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex + 1)}

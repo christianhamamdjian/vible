@@ -13,7 +13,8 @@ export default function MoodboardProvider({ children }) {
     const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#f4f2f1")
     const [boardIndex, setBoardIndex] = useState(0);
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
-    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
+    // const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
+    const [paths, setPaths] = useState([])
     const [items, setItems] = useLocalStorage("items", [])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
@@ -257,7 +258,7 @@ export default function MoodboardProvider({ children }) {
     }, [boardColor, buttonsColor])
 
     useEffect(() => {
-        loadPathsFromLocalStorage()
+        setPaths(loadPathsFromLocalStorage())
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }, [])
 
@@ -265,9 +266,9 @@ export default function MoodboardProvider({ children }) {
         setPdfId(Date.now())
     }, [items])
 
-    useEffect(() => {
-        savePathsToLocalStorage()
-    }, [paths])
+    // useEffect(() => {
+    //     savePathsToLocalStorage()
+    // }, [paths])
 
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
@@ -881,6 +882,7 @@ export default function MoodboardProvider({ children }) {
             setDragGrouping(true)
             return
         }
+
         if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -1057,29 +1059,38 @@ export default function MoodboardProvider({ children }) {
             setPositionErase((prevPosition) => prevPosition + 1);
         }
     }
-
+    console.log(paths)
     const handleSvgPointerUp = () => {
-        setDraggingSvg(false)
         if (drawing) {
+            savePathsToLocalStorage()
             setDrawing(false)
         }
         if (dragErasing) {
+            savePathsToLocalStorage()
             setDragErasing(false)
         }
         if (dragPartialErasing) {
+            savePathsToLocalStorage()
             setDragPartialErasing(false)
         }
         if (dragGrouping) {
+            savePathsToLocalStorage()
             setDragGrouping(false)
         }
         if (isResizing) {
+            savePathsToLocalStorage()
             setIsResizing(false)
         }
         if (isRotating) {
+            savePathsToLocalStorage()
             setIsRotating(false)
         }
         if (groupDragging) {
+            savePathsToLocalStorage()
             setGroupDragging(false)
+        }
+        if (draggingSvg) {
+            setDraggingSvg(false)
         }
     }
 
