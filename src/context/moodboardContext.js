@@ -259,15 +259,20 @@ export default function MoodboardProvider({ children }) {
     }, [boardColor, buttonsColor])
 
     useEffect(() => {
-        localStorage.setItem('paths', JSON.stringify(paths))
-        setPaths(loadPathsFromLocalStorage())
-        setItems(loadItemsFromLocalStorage())
-        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
+        const retrievedItems = loadItemsFromLocalStorage()
+        setItems(retrievedItems)
     }, [])
 
     useEffect(() => {
-        setPdfId(Date.now())
-    }, [items])
+        // localStorage.setItem('paths', JSON.stringify(paths))
+        const retrievedPaths = loadPathsFromLocalStorage()
+        setPaths(retrievedPaths)
+        setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
+    }, [])
+
+    // useEffect(() => {
+    //     setPdfId(Date.now())
+    // }, [items])
 
     // useEffect(() => {
     //     savePathsToLocalStorage()
@@ -282,7 +287,6 @@ export default function MoodboardProvider({ children }) {
         if (typeof window !== "undefined") {
             const saved = localStorage.getItem('items')
             const initial = saved !== null ? JSON.parse(saved) : []
-            console.log(initial)
             return initial
         }
     }
