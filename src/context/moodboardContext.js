@@ -15,7 +15,8 @@ export default function MoodboardProvider({ children }) {
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
     // const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [paths, setPaths] = useState([])
-    const [items, setItems] = useLocalStorage("items", [])
+    // const [items, setItems] = useLocalStorage("items", [])
+    const [items, setItems] = useState([])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -258,7 +259,9 @@ export default function MoodboardProvider({ children }) {
     }, [boardColor, buttonsColor])
 
     useEffect(() => {
+        localStorage.setItem('paths', JSON.stringify(paths))
         setPaths(loadPathsFromLocalStorage())
+        setItems(loadItemsFromLocalStorage())
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }, [])
 
@@ -270,6 +273,19 @@ export default function MoodboardProvider({ children }) {
     //     savePathsToLocalStorage()
     // }, [paths])
 
+    function saveItemsToLocalStorage() {
+        localStorage.setItem('items', JSON.stringify(items))
+    }
+    function loadItemsFromLocalStorage() {
+        // const fetchedItems = localStorage.getItem('items', JSON.parse(items))
+        // return fetchedItems
+        if (typeof window !== "undefined") {
+            const saved = localStorage.getItem('items')
+            const initial = saved !== null ? JSON.parse(saved) : []
+            console.log(initial)
+            return initial
+        }
+    }
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
             return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
@@ -1059,7 +1075,6 @@ export default function MoodboardProvider({ children }) {
             setPositionErase((prevPosition) => prevPosition + 1);
         }
     }
-    console.log(paths)
     const handleSvgPointerUp = () => {
         if (drawing) {
             savePathsToLocalStorage()
@@ -1191,6 +1206,7 @@ export default function MoodboardProvider({ children }) {
         })
         setSelectedRectId(null)
         setIsDraggingRect(false)
+        saveItemsToLocalStorage()
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -1772,6 +1788,8 @@ export default function MoodboardProvider({ children }) {
             setIsEditingBoard(false)
         }
         setItems((prevItems) => prevItems.filter((item) => item.id !== id))
+        const remainingItems = items.filter((item) => item.id !== id)
+        localStorage.setItem('items', JSON.stringify(remainingItems))
         setEditingText(null)
         setEditingImage(null)
         setEditingVideo(null)
