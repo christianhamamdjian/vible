@@ -4,12 +4,19 @@ import { MoodboardContext } from "../../context/moodboardContext";
 import renderPath from '../helperFunctions/pathSmooth';
 
 const Drawing = () => {
-    const { activeBoard, paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathDeSelect, handlePathGroupDrag } = React.useContext(MoodboardContext);
+    const { activeBoard, paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathGroupDrag, tempPath } = React.useContext(MoodboardContext);
 
     return (
         <>
+            {tempPath && <path
+                d={`${renderPath(tempPath["path"])}`}
+                fill={tempPath.closed ? tempPath.fill : "none"}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                stroke={tempPath.color}
+                strokeWidth={tempPath.line}
+            />}
             {paths.length > 0 && paths.map((path, index) => (
-
                 <g key={index}>
                     {path.board === activeBoard.id && <>  <defs>
                         <marker key={path.id} id={`startarrow-${path.id + 1}`} markerWidth="10" markerHeight="7"
@@ -45,11 +52,8 @@ const Drawing = () => {
                             stroke={path.group === "activeGroup" ? "red" : path.color}
                             // stroke="url(#patt)"
                             strokeWidth={path.line}
-                            //onClick={(e) => handlePathClick(e, index, path.id)}
                             onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onPointerMove={(e) => handlePathSelect(e, index, path.id)}
-                            // onPointerEnter={(e) => handlePathSelect(e, index, path.id)}
-                            // onPointerLeave={handlePathDeSelect}
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
                             cursor="grabbing"

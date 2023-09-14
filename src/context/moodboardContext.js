@@ -8,15 +8,14 @@ import { handlePdfDelete } from "../components/utils/itemsOperations"
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
-    const [boards, setBoards] = useLocalStorage("boards", [])
-    const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", [])
+    const [boards, setBoards] = useLocalStorage("boards", [{ id: Date.now(), name: 1 }])
+    const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", { ...boards[0] })
     const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#f4f2f1")
     const [boardIndex, setBoardIndex] = useState(0);
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
-    // const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
-    const [paths, setPaths] = useState([])
-    // const [items, setItems] = useLocalStorage("items", [])
-    const [items, setItems] = useState([])
+    const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
+    const [tempPath, setTempPath] = useState(null)
+    const [items, setItems] = useLocalStorage("items", [])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -229,13 +228,13 @@ export default function MoodboardProvider({ children }) {
         setSelectedStars(0)
     }
 
-    useEffect(() => {
-        if (boards.length === 0) {
-            handleAddNewBoard()
-        }
-        const activeBoardIndex = boards.findIndex(el => el.id === activeBoard.id)
-        setBoardIndex(parseInt(activeBoardIndex / 2))
-    }, [])
+    // useEffect(() => {
+    //     if (boards.length === 0) {
+    //         const activeBoardIndex = boards.findIndex(el => el.id === activeBoard.id)
+    //         handleAddNewBoard()
+    //         setBoardIndex(parseInt(activeBoardIndex / 2))
+    //     }
+    // }, [boards])
 
     useEffect(() => {
         const updateColors = () => {
@@ -259,37 +258,18 @@ export default function MoodboardProvider({ children }) {
     }, [boardColor, buttonsColor])
 
     useEffect(() => {
-        const retrievedItems = loadItemsFromLocalStorage()
-        setItems(retrievedItems)
-    }, [])
-
-    useEffect(() => {
-        // localStorage.setItem('paths', JSON.stringify(paths))
-        const retrievedPaths = loadPathsFromLocalStorage()
-        setPaths(retrievedPaths)
+        loadPathsFromLocalStorage()
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }, [])
 
-    // useEffect(() => {
-    //     setPdfId(Date.now())
-    // }, [items])
+    useEffect(() => {
+        setPdfId(Date.now())
+    }, [items])
 
-    // useEffect(() => {
-    //     savePathsToLocalStorage()
-    // }, [paths])
+    useEffect(() => {
+        savePathsToLocalStorage()
+    }, [paths])
 
-    function saveItemsToLocalStorage() {
-        localStorage.setItem('items', JSON.stringify(items))
-    }
-    function loadItemsFromLocalStorage() {
-        // const fetchedItems = localStorage.getItem('items', JSON.parse(items))
-        // return fetchedItems
-        if (typeof window !== "undefined") {
-            const saved = localStorage.getItem('items')
-            const initial = saved !== null ? JSON.parse(saved) : []
-            return initial
-        }
-    }
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
             return ({ ...path, path: [`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`] })
@@ -658,8 +638,6 @@ export default function MoodboardProvider({ children }) {
                 if (startindex !== -1 && endindex !== -1 && endindex > startindex)
                     return str.substring(startindex, endindex)
             }
-            // const minusStart = text.replace(googleMapUrlStart, "")
-            // const minusEnd = minusStart.replace(googleMapUrlEnd, "")
             const googleCoordinates = () => extractword(text, "@", "z")
             const newItem = {
                 id: Date.now(),
@@ -902,7 +880,6 @@ export default function MoodboardProvider({ children }) {
             setDragGrouping(true)
             return
         }
-
         if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             setSvgOffset({
@@ -922,7 +899,7 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setSelectedPath(null)
             setDrawing(true)
-            setPaths([...paths, {
+            const newPath = {
                 id: Date.now(),
                 board: activeBoard.id,
                 group: "noGroup",
@@ -934,7 +911,8 @@ export default function MoodboardProvider({ children }) {
                 dashed: "",
                 arrowStart: "",
                 arrowEnd: ""
-            }])
+            }
+            setTempPath(() => ({ ...newPath }))
         }
     }
 
@@ -951,7 +929,6 @@ export default function MoodboardProvider({ children }) {
                 e.stopPropagation()
                 setIsResizing(false)
                 setIsDraggingRect(false)
-                // setDraggingSvg(false)
             }
 
 
@@ -1001,9 +978,6 @@ export default function MoodboardProvider({ children }) {
         if (isRotating) {
             const item = items.find(el => el.id === selectedRectId)
             if (item.type === "image") {
-                // const imageSource = itemRef.current.href.baseVal
-                // const newImage = document.createElement("img")
-                // newImage.src = imageSource
                 let newImage = document.createElement("img")
                 newImage.src = item.src
                 const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -1025,13 +999,6 @@ export default function MoodboardProvider({ children }) {
                     })
                 )
             } else {
-                // const currentPoints = { x: clientX, y: clientY };
-
-                // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
-                //     setIsRotating(false)
-                //     setIsDraggingRect(false)
-                //     setDraggingSvg(false)
-                // }
                 const { clientX, clientY } = e.touches ? e.touches[0] : e
                 const rect = items.find((r) => r.id === selectedRectId)
                 const centerX = rect.x + rect.width / 2;
@@ -1070,46 +1037,36 @@ export default function MoodboardProvider({ children }) {
             svgPoint.x = clientX
             svgPoint.y = clientY
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
-            const currentPath = { ...paths[paths.length - 1] }
-            currentPath["path"].push(transformedPoint)
-            const updatedPaths = [...paths]
-            updatedPaths[paths.length - 1] = currentPath
-            setPaths(updatedPaths)
-            setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: updatedPaths }]);
-            setPositionErase((prevPosition) => prevPosition + 1);
+            setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
         }
     }
+
     const handleSvgPointerUp = () => {
+        setDraggingSvg(false)
         if (drawing) {
-            savePathsToLocalStorage()
+            setPaths(prevPaths => [...prevPaths, tempPath])
+            setHistoryErase((prevHistory) => [...prevHistory.slice(0, positionErase + 1), { paths: [...paths, tempPath] }]);
+            setPositionErase((prevPosition) => prevPosition + 1);
             setDrawing(false)
+            setTempPath(null)
         }
         if (dragErasing) {
-            savePathsToLocalStorage()
             setDragErasing(false)
         }
         if (dragPartialErasing) {
-            savePathsToLocalStorage()
             setDragPartialErasing(false)
         }
         if (dragGrouping) {
-            savePathsToLocalStorage()
             setDragGrouping(false)
         }
         if (isResizing) {
-            savePathsToLocalStorage()
             setIsResizing(false)
         }
         if (isRotating) {
-            savePathsToLocalStorage()
             setIsRotating(false)
         }
         if (groupDragging) {
-            savePathsToLocalStorage()
             setGroupDragging(false)
-        }
-        if (draggingSvg) {
-            setDraggingSvg(false)
         }
     }
 
@@ -1134,9 +1091,6 @@ export default function MoodboardProvider({ children }) {
 
         if (e.target.id === 'rotate') {
             if (rectType === "image" || rectType === "imageUrl") {
-                // const imageSource = itemRef.current.href.baseVal
-                // const newImage = document.createElement("img")
-                // newImage.src = imageSource
                 let newImage = document.createElement("img")
                 newImage.src = rectItem.src
                 setIsRotating(true)
@@ -1145,7 +1099,6 @@ export default function MoodboardProvider({ children }) {
                 const rect = items.find((item) => item.id === rectId)
                 const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
                 const centerX = rect.x + rect.width / 2
-                //const centerY = rect.y + rect.height / 2
                 const centerY = rect.y + calculatedHeight / 2
                 const angle = Math.atan2(centerY - clientY, centerX - clientX)
                 setAngleOffset({ x: angle })
@@ -1182,7 +1135,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        // e.preventDefault()
         if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -1210,7 +1162,6 @@ export default function MoodboardProvider({ children }) {
         })
         setSelectedRectId(null)
         setIsDraggingRect(false)
-        saveItemsToLocalStorage()
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -1227,7 +1178,6 @@ export default function MoodboardProvider({ children }) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
-                        // return { ...item, width: size.width, height: size.height }
                         return { ...item, width: size.width, height: "auto" }
                     }
                     return item
@@ -1792,8 +1742,6 @@ export default function MoodboardProvider({ children }) {
             setIsEditingBoard(false)
         }
         setItems((prevItems) => prevItems.filter((item) => item.id !== id))
-        const remainingItems = items.filter((item) => item.id !== id)
-        localStorage.setItem('items', JSON.stringify(remainingItems))
         setEditingText(null)
         setEditingImage(null)
         setEditingVideo(null)
@@ -2013,6 +1961,7 @@ export default function MoodboardProvider({ children }) {
                 info,
                 isDrawing,
                 paths,
+                tempPath,
                 isErasing,
                 isPartialErasing,
                 pathColor,
