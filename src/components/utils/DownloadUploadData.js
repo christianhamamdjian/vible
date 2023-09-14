@@ -79,8 +79,8 @@ const DownloadUploadData = () => {
 
             const uploadedItems = data.vible[0]["items"]
             const uploadedPaths = data.vible[1]["paths"]
-            const newItems = uploadedItems.map(el => ({ ...el, id: el.id + 1, board: newBoardId }))
-            const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + 1, board: newBoardId }))
+            const newItems = uploadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
+            const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
             console.log(newItems, newPaths)
             localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
             localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
