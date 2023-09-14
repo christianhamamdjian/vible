@@ -15,7 +15,8 @@ export default function MoodboardProvider({ children }) {
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [tempPath, setTempPath] = useState(null)
-    const [items, setItems] = useLocalStorage("items", [])
+    const [savedItems, setSavedItems] = useLocalStorage("items", [])
+    const [items, setItems] = useState([])
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -235,6 +236,14 @@ export default function MoodboardProvider({ children }) {
     //         setBoardIndex(parseInt(activeBoardIndex / 2))
     //     }
     // }, [boards])
+
+    useEffect(() => {
+        setItems(savedItems)
+    }, [])
+
+    useEffect(() => {
+        setSavedItems(items)
+    }, [items])
 
     useEffect(() => {
         const updateColors = () => {
