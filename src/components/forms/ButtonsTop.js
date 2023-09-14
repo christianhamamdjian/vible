@@ -9,7 +9,7 @@ const ButtonsTop = () => {
         <>
             <div className='top-buttons'>
                 <button
-                    className={`${isDrawing ? "selected-button" : "null"} themable`}
+                    className={`${isDrawing ? "selected-button" : ""} themable`}
                     style={{ backgroundColor: isDrawing ? "rgb(130, 70, 186)" : buttonsColor }}
                     title="Start drawing"
                     onClick={handleDrawing}>

@@ -3,7 +3,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Image = ({ item }) => {
-    const { activeBoard, itemRef, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
 
@@ -32,6 +32,7 @@ const Image = ({ item }) => {
                 <>
                     <g
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${calculatedHeight / 2})`}
+                        style={{ opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 }}
                     >
                         <image
                             ref={itemRef}
@@ -41,12 +42,12 @@ const Image = ({ item }) => {
                             clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
                             width={item.width}
                             height={calculatedHeight}
-                            onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
-                            onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
-                            onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
-                            onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
-                            onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
-                            onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
+                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
+                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
+                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
+                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
+                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                             className='image-media'
                             style={{
@@ -71,7 +72,7 @@ const Image = ({ item }) => {
                                     width="20"
                                     height="20"
                                     r='12'
-                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
                                 <rect
                                     id="resize"
@@ -81,7 +82,7 @@ const Image = ({ item }) => {
                                     width="20"
                                     height="20"
                                     rx="4"
-                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
                                 />
                             </>)}
                     </g >
