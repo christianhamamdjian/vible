@@ -23,8 +23,10 @@ const DownloadUploadData = () => {
     const boardPaths = paths.filter(el => el.board === activeBoard.id)
     const currentBoard = [{ ...activeBoard }]
 
+    const boardItemsNoPdf = boardItems.filter(el => el.type !== "pdf")
+
     const data = [
-        { items: boardItems },
+        { items: boardItemsNoPdf },
         // { paths: savePathsToLocalStorage() },
         { paths: savePathsToLocalStorage(boardPaths) },
         { boards: currentBoard },
