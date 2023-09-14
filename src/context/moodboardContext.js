@@ -871,8 +871,13 @@ export default function MoodboardProvider({ children }) {
     const resetPathsGroup = () => {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
-    const handleSvgPointerDown = (e) => {
+    const handleSvgPointerDown = (e, rectId) => {
+        if (rectId) {
+            handleRectPointerDown(e, rectId)
+        }
+
         resetPathsGroup()
+
         if (selectedPath || isEditingPath) {
             setSelectedPath(null)
             setIsEditingPath(false)
@@ -925,7 +930,11 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    const handleSvgPointerMove = (e) => {
+    const handleSvgPointerMove = (e, rectId) => {
+        if (rectId) {
+            handleRectPointerMove(e, rectId)
+        }
+
         if (isResizing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const currentPoints = { x: clientX, y: clientY };
@@ -1051,6 +1060,9 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerUp = () => {
+
+        handleRectPointerUp()
+
         setDraggingSvg(false)
         if (drawing) {
             setPaths(prevPaths => [...prevPaths, tempPath])

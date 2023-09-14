@@ -4,7 +4,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { activeBoard, itemRef, items, handleItemChange, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard } = React.useContext(MoodboardContext);
 
     function addAlpha(color, opacity) {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
@@ -39,12 +39,12 @@ const Box = ({ item }) => {
                                 left: "0",
                                 userSelect: "none",
                             }}
-                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                            onPointerUp={() => handleRectPointerUp(item.id)}
-                            onTouchStart={e => handleRectPointerDown(e, item.id)}
-                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                            onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                            onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
+                            onPointerUp={() => handleSvgPointerUp(item.id)}
+                            onTouchStart={e => handleSvgPointerDown(e, item.id)}
+                            onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
+                            onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                         >
                             <div
@@ -148,7 +148,7 @@ const Box = ({ item }) => {
                                     width="20"
                                     height="20"
                                     r='12'
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
                                 <rect
                                     id="resize"
@@ -158,7 +158,7 @@ const Box = ({ item }) => {
                                     width="20"
                                     height="20"
                                     rx="4"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
                                 {/*    <rect
                                     id="resize"
@@ -168,7 +168,7 @@ const Box = ({ item }) => {
                                     width="20"
                                     height="20"
                                     rx="2"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 /> */}
 
                             </>)}
