@@ -15,10 +15,10 @@ export default function MoodboardProvider({ children }) {
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [tempPath, setTempPath] = useState(null)
-    const [tempItem, setTempItem] = useState(null)
+    const [initialIndex, setInitialIndex] = useState(null)
     const [savedItems, setSavedItems] = useLocalStorage("items", [])
     const [items, setItems] = useState([])
-    const [tempItems, setTempItems] = useState([])
+    const [hasMoved, setHasMoved] = useState(false)
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -873,7 +873,11 @@ export default function MoodboardProvider({ children }) {
     const resetPathsGroup = () => {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
-    const handleSvgPointerDown = (e) => {
+    const handleSvgPointerDown = (e, rectId) => {
+
+        if (rectId) {
+            handleRectPointerDown(e, rectId)
+        }
 
         resetPathsGroup()
 
@@ -929,7 +933,10 @@ export default function MoodboardProvider({ children }) {
         }
     }
 
-    const handleSvgPointerMove = (e) => {
+    const handleSvgPointerMove = (e, rectId) => {
+        if (rectId) {
+            handleRectPointerMove(e, rectId)
+        }
 
         if (isResizing) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
@@ -1057,6 +1064,8 @@ export default function MoodboardProvider({ children }) {
 
     const handleSvgPointerUp = () => {
 
+        handleRectPointerUp()
+
         setDraggingSvg(false)
         if (drawing) {
             setPaths(prevPaths => [...prevPaths, tempPath])
@@ -1147,13 +1156,13 @@ export default function MoodboardProvider({ children }) {
             ...prevOffsets,
             [rectId]: rectOffset,
         }))
-        setTempItems([...items])
-        setTempItem(rectItem)
+
+        const rectIndex = items.findIndex(el => el.id === rectId)
+        setInitialIndex(rectIndex)
     }
 
     const handleRectPointerMove = (e, rectId) => {
         if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
-
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] : e
             const rectOffset = rectOffsets[rectId]
@@ -1163,15 +1172,15 @@ export default function MoodboardProvider({ children }) {
             const updatedRectangles = [...items]
             const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY }
             // updatedRectangles[rectIndex] = updatedRect
-            // setItems(updatedRectangles)
-
+            updatedRectangles[updatedRectangles.length] = updatedRect
             updatedRectangles.splice(rectIndex, 1)
-            updatedRectangles[items.length - 1] = updatedRect
-            setItems(updatedRectangles)
+            setItems([...updatedRectangles])
+            setHasMoved(true)
         }
     }
 
     const handleRectPointerUp = (rectId) => {
+
         if (isResizing) {
             setIsResizing(false)
         }
@@ -1182,13 +1191,32 @@ export default function MoodboardProvider({ children }) {
             const { [rectId]: deletedOffset, ...restOffsets } = prevOffsets
             return restOffsets
         })
-        const updatedRect = tempItem && items.find(el => el.id === tempItem.id)
-        const updatedRectangles = tempItems && tempItems.map(el => el.id === tempItem.id ? { ...updatedRect } : el)
-        setItems(updatedRectangles)
+
+
+        if (initialIndex !== 0) {
+            const tempItems = [...items]
+            const firstPart = [...tempItems.slice(0, initialIndex)]
+            const thirdPart = [...tempItems.slice(initialIndex)]
+            const movedItem = thirdPart.pop()
+            const updatedRectangles = [...firstPart, movedItem, ...thirdPart]
+            if (hasMoved) {
+                setItems(updatedRectangles)
+            }
+        }
+        if (initialIndex === 0) {
+            const tempItems = [...items]
+            const movedItem = tempItems.pop()
+            const secondPart = [...tempItems.slice(0)]
+            const updatedRectangles = [movedItem, ...secondPart]
+            if (hasMoved) {
+                setItems(updatedRectangles)
+            }
+        }
+        setHasMoved(false)
+        setInitialIndex(null)
         setSelectedRectId(null)
         setIsDraggingRect(false)
-        setTempItem(null)
-        setTempItems(null)
+
     }
 
     const updateResizeIcon = (dx, dy) => {

@@ -3,7 +3,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
-    const { activeBoard, itemRef, handleRectPointerDown, handleRectPointerMove, handleRectPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
     const [loadedImage, setLoadedImage] = useState(null)
 
     useEffect(() => {
@@ -31,12 +31,12 @@ const ImageLink = ({ item }) => {
                             y="0"
                             width={item.width}
                             clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
-                            onPointerDown={(e) => handleRectPointerDown(e, item.id)}
-                            onPointerMove={(e) => handleRectPointerMove(e, item.id)}
-                            onPointerUp={(e) => handleRectPointerUp(e, item.id)}
-                            onTouchStart={e => { handleRectPointerDown(e, item.id) }}
-                            onTouchMove={(e) => handleRectPointerMove(e, item.id)}
-                            onTouchEnd={(e) => handleRectPointerUp(e, item.id)}
+                            onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                            onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
+                            onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
+                            onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
+                            onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
+                            onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                             className='imagelink-media'
                             style={{
@@ -60,7 +60,7 @@ const ImageLink = ({ item }) => {
                                     width="20"
                                     height="20"
                                     r='12'
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
                                 <rect
                                     id="resize"
@@ -70,7 +70,7 @@ const ImageLink = ({ item }) => {
                                     width="20"
                                     height="20"
                                     rx="4"
-                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
                             </>)}
                         <TopControls item={item} />
