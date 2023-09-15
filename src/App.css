@@ -1507,7 +1507,7 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 15rem;
+  width: 12rem;
 }
 
 /* Removes default focus */
@@ -1775,7 +1775,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
   .inputs-top_draw {
     height: 3rem;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     /* overflow: hidden; */
     width: 85vw;
