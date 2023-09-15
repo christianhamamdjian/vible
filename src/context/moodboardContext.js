@@ -460,7 +460,7 @@ export default function MoodboardProvider({ children }) {
             y: 200,
             text: color,
             color: color,
-            textColor: getTextColor(itemColor),
+            textColor: "#dddddd",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -518,16 +518,15 @@ export default function MoodboardProvider({ children }) {
         setItemColor('#f4b416')
     }
     const handleAddDateBox = (text) => {
-        console.log(text.toLocaleString())
         const itemId = Date.now()
         const newItem = {
             id: itemId,
             board: activeBoard.id,
             x: 200,
             y: 200,
-            text: text.toLocaleString(),
+            text: `New event on ${text.toLocaleDateString('en-GB')} \n\nDetails:`,
             // color: itemColor,
-            color: "#2e4757",
+            color: "#a057c1",
             textColor: "#ffffff",
             link: itemLink,
             url: itemUrl,
@@ -535,7 +534,7 @@ export default function MoodboardProvider({ children }) {
             height: 140,
             type: "box",
             font: "Roboto",
-            fontStyle: false,
+            fontStyle: true,
             fontSize: "10",
             rating: 0,
             showRating: "",
