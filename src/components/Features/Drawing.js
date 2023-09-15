@@ -53,9 +53,10 @@ const Drawing = () => {
                             // stroke="url(#patt)"
                             strokeWidth={path.line}
                             onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                            onTouchStart={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onPointerMove={(e) => handlePathSelect(e, index, path.id)}
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
-                            onTouchStart={(e) => path.group !== "activeGroup" && handlePathDrag(e, index, path.id)}
+
                             cursor="grabbing"
                             style={{
                                 cursor: 'grabbing',

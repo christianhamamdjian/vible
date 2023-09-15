@@ -418,7 +418,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleAddBoxOnSpot = (e) => {
         e.preventDefault()
-        const { clientX, clientY } = e.touches ? e.touches[0] : e
+        const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
         const itemId = Date.now()
         const newItem = {
             id: itemId,
@@ -898,7 +898,7 @@ export default function MoodboardProvider({ children }) {
             return
         }
         if (!isDrawing && !isErasing && !isPartialErasing && !editingText) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setSvgOffset({
                 x: clientX - svgPosition.x,
                 y: clientY - svgPosition.y,
@@ -909,7 +909,7 @@ export default function MoodboardProvider({ children }) {
         if (isDrawing && !isErasing && !isPartialErasing) {
             e.preventDefault()
             if (e.targetTouches && e.targetTouches.length > 1) return
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = clientX
             svgPoint.y = clientY
@@ -939,7 +939,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (isResizing) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const currentPoints = { x: clientX, y: clientY };
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
@@ -1001,7 +1001,7 @@ export default function MoodboardProvider({ children }) {
             if (item.type === "image") {
                 let newImage = document.createElement("img")
                 newImage.src = item.src
-                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((r) => r.id === selectedRectId)
                 const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
                 const centerX = rect.x + rect.width / 2;
@@ -1020,7 +1020,7 @@ export default function MoodboardProvider({ children }) {
                     })
                 )
             } else {
-                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((r) => r.id === selectedRectId)
                 const centerX = rect.x + rect.width / 2;
                 const centerY = rect.y + rect.height / 2;
@@ -1039,7 +1039,7 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const divRect = svgRef.current.getBoundingClientRect()
             const maxX = svgSize.width - divRect.width
             const maxY = svgSize.height - divRect.height
@@ -1053,7 +1053,7 @@ export default function MoodboardProvider({ children }) {
         // Drawing
         if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
             e.preventDefault()
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
             svgPoint.x = clientX
             svgPoint.y = clientY
@@ -1108,7 +1108,7 @@ export default function MoodboardProvider({ children }) {
         if (e.target.id === 'resize') {
             setIsResizing(true)
             setIsDraggingRect(false)
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
         }
 
@@ -1119,7 +1119,7 @@ export default function MoodboardProvider({ children }) {
                 newImage.src = rectItem.src
                 setIsRotating(true)
                 setIsDraggingRect(false)
-                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((item) => item.id === rectId)
                 const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
                 const centerX = rect.x + rect.width / 2
@@ -1130,7 +1130,7 @@ export default function MoodboardProvider({ children }) {
             } else {
                 setIsRotating(true)
                 setIsDraggingRect(false)
-                const { clientX, clientY } = e.touches ? e.touches[0] : e
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((item) => item.id === rectId)
                 const centerX = rect.x + rect.width / 2
                 const centerY = rect.y + rect.height / 2
@@ -1145,7 +1145,7 @@ export default function MoodboardProvider({ children }) {
 
         setSelectedRectId(rectId)
         setIsDraggingRect(true)
-        const { clientX, clientY } = e.touches ? e.touches[0] : e
+        const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
         const rect = items.find((r) => r.id === rectId)
         const rectOffset = {
             x: Math.floor(clientX) - rect.x,
@@ -1164,7 +1164,7 @@ export default function MoodboardProvider({ children }) {
     const handleRectPointerMove = (e, rectId) => {
         if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
         if (isDraggingRect) {
-            const { clientX, clientY } = e.touches ? e.touches[0] : e
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex(el => el.id === rectId)
             const newX = Math.floor(clientX) - rectOffset.x
@@ -1216,7 +1216,6 @@ export default function MoodboardProvider({ children }) {
         setInitialIndex(null)
         setSelectedRectId(null)
         setIsDraggingRect(false)
-
     }
 
     const updateResizeIcon = (dx, dy) => {
@@ -1300,13 +1299,13 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handlePathSelect = (e, index, id) => {
-        e.preventDefault()
+        // e.preventDefault()
         if (isDraggingRect || isDrawing || isEditingBoard || editingItem) { return }
         if (isErasing && dragErasing) {
             handleDeletePath(id)
         }
         if (isPartialErasing && dragPartialErasing) {
-            const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+            const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const startPoint = { x: startX, y: startY }
             handlePartialErasePath(id, startPoint)
         }
@@ -1324,7 +1323,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handlePathDrag = (e, index, id) => {
         e.stopPropagation()
-        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
         if (drawing || isDrawing) { return }
         if (!drawing || !isDrawing) {
             stopAllTopForms()
@@ -1349,7 +1348,7 @@ export default function MoodboardProvider({ children }) {
         }
         const handleMouseMove = (e) => {
             e.preventDefault()
-            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
+            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const deltaX = currentX - startX
             const deltaY = currentY - startY
             if (selectedPath !== null) {
@@ -1440,10 +1439,10 @@ export default function MoodboardProvider({ children }) {
     }
     const handlePathGroupDrag = (e) => {
         const pathGroup = paths.filter(path => path.group === "activeGroup")
-        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] : e
+        const { clientX: startX, clientY: startY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
         const handleMouseMove = (e) => {
             e.preventDefault()
-            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] : e
+            const { clientX: currentX, clientY: currentY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const deltaX = currentX - startX
             const deltaY = currentY - startY
 
