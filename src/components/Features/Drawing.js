@@ -39,6 +39,7 @@ const Drawing = () => {
                     </defs>
                         <path
                             key={index}
+                            id={path.id}
                             ref={pathRef}
                             // d={svgPath(path["path"])} // Line smoothing to be fixed
                             //d={`M${path["path"].map((point) => `${point.x} ${point.y}`).join(' L')}`}

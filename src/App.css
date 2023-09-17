@@ -362,6 +362,7 @@ button,
   /* border-radius: 0 0 12px 12px; */
   max-width: 3rem;
   margin-top: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 50%;
 }
 
@@ -1718,7 +1719,7 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .inputs-top_draw {
-    width: 75%;
+    width: auto;
   }
 
   .inputs {
@@ -1742,7 +1743,7 @@ input[type="range"]:focus::-moz-range-thumb {
     overflow: hidden;
     margin-top: 1.6rem;
     padding: 0.4rem 0.8rem;
-    width: 95vw;
+    width: auto;
     grid-template-columns: 1fr 6rem;
   }
 
@@ -1753,21 +1754,31 @@ input[type="range"]:focus::-moz-range-thumb {
     border-radius: .4rem;
   }
 
+  .inputs-top_objects .next,
+  .inputs-top_objects .prev {
+    padding: .5rem .9rem;
+  }
+
   .inputs-boards_objects {
     /* height: 4rem; */
     /* overflow-y: auto; 
     overflow-x: hidden;*/
+    padding: 0.2rem 0.6rem;
     overflow: hidden;
-    margin-top: 1.2rem;
-    width: 95vw;
+    margin-top: 1.6rem;
+    width: auto;
     grid-template-columns: 1fr 6rem;
   }
 
   .inputs-boards_objects button {
     font-size: 1rem;
-    padding: 0.8rem 0.8rem;
-    margin: 0.2rem 0.4rem;
+    padding: 0rem 0.6rem 0.2rem;
+    margin: 0.2rem 0.2rem;
     border-radius: .6rem;
+  }
+
+  .inputs-boards_objects .active-board {
+    padding: .5rem .8rem;
   }
 
   .itemForms-top {
@@ -1778,8 +1789,18 @@ input[type="range"]:focus::-moz-range-thumb {
     height: 3rem;
     overflow-y: hidden;
     overflow-x: hidden;
+    margin-top: 1.6rem;
+    padding: 1.5rem .5rem;
+    gap: 1rem;
     /* overflow: hidden; */
-    width: 85vw;
+    width: auto;
+  }
+
+  .inputs-top_draw button {
+    font-size: 1rem;
+    padding: .3rem;
+    margin: 0;
+    border-radius: 2rem;
   }
 
   .toggle-documentation {

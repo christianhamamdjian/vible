@@ -231,14 +231,6 @@ export default function MoodboardProvider({ children }) {
         setSelectedStars(0)
     }
 
-    // useEffect(() => {
-    //     if (boards.length === 0) {
-    //         const activeBoardIndex = boards.findIndex(el => el.id === activeBoard.id)
-    //         handleAddNewBoard()
-    //         setBoardIndex(parseInt(activeBoardIndex / 2))
-    //     }
-    // }, [boards])
-
     useEffect(() => {
         setItems(savedItems)
     }, [])
@@ -252,18 +244,15 @@ export default function MoodboardProvider({ children }) {
             const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
             setBoardColor(applyBoardColor)
             let board = document.getElementById("my-svg")
-            board.style.backgroundColor = applyBoardColor
-
+            if (board) {
+                board.style.backgroundColor = applyBoardColor
+            }
             const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
             setButtonsColor(applyButtonsColor)
             let buttons = document.getElementsByClassName("themable")
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].style.backgroundColor = applyButtonsColor;
             }
-            // let buttons = document.getElementsByTagName("button" || "input")
-            // for (var i = 0; i < buttons.length; i++) {
-            //     buttons[i].style.backgroundColor = applyButtonsColor
-            // }
         }
         updateColors()
     }, [boardColor, buttonsColor])
@@ -907,7 +896,7 @@ export default function MoodboardProvider({ children }) {
         }
         // Start drawing
         if (isDrawing && !isErasing && !isPartialErasing) {
-            e.preventDefault()
+            // e.preventDefault()
             if (e.targetTouches && e.targetTouches.length > 1) return
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
@@ -934,132 +923,134 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
-        if (rectId) {
-            handleRectPointerMove(e, rectId)
-        }
+        requestAnimationFrame(() => {
+            if (rectId) {
+                handleRectPointerMove(e, rectId)
+            }
 
-        if (isResizing) {
-            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-            const currentPoints = { x: clientX, y: clientY };
-            const dx = currentPoints.x - mousedownPoints.x;
-            const dy = currentPoints.y - mousedownPoints.y;
-            const item = items.find(el => el.id === selectedRectId)
+            if (isResizing) {
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+                const currentPoints = { x: clientX, y: clientY };
+                const dx = currentPoints.x - mousedownPoints.x;
+                const dy = currentPoints.y - mousedownPoints.y;
+                const item = items.find(el => el.id === selectedRectId)
 
-            if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+                if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setIsResizing(false)
+                    setIsDraggingRect(false)
+                }
+
+
+                if (item.type === "box") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+                if (item.type === "image") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+                if (item.type === "imageUrl") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+                if (item.type === "video") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+                if (item.type === "mapUrl") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+                if (item.type === "pdf") {
+                    setRectangleSize((prevSize) => ({
+                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
+                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
+                    }))
+                }
+
+                handleResize(e, selectedRectId)
+                setMousedownPoints(currentPoints)
+                updateResizeIcon(dx, dy)
+
+            }
+
+            if (isRotating) {
+                const item = items.find(el => el.id === selectedRectId)
+                if (item.type === "image") {
+                    let newImage = document.createElement("img")
+                    newImage.src = item.src
+                    const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+                    const rect = items.find((r) => r.id === selectedRectId)
+                    const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                    const centerX = rect.x + rect.width / 2;
+                    // const centerY = rect.y + rect.height / 2;
+                    const centerY = rect.y + calculatedHeight / 2;
+                    const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                    const angleDiff = newAngle - angleOffset.x;
+                    const newRotation = (angleDiff * 180) / Math.PI;
+
+                    setItems(prevItems =>
+                        prevItems.map(item => {
+                            if (item.id === selectedRectId) {
+                                return { ...item, angle: newRotation }
+                            }
+                            return item
+                        })
+                    )
+                } else {
+                    const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+                    const rect = items.find((r) => r.id === selectedRectId)
+                    const centerX = rect.x + rect.width / 2;
+                    const centerY = rect.y + rect.height / 2;
+                    const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                    const angleDiff = newAngle - angleOffset.x;
+                    const newRotation = (angleDiff * 180) / Math.PI;
+                    setItems(prevItems =>
+                        prevItems.map(item => {
+                            if (item.id === selectedRectId) {
+                                return { ...item, angle: newRotation }
+                            }
+                            return item
+                        })
+                    )
+                }
+            }
+
+            if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+                const divRect = svgRef.current.getBoundingClientRect()
+                const maxX = svgSize.width - divRect.width
+                const maxY = svgSize.height - divRect.height
+                let newX = clientX - svgOffset.x
+                let newY = clientY - svgOffset.y
+                newX = Math.min(0, Math.max(newX, maxX))
+                newY = Math.min(0, Math.max(newY, maxY))
+                setSvgPosition({ x: newX, y: newY })
+            }
+
+            // Drawing
+            if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
                 e.preventDefault()
-                e.stopPropagation()
-                setIsResizing(false)
-                setIsDraggingRect(false)
-            }
-
-
-            if (item.type === "box") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-            if (item.type === "image") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-            if (item.type === "imageUrl") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-            if (item.type === "video") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-            if (item.type === "mapUrl") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-            if (item.type === "pdf") {
-                setRectangleSize((prevSize) => ({
-                    width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                    height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                }))
-            }
-
-            handleResize(e, selectedRectId)
-            setMousedownPoints(currentPoints)
-            updateResizeIcon(dx, dy)
-
-        }
-
-        if (isRotating) {
-            const item = items.find(el => el.id === selectedRectId)
-            if (item.type === "image") {
-                let newImage = document.createElement("img")
-                newImage.src = item.src
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                const rect = items.find((r) => r.id === selectedRectId)
-                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
-                const centerX = rect.x + rect.width / 2;
-                // const centerY = rect.y + rect.height / 2;
-                const centerY = rect.y + calculatedHeight / 2;
-                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-                const angleDiff = newAngle - angleOffset.x;
-                const newRotation = (angleDiff * 180) / Math.PI;
-
-                setItems(prevItems =>
-                    prevItems.map(item => {
-                        if (item.id === selectedRectId) {
-                            return { ...item, angle: newRotation }
-                        }
-                        return item
-                    })
-                )
-            } else {
-                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                const rect = items.find((r) => r.id === selectedRectId)
-                const centerX = rect.x + rect.width / 2;
-                const centerY = rect.y + rect.height / 2;
-                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-                const angleDiff = newAngle - angleOffset.x;
-                const newRotation = (angleDiff * 180) / Math.PI;
-                setItems(prevItems =>
-                    prevItems.map(item => {
-                        if (item.id === selectedRectId) {
-                            return { ...item, angle: newRotation }
-                        }
-                        return item
-                    })
-                )
+                const svgPoint = svgRef.current.createSVGPoint()
+                svgPoint.x = clientX
+                svgPoint.y = clientY
+                const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
+                setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
             }
-        }
-
-        if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
-            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-            const divRect = svgRef.current.getBoundingClientRect()
-            const maxX = svgSize.width - divRect.width
-            const maxY = svgSize.height - divRect.height
-            let newX = clientX - svgOffset.x
-            let newY = clientY - svgOffset.y
-            newX = Math.min(0, Math.max(newX, maxX))
-            newY = Math.min(0, Math.max(newY, maxY))
-            setSvgPosition({ x: newX, y: newY })
-        }
-
-        // Drawing
-        if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
-            e.preventDefault()
-            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-            const svgPoint = svgRef.current.createSVGPoint()
-            svgPoint.x = clientX
-            svgPoint.y = clientY
-            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
-            setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
-        }
+        })
     }
 
     const handleSvgPointerUp = () => {
@@ -1432,6 +1423,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingBoard(false)
         setIsErasing(false)
         setIsPartialErasing(false)
+        setInfo(false)
     }
     const handleGroupPaths = (added) => {
         setPaths(prevPaths => prevPaths.map(el => el.id === added ? { ...el, group: "activeGroup" } : el))
@@ -1618,6 +1610,7 @@ export default function MoodboardProvider({ children }) {
         resetPathsGroup()
         setIsEditingBoard(false)
         setShowBoards(false)
+        setInfo(false)
     }
     const handleEraser = () => {
         stopAllTopForms()
@@ -1631,6 +1624,7 @@ export default function MoodboardProvider({ children }) {
         resetPathsGroup()
         setIsPartialErasing(false)
         setIsEditingBoard(false)
+        setInfo(false)
     }
     const handlePartialEraser = () => {
         stopAllTopForms()
@@ -1644,6 +1638,7 @@ export default function MoodboardProvider({ children }) {
         resetPathsGroup()
         setIsErasing(false)
         setIsEditingBoard(false)
+        setInfo(false)
     }
     const handleDeletePath = (erased) => {
         const newPaths = paths.filter((path) => path.id !== erased)
@@ -1999,6 +1994,7 @@ export default function MoodboardProvider({ children }) {
         setEditingVideo(null)
         setEditingMap(null)
         setEditingPdf(null)
+        setInfo(false)
 
         setWrite(false)
         setImage(false)
