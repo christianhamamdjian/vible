@@ -55,7 +55,7 @@ const Drawing = () => {
                             onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onTouchStart={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onPointerMove={(e) => handlePathSelect(e, index, path.id)}
-                            // onPointerEnter={(e) => handlePathSelect(e, index, path.id)}
+                            //onPointerEnter={(e) => handlePathSelect(e, index, path.id)}
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             cursor="grabbing"
                             style={{

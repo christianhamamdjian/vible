@@ -29,16 +29,18 @@ const Tooltips = ({ position, tipTop, tipLeft, text, children, width, height, to
                             opacity: `${info ? "1" : "0"}`
                         }}>
                         {position === "bottom" &&
-                            <span className="top-tip" style={{
-                                top: tipTop,
-                                left: tipLeft
-                            }}>
+                            <span className="top-tip"
+                                style={{
+                                    top: tipTop,
+                                    left: tipLeft
+                                }}>
                             </span>
                         }
-                        {text}{position === "top" && <span className="bottom-tip" style={{ top: tipTop, left: tipLeft }}></span>}
-
+                        {text}{position === "top" &&
+                            <span className="bottom-tip"
+                                style={{ top: tipTop, left: tipLeft }}>
+                            </span>}
                     </p>
-
                 </div>
             </div >
             {position === "top" && children

@@ -881,6 +881,7 @@ export default function MoodboardProvider({ children }) {
         resetPathsGroup()
 
         if (selectedPath || isEditingPath) {
+            setTool("")
             setSelectedPath(null)
             setIsEditingPath(false)
         }

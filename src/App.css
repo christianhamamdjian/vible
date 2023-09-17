@@ -201,6 +201,7 @@ button,
   /* border: 1px solid#ffffff; */
   user-select: none;
   cursor: pointer;
+  opacity: .6;
   /* -moz-box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167);
   -webkit-box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167);
   box-shadow: 0 0 2px 2px hsla(240, 7%, 30%, 0.167); */
