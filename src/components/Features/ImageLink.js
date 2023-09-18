@@ -23,7 +23,6 @@ const ImageLink = ({ item }) => {
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${calculatedHeight / 2})`}
                         style={{ opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 }}
                     >
-
                         <image
                             ref={itemRef}
                             href={item.imageUrl}
@@ -40,13 +39,6 @@ const ImageLink = ({ item }) => {
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                             className='imagelink-media'
                             style={{
-                                display: "block",
-                                zIndex: "999999",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
                                 opacity: item.opacity,
                             }}
                         />

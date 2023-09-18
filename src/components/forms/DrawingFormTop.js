@@ -236,19 +236,23 @@ const DrawingFormTop = () => {
                             <label>Order: </label>
                             <button
                                 onClick={() => handleMoveToBack(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                <div className='move-item'
+                                >&gt;&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveToFront(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                <div className='move-item'
+                                >&lt;&lt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveBackward(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div className='move-item'
+                                >&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveForward(isEditingPath.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div className='move-item'
+                                >&lt;</div>
                             </button>
                         </div>}
 
@@ -277,7 +281,7 @@ const DrawingFormTop = () => {
                         </button>}
 
                         {tool === "done" && <button
-                            style={{ padding: ".3rem .6rem" }}
+                            className='path-edit-form-button'
                             onClick={stopLineEditing}>
                             <svg
                                 x="0"
@@ -286,10 +290,7 @@ const DrawingFormTop = () => {
                                 height="18"
                                 viewBox="0 0 18 18"
                                 fill="transparent"
-                                style={{
-                                    cursor: "pointer",
-                                    marginLeft: "-.2rem"
-                                }}
+                                className='path-edit-form-svg'
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path

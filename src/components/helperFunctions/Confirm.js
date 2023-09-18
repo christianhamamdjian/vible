@@ -4,21 +4,19 @@ const Confirm = ({ confirmClear, confirmCancel, item }) => {
 
     return (
         <div
-            style={{ height: "40", width: "124", borderRadius: "6", backgroundColor: "purple" }}
+            className='confirm-container'
         >
             <>
                 <div
-                    style={{ padding: "1rem", display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center", transition: "all 0.3s ease-in-out" }}
-                    className="box-control"
-                ><h3 style={{ color: "#ffffff" }}>Delete {item}?</h3>
+                    className="confirm-box-control"
+                ><h3 className='confirm-h3'
+                >Delete {item}?</h3>
                     <svg
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
                         fill="transparent"
-                        style={{
-                            cursor: "pointer"
-                        }}
+                        className='confirm-svg'
                         onClick={confirmCancel}
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -40,9 +38,7 @@ const Confirm = ({ confirmClear, confirmCancel, item }) => {
                         height="24"
                         viewBox="0 0 24 24"
                         fill="transparent"
-                        style={{
-                            cursor: "pointer"
-                        }}
+                        className='confirm-svg'
                         onClick={() => confirmClear(item)}
                         xmlns="http://www.w3.org/2000/svg"
                     >

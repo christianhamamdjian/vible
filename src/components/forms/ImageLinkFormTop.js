@@ -1,5 +1,5 @@
 import React from 'react'
-import TopButtonsSlider from "../helpers/TopButtonsSlider"
+import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageLinkFormTop = () => {
@@ -108,19 +108,23 @@ const ImageLinkFormTop = () => {
                             <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingImage.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                <div className='move-item'
+                                >&gt;&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemToFront(editingImage.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                <div className='move-item'
+                                >&lt;&lt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemBackward(editingImage.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div className='move-item'
+                                >&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemForward(editingImage.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div className='move-item'
+                                >&lt;</div>
                             </button>
                         </>}
                     </div>}

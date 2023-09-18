@@ -48,11 +48,11 @@ function BoardDrop({ children }) {
             />
             <div
                 id="drag-file-element"
+                className='drag-file-element'
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
-                style={{ userSelect: "none", }}
             >
                 {children}
             </div>

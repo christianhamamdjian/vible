@@ -13,8 +13,8 @@ const Video = ({ item }) => {
                     <g
                         draggable="true"
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}
+                        className='video-group'
                         style={{
-                            userSelect: "none",
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1
                         }}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
@@ -63,47 +63,25 @@ const Video = ({ item }) => {
                             width={item.width}
                             height={item.height}
                             draggable="true"
-                            style={{
-                                display: "block",
-                                zIndex: "-100",
-                                position: "absolute",
-                                backgroundColor: "transparent",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
-                                borderRadius: ".5rem",
-                                userSelect: "none",
-                                pointerEvents: "all"
-                            }}
+                            className='video-object'
                         >
                             {!isSafari && <div
                                 xmlns="http://www.w3.org/1999/xhtml"
-                                // className='video-top'
+                                className='video-isnotsafari'
                                 style={{
-                                    potition: "absolute",
                                     top: item.y,
                                     left: item.x,
                                     height: item.width * 9 / 12,
-                                    backgroundColor: "#000000",
-                                    userSelect: "none",
-                                    borderRadius: "1rem 1rem 0 0"
                                 }}
                                 onDoubleClick={(e) => handleEditItem(e, item.id)}
                             >
                             </div>}
                             <iframe
-                                className='videoIf'
+                                className='video-frame'
                                 style={{
                                     transform: isSafari && `rotate(${item.angle || 0}deg)`,
-                                    position: "absolute",
                                     top: isSafari ? item.y : "2rem",
                                     left: isSafari ? item.x : "0",
-                                    right: "0",
-                                    bottom: "0",
-                                    zIndex: "1",
-                                    userSelect: "none",
-                                    pointerEvents: "all",
                                 }}
                                 draggable="true"
                                 width="100%"

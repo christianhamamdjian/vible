@@ -49,15 +49,12 @@ const MoodBoard = () => {
         <>
             <BoardDrop>
                 <div
-                    className="frame"
+                    className="board-frame"
                     ref={divRef}
                     style={{
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
-                        userSelect: "none",
-                        WebkitUserSelect: "none",
                         overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
-                        touchAction: "none",
                     }}
                 >
                     <svg
@@ -65,6 +62,7 @@ const MoodBoard = () => {
                         width='10000'
                         height='10000'
                         id="my-svg"
+                        className='board-body'
                         onPointerDown={handleSvgPointerDown}
                         onTouchStart={handleSvgPointerDown}
                         onPointerMove={handleSvgPointerMove}
@@ -72,13 +70,9 @@ const MoodBoard = () => {
                         onDoubleClick={handleStopEditItem}
                         // onContextMenu={handleAddBoxOnSpot}
                         style={{
-                            backgroundColor: "#f4f2f1",
-                            userSelect: "none",
-                            WebkitUserSelect: "none",
                             transform: `translate(${Math.floor(svgPosition.x)}px, ${Math.floor(svgPosition.y)}px)`,
                             overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                             // touchAction: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "none" : "auto"}`,
-                            touchAction: "none",
                         }}
                         viewBox={`0 0 ${zoom} ${zoom}`}
                         preserveAspectRatio="none"

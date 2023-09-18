@@ -9,21 +9,12 @@ const Image = ({ item }) => {
 
     useEffect(() => {
         if (item.type === "image" && item.board === activeBoard.id) {
-            // const imageSource = itemRef.current.href.baseVal
-            // const newImage = document.createElement("img")
-            // newImage.src = imageSource
             let newImage = document.createElement("img")
             newImage.src = item.src
             setLoadedImage(newImage)
         }
     }, [item, activeBoard])
-    // let loadedImage = () => {
-    //     if (item.type === "image" && item.board === activeBoard.id) {
-    //         let newImage = document.createElement("img")
-    //         newImage.src = item.src
-    //         return newImage
-    //     }
-    // }
+
     const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
 
     return (
@@ -51,13 +42,6 @@ const Image = ({ item }) => {
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                             className='image-media'
                             style={{
-                                display: "block",
-                                zIndex: "999999",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
                                 opacity: item.opacity,
                             }}
                         />

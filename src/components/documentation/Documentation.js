@@ -24,7 +24,10 @@ const Documentation = () => {
         </button>
         {documentationShow && <div className='documentation-container'>
           <div className="accordion-container">
-            <img style={{ width: "80px" }} src={vibleLlogo} alt="" />
+            <img
+              className="documentation-logo"
+              //style={{ width: "80px" }} 
+              src={vibleLlogo} alt="" />
             <br />
             {/* <h1>Vible</h1> */}
             <br />

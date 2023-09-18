@@ -73,19 +73,23 @@ const VideoFormTop = () => {
                             <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingVideo.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                <div className='move-item'
+                                >&gt;&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemToFront(editingVideo.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                <div className='move-item'
+                                >&lt;&lt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemBackward(editingVideo.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div className='move-item'
+                                >&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemForward(editingVideo.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div className='move-item'
+                                >&lt;</div>
                             </button>
                         </>}
                     </div>}

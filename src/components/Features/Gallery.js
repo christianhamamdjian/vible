@@ -188,7 +188,8 @@ const Gallery = () => {
                                     <li
                                         key={index}
                                         className="gallery-box"
-                                        style={{ backgroundColor: item.content }}>{item.content}
+                                        style={{ backgroundColor: item.content }}>
+                                        {item.content}
                                         <div className="gallery-buttons">
                                             <button className='gallery-button'
                                                 onClick={() => handleGalleryAddToBoard(item)}>

@@ -18,12 +18,11 @@ const Box = ({ item }) => {
                     <g
                         draggable="true"
                         transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${item.height / 2})`}
+                        className='box-group'
                         style={{
-                            userSelect: "none",
                             zIndex: isDraggingRect && item.id === selectedRectId ? "999999" : "-100"
                         }}
                     >
-
                         <foreignObject
                             x="0"
                             y="0"
@@ -31,13 +30,6 @@ const Box = ({ item }) => {
                             height={`${item.height || 160}`}
                             className="box-frame"
                             style={{
-                                display: "block",
-                                position: "absolute",
-                                top: "0",
-                                right: "0",
-                                bottom: "0",
-                                left: "0",
-                                userSelect: "none",
                                 opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1
                             }}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
@@ -49,41 +41,28 @@ const Box = ({ item }) => {
                             onDoubleClick={(e) => handleEditItem(e, item.id)}
                         >
                             <div
-
                                 className="box-container"
                                 style={{
-                                    // backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2))",
                                     backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
-                                    width: "100%",
-                                    height: "100%",
-                                    userSelect: "none",
                                     border: `${item.borderWidth}px solid ${item.borderColor}`,
                                     borderRadius: `${item.roundedCorners}px`,
                                 }}
                             >
-
                                 <p
                                     fill={getTextColor(item.color)}
+                                    className="box-frame-link-p"
                                     style={{
                                         color: getTextColor(item.color),
-                                        textDecoration: "underline",
-                                        marginBottom: ".5rem",
-                                        userSelect: "none",
-                                        textAlign: "right"
                                     }}
                                 >
                                     <a
                                         href={item.url}
                                         target="__blank"
-                                        style={{
-                                            textDecoration: "none",
-                                            userSelect: "none"
-                                        }}
+                                        className="box-frame-link-p-a"
                                     >
                                         {item.link}
                                     </a>
                                 </p>
-
 
                                 {editingText && isEditingBoard && (item.id === editingText.id) ? (
                                     <textarea
@@ -96,8 +75,6 @@ const Box = ({ item }) => {
                                         style={{
                                             // color: getTextColor(item.color),
                                             color: item.textColor,
-                                            overflowX: "hidden",
-                                            overflowY: "auto",
                                             fontFamily: item.font,
                                             fontSize: `${item.fontSize}pt`,
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
@@ -113,8 +90,10 @@ const Box = ({ item }) => {
                                         <div
                                             className="box-content"
                                         >
-                                            <pre style={{ height: "calc(100% - 1.5rem)" }}>
-                                                <p
+                                            <pre className='box-content-pre'
+                                                style={{ height: "calc(100% - 1.5rem)" }}
+                                            >
+                                                <p className='box-content-p'
                                                     style={{
                                                         // color: getTextColor(item.color),
                                                         color: item.textColor,
@@ -161,17 +140,6 @@ const Box = ({ item }) => {
                                     rx="4"
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
-                                {/*    <rect
-                                    id="resize"
-                                    fill="white"
-                                    x={item.width - 18}
-                                    y={item.height - 18}
-                                    width="20"
-                                    height="20"
-                                    rx="2"
-                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
-                                /> */}
-
                             </>)}
                     </g>
                 </>)

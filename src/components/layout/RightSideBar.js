@@ -39,7 +39,9 @@ const RightSidebard = () => {
         <div className='right-sidebar'>
             <ThemeSwitcher />
             <div>
-                <div className='right-sidebar-buttons' style={{ padding: ".5rem" }}>
+                <div
+                    className='right-sidebar-buttons'
+                >
                     <label>Board color: </label>
                     <input
                         type="color"
@@ -55,9 +57,10 @@ const RightSidebard = () => {
                         onChange={(e) => handleButtonsColorChange(e)}
                     />
                 </div>
-                <div className='right-sidebar-buttons' style={{ marginTop: "-.5rem" }}>
+                <div
+                    className='right-sidebar-buttons'
+                >
                     <button
-                        style={{ margin: "0 auto" }}
                         onClick={handleColorReset}
                     >Reset Colors</button>
                 </div>
@@ -225,7 +228,8 @@ const RightSidebard = () => {
                 </button>
             </div>
             <div className='zoom-slider' >
-                <label style={{ whiteSpace: "nowrap", marginBottom: "0" }}>Zoom slider:</label>
+                <label
+                >Zoom:</label>
                 <input
                     type="range"
                     min="5000"

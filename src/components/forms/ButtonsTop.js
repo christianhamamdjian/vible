@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, buttonsColor } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, buttonsColor, getTextColor } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -26,11 +26,11 @@ const ButtonsTop = () => {
                                     fillRule="evenodd"
                                     clipRule="evenodd"
                                     d="M21.2635 2.29289C20.873 1.90237 20.2398 1.90237 19.8493 2.29289L18.9769 3.16525C17.8618 2.63254 16.4857 2.82801 15.5621 3.75165L4.95549 14.3582L10.6123 20.0151L21.2189 9.4085C22.1426 8.48486 22.338 7.1088 21.8053 5.99367L22.6777 5.12132C23.0682 4.7308 23.0682 4.09763 22.6777 3.70711L21.2635 2.29289ZM16.9955 10.8035L10.6123 17.1867L7.78392 14.3582L14.1671 7.9751L16.9955 10.8035ZM18.8138 8.98525L19.8047 7.99429C20.1953 7.60376 20.1953 6.9706 19.8047 6.58007L18.3905 5.16586C18 4.77534 17.3668 4.77534 16.9763 5.16586L15.9853 6.15683L18.8138 8.98525Z"
-                                    fill="currentColor"
+                                    fill={getTextColor(buttonsColor)}
                                 />
                                 <path
                                     d="M2 22.9502L4.12171 15.1717L9.77817 20.8289L2 22.9502Z"
-                                    fill="currentColor"
+                                    fill={getTextColor(buttonsColor)}
                                 />
                             </svg>
                         </div>
@@ -253,7 +253,7 @@ const ButtonsTop = () => {
                         style={{ backgroundColor: showBoards ? "rgb(130, 70, 186)" : buttonsColor }}
                         title="Add and edit boards"
                         onClick={handleShowBoards}>
-                        <div style={{ position: "relative" }} className='boards-sign'>
+                        <div className='boards-sign'>
                             <svg
                                 x="0"
                                 y="0"
@@ -270,7 +270,7 @@ const ButtonsTop = () => {
                                     <path d="M23.991,5.16 C24.543,5.16 24.991,5.608 24.991,6.16 L24.991,11.917 C24.991,12.469 24.543,12.917 23.991,12.917 L18.106,12.917 C17.554,12.917 17.106,12.469 17.106,11.917 L17.106,6.16 C17.106,5.608 17.554,5.16 18.106,5.16 L23.991,5.16 z" fill="#ffffff" />
                                 </g>
                             </svg>
-                            <div style={{ width: "1rem", height: "1rem", backgroundColor: "#ffffff", borderRadius: "50%", color: "hsl(240, 11%, 66%)", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", bottom: "-.1rem", right: "-.6rem" }}>{activeBoard.name}</div>
+                            <div className='buttons-top-activeboard'>{activeBoard.name}</div>
                         </div>
                     </button>
                     <Tooltips
@@ -322,15 +322,14 @@ const ButtonsTop = () => {
                 </>
                 {clipBoard && <>
                     <button
-                        className="themable"
+                        className="clipboard-button themable"
                         title="Paste clipboard content"
-                        style={{ position: "relative" }}
                         onClick={handlePaste}>
                         <svg
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"
-                            style={{ marginLeft: "-.3rem" }}
+                            className='clipboard-svg'
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                         >
@@ -348,20 +347,7 @@ const ButtonsTop = () => {
                         <button
                             title="Clear the clipboard"
                             onClick={handleClearClipBoard}
-                            style={{
-                                width: ".5rem",
-                                height: "1rem",
-                                backgroundColor: "#ffffff",
-                                borderRadius: "50%",
-                                color: "hsl(240, 11%, 66%)",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                position: "absolute",
-                                bottom: "-.1rem",
-                                right: "-.6rem",
-                                padding: ".6rem"
-                            }}
+                            className='clear-clipboard'
                         >
                             &times;
                         </button>

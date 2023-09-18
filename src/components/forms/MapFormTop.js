@@ -73,19 +73,23 @@ const MapFormTop = () => {
                             <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingMap.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                <div className='move-item'
+                                >&gt;&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemToFront(editingMap.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                <div className='move-item'
+                                >&lt;&lt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemBackward(editingMap.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div className='move-item'
+                                >&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemForward(editingMap.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div className='move-item'
+                                >&lt;</div>
                             </button>
                         </>}
                     </div>}

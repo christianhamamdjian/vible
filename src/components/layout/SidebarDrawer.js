@@ -28,20 +28,22 @@ const DrawerButton = ({ onClick, side, isOpen, buttonsColor }) => (
     >
       {side === "left" ?
 
-        <div style={{
-          fontSize: "2rem",
-          marginTop: "-.3rem",
-          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-          marginLeft: isOpen ? ".3rem" : "0"
-        }}>
+        <div
+          style={{
+            fontSize: "2rem",
+            marginTop: "-.3rem",
+            transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+            marginLeft: isOpen ? ".3rem" : "0"
+          }}>
           +
         </div>
         :
-        <div style={{
-          fontSize: "2rem",
-          transform: "rotate(90deg)",
-          marginRight: "-1.3rem"
-        }}>
+        <div
+          style={{
+            fontSize: "2rem",
+            transform: "rotate(90deg)",
+            marginRight: "-1.3rem"
+          }}>
           ...
         </div>
       }
@@ -57,7 +59,6 @@ const DrawerButton = ({ onClick, side, isOpen, buttonsColor }) => (
         marginLeft=""
         tipTop={`${side === "left" ? "-.7rem" : "-.7rem"}`}
         tipLeft={`${side === "left" ? "45%" : "55%"}`}
-        // style={{ margin: `${side === "left" ? "0 auto" : "0 auto"}` }} 
         text={`${side === "left" ? "Add items to your board" : "Take control of your board"}`}
       />
     </button >

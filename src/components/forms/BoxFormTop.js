@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { fontOptions } from "../helperFunctions/fontOptions"
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -128,20 +128,24 @@ const BoxFormTop = () => {
                             <select
                                 name="fonts"
                                 id="fonts"
-                                style={{ fontSize: "1rem" }}
+                                className='box-form-top-select'
                                 value={items.find(item => item.id === editingText.id).font}
                                 onChange={(e) => handleItemChange(e, editingText.id, "font")}
                             >
                                 {fontOptions.map((option) => (
                                     <option
-                                        style={{ fontSize: "2rem", fontFamily: `${option.value}`, minHeight: '200px', width: '100%', padding: '10px' }}
+                                        className='box-form-top-select-option'
+                                        style={{ fontFamily: `${option.value}` }}
                                         key={option.value}
                                         value={option.value}>
                                         {option.label}
                                     </option>
                                 ))}
                             </select>
-                            <span style={{ fontSize: "2rem", fontFamily: `${items.find(item => item.id === editingText.id).font}` }}> {items.find(item => item.id === editingText.id).font}</span>
+                            <span
+                                className='box-form-top-span'
+                                style={{ fontFamily: `${items.find(item => item.id === editingText.id).font}` }}
+                            > {items.find(item => item.id === editingText.id).font}</span>
                         </div>
                         </>}
                         {tool === "fontSize" && <>
@@ -166,16 +170,6 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {/* {tool === "textAlignLeft" &&
-                            <label className='checkbox-container'>Text align left
-                                <input
-                                    type="checkbox"
-                                    className='input-line-closed'
-                                    value={items.find(item => item.id === editingText.id).textAlignLeft}
-                                    checked={items.find(item => item.id === editingText.id).textAlignLeft}
-                                    onChange={(e) => handleItemChange(e, editingText.id, "textAlignLeft")} />
-                                <span className="checkmark"></span>
-                            </label>} */}
                         {tool === "textAlignCenter" &&
                             <label className='checkbox-container'>Text align center
                                 <input
@@ -199,23 +193,27 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "order" && <>
-                            <div className='item-edit-form' style={{ display: "flex" }}>
+                            <div className='item-edit-form'>
                                 <label>Order:</label>
                                 <button
                                     onClick={() => handleMoveItemToBack(editingText.id)}>
-                                    <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                    <div className='move-item'
+                                    >&gt;&gt;</div>
                                 </button>
                                 <button
                                     onClick={() => handleMoveItemToFront(editingText.id)}>
-                                    <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                    <div className='move-item'
+                                    >&lt;&lt;</div>
                                 </button>
                                 <button
                                     onClick={() => handleMoveItemBackward(editingText.id)}>
-                                    <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                    <div className='move-item'
+                                    >&gt;</div>
                                 </button>
                                 <button
                                     onClick={() => handleMoveItemForward(editingText.id)}>
-                                    <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                    <div className='move-item'
+                                    >&lt;</div>
                                 </button>
                             </div>
                         </>}
@@ -245,16 +243,6 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {/* {tool === "border" &&
-                            <label className='checkbox-container'>Border
-                                <input
-                                    type="checkbox"
-                                    className='input-line-closed'
-                                    value={items.find(item => item.id === editingText.id).border}
-                                    checked={items.find(item => item.id === editingText.id).border}
-                                    onChange={(e) => handleItemChange(e, editingText.id, "showBorder")} />
-                                <span className="checkmark"></span>
-                            </label>} */}
                         {tool === "borderWidth" && <>
                             <label>Border width:</label>
                             <input

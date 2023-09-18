@@ -8,9 +8,9 @@ const Tooltips = ({ position, tipTop, tipLeft, text, children, width, height, to
     return (
         <>
             {position === "bottom" && children}
-            <div style={{
-                textAlign: 'center', padding: "0", height: "2rem", zIndex: "100"
-            }}>
+            <div
+                className="tooltips-container"
+            >
                 <div
                     className={`${position === "top" ? "tooltip-top" : "tooltip-bottom"}`}
                     style={{ display: `${info ? "inline-block" : "none"}` }}
@@ -38,7 +38,10 @@ const Tooltips = ({ position, tipTop, tipLeft, text, children, width, height, to
                         }
                         {text}{position === "top" &&
                             <span className="bottom-tip"
-                                style={{ top: tipTop, left: tipLeft }}>
+                                style={{
+                                    top: tipTop,
+                                    left: tipLeft
+                                }}>
                             </span>}
                     </p>
                 </div>

@@ -59,65 +59,40 @@ const TopBoardsSlider = () => {
         <>
             <div
                 className='inputs-boards_objects'
-            // style={{ position: "absolute", right: "12%", top: "5rem", zIndex: "100" }}
             >
                 {onShow &&
                     <div className='inputs-boards_objects'>
                         <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
                     </div>}
                 <h4>Boards:</h4>
-                <button style={{
-                    backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                    color: "#cccccc",
-                    fontWeight: "bold",
-                    fontSize: "2rem",
-                    // border: "1px solid #eeeeee",
-                    borderRadius: "2rem"
-                }}
+                <button
+                    style={{
+                        backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
+                        color: `${boardIndex === 0 ? "#8e8e93" : "#ffffff"}`,
+                    }}
                     onClick={() => handleBoardIndexUpdate(boardIndex - 1)}
-                    className="prev"
+                    className="inputs-boards_objects-nav"
                     disabled={boardIndex === 0}
                 >&lt;</button>
                 <button
+                    className='inputs-boards_objects-button'
                     title="Add new board"
-                    style={{
-                        // backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                        backgroundColor: "#ffffff",
-                        color: "#cccccc",
-                        fontWeight: "bold",
-                        fontSize: "2rem",
-                        // border: "1px solid #eeeeee",
-                        borderRadius: "2rem"
-                    }}
                     onClick={handleAddNewBoard}
                 >+</button>
                 <button
+                    className='inputs-boards_objects-button'
                     title="Remove active board"
-                    style={{
-                        // backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                        backgroundColor: "#ffffff",
-                        color: "#cccccc",
-                        fontWeight: "bold",
-                        fontSize: "2rem",
-                        // border: "1px solid #eeeeee",
-                        borderRadius: "2rem"
-                    }}
                     disabled={boards.length < 2}
-                    // onClick={() => handleDeleteBoard(chunkContent)}
                     onClick={() => showConfirm("board")}
                 >-</button>
                 {chunk}
                 <button
                     style={{
                         backgroundColor: `${boardIndex === maxIndex ? "#ffffff" : "#8e8e93"} `,
-                        color: "#dddddd",
-                        fontWeight: "bold",
-                        fontSize: "2rem",
-                        // border: "1px solid #eeeeee",
-                        borderRadius: "2rem"
+                        color: `${boardIndex === maxIndex ? "#8e8e93" : "#ffffff"}`,
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex + 1)}
-                    className="next"
+                    className="inputs-boards_objects-nav"
                     disabled={boardIndex === maxIndex}
                 >&gt;</button>
 

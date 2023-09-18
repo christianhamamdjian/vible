@@ -53,9 +53,7 @@ const TopControls = ({ item }) => {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="transparent"
-                    style={{
-                        cursor: "pointer"
-                    }}
+                    className='box-control-cursor'
                     onClick={confirmCancel}
                     xmlns="http://www.w3.org/2000/svg"
                 >
@@ -78,9 +76,7 @@ const TopControls = ({ item }) => {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="transparent"
-                    style={{
-                        cursor: "pointer"
-                    }}
+                    className='box-control-cursor'
                     onClick={confirmCancel}
                 />
                 <svg
@@ -91,9 +87,7 @@ const TopControls = ({ item }) => {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="transparent"
-                    style={{
-                        cursor: "pointer"
-                    }}
+                    className='box-control-cursor'
                     onClick={() => confirmDelete(item.id)}
                     xmlns="http://www.w3.org/2000/svg"
                 >
@@ -115,9 +109,7 @@ const TopControls = ({ item }) => {
                     width="24"
                     height="24"
                     fill="transparent"
-                    style={{
-                        cursor: "pointer"
-                    }}
+                    className='box-control-cursor'
                     onClick={() => confirmDelete(item.id)}
                 />
             </>}
@@ -130,11 +122,8 @@ const TopControls = ({ item }) => {
                     width="24"
                     rx="6"
                     fill="red"
-                    // stroke="white"
-                    // strokeWidth="2"
                     className='box-control'
                     onClick={() => showConfirm(item.id)}
-                    style={{ userSelect: "none" }}
                 />
                 <text
                     x="18"
@@ -145,7 +134,6 @@ const TopControls = ({ item }) => {
                     fill="white"
                     className="box-control-sign"
                     onClick={() => showConfirm(item.id)}
-                    style={{ userSelect: "none" }}
                 >&times;</text>
                 <rect
                     x="60"
@@ -155,8 +143,6 @@ const TopControls = ({ item }) => {
                     width="24"
                     rx="6"
                     fill="green"
-                    // stroke="white"
-                    // strokeWidth="2"
                     className='box-control'
                     onClick={(e) => handleEditItem(e, item.id)}
                 />
@@ -168,7 +154,6 @@ const TopControls = ({ item }) => {
                     height="20"
                     fill="white"
                     className="box-control-sign"
-                    style={{ userSelect: "none" }}
                     onClick={(e) => handleEditItem(e, item.id)}
                 >+</text>
 
@@ -180,10 +165,7 @@ const TopControls = ({ item }) => {
                         width="24"
                         rx="6"
                         fill="orange"
-                        // stroke="white"
-                        // strokeWidth="2"
                         className='box-control'
-                        style={{ userSelect: "none" }}
                         onClick={handleStopEditItem}
                     />
                     <text
@@ -193,7 +175,6 @@ const TopControls = ({ item }) => {
                         height="20"
                         fill="white"
                         className="box-control-sign"
-                        style={{ userSelect: "none" }}
                         onClick={handleStopEditItem}
                     >-</text>
                 </>

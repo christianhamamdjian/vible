@@ -73,19 +73,23 @@ const PdfFormTop = () => {
                             <label>Order:</label>
                             <button
                                 onClick={() => handleMoveItemToBack(editingPdf.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;&gt;</div>
+                                <div className='move-item'
+                                >&gt;&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemToFront(editingPdf.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;&lt;</div>
+                                <div className='move-item'
+                                >&lt;&lt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemBackward(editingPdf.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&gt;</div>
+                                <div className='move-item'
+                                >&gt;</div>
                             </button>
                             <button
                                 onClick={() => handleMoveItemForward(editingPdf.id)}>
-                                <div style={{ transform: "rotate(90deg)" }}>&lt;</div>
+                                <div className='move-item'
+                                >&lt;</div>
                             </button>
                         </>}
                     </div>}

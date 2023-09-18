@@ -39,6 +39,11 @@ const Drawing = () => {
                     </defs>
                         <path
                             key={index}
+                            className='drawing-path'
+                            style={{
+                                filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `,
+                                opacity: path.opacity
+                            }}
                             id={path.id}
                             ref={pathRef}
                             // d={svgPath(path["path"])} // Line smoothing to be fixed
@@ -56,16 +61,8 @@ const Drawing = () => {
                             onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onTouchStart={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onPointerMove={(e) => handlePathSelect(e, index, path.id)}
-                            //onPointerEnter={(e) => handlePathSelect(e, index, path.id)}
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             cursor="grabbing"
-                            style={{
-                                cursor: 'grabbing',
-                                pointerEvents: "auto",
-                                filter: `${index === selectedPath ? 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3))' : 'none'} `,
-                                userSelect: "none",
-                                opacity: path.opacity
-                            }}
                         />
                     </>
                     } </g>

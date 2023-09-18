@@ -45,11 +45,45 @@ export function Calendar() {
     <div className='calendar'>
       <div className='inner-container'>
         <div className='header'>
-          <button className='button' onClick={() => setDate(new Date(year, month - 1, day))}><i className="gg-chevron-left-o"></i></button>
+          <button className='button' onClick={() => setDate(new Date(year, month - 1, day))}><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 7.75739L13.4142 9.1716L10.5858 12L13.4142 14.8285L12 16.2427L7.75736 12L12 7.75739Z"
+              fill="currentColor"
+            />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z"
+              fill="currentColor"
+            />
+          </svg></button>
           <div>
             {MONTHS[month]} {year}
           </div>
-          <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}><i className="gg-chevron-right-o"></i></button>
+          <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.0858 7.75739L15.3284 12L11.0858 16.2427L9.67157 14.8285L12.5 12L9.67157 9.1716L11.0858 7.75739Z"
+              fill="currentColor"
+            />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12Z"
+              fill="currentColor"
+            />
+          </svg></button>
         </div>
         <div className='body'>
           {DAYS_OF_THE_WEEK.map((wd) => (

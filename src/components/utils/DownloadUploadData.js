@@ -5,7 +5,7 @@ import { useLocalStorage } from "../../components/hooks/useLocalStorage"
 import Tooltips from '../tooltips/Tooltips'
 const DownloadUploadData = () => {
 
-    const { items, galleryItems, boards, activeBoard, boardColor, buttonsColor } = React.useContext(MoodboardContext);
+    const { items, galleryItems, boards, activeBoard } = React.useContext(MoodboardContext);
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [todos, setTodos] = useLocalStorage("todos", [])
     const [fileDownloadUrl, setFileDownloadUrl] = useState(null)
@@ -27,7 +27,6 @@ const DownloadUploadData = () => {
 
     const data = [
         { items: boardItemsNoPdf },
-        // { paths: savePathsToLocalStorage() },
         { paths: savePathsToLocalStorage(boardPaths) },
         { boards: currentBoard },
         { galleryItems },
@@ -48,9 +47,6 @@ const DownloadUploadData = () => {
             setFileDownloadUrl("")
         }
     })
-    // useEffect(() => {
-    //     console.log("Updated");
-    // }, [items, paths, galleryItems, todos])
 
     const download = (e) => {
         e.preventDefault()
@@ -94,7 +90,7 @@ const DownloadUploadData = () => {
 
     return (
         <div>
-            <form style={{ padding: ".6rem", display: "flex", gap: "1rem", justifyContent: "center" }}>
+            <form className='download-form'>
                 <Tooltips
                     position="bottom"
                     width="4.3rem"
@@ -131,7 +127,6 @@ const DownloadUploadData = () => {
 
                 <a
                     className="hidden"
-                    style={{ display: "none" }}
                     download={"vible.json"}
                     href={fileDownloadUrl}
                     ref={(e) => (dofileDownload = e)}
@@ -144,7 +139,7 @@ const DownloadUploadData = () => {
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
-                        style={{ transform: 'rotate(180deg)' }}
+                        className='upload-svg'
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -177,7 +172,6 @@ const DownloadUploadData = () => {
                     id="upload"
                     type="file"
                     className="hidden"
-                    style={{ display: "none" }}
                     multiple={false}
                     accept=".json,.csv,.txt,.text,application/json,text/csv,text/plain"
                     onChange={openFile}
