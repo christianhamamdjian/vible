@@ -835,11 +835,9 @@ button,
   left: 12%;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffffff !important;
   border-radius: 50%;
   padding-top: .6rem;
   padding-left: 1rem;
-  /* transform: rotate(30deg); */
 }
 
 .toggle-documentation button {

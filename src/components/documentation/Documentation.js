@@ -5,7 +5,7 @@ import { MoodboardContext } from "../../context/moodboardContext"
 import "./styles.css";
 
 const Documentation = () => {
-  const { buttonsColor } = React.useContext(MoodboardContext)
+  const { buttonsColor, getTextColor } = React.useContext(MoodboardContext)
 
   const [documentationShow, setDocumentationShow] = useState(false)
   const handleDocumentationToggle = () => {
@@ -17,7 +17,7 @@ const Documentation = () => {
         <button
           onClick={handleDocumentationToggle}
           className="toggle-documentation themable"
-          style={{ backgroundColor: documentationShow ? "rgb(130, 70, 186)" : buttonsColor }}
+          style={{ backgroundColor: documentationShow ? "rgb(130, 70, 186)" : buttonsColor, color: getTextColor(buttonsColor) }}
           title="Documentation"
         >
           ?

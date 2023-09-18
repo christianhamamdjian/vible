@@ -5,24 +5,24 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const SidebarDrawer = ({ side }) => {
-  const { image, imageLink, video, map, pdf, buttonsColor } = useContext(MoodboardContext)
+  const { image, imageLink, video, map, pdf, buttonsColor, getTextColor } = useContext(MoodboardContext)
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => setIsOpen(!isOpen);
 
   return (
     <>
-      <DrawerButton buttonsColor={buttonsColor} side={side} isOpen={isOpen} onClick={toggleDrawer} />
+      <DrawerButton buttonsColor={buttonsColor} side={side} isOpen={isOpen} onClick={toggleDrawer} getTextColor={getTextColor} />
       <Drawer image={image} imageLink={imageLink} video={video} map={map} pdf={pdf} isOpen={isOpen} side={side} />
     </>
   )
 }
 
-const DrawerButton = ({ onClick, side, isOpen, buttonsColor }) => (
+const DrawerButton = ({ onClick, side, isOpen, buttonsColor, getTextColor }) => (
   <>
 
     <button
       className={`drawer-toggle-${side} themable`}
-      style={{ backgroundColor: isOpen ? "rgb(130, 70, 186)" : buttonsColor }}
+      style={{ backgroundColor: isOpen ? "rgb(130, 70, 186)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
       title={`${side === "left" ? "Add items" : "Control panel"}`}
       onClick={onClick}
     >
