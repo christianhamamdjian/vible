@@ -111,7 +111,7 @@ const DrawingFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_draw'>
+                    {tool !== "" && <div className='inputs-top_draw-form'>
                         {tool === "lineColor" && <>
                             <label>Line color: </label>
                             <input

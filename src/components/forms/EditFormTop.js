@@ -3,6 +3,7 @@ import ButtonsTop from "./ButtonsTop"
 import BoxFormTop from "./BoxFormTop"
 import DrawingFormTop from "./DrawingFormTop"
 import ImageFormTop from "./ImageFormTop"
+import ImageLinkFormTop from "./ImageLinkFormTop"
 import VideoFormTop from "./VideoFormTop"
 import MapFormTop from "./MapFormTop"
 import PdfFormTop from "./PdfFormTop"
@@ -19,6 +20,7 @@ const EditFormTop = () => {
             <BoxFormTop />
             <DrawingFormTop />
             <ImageFormTop />
+            <ImageLinkFormTop />
             <VideoFormTop />
             <MapFormTop />
             <PdfFormTop />

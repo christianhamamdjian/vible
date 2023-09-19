@@ -8,8 +8,8 @@
 
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-  background-color: #c2c6de;
-  color: #444;
+  background-color: #cedbff;
+  color: #ededed;
   cursor: pointer;
   padding: .5rem;
   display: flex;
@@ -20,11 +20,14 @@
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.accordion:hover,
+.accordion:hover {
+  background-color: #a9abba;
+  color: #656565;
+}
+
 .active {
-  background-color: #8a8da3;
-  color: #ffffff;
-  ;
+  background-color: #b7cef0;
+  color: #6a6a6a !important;
 }
 
 /* Style the accordion content title */
@@ -58,4 +61,20 @@
   font-weight: 400;
   font-size: 14px;
   padding: 18px;
+}
+
+
+.accordion-container {
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.accordion-container button {
+  color: #504f4f;
+  border-radius: 0;
+  margin: 0;
+}
+
+p {
+  margin: .5rem;
 }

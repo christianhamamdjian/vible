@@ -470,6 +470,47 @@ button,
 
 }
 
+.inputs-top_objects-form {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .2rem .3rem;
+  background: rgba(255, 255, 255, 0.6);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  z-index: 10;
+  margin: 0 auto;
+  border-radius: 5rem;
+}
+
+.inputs-top_objects-form button {
+  background: rgba(138, 142, 184, 0.9);
+  font-size: .8rem;
+  font-weight: bold;
+  border-radius: 3rem;
+}
+
+.inputs-top_draw-form {
+  margin: 0 auto;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .2rem .6rem;
+  gap: .2rem .8rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.4);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+  z-index: 10;
+  border-radius: 3rem;
+}
+
+.inputs-top_draw-form {
+  background: rgba(115, 119, 159, 0.9);
+  font-size: .7rem;
+  border-radius: 3rem;
+}
+
 .inputs-top_objects label {
   font-weight: bold;
   margin-bottom: 0;
@@ -635,11 +676,7 @@ button,
 
 /* Confirm */
 .confirm-container {
-  height: 40px;
-  width: 124px;
-  border-radius: 6;
   cursor: pointer;
-  border-radius: 12px;
   user-select: none;
   background-color: purple;
 }
@@ -901,9 +938,10 @@ button,
 }
 
 .documentation h2 {
-  background-color: hsl(240, 37%, 87%);
+  background-color: hsl(240, 10%, 72%);
+  color: #ffffff;
   padding: 1rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 .documentation h1+div {
@@ -919,7 +957,7 @@ button,
 .documentation em,
 .documentation a {
   font-size: 1rem;
-  margin-bottom: .4rem;
+  /* margin-bottom: .4rem; */
 }
 
 /* .documentation button {
@@ -930,7 +968,7 @@ color: #000000;
 
 .documentation button:hover {
   /* background-color: #007bff; */
-  background-color: hsl(240, 32%, 90%);
+  background-color: hsl(240, 6%, 87%);
 }
 
 .documentation .accordion-container {

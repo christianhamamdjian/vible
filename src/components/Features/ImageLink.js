@@ -4,6 +4,7 @@ import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
     const { activeBoard, itemRef, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+
     const [loadedImage, setLoadedImage] = useState(null)
 
     useEffect(() => {
@@ -13,7 +14,7 @@ const ImageLink = ({ item }) => {
             newImage.src = imageSource
             setLoadedImage(newImage)
         }
-    }, [])
+    }, [item, itemRef, activeBoard])
     const calculatedHeight = loadedImage && ((loadedImage.naturalHeight / loadedImage.naturalWidth) * item.width)
     return (
         <>
@@ -33,7 +34,7 @@ const ImageLink = ({ item }) => {
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
                             onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
-                            onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
+                            onTouchStart={e => handleSvgPointerDown(e, item.id)}
                             onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                             onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                             onDoubleClick={(e) => handleEditItem(e, item.id)}

@@ -50,6 +50,7 @@ export default function MoodboardProvider({ children }) {
     const [editingItem, setEditingItem] = useState(null)
     const [editingText, setEditingText] = useState(null)
     const [editingImage, setEditingImage] = useState(null)
+    const [editingImageLink, setEditingImageLink] = useState(null)
     const [editingVideo, setEditingVideo] = useState(null)
     const [editingMap, setEditingMap] = useState(null)
     const [editingPdf, setEditingPdf] = useState(null)
@@ -109,6 +110,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPaths(null)
         setSelectedPath(null)
         setEditingImage(null)
+        setEditingImageLink(null)
         setEditingVideo(null)
         setEditingMap(null)
         setEditingPdf(null)
@@ -116,6 +118,7 @@ export default function MoodboardProvider({ children }) {
         setDraw(false)
         setWrite(false)
         setImage(false)
+        setImageLink(false)
         setVideo(false)
         setMap(false)
         setPdf(false)
@@ -380,7 +383,8 @@ export default function MoodboardProvider({ children }) {
             y: 200,
             text: itemText,
             color: itemColor,
-            textColor: getTextColor(itemColor),
+            // textColor: getTextColor(itemColor),
+            textColor: "#000000",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -416,7 +420,8 @@ export default function MoodboardProvider({ children }) {
             y: clientY,
             text: itemText,
             color: itemColor,
-            textColor: getTextColor(itemColor),
+            // textColor: getTextColor(itemColor),
+            textColor: "#000000",
             link: itemLink,
             url: itemUrl,
             width: 140,
@@ -454,6 +459,7 @@ export default function MoodboardProvider({ children }) {
             url: itemUrl,
             width: 140,
             height: 140,
+            angle: 0,
             type: "box",
             font: "Roboto",
             fontStyle: false,
@@ -488,6 +494,7 @@ export default function MoodboardProvider({ children }) {
             url: itemUrl,
             width: 140,
             height: 140,
+            angle: 0,
             type: "box",
             font: "Roboto",
             fontStyle: false,
@@ -521,6 +528,7 @@ export default function MoodboardProvider({ children }) {
             url: itemUrl,
             width: 140,
             height: 140,
+            angle: 0,
             type: "box",
             font: "Roboto",
             fontStyle: true,
@@ -556,6 +564,7 @@ export default function MoodboardProvider({ children }) {
             url: link.link,
             width: 140,
             height: 140,
+            angle: 0,
             type: "box",
             font: "Roboto",
             fontStyle: false,
@@ -585,6 +594,7 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: 100,
+                angle: 0,
                 height: "auto",
                 opacity: 1,
                 angle: 0,
@@ -608,6 +618,7 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: 100,
+                angle: 0,
                 opacity: 1,
                 angle: 0,
                 height: "auto",
@@ -644,6 +655,7 @@ export default function MoodboardProvider({ children }) {
                 mapUrl: googleCoordinates(),
                 x: 100,
                 y: 200,
+                angle: 0,
                 width: 300,
                 height: 250,
                 type: "mapUrl"
@@ -667,6 +679,7 @@ export default function MoodboardProvider({ children }) {
                 x: 100,
                 y: 100,
                 width: 100,
+                angle: 0,
                 type: "imageUrl",
                 opacity: 1,
                 cropHeight: 0,
@@ -690,6 +703,7 @@ export default function MoodboardProvider({ children }) {
                 url: text,
                 width: 140,
                 height: 140,
+                angle: 0,
                 type: "box",
                 font: "Roboto",
                 textAlignCenter: "",
@@ -714,6 +728,7 @@ export default function MoodboardProvider({ children }) {
                 url: "",
                 width: 140,
                 height: 140,
+                angle: 0,
                 type: "box",
                 font: "Roboto",
                 textAlignCenter: "",
@@ -738,6 +753,7 @@ export default function MoodboardProvider({ children }) {
                 url: "",
                 width: 140,
                 height: 140,
+                angle: 0,
                 type: "box",
                 font: "Roboto",
                 textAlignCenter: "",
@@ -761,6 +777,7 @@ export default function MoodboardProvider({ children }) {
                     board: activeBoard.id,
                     x: 100,
                     y: 200,
+                    angle: 0,
                     width: "100",
                     height: "160",
                     type: "pdf"
@@ -807,6 +824,7 @@ export default function MoodboardProvider({ children }) {
             y: 200,
             width: 300,
             height: 250,
+            angle: 0,
             type: "video"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -821,6 +839,7 @@ export default function MoodboardProvider({ children }) {
             y: 200,
             width: 300,
             height: 250,
+            angle: 0,
             type: "video"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -836,6 +855,7 @@ export default function MoodboardProvider({ children }) {
             y: 100,
             width: 100,
             height: "auto",
+            angle: 0,
             type: "imageUrl",
             opacity: 1,
             cropHeight: 0,
@@ -854,6 +874,7 @@ export default function MoodboardProvider({ children }) {
             y: 200,
             width: 300,
             height: 250,
+            angle: 0,
             type: "mapUrl"
         }
         setItems((prevItems) => [...prevItems, newItem])
@@ -923,134 +944,159 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
-        requestAnimationFrame(() => {
-            if (rectId) {
-                handleRectPointerMove(e, rectId)
-            }
+        // requestAnimationFrame(() => {
+        if (rectId) {
+            handleRectPointerMove(e, rectId)
+        }
 
-            if (isResizing) {
+        if (isResizing) {
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+            const currentPoints = { x: clientX, y: clientY };
+            const dx = currentPoints.x - mousedownPoints.x;
+            const dy = currentPoints.y - mousedownPoints.y;
+            const item = items.find(el => el.id === selectedRectId)
+
+            // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
+            //     e.preventDefault()
+            //     e.stopPropagation()
+            //     setIsResizing(false)
+            //     setIsDraggingRect(false)
+            // }
+
+
+            // if (item.type === "box") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            // if (item.type === "image") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            // if (item.type === "imageUrl") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            // if (item.type === "video") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            // if (item.type === "mapUrl") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            // if (item.type === "pdf") {
+            //     setRectangleSize((prevSize) => ({
+            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
+            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
+            //     }))
+            // }
+            setRectangleSize(() => ({
+                width: rectangleSize.width + dx,
+                height: rectangleSize.height + dy,
+            }))
+            handleResize(e, selectedRectId)
+            setMousedownPoints(currentPoints)
+            updateResizeIcon(dx, dy)
+
+        }
+
+        if (isRotating) {
+            const item = items.find(el => el.id === selectedRectId)
+            if (item.type === "image") {
+                let newImage = document.createElement("img")
+                newImage.src = item.src
+
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                const currentPoints = { x: clientX, y: clientY };
-                const dx = currentPoints.x - mousedownPoints.x;
-                const dy = currentPoints.y - mousedownPoints.y;
-                const item = items.find(el => el.id === selectedRectId)
+                const rect = items.find((r) => r.id === selectedRectId)
+                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + calculatedHeight / 2;
+                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                const angleDiff = newAngle - angleOffset.x;
+                const newRotation = (angleDiff * 180) / Math.PI;
+                console.log(angleDiff)
+                setItems(prevItems =>
+                    prevItems.map(item => {
+                        if (item.id === selectedRectId) {
+                            return { ...item, angle: Math.floor(newRotation) }
+                        }
+                        return item
+                    })
+                )
+            } else if (item.type === "imageUrl") {
+                let newImage = document.createElement("img")
+                const imageSource = itemRef.current.href.baseVal
+                newImage.src = imageSource
 
-                if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setIsResizing(false)
-                    setIsDraggingRect(false)
-                }
-
-
-                if (item.type === "box") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-                if (item.type === "image") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-                if (item.type === "imageUrl") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-                if (item.type === "video") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-                if (item.type === "mapUrl") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-                if (item.type === "pdf") {
-                    setRectangleSize((prevSize) => ({
-                        width: Math.max(50, Math.min(900, prevSize.width + dx)),
-                        height: Math.max(50, Math.min(900, prevSize.height + dy)),
-                    }))
-                }
-
-                handleResize(e, selectedRectId)
-                setMousedownPoints(currentPoints)
-                updateResizeIcon(dx, dy)
-
-            }
-
-            if (isRotating) {
-                const item = items.find(el => el.id === selectedRectId)
-                if (item.type === "image") {
-                    let newImage = document.createElement("img")
-                    newImage.src = item.src
-                    const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                    const rect = items.find((r) => r.id === selectedRectId)
-                    const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
-                    const centerX = rect.x + rect.width / 2;
-                    // const centerY = rect.y + rect.height / 2;
-                    const centerY = rect.y + calculatedHeight / 2;
-                    const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-                    const angleDiff = newAngle - angleOffset.x;
-                    const newRotation = (angleDiff * 180) / Math.PI;
-
-                    setItems(prevItems =>
-                        prevItems.map(item => {
-                            if (item.id === selectedRectId) {
-                                return { ...item, angle: newRotation }
-                            }
-                            return item
-                        })
-                    )
-                } else {
-                    const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                    const rect = items.find((r) => r.id === selectedRectId)
-                    const centerX = rect.x + rect.width / 2;
-                    const centerY = rect.y + rect.height / 2;
-                    const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
-                    const angleDiff = newAngle - angleOffset.x;
-                    const newRotation = (angleDiff * 180) / Math.PI;
-                    setItems(prevItems =>
-                        prevItems.map(item => {
-                            if (item.id === selectedRectId) {
-                                return { ...item, angle: newRotation }
-                            }
-                            return item
-                        })
-                    )
-                }
-            }
-
-            if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                const divRect = svgRef.current.getBoundingClientRect()
-                const maxX = svgSize.width - divRect.width
-                const maxY = svgSize.height - divRect.height
-                let newX = clientX - svgOffset.x
-                let newY = clientY - svgOffset.y
-                newX = Math.min(0, Math.max(newX, maxX))
-                newY = Math.min(0, Math.max(newY, maxY))
-                setSvgPosition({ x: newX, y: newY })
-            }
-
-            // Drawing
-            if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
-                e.preventDefault()
+                const rect = items.find((r) => r.id === selectedRectId)
+                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + calculatedHeight / 2;
+                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                const angleDiff = newAngle - angleOffset.x;
+                const newRotation = (angleDiff * 180) / Math.PI;
+                console.log(angleDiff)
+                setItems(prevItems =>
+                    prevItems.map(item => {
+                        if (item.id === selectedRectId) {
+                            return { ...item, angle: Math.floor(newRotation) }
+                        }
+                        return item
+                    })
+                )
+            } else {
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-                const svgPoint = svgRef.current.createSVGPoint()
-                svgPoint.x = clientX
-                svgPoint.y = clientY
-                const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
-                setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
+                const rect = items.find((r) => r.id === selectedRectId)
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + rect.height / 2;
+                const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
+                const angleDiff = newAngle - angleOffset.x;
+                const newRotation = (angleDiff * 180) / Math.PI;
+                setItems(prevItems =>
+                    prevItems.map(item => {
+                        if (item.id === selectedRectId) {
+                            return { ...item, angle: Math.floor(newRotation) }
+                        }
+                        return item
+                    })
+                )
             }
-        })
+        }
+
+        if (!isDrawing && !drawing && draggingSvg && !isDraggingRect && !isResizing && !isRotating) {
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+            const divRect = svgRef.current.getBoundingClientRect()
+            const maxX = svgSize.width - divRect.width
+            const maxY = svgSize.height - divRect.height
+            let newX = clientX - svgOffset.x
+            let newY = clientY - svgOffset.y
+            newX = Math.min(0, Math.max(newX, maxX))
+            newY = Math.min(0, Math.max(newY, maxY))
+            setSvgPosition({ x: newX, y: newY })
+        }
+
+        // Drawing
+        if (isDrawing && drawing && !draggingSvg && !isErasing && !selectedRectId) {
+            e.preventDefault()
+            const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+            const svgPoint = svgRef.current.createSVGPoint()
+            svgPoint.x = clientX
+            svgPoint.y = clientY
+            const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
+            setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
+        }
+        // })
     }
 
     const handleSvgPointerUp = () => {
@@ -1101,11 +1147,15 @@ export default function MoodboardProvider({ children }) {
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
+            updateResizeIcon(clientX, clientY)
+            setRectangleSize(() => ({
+                width: rectItem.width,
+                height: rectItem.height,
+            }))
         }
 
-
         if (e.target.id === 'rotate') {
-            if (rectType === "image" || rectType === "imageUrl") {
+            if (rectType === "image") {
                 let newImage = document.createElement("img")
                 newImage.src = rectItem.src
                 setIsRotating(true)
@@ -1116,8 +1166,21 @@ export default function MoodboardProvider({ children }) {
                 const centerX = rect.x + rect.width / 2
                 const centerY = rect.y + calculatedHeight / 2
                 const angle = Math.atan2(centerY - clientY, centerX - clientX)
-                setAngleOffset({ x: angle })
+                setAngleOffset({ x: Math.floor(Math.abs(angle)) })
 
+            } else if (rectType === "imageUrl") {
+                let newImage = document.createElement("img")
+                const imageSource = itemRef.current.href.baseVal
+                newImage.src = imageSource
+                setIsRotating(true)
+                setIsDraggingRect(false)
+                const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
+                const rect = items.find((item) => item.id === rectId)
+                const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
+                const centerX = rect.x + rect.width / 2
+                const centerY = rect.y + calculatedHeight / 2
+                const angle = Math.atan2(centerY - clientY, centerX - clientX)
+                setAngleOffset({ x: Math.floor(Math.abs(angle)) })
             } else {
                 setIsRotating(true)
                 setIsDraggingRect(false)
@@ -1126,9 +1189,8 @@ export default function MoodboardProvider({ children }) {
                 const centerX = rect.x + rect.width / 2
                 const centerY = rect.y + rect.height / 2
                 const angle = Math.atan2(centerY - clientY, centerX - clientX)
-                setAngleOffset({ x: angle })
+                setAngleOffset({ x: Math.floor(Math.abs(angle)) })
             }
-
             if (rectType === "box" && editingText) {
                 setIsDraggingRect(false)
             }
@@ -1148,8 +1210,8 @@ export default function MoodboardProvider({ children }) {
             [rectId]: rectOffset,
         }))
 
-        const rectIndex = items.findIndex(el => el.id === rectId)
-        setInitialIndex(rectIndex)
+        // const rectIndex = items.findIndex(el => el.id === rectId)
+        // setInitialIndex(rectIndex)
     }
 
     const handleRectPointerMove = (e, rectId) => {
@@ -1166,7 +1228,7 @@ export default function MoodboardProvider({ children }) {
             updatedRectangles[updatedRectangles.length] = updatedRect
             updatedRectangles.splice(rectIndex, 1)
             setItems([...updatedRectangles])
-            setHasMoved(true)
+            // setHasMoved(true)
         }
     }
 
@@ -1184,27 +1246,29 @@ export default function MoodboardProvider({ children }) {
         })
 
 
-        if (initialIndex !== 0) {
-            const tempItems = [...items]
-            const firstPart = [...tempItems.slice(0, initialIndex)]
-            const thirdPart = [...tempItems.slice(initialIndex)]
-            const movedItem = thirdPart.pop()
-            const updatedRectangles = [...firstPart, movedItem, ...thirdPart]
-            if (hasMoved) {
-                setItems(updatedRectangles)
-            }
-        }
-        if (initialIndex === 0) {
-            const tempItems = [...items]
-            const movedItem = tempItems.pop()
-            const secondPart = [...tempItems.slice(0)]
-            const updatedRectangles = [movedItem, ...secondPart]
-            if (hasMoved) {
-                setItems(updatedRectangles)
-            }
-        }
-        setHasMoved(false)
-        setInitialIndex(null)
+        // if (initialIndex !== 0) {
+        //     const tempItems = [...items]
+        //     const firstPart = [...tempItems.slice(0, initialIndex)]
+        //     const thirdPart = [...tempItems.slice(initialIndex)]
+        //     const movedItem = thirdPart.pop()
+        //     const updatedRectangles = [...firstPart, movedItem, ...thirdPart]
+        //     if (hasMoved) {
+        //         setItems(updatedRectangles)
+        //     }
+        //     return
+        // }
+        // if (initialIndex === 0) {
+        //     const tempItems = [...items]
+        //     const movedItem = tempItems.pop()
+        //     const secondPart = [...tempItems.slice(0)]
+        //     const updatedRectangles = [movedItem, ...secondPart]
+        //     if (hasMoved) {
+        //         setItems(updatedRectangles)
+        //     }
+        //     return
+        // }
+        // setHasMoved(false)
+        // setInitialIndex(null)
         setSelectedRectId(null)
         setIsDraggingRect(false)
     }
@@ -1233,7 +1297,7 @@ export default function MoodboardProvider({ children }) {
             setItems(prevItems =>
                 prevItems.map(item => {
                     if (item.id === id) {
-                        return { ...item, width: size.width, height: size.height }
+                        return { ...item, width: size.width, height: "auto" }
                     }
                     return item
                 })
@@ -1832,6 +1896,9 @@ export default function MoodboardProvider({ children }) {
                 if (editingImage) {
                     setEditingImage(null)
                 }
+                if (editingImageLink) {
+                    setEditingImageLink(null)
+                }
                 if (editingText) {
                     setEditingText(null)
                     setIsEditingBoard(false)
@@ -1859,9 +1926,9 @@ export default function MoodboardProvider({ children }) {
                 if (editingText) {
                     setEditingText(null)
                 }
-                setEditingImage({ status: true, id: id })
+                setEditingImageLink({ status: true, id: id })
                 setIsEditingBoard(true)
-                handleImage()
+                handleImageLink()
                 break;
             case 'video':
                 stopAllTopForms()
@@ -1890,19 +1957,21 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleStopEditItem = () => {
-        if (editingText || isEditingPath || editingImage || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem || tool !== "") {
+        if (editingText || isEditingPath || editingImage || editingImageLink || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem || tool !== "") {
             setEditingItem(null)
             setEditingText(null)
             setIsEditingBoard(false)
             setIsEditingPath(null)
             setIsEditingPaths(null)
             setEditingImage(null)
+            setEditingImageLink(null)
             setEditingVideo(null)
             setEditingMap(null)
             setEditingPdf(null)
             setSelectedPath(null)
             setWrite(false)
             setImage(false)
+            setImageLink(false)
             setVideo(false)
             setMap(false)
             setPdf(false)
@@ -1991,6 +2060,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPaths(null)
         setSelectedPath(null)
         setEditingImage(null)
+        setEditingImageLink(null)
         setEditingVideo(null)
         setEditingMap(null)
         setEditingPdf(null)
@@ -1998,6 +2068,7 @@ export default function MoodboardProvider({ children }) {
 
         setWrite(false)
         setImage(false)
+        setImageLink(false)
         setVideo(false)
         setMap(false)
         setPdf(false)
@@ -2030,12 +2101,14 @@ export default function MoodboardProvider({ children }) {
                 editingItem,
                 editingText,
                 editingImage,
+                editingImageLink,
                 editingVideo,
                 editingMap,
                 editingPdf,
                 galleryItems,
                 write,
                 image,
+                imageLink,
                 video,
                 imageLink,
                 map,

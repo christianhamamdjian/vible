@@ -43,7 +43,7 @@ const BoxFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_objects' >
+                    {tool !== "" && <div className='inputs-top_objects-form' >
                         {tool === "text" && <>
                             <label>Text:</label>
                             <textarea

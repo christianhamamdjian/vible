@@ -3,7 +3,7 @@ import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageLinkFormTop = () => {
-    const { editingImage, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
+    const { items, editingImageLink, tool, changeTool, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward } = React.useContext(MoodboardContext)
 
     const toolButtons = {
         width: "Width",
@@ -16,22 +16,12 @@ const ImageLinkFormTop = () => {
 
     return (
         <>
-            {editingImage && items.length > 0 && (
+            {editingImageLink && items.length > 0 && (
                 <>
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_objects' >
-                        {/* <label>
-                        Change image width:
-                        <input
-                            type="number"
-                            min="10"
-                            max="100"
-                            value={editingImage && items.find(item => item.id === editingImage.id).width}
-                            onChange={(event) => handleItemChange(event, editingImage.id, "width")}
-                        />
-                    </label> */}
                         {tool === "width" && <>
                             <label>Change width:</label>
                             <input
@@ -40,8 +30,8 @@ const ImageLinkFormTop = () => {
                                 max="600"
                                 step="10"
                                 name="width"
-                                value={editingImage && Math.floor(items.find(item => item.id === editingImage.id).width)}
-                                onChange={(event) => handleItemChange(event, editingImage.id, "width")
+                                value={editingImageLink && Math.floor(items.find(item => item.id === editingImageLink.id).width)}
+                                onChange={(event) => handleItemChange(event, editingImageLink.id, "width")
                                 } />
                         </>}
                         {tool === "angle" && <>
@@ -52,8 +42,8 @@ const ImageLinkFormTop = () => {
                                 max="180"
                                 step="1"
                                 name="angle"
-                                value={editingImage && items.find(item => item.id === editingImage.id).angle}
-                                onChange={(event) => handleItemChange(event, editingImage.id, "angle")
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).angle}
+                                onChange={(event) => handleItemChange(event, editingImageLink.id, "angle")
                                 } />
                         </>}
                         {tool === "opacity" && <>
@@ -64,8 +54,8 @@ const ImageLinkFormTop = () => {
                                 max="1"
                                 step="0.1"
                                 name="opacity"
-                                value={editingImage && items.find(item => item.id === editingImage.id).opacity}
-                                onChange={(e) => handleItemChange(e, editingImage.id, "opacity")}
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).opacity}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "opacity")}
                             />
                         </>}
                         {tool === "crop" && <>
@@ -76,8 +66,8 @@ const ImageLinkFormTop = () => {
                                 max="100"
                                 step="1"
                                 name="cropWidth"
-                                value={editingImage && items.find(item => item.id === editingImage.id).cropWidth}
-                                onChange={(e) => handleItemChange(e, editingImage.id, "cropWidth")}
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropWidth}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropWidth")}
                             />
                         </>}
                         {tool === "crop" && <>
@@ -88,8 +78,8 @@ const ImageLinkFormTop = () => {
                                 max="100"
                                 step="1"
                                 name="cropHeight"
-                                value={editingImage && items.find(item => item.id === editingImage.id).cropHeight}
-                                onChange={(e) => handleItemChange(e, editingImage.id, "cropHeight")}
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropHeight}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropHeight")}
                             />
                         </>}
                         {tool === "roundCorners" && <>
@@ -100,29 +90,29 @@ const ImageLinkFormTop = () => {
                                 max="100"
                                 step="1"
                                 name="roundCorners"
-                                value={editingImage && items.find(item => item.id === editingImage.id).roundCorners}
-                                onChange={(e) => handleItemChange(e, editingImage.id, "roundCorners")}
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).roundCorners}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "roundCorners")}
                             />
                         </>}
                         {tool === "order" && <>
                             <label>Order:</label>
                             <button
-                                onClick={() => handleMoveItemToBack(editingImage.id)}>
+                                onClick={() => handleMoveItemToBack(editingImageLink.id)}>
                                 <div className='move-item'
                                 >&gt;&gt;</div>
                             </button>
                             <button
-                                onClick={() => handleMoveItemToFront(editingImage.id)}>
+                                onClick={() => handleMoveItemToFront(editingImageLink.id)}>
                                 <div className='move-item'
                                 >&lt;&lt;</div>
                             </button>
                             <button
-                                onClick={() => handleMoveItemBackward(editingImage.id)}>
+                                onClick={() => handleMoveItemBackward(editingImageLink.id)}>
                                 <div className='move-item'
                                 >&gt;</div>
                             </button>
                             <button
-                                onClick={() => handleMoveItemForward(editingImage.id)}>
+                                onClick={() => handleMoveItemForward(editingImageLink.id)}>
                                 <div className='move-item'
                                 >&lt;</div>
                             </button>

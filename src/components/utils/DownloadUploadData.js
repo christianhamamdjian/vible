@@ -105,7 +105,9 @@ const DownloadUploadData = () => {
                     tipLeft="50%"
                     text="Download board"
                 />
-                <button onClick={download}>
+                <button
+                    title="Download board in JSON format."
+                    onClick={download}>
                     <svg
                         width="24"
                         height="24"
@@ -133,7 +135,9 @@ const DownloadUploadData = () => {
                 >
                 </a>
 
-                <button onClick={upload}>
+                <button
+                    title="Upload a board in JSON format."
+                    onClick={upload}>
                     {/* Upload Vible board */}
                     <svg
                         width="24"

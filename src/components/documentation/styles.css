@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10,10 +10,10 @@
 }
 
 .accordion-container button {
-  color: #ffffff;
+  color: #504f4f;
   border-radius: 0;
 }
 
 p {
   margin: .5rem;
-}
+} */
