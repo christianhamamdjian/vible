@@ -635,11 +635,13 @@ export default function MoodboardProvider({ children }) {
         const text = e.dataTransfer.getData('text')
         const isUrl = e.dataTransfer.getData('url')
         const googleMapUrlStart = "https://www.google.com/maps"
-        const urlStart = "https://www.youtube.com/watch?v="
+        const youtubeUrlStart = "https://www.youtube.com/watch?v="
         let newText = isUrl
-        let youtubeCode = newText.replace(urlStart, "")
-        if (isUrl && isUrl.includes(urlStart)) {
-            handleDropVideo(youtubeCode)
+        let youtubeCode = newText.replace(youtubeUrlStart, "")
+        const urlEnd = youtubeCode.indexOf("=")
+        let youtubeCodeFinal = urlEnd > -1 ? youtubeCode.slice(0, urlEnd + 1) : youtubeCode
+        if (isUrl && isUrl.includes(youtubeUrlStart)) {
+            handleDropVideo(youtubeCodeFinal)
         }
         if (text && (text.startsWith(googleMapUrlStart))) {
             function extractword(str, start, end) {
@@ -739,7 +741,7 @@ export default function MoodboardProvider({ children }) {
             }
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (isUrl && (text.startsWith('http') || text.startsWith('https'))) {
+        if (isUrl && !youtubeUrlStart && (text.startsWith('http') || text.startsWith('https'))) {
             const itemId = Date.now()
             const newItem = {
                 id: itemId,
