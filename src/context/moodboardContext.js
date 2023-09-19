@@ -65,6 +65,9 @@ export default function MoodboardProvider({ children }) {
     const [map, setMap] = useState(false)
     const [pdf, setPdf] = useState(false)
 
+    const [imageUploadValue, setImageUploadValue] = useState("")
+    const [pdfUploadValue, setPdfUploadValue] = useState("")
+
     const [clipBoard, setClipBoard] = useState(null)
     const [zoom, setZoom] = useState(10000)
     const [isEditingBoard, setIsEditingBoard] = useState(false)
@@ -606,6 +609,7 @@ export default function MoodboardProvider({ children }) {
             setItems((prevItems) => [...prevItems, newItem])
         }
         reader.readAsDataURL(file)
+        setImageUploadValue("")
     }
     const handleImageDropUpload = (e) => {
         const file = e
@@ -787,6 +791,7 @@ export default function MoodboardProvider({ children }) {
                 setItems((prevItems) => [...prevItems, newItem]);
             };
             reader.readAsArrayBuffer(file);
+            setPdfUploadValue("")
         }
     }
     const uploadToIndexedDB = (arrayBuffer) => {
@@ -865,6 +870,7 @@ export default function MoodboardProvider({ children }) {
             roundCorners: 0,
         }
         setItems((prevItems) => [...prevItems, newItem])
+        setItemImageUrl("")
     }
     const handleAddMap = (e) => {
         e.preventDefault()
@@ -880,6 +886,7 @@ export default function MoodboardProvider({ children }) {
             type: "mapUrl"
         }
         setItems((prevItems) => [...prevItems, newItem])
+        setItemMapUrl("")
     }
     const resetPathsGroup = () => {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
@@ -1150,10 +1157,12 @@ export default function MoodboardProvider({ children }) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
             updateResizeIcon(clientX, clientY)
-            setRectangleSize(() => ({
-                width: rectItem.width,
-                height: rectItem.height,
-            }))
+            if (rectType !== "pdf") {
+                setRectangleSize(() => ({
+                    width: rectItem.width,
+                    height: rectItem.height,
+                }))
+            }
         }
 
         if (e.target.id === 'rotate') {
@@ -2141,6 +2150,8 @@ export default function MoodboardProvider({ children }) {
                 buttonsColor,
                 showBoards,
                 clipBoard,
+                imageUploadValue,
+                pdfUploadValue,
                 // Methods
                 handleShowBoards,
                 handleBoardColorChange,

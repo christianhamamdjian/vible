@@ -476,6 +476,8 @@ button,
   justify-content: center;
   align-items: center;
   padding: .2rem .3rem;
+  height: 3rem;
+  font-size: .7rem;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
@@ -498,6 +500,8 @@ button,
   align-items: center;
   padding: .2rem .6rem;
   gap: .2rem .8rem;
+  height: 3rem;
+  font-size: .7rem;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.4);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
@@ -505,13 +509,12 @@ button,
   border-radius: 3rem;
 }
 
-.inputs-top_draw-form {
-  background: rgba(115, 119, 159, 0.9);
-  font-size: .7rem;
-  border-radius: 3rem;
+.inputs-top_draw-form label {
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
-.inputs-top_objects label {
+.inputs-top_objects-form label {
   font-weight: bold;
   margin-bottom: 0;
 }
@@ -1368,15 +1371,11 @@ color: #000000;
   margin-left: -.4rem;
 }
 
-
-
-
-
 .left-sidebar {
   background: transparent;
   margin-top: 4rem;
-  max-height: 80vh;
-  overflow-y: auto;
+  /* max-height: 100vh;
+  overflow-y: auto; */
   overflow-x: hidden;
 }
 
@@ -1419,8 +1418,8 @@ color: #000000;
   margin-top: 0;
   padding-top: 0;
   overflow-x: hidden;
-  overflow-y: hidden;
-  height: 90%;
+  /* overflow-y: hidden;
+  height: 100%; */
 }
 
 .drawerContents-container-right {
@@ -1437,7 +1436,7 @@ color: #000000;
   background: transparent;
   transition: all 0.3s ease-in-out;
   z-index: 100;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .drawer-container-right {
@@ -1481,7 +1480,7 @@ color: #000000;
   transform: translateX(0.2rem) translateY(2rem) scale(1);
   border-radius: 0 1.2rem 1.2rem 0;
   z-index: 999;
-  max-height: 80vh;
+  max-height: 75vh;
 }
 
 .drawer-right-isOpen {
@@ -1491,7 +1490,7 @@ color: #000000;
   transform: translateX(0.2rem) translateY(2rem) scale(1);
   border-radius: 1.2rem 0 0 1.2rem;
   z-index: 999;
-  max-height: 80vh;
+  max-height: 75vh;
 }
 
 .drawer-left-isMoreOpen {
@@ -1678,15 +1677,15 @@ color: #000000;
   flex-direction: column;
 }
 
-input[type="range"] {
+.range-container input[type="range"] {
   width: 15rem;
 }
 
-h1+div {
+.range-container h1+div {
   margin-top: 5rem;
 }
 
-label {
+.range-container label {
   margin-bottom: 1rem;
 }
 
@@ -1939,7 +1938,7 @@ input[type="range"]:focus::-moz-range-thumb {
     font-size: 1rem;
     padding: 0.6rem 0.8rem;
     margin: 0.05rem 0.1rem;
-    border-radius: .4rem;
+    border-radius: 5rem;
   }
 
   .inputs-top_objects .next,

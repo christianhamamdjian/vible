@@ -1,5 +1,5 @@
 import React from 'react';
-// import pencilPattern from '../../assets/pencil-pattern-small.jpg';
+import pencilPattern from '../../assets/crayon-scribble-textures.png';
 import { MoodboardContext } from "../../context/moodboardContext";
 import renderPath from '../helperFunctions/pathSmooth';
 
@@ -35,7 +35,12 @@ const Drawing = () => {
                         </marker>
                         {/* <pattern id="patt" patternUnits="userSpaceOnUse" width="30" height="30">
                             <image href={pencilPattern} x="0" y="0" width="80" height="80" />
+                        </pattern>
+
+                        <pattern id="texture_diagonal" x="0" y="0" width="6%" height="2%" patternUnits="objectBoundingBox">
+                            <path d="M 0 0 l 12 22" style={{ strokeWidth: ".1rem", stroke: "black", fill: "none" }} />
                         </pattern> */}
+
                     </defs>
                         <path
                             key={index}
@@ -57,6 +62,7 @@ const Drawing = () => {
                             markerStart={path.arrowStart ? `url(#startarrow-${path.id + 1})` : null}
                             stroke={path.group === "activeGroup" ? "red" : path.color}
                             // stroke="url(#patt)"
+                            // stroke="url(#texture_diagonal)"
                             strokeWidth={path.line}
                             onPointerDown={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                             onTouchStart={(e) => path.group !== "activeGroup" ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
