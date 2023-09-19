@@ -1157,7 +1157,8 @@ export default function MoodboardProvider({ children }) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
             updateResizeIcon(clientX, clientY)
-            if (rectType !== "pdf") {
+
+            if (rectType !== "pdf" || rectType !== "imageUrl") {
                 setRectangleSize(() => ({
                     width: rectItem.width,
                     height: rectItem.height,
