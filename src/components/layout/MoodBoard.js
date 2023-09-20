@@ -81,13 +81,13 @@ const MoodBoard = () => {
                     >
                         {backgroundPattern && <>
                             <defs>
-                                <pattern id="patt" patternUnits="userSpaceOnUse" width="300" height="300">
+                                <pattern id="cork" patternUnits="userSpaceOnUse" width="300" height="300">
                                     <image href={corkPattern} x="0" y="0" width="300" height="300" />
                                 </pattern>
-                                <pattern id="texture_horizontal" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
-                                    <path d="M 0 8 l 32 0" style={{ stroke: "#ffffff", fill: "none" }} />
+                                <pattern id="lines" x="0" y="0" width=".2%" height=".2%" patternUnits="objectBoundingBox">
+                                    <path d="M 0 8 l 32 0" style={{ stroke: "#eeeeee", fill: "none" }} />
                                 </pattern>
-                                <pattern id="texture_both" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
+                                <pattern id="squares" x="0" y="0" width=".2%" height=".2%" patternUnits="objectBoundingBox">
                                     <path d="M 8 0 l 0 32" style={{ stroke: "#eeeeee", fill: "none" }} />
                                     <path d="M 0 8 l 32 0" style={{ stroke: "#eeeeee", fill: "none" }} />
                                 </pattern>
@@ -97,7 +97,7 @@ const MoodBoard = () => {
                                 y="0"
                                 width='10000'
                                 height='10000'
-                                fill="url(#patt)"
+                                fill={`url(#${backgroundPattern})`}
                             />
                         </>}
                         {renderBoardItems}

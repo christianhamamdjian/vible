@@ -9,7 +9,7 @@ import DownloadUploadData from "../utils/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, backgroundPattern } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, backgroundPattern, boards, activeBoard } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -34,7 +34,20 @@ const RightSidebard = () => {
     const hideConfirm = () => {
         setOnShow(false)
     }
-
+    const backgroundOptions = [
+        {
+            value: "cork",
+            label: "Cork"
+        },
+        {
+            value: "lines",
+            label: "Lines"
+        },
+        {
+            value: "squares",
+            label: "Squares"
+        },
+    ]
     return (
         <div className='right-sidebar'>
             <ThemeSwitcher />
@@ -63,9 +76,36 @@ const RightSidebard = () => {
                     <button
                         onClick={handleColorReset}
                     >Reset Colors</button>
-                    <button
+                    {/* <button
                         onClick={handleShowBackgroundPattern}
-                    >{!backgroundPattern ? "Show Background" : "Hide Background"}</button>
+                    >{!backgroundPattern ? "Show Background" : "Hide Background"}</button> */}
+                    {/* <label htmlFor="backgrounds">Background:</label> */}
+                </div>
+                <div
+                    className='right-sidebar-buttons'
+                >
+                    <label htmlFor="backgrounds">Background pattern:</label>
+                    <select
+                        name="backgrounds"
+                        id="backgrounds"
+                        className='box-form-top-select'
+                        value={boards.find(board => board.id === activeBoard.id).backgrounds}
+                        onChange={(e) => handleShowBackgroundPattern(e, activeBoard.id)}
+                    >
+                        <option
+                            className='box-form-top-select-option'
+                            value="null">
+                            Plain colour
+                        </option>
+                        {backgroundOptions.map((option) => (
+                            <option
+                                className='box-form-top-select-option'
+                                key={option.value}
+                                value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
                 </div>
             </div>
             <div className={`confirm-${onShow ? "show" : ""}`}>

@@ -210,10 +210,6 @@ button,
   margin-bottom: .3rem;
 }
 
-/* .active-board {
-  background-color: #ff2d55;
-} */
-
 @media (hover: hover) {
 
   button:hover,
@@ -528,6 +524,7 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: .3rem;
   padding: .2rem .3rem .3rem 1rem;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
@@ -554,6 +551,10 @@ button,
   font-weight: bold;
   font-size: 2rem;
   border-radius: 2rem;
+}
+
+.inputs-boards_objects button:hover {
+  color: #000000;
 }
 
 .board-form-file-upload {

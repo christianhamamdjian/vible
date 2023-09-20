@@ -12,7 +12,7 @@ export default function MoodboardProvider({ children }) {
     const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", { ...boards[0] })
     const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#ffffff")
     const [boardIndex, setBoardIndex] = useState(0)
-    const [backgroundPattern, setBackgroundPattern] = useState(false)
+    const [backgroundPattern, setBackgroundPattern] = useLocalStorage("background", "")
 
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ffffff")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
@@ -225,8 +225,8 @@ export default function MoodboardProvider({ children }) {
         localStorage.setItem('boardColor', JSON.stringify("#ffffff"))
         localStorage.setItem('buttonsColor', JSON.stringify("#ffffff"))
     }
-    const handleShowBackgroundPattern = () => {
-        setBackgroundPattern(backgroundPattern => !backgroundPattern)
+    const handleShowBackgroundPattern = (e) => {
+        setBackgroundPattern(() => e.target.value)
     }
 
     const handleRating = (i, id) => {
@@ -958,7 +958,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
-        setSelectedRectId(rectId)
+        // setSelectedRectId(rectId)
         // requestAnimationFrame(() => {
         if (rectId) {
             handleRectPointerMove(e, rectId)
@@ -994,7 +994,6 @@ export default function MoodboardProvider({ children }) {
                 const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
                 const angleDiff = newAngle - angleOffset.x;
                 const newRotation = (angleDiff * 180) / Math.PI;
-                console.log(angleDiff)
                 setItems(prevItems =>
                     prevItems.map(item => {
                         if (item.id === selectedRectId) {
@@ -1863,7 +1862,7 @@ export default function MoodboardProvider({ children }) {
     // Editing functions
 
     const handleEditItem = (e, id) => {
-        setSelectedRectId(id)
+        // setSelectedRectId(id)
         if (isDrawing) return
         const itemType = items.find(el => el.id === id).type
         switch (itemType) {
