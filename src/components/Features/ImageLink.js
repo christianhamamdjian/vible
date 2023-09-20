@@ -9,7 +9,8 @@ const ImageLink = ({ item }) => {
 
     useEffect(() => {
         if (item.type === "imageUrl" && item.board === activeBoard.id) {
-            const imageSource = itemRef.current.href.baseVal
+            // const imageSource = itemRef.current.href.baseVal
+            const imageSource = item.imageUrl
             const newImage = document.createElement("img")
             newImage.src = imageSource
             setLoadedImage(newImage)

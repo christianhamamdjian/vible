@@ -876,10 +876,25 @@ button,
 }
 
 /* Documentation */
-.documentation-logo {
-  width: 80px;
+.docu-header {
+  height: 10rem;
+  margin: 2rem;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
 }
 
+.documentation-logo {
+  border-radius: 2rem;
+  width: 120px;
+}
+
+.docu-title {
+  color: #d1d1d1;
+  font-size: 2.4rem;
+  line-height: 1;
+}
 
 .toggle-documentation {
   position: fixed;
@@ -939,6 +954,7 @@ button,
 
 .documentation {
   padding: 1rem;
+  line-height: 1.8;
   position: fixed;
   background: rgba(255, 255, 255, 1);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
@@ -955,7 +971,7 @@ button,
 }
 
 .documentation h2 {
-  background-color: hsl(240, 10%, 72%);
+  background-color: hsl(240, 16%, 87%);
   color: #ffffff;
   padding: 1rem;
   /* margin-top: 1rem; */
@@ -965,7 +981,7 @@ button,
   margin-top: 0;
 }
 
-.documentation h1,
+
 .documentation h2,
 .documentation p,
 .documentation span,
@@ -973,8 +989,12 @@ button,
 .documentation strong,
 .documentation em,
 .documentation a {
-  font-size: 1rem;
+  font-size: 1.2rem;
   /* margin-bottom: .4rem; */
+}
+
+.documentation li {
+  list-style-position: outside;
 }
 
 /* .documentation button {

@@ -8,7 +8,7 @@
 
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-  background-color: #cedbff;
+  background-color: #fefefe;
   color: #ededed;
   cursor: pointer;
   padding: .5rem;
@@ -26,7 +26,7 @@
 }
 
 .active {
-  background-color: #b7cef0;
+  background-color: #e9eff8;
   color: #6a6a6a !important;
 }
 
@@ -34,7 +34,7 @@
 .accordion__title {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 2rem;
 }
 
 /* Style the accordion chevron icon */
@@ -50,17 +50,18 @@
 
 /* Style the accordion content panel. Note: hidden by default */
 .accordion__content {
-  background-color: white;
+  background-color: #ffffff;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
 /* Style the accordion content text */
 .accordion__text {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  padding: 18px;
+  font-size: 2.2rem; */
+  line-height: 2.2;
+  padding: 2rem 3rem;
 }
 
 

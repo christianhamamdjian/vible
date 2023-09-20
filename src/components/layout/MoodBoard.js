@@ -10,11 +10,12 @@ import Drawing from "../Features/Drawing"
 import Todo from "../Features/Todo"
 import BoardDrop from "../helperFunctions/BoardDrop"
 import Documentation from '../documentation/Documentation'
+import corkPattern from '../../assets/background_pattern.jpg';
 
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, handleAddBoxOnSpot
+    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, handleAddBoxOnSpot, backgroundPattern
     } = React.useContext(MoodboardContext);
 
     const renderBoardItems = useMemo(() => {
@@ -78,22 +79,27 @@ const MoodBoard = () => {
                         preserveAspectRatio="none"
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
-                        {/* <defs>
-                            <pattern id="texture_horizontal" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
-                                <path d="M 0 8 l 32 0" style={{ stroke: "#ffffff", fill: "none" }} />
-                            </pattern>
-                            <pattern id="texture_both" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
-                                <path d="M 8 0 l 0 32" style={{ stroke: "#eeeeee", fill: "none" }} />
-                                <path d="M 0 8 l 32 0" style={{ stroke: "#eeeeee", fill: "none" }} />
-                            </pattern>
-                        </defs>
-                        <rect
-                            x="0"
-                            y="0"
-                            width='10000'
-                            height='10000'
-                            fill="url(#texture_horizontal)"
-                        /> */}
+                        {backgroundPattern && <>
+                            <defs>
+                                <pattern id="patt" patternUnits="userSpaceOnUse" width="300" height="300">
+                                    <image href={corkPattern} x="0" y="0" width="300" height="300" />
+                                </pattern>
+                                <pattern id="texture_horizontal" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
+                                    <path d="M 0 8 l 32 0" style={{ stroke: "#ffffff", fill: "none" }} />
+                                </pattern>
+                                <pattern id="texture_both" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
+                                    <path d="M 8 0 l 0 32" style={{ stroke: "#eeeeee", fill: "none" }} />
+                                    <path d="M 0 8 l 32 0" style={{ stroke: "#eeeeee", fill: "none" }} />
+                                </pattern>
+                            </defs>
+                            <rect
+                                x="0"
+                                y="0"
+                                width='10000'
+                                height='10000'
+                                fill="url(#patt)"
+                            />
+                        </>}
                         {renderBoardItems}
                     </svg>
                 </div >

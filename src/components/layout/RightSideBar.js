@@ -9,7 +9,7 @@ import DownloadUploadData from "../utils/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, backgroundPattern } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -63,6 +63,9 @@ const RightSidebard = () => {
                     <button
                         onClick={handleColorReset}
                     >Reset Colors</button>
+                    <button
+                        onClick={handleShowBackgroundPattern}
+                    >{!backgroundPattern ? "Show Background" : "Hide Background"}</button>
                 </div>
             </div>
 

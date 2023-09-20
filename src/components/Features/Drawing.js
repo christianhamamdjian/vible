@@ -1,5 +1,5 @@
 import React from 'react';
-import pencilPattern from '../../assets/crayon-scribble-textures.png';
+//import pencilPattern from '../../assets/crayon-scribble-textures.png';
 import { MoodboardContext } from "../../context/moodboardContext";
 import renderPath from '../helperFunctions/pathSmooth';
 

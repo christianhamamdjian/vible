@@ -20,7 +20,6 @@ const TopBoardsSlider = () => {
             return chunkArray(boards, 2)[boardIndex]
         }
     }
-    console.log(boardIndex)
     const chunk = (<div>
         {chunkButtons() && chunkButtons().map((el, i) => {
             return (<button

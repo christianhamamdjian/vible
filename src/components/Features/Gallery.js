@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
-    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, buttonsColor, getTextColor } = React.useContext(MoodboardContext);
+    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, buttonsColor, getTextColor, activeBoard } = React.useContext(MoodboardContext);
     const [galleryType, setGalleryType] = useState('color')
     const [galleryContent, setGalleryContent] = useState("#000000")
     const [galleryLink, seGalleryLink] = useState('')
@@ -83,11 +83,19 @@ const Gallery = () => {
         if (item.type === "image") {
             const imageObject = {
                 id: Date.now(),
+                board: activeBoard.id,
                 src: item.content,
+                x: 100,
+                y: 100,
+                width: 100,
+                angle: 0,
+                height: "auto",
+                opacity: 1,
+                angle: 0,
                 type: "image",
-                width: "5",
-                x: 0,
-                y: 0
+                cropHeight: 0,
+                cropWidth: 0,
+                roundCorners: 0,
             }
             handleAddGalleryImage(imageObject)
         }

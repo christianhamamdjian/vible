@@ -11,7 +11,9 @@ export default function MoodboardProvider({ children }) {
     const [boards, setBoards] = useLocalStorage("boards", [{ id: Date.now(), name: 1 }])
     const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", { ...boards[0] })
     const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#ffffff")
-    const [boardIndex, setBoardIndex] = useState(0);
+    const [boardIndex, setBoardIndex] = useState(0)
+    const [backgroundPattern, setBackgroundPattern] = useState(false)
+
     const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ffffff")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [tempPath, setTempPath] = useState(null)
@@ -222,6 +224,9 @@ export default function MoodboardProvider({ children }) {
         setButtonsColor("#ffffff")
         localStorage.setItem('boardColor', JSON.stringify("#ffffff"))
         localStorage.setItem('buttonsColor', JSON.stringify("#ffffff"))
+    }
+    const handleShowBackgroundPattern = () => {
+        setBackgroundPattern(backgroundPattern => !backgroundPattern)
     }
 
     const handleRating = (i, id) => {
@@ -963,52 +968,7 @@ export default function MoodboardProvider({ children }) {
             const currentPoints = { x: clientX, y: clientY };
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
-            const item = items.find(el => el.id === selectedRectId)
 
-            // if (currentPoints.x < mousedownPoints.x - 60 || currentPoints.y < mousedownPoints.y - 60) {
-            //     e.preventDefault()
-            //     e.stopPropagation()
-            //     setIsResizing(false)
-            //     setIsDraggingRect(false)
-            // }
-
-
-            // if (item.type === "box") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
-            // if (item.type === "image") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
-            // if (item.type === "imageUrl") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
-            // if (item.type === "video") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
-            // if (item.type === "mapUrl") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
-            // if (item.type === "pdf") {
-            //     setRectangleSize((prevSize) => ({
-            //         width: Math.max(50, Math.min(900, prevSize.width + dx)),
-            //         height: Math.max(50, Math.min(900, prevSize.height + dy)),
-            //     }))
-            // }
             setRectangleSize(() => ({
                 width: rectangleSize.width + dx,
                 height: rectangleSize.height + dy,
@@ -1044,7 +1004,8 @@ export default function MoodboardProvider({ children }) {
                 )
             } else if (item.type === "imageUrl") {
                 let newImage = document.createElement("img")
-                const imageSource = itemRef.current.href.baseVal
+                // const imageSource = itemRef.current.href.baseVal
+                const imageSource = item.imageUrl
                 newImage.src = imageSource
 
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
@@ -1182,7 +1143,8 @@ export default function MoodboardProvider({ children }) {
 
             } else if (rectType === "imageUrl") {
                 let newImage = document.createElement("img")
-                const imageSource = itemRef.current.href.baseVal
+                // const imageSource = itemRef.current.href.baseVal
+                const imageSource = rectItem.imageUrl
                 newImage.src = imageSource
                 setIsRotating(true)
                 setIsDraggingRect(false)
@@ -2153,6 +2115,7 @@ export default function MoodboardProvider({ children }) {
                 clipBoard,
                 imageUploadValue,
                 pdfUploadValue,
+                backgroundPattern,
                 // Methods
                 handleShowBoards,
                 handleBoardColorChange,
@@ -2257,7 +2220,8 @@ export default function MoodboardProvider({ children }) {
                 handleBoardIndexUpdate,
                 handleCopy,
                 handlePaste,
-                handleClearClipBoard
+                handleClearClipBoard,
+                handleShowBackgroundPattern
             }}>
             {children}
         </MoodboardContext.Provider>
