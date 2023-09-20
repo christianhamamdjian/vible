@@ -4,7 +4,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Video = ({ item }) => {
-    const { activeBoard, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
 
     return (
         <>
@@ -96,7 +96,7 @@ const Video = ({ item }) => {
                             picture-in-picture;"
                             />
                         </foreignObject>
-                        <TopControls item={item} />
+                        {isEditingBoard && < TopControls item={item} />}
                     </g>
                 </>
             }

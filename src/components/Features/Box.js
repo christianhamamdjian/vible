@@ -4,7 +4,7 @@ import TopControls from "../helperFunctions/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingText, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, editingText, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
 
     function addAlpha(color, opacity) {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
@@ -117,7 +117,9 @@ const Box = ({ item }) => {
                                 }
                             </div>
                         </foreignObject >
-                        <TopControls item={item} />
+
+                        {isEditingBoard && <TopControls item={item} />}
+
                         {(editingText || isEditingBoard) && (
                             <>
                                 <circle

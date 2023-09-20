@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -20,12 +20,18 @@ const TopControls = ({ item }) => {
     const hideConfirm = () => {
         setOnShow(false)
     }
+
     const safariBrowser = () => {
         return isSafari && (item.type === "video" || item.type === "mapUrl" || item.type === "pdf")
     }
+
+    useEffect(() => {
+        setOnShow(false)
+    }, [editingItem])
+
     return (
         <>
-            {onShow && isEditingBoard && <>
+            {onShow && isEditingBoard && editingItem.id === item.id && <>
                 <rect
                     x="10"
                     // y="-64"

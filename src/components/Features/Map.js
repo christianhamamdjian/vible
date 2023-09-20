@@ -107,7 +107,7 @@ const Map = ({ item }) => {
                             >
                             </iframe>
                         </foreignObject>
-                        <TopControls item={item} />
+                        {isEditingBoard && <TopControls item={item} />}
                     </g>
                 </>
             }

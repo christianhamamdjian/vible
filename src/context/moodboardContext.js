@@ -958,6 +958,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
+        setSelectedRectId(rectId)
         // requestAnimationFrame(() => {
         if (rectId) {
             handleRectPointerMove(e, rectId)
@@ -1862,6 +1863,7 @@ export default function MoodboardProvider({ children }) {
     // Editing functions
 
     const handleEditItem = (e, id) => {
+        setSelectedRectId(id)
         if (isDrawing) return
         const itemType = items.find(el => el.id === id).type
         switch (itemType) {

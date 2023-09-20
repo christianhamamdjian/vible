@@ -124,7 +124,7 @@ const Pdf = ({ item }) => {
                                 />
                             )}
                         </foreignObject>
-                        <TopControls item={item} />
+                        {isEditingBoard && <TopControls item={item} />}
                     </g>
                 </>
             }

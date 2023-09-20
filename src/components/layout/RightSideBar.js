@@ -68,10 +68,11 @@ const RightSidebard = () => {
                     >{!backgroundPattern ? "Show Background" : "Hide Background"}</button>
                 </div>
             </div>
-
-            {onShow &&
-                <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
-            }
+            <div className={`confirm-${onShow ? "show" : ""}`}>
+                {onShow &&
+                    <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} onshow={onShow} />
+                }
+            </div>
             <div className='right-sidebar-buttons'>
                 <Tooltips
                     position="top"

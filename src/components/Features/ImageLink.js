@@ -68,7 +68,7 @@ const ImageLink = ({ item }) => {
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
                             </>)}
-                        <TopControls item={item} />
+                        {isEditingBoard && <TopControls item={item} />}
                     </g >
                 </>
             }

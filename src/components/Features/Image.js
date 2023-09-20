@@ -45,7 +45,7 @@ const Image = ({ item }) => {
                                 opacity: item.opacity,
                             }}
                         />
-                        <TopControls item={item} />
+                        {isEditingBoard && <TopControls item={item} />}
                         {isEditingBoard && (
                             <>
                                 <circle

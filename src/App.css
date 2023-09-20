@@ -205,7 +205,6 @@ button,
   font-size: .8rem;
   font-weight: bold;
   display: flex;
-  flex-direction: column;
   padding: .5rem 1rem;
   margin-left: -.3rem;
   margin-bottom: .3rem;
@@ -219,13 +218,14 @@ button,
 
   button:hover,
   ::file-selector-button:hover {
-    background-color: rgb(11, 9, 112);
+    /* background-color: rgb(5, 0, 105); */
+    box-shadow: 0px 0px 2px rgb(5, 0, 105);
     user-select: none;
   }
 }
 
 .themable:hover {
-  background-color: rgb(11, 9, 112) !important;
+  /* background-color: rgb(11, 9, 112) !important; */
 }
 
 .selected-button {
@@ -333,8 +333,8 @@ button,
 }
 
 .writing-sign {
-  margin-top: .1rem;
-  margin-left: -.3rem;
+  margin-top: .2rem;
+  margin-left: -.2rem;
 }
 
 .erasing-sign {
@@ -359,7 +359,7 @@ button,
   min-width: 1.2rem;
   letter-spacing: -.1rem;
   margin-top: .1rem;
-  margin-left: -.38rem;
+  margin-left: -.35rem;
 }
 
 .info-sign {
@@ -413,6 +413,8 @@ button,
 
 .top-buttons button {
   /* border-radius: 0 0 12px 12px; */
+  width: 3rem;
+  height: 3rem;
   max-width: 3rem;
   margin-top: 1rem;
   padding: 0.5rem 1rem;
@@ -695,7 +697,10 @@ button,
 .confirm-container {
   cursor: pointer;
   user-select: none;
+  overflow: hidden;
   background-color: purple;
+  transition: all .3s ease-in-out;
+  transform: translatex(12rem) scale(1);
 }
 
 .confirm-box-control {
@@ -709,6 +714,26 @@ button,
   user-select: none;
   transition: all 0.3s ease-in-out;
 }
+
+/* .confirm {
+  height: 4rem;
+  background-color: purple;
+  transition: all 0.3s ease-in-out;
+} */
+.confirm-show {
+  height: 4rem;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-12rem) scale(1);
+}
+
+.confirm-hide {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-12rem) scale(0);
+}
+
+
 
 .confirm-h3 {
   color: #ffffff;
@@ -966,8 +991,8 @@ button,
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  z-index: 101;
-  transition: all 0.3s ease-in-out;
+  z-index: 1003;
+  transition: all 0.5s ease-in-out;
 }
 
 .documentation h2 {
@@ -1304,7 +1329,7 @@ color: #000000;
   height: 3rem;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: .8rem;
   padding: .5rem;
 }
@@ -1323,6 +1348,14 @@ color: #000000;
 
 .gallery form input {
   max-width: 14rem;
+}
+
+.gallery ::file-selector-button {
+  display: inline-block;
+}
+
+.gallery ::file-selector-button {
+  margin-right: .5rem;
 }
 
 .gallery-box {
@@ -2021,5 +2054,13 @@ input[type="range"]:focus::-moz-range-thumb {
 
   .documentation-container {
     width: 70%;
+  }
+
+  .documentation {
+    z-index: 100;
+  }
+
+  .documentation-show {
+    z-index: 1003;
   }
 }
