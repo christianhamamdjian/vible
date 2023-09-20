@@ -439,7 +439,7 @@ button,
 }
 
 .inputs-top_draw button {
-  background: rgba(115, 119, 159, 0.9);
+  background: rgba(175, 177, 200, 0.9);
   font-size: .7rem;
   border-radius: 3rem;
 }
@@ -458,8 +458,8 @@ button,
 }
 
 .inputs-top_objects button {
-  background: rgba(138, 142, 184, 0.9);
-  font-size: .8rem;
+  background: rgba(175, 177, 200, 0.9);
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 3rem;
 }
@@ -475,7 +475,7 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: .2rem .3rem;
+  padding: .2rem .3rem .3rem 1rem;
   height: 3rem;
   font-size: .7rem;
   background: rgba(255, 255, 255, 0.6);
@@ -512,11 +512,13 @@ button,
 .inputs-top_draw-form label {
   font-weight: bold;
   margin-bottom: 0;
+  margin-right: .5rem;
 }
 
 .inputs-top_objects-form label {
   font-weight: bold;
   margin-bottom: 0;
+  margin-right: .5rem;
 }
 
 .inputs-boards_objects {
@@ -524,12 +526,18 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: .2rem .3rem;
+  padding: .2rem .3rem .3rem 1rem;
   background: rgba(255, 255, 255, 0.6);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
   border-radius: 5rem;
+}
+
+.inputs-boards_objects label {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-right: .5rem;
 }
 
 .inputs-boards_objects-nav {
@@ -551,7 +559,7 @@ button,
 }
 
 .top-buttons-slider-prev {
-  color: #cccccc;
+  color: #ffffff;
   font-weight: bold;
   font-size: 1.4rem;
   border-radius: 2rem;
@@ -563,13 +571,19 @@ button,
 }
 
 .top-buttons-slider-next {
-  color: #dddddd;
+  color: #ffffff;
   font-weight: bold;
   font-size: 1.4rem;
   border-radius: 2rem
 }
 
-
+.top-buttons-slider-disabled {
+  background: transparent !important;
+  color: transparent;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border-radius: 2rem
+}
 
 /* Board */
 .board-frame {
@@ -1141,7 +1155,7 @@ color: #000000;
 
 .todo form button {
   font-size: 1.4rem;
-  background-color: rgb(70, 76, 103);
+  /* background-color: rgb(70, 76, 103); */
   padding: .4rem .8rem;
 }
 
@@ -1278,7 +1292,7 @@ color: #000000;
 .gallery form button {
   padding: .2rem .8rem .4rem;
   font-size: 1.2rem;
-  background-color: rgb(46, 81, 237);
+  /* background-color: rgb(46, 81, 237); */
 }
 
 .gallery-buttons {
@@ -1425,8 +1439,8 @@ color: #000000;
 .drawerContents-container-right {
   margin-top: 0;
   padding-top: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* overflow-x: hidden;
+  overflow-y: auto; */
 }
 
 .drawer-container-left {
@@ -1468,12 +1482,6 @@ color: #000000;
 }
 
 .drawer-left-isOpen {
-  /* background: rgba(255, 255, 255, 0.9);
-  width: 120px;
-  transition: all .5s;
-  transform: translateX(0.2rem) translateY(2rem) scale(1);
-  border-radius: 0 1.2rem 0 0;
-  z-index: 999; */
   background: rgba(255, 255, 255, 0.9);
   width: 120px;
   transition: all .5s;

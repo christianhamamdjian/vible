@@ -10,15 +10,15 @@ const MoodboardContext = createContext()
 export default function MoodboardProvider({ children }) {
     const [boards, setBoards] = useLocalStorage("boards", [{ id: Date.now(), name: 1 }])
     const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", { ...boards[0] })
-    const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#f4f2f1")
+    const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#ffffff")
     const [boardIndex, setBoardIndex] = useState(0);
-    const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ddddee")
+    const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ffffff")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [tempPath, setTempPath] = useState(null)
-    const [initialIndex, setInitialIndex] = useState(null)
+    // const [initialIndex, setInitialIndex] = useState(null)
     const [savedItems, setSavedItems] = useLocalStorage("items", [])
     const [items, setItems] = useState([])
-    const [hasMoved, setHasMoved] = useState(false)
+    // const [hasMoved, setHasMoved] = useState(false)
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -204,7 +204,7 @@ export default function MoodboardProvider({ children }) {
         const newColor = e.target.value
         setBoardColor(newColor)
         localStorage.setItem('boardColor', JSON.stringify(newColor))
-        let board = document.getElementById("my-svg")
+        let board = document.getElementById("board-svg")
         board.style.backgroundColor = boardColor;
     }
 
@@ -218,10 +218,10 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handleColorReset = () => {
-        setBoardColor("#f4f2f1")
-        setButtonsColor("#ddddee")
-        localStorage.setItem('boardColor', JSON.stringify("#f4f2f1"))
-        localStorage.setItem('buttonsColor', JSON.stringify("#ddddee"))
+        setBoardColor("#ffffff")
+        setButtonsColor("#ffffff")
+        localStorage.setItem('boardColor', JSON.stringify("#ffffff"))
+        localStorage.setItem('buttonsColor', JSON.stringify("#ffffff"))
     }
 
     const handleRating = (i, id) => {
@@ -249,7 +249,7 @@ export default function MoodboardProvider({ children }) {
         const updateColors = () => {
             const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
             setBoardColor(applyBoardColor)
-            let board = document.getElementById("my-svg")
+            let board = document.getElementById("board-svg")
             if (board) {
                 board.style.backgroundColor = applyBoardColor
             }

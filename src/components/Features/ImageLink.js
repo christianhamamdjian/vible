@@ -30,6 +30,7 @@ const ImageLink = ({ item }) => {
                             x="0"
                             y="0"
                             width={item.width}
+                            height={calculatedHeight}
                             clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}

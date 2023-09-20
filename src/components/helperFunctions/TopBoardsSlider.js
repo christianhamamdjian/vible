@@ -64,11 +64,11 @@ const TopBoardsSlider = () => {
                     <div className='inputs-boards_objects'>
                         <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
                     </div>}
-                <h4>Boards:</h4>
+                <label>Boards:</label>
                 <button
                     style={{
                         backgroundColor: `${boardIndex === 0 ? "#ffffff" : "#8e8e93"}`,
-                        color: `${boardIndex === 0 ? "#8e8e93" : "#ffffff"}`,
+                        color: `${boardIndex === 0 ? "#ffffff" : "#ffffff"}`,
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex - 1)}
                     className="inputs-boards_objects-nav"
@@ -89,7 +89,7 @@ const TopBoardsSlider = () => {
                 <button
                     style={{
                         backgroundColor: `${boardIndex === maxIndex ? "#ffffff" : "#8e8e93"} `,
-                        color: `${boardIndex === maxIndex ? "#8e8e93" : "#ffffff"}`,
+                        color: `${boardIndex === maxIndex ? "#ffffff" : "#ffffff"}`,
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex + 1)}
                     className="inputs-boards_objects-nav"

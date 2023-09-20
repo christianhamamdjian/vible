@@ -61,7 +61,7 @@ const MoodBoard = () => {
                         ref={svgRef}
                         width='10000'
                         height='10000'
-                        id="my-svg"
+                        id="board-svg"
                         className='board-body'
                         onPointerDown={handleSvgPointerDown}
                         onTouchStart={handleSvgPointerDown}
@@ -78,6 +78,22 @@ const MoodBoard = () => {
                         preserveAspectRatio="none"
                         cursor={isDrawing ? "crosshair" : "move"}
                     >
+                        {/* <defs>
+                            <pattern id="texture_horizontal" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
+                                <path d="M 0 8 l 32 0" style={{ stroke: "#ffffff", fill: "none" }} />
+                            </pattern>
+                            <pattern id="texture_both" x="0" y="0" width=".1%" height=".1%" patternUnits="objectBoundingBox">
+                                <path d="M 8 0 l 0 32" style={{ stroke: "#eeeeee", fill: "none" }} />
+                                <path d="M 0 8 l 32 0" style={{ stroke: "#eeeeee", fill: "none" }} />
+                            </pattern>
+                        </defs>
+                        <rect
+                            x="0"
+                            y="0"
+                            width='10000'
+                            height='10000'
+                            fill="url(#texture_horizontal)"
+                        /> */}
                         {renderBoardItems}
                     </svg>
                 </div >

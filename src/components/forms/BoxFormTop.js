@@ -193,7 +193,7 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "order" && <>
-                            <div className='item-edit-form'>
+                            <div className='inputs-top_objects-form'>
                                 <label>Order:</label>
                                 <button
                                     onClick={() => handleMoveItemToBack(editingText.id)}>
@@ -217,7 +217,7 @@ const BoxFormTop = () => {
                                 </button>
                             </div>
                         </>}
-                        {tool === "duplicate" && <div className='item-edit-form'>
+                        {tool === "duplicate" && <div className='inputs-top_objects-form'>
                             <label>Duplicate:</label>
                             <button
                                 onClick={() => handleDuplicateBox(editingText.id)}>

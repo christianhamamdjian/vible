@@ -34,7 +34,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
 
             <button
                 onClick={() => setIndex(index - 1)}
-                className="top-buttons-slider-prev prev"
+                className={`${index === 0 ? "top-buttons-slider-disabled" : "top-buttons-slider-prev"}`}
                 disabled={index === 0}
             >&lt;</button>
             <div
@@ -44,7 +44,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
             </div>
             <button
                 onClick={() => setIndex(index + 1)}
-                className="top-buttons-slider-next next"
+                className={`${index === maxIndex ? "top-buttons-slider-disabled" : "top-buttons-slider-next"}`}
                 disabled={index === maxIndex}
             >&gt;</button>
 

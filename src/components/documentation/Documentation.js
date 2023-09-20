@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import vibleLlogo from "../../assets/logo512.png"
 import Accordion from "./components/Accordion";
 import { MoodboardContext } from "../../context/moodboardContext"
-import "./styles.css";
 
 const Documentation = () => {
   const { buttonsColor, getTextColor } = React.useContext(MoodboardContext)
