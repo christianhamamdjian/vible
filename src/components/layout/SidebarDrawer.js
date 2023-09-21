@@ -5,9 +5,11 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const SidebarDrawer = ({ side }) => {
-  const { image, imageLink, video, map, pdf, buttonsColor, getTextColor } = useContext(MoodboardContext)
+  const { image, imageLink, video, map, pdf, activeBoard, getTextColor } = useContext(MoodboardContext)
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => setIsOpen(!isOpen);
+
+  const buttonsColor = activeBoard.buttonsColor
 
   return (
     <>

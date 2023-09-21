@@ -3,13 +3,13 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
-    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, buttonsColor, getTextColor, activeBoard } = React.useContext(MoodboardContext);
+    const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, getTextColor, activeBoard } = React.useContext(MoodboardContext);
     const [galleryType, setGalleryType] = useState('color')
     const [galleryContent, setGalleryContent] = useState("#000000")
     const [galleryLink, seGalleryLink] = useState('')
     const [galleryError, setGalleryError] = useState('')
     const [galleryShow, setGalleryShow] = useState(false)
-
+    const buttonsColor = activeBoard.buttonsColor
     const modelGalleryItem = {
         type: galleryType,
         content: galleryContent,

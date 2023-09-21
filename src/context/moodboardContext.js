@@ -8,19 +8,14 @@ import { handlePdfDelete } from "../components/utils/itemsOperations"
 const MoodboardContext = createContext()
 
 export default function MoodboardProvider({ children }) {
-    const [boards, setBoards] = useLocalStorage("boards", [{ id: Date.now(), name: 1 }])
+    const [boards, setBoards] = useLocalStorage("boards", [{ id: Date.now(), name: 1, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "plainColour" }])
     const [activeBoard, setActiveBoard] = useLocalStorage("activeBoard", { ...boards[0] })
-    const [boardColor, setBoardColor] = useLocalStorage("boardColor", "" || "#ffffff")
     const [boardIndex, setBoardIndex] = useState(0)
-    const [backgroundPattern, setBackgroundPattern] = useLocalStorage("background", "")
 
-    const [buttonsColor, setButtonsColor] = useLocalStorage("buttonsColor", "" || "#ffffff")
     const [paths, setPaths] = useState(loadPathsFromLocalStorage() || [])
     const [tempPath, setTempPath] = useState(null)
-    // const [initialIndex, setInitialIndex] = useState(null)
     const [savedItems, setSavedItems] = useLocalStorage("items", [])
     const [items, setItems] = useState([])
-    // const [hasMoved, setHasMoved] = useState(false)
     const [galleryItems, setGalleryItems] = useLocalStorage("galleryItems", [])
 
     const [isDrawing, setIsDrawing] = useState(false)
@@ -159,18 +154,16 @@ export default function MoodboardProvider({ children }) {
         setClipBoard(null)
     }
     const handleChangeBoard = (boardId) => {
-        const toDelete = boards.find((el) => el.id === boardId)
-        setActiveBoard(toDelete)
+        const toUpdate = boards.find((el) => el.id === boardId)
+        setActiveBoard(toUpdate)
         setHistoryErase([])
         setPositionErase(0)
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }
 
     const handleAddNewBoard = () => {
-        // const newBoard = { id: Date().now, mame:"Board" }
-        // setBoards(prevBoards => [...prevBoards, prevBoards.length + 1])
         const newId = Date.now()
-        const newBoard = { id: newId, name: boards.length + 1 }
+        const newBoard = { id: newId, name: boards.length + 1, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "plainColour" }
         setBoards(prevBoards => [...prevBoards, newBoard])
         setActiveBoard(newBoard)
         setBoardIndex(parseInt(boards.length / 2))
@@ -190,7 +183,6 @@ export default function MoodboardProvider({ children }) {
         const newPaths = paths.filter((el) => el.board !== activeBoard.id)
         setItems(newItems)
         setPaths(newPaths)
-        // handlePdfDelete()
         if (boards.length === 1) {
             handleAddNewBoard()
             setActiveBoard(boards[0])
@@ -202,31 +194,60 @@ export default function MoodboardProvider({ children }) {
         setPositionErase(0)
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
     }
+
     const handleBoardColorChange = (e) => {
+
         const newColor = e.target.value
-        setBoardColor(newColor)
-        localStorage.setItem('boardColor', JSON.stringify(newColor))
+
+        setBoards(prevBoards =>
+            prevBoards.map(board => {
+                if (board.id === activeBoard.id) {
+                    return { ...board, boardColor: newColor }
+                }
+                return board
+            })
+        )
+        setActiveBoard({ ...activeBoard, boardColor: newColor })
         let board = document.getElementById("board-svg")
-        board.style.backgroundColor = boardColor;
+        board.style.backgroundColor = newColor
     }
 
     const handleButtonsColorChange = (e) => {
         const newColor = e.target.value
-        setButtonsColor(newColor)
-        localStorage.setItem('buttonsColor', JSON.stringify(newColor))
+        setBoards(prevBoards =>
+            prevBoards.map(board => {
+                if (board.id === activeBoard.id) {
+                    return { ...board, buttonsColor: newColor }
+                }
+                return board
+            })
+        )
+        setActiveBoard({ ...activeBoard, buttonsColor: newColor })
+
         let buttons = document.getElementsByClassName("themable")
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].style.backgroundColor = newColor;
         }
     }
+
     const handleColorReset = () => {
-        setBoardColor("#ffffff")
-        setButtonsColor("#ffffff")
-        localStorage.setItem('boardColor', JSON.stringify("#ffffff"))
-        localStorage.setItem('buttonsColor', JSON.stringify("#ffffff"))
+        const updateBoard = boards.find(board => board.id === activeBoard.id)
+        setBoards(prevBoards => [...prevBoards, { ...updateBoard, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "" }])
+        setActiveBoard({ ...activeBoard, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "" })
     }
+
     const handleShowBackgroundPattern = (e) => {
-        setBackgroundPattern(() => e.target.value)
+        const newBackground = e.target.value
+        console.log(e.target.value)
+        setBoards(prevBoards =>
+            prevBoards.map(board => {
+                if (board.id === activeBoard.id) {
+                    return { ...board, boardBackground: newBackground }
+                }
+                return board
+            })
+        )
+        setActiveBoard({ ...activeBoard, boardBackground: newBackground })
     }
 
     const handleRating = (i, id) => {
@@ -252,21 +273,21 @@ export default function MoodboardProvider({ children }) {
 
     useEffect(() => {
         const updateColors = () => {
-            const applyBoardColor = JSON.parse(localStorage.getItem('boardColor'))
-            setBoardColor(applyBoardColor)
+
+            const applyBoardColor = boards.find(el => (el.id === activeBoard.id)["boardColor"])
             let board = document.getElementById("board-svg")
             if (board) {
                 board.style.backgroundColor = applyBoardColor
             }
-            const applyButtonsColor = JSON.parse(localStorage.getItem('buttonsColor'))
-            setButtonsColor(applyButtonsColor)
+
+            const applyButtonsColor = boards.find(el => (el.id === activeBoard.id)["buttonsColor"])
             let buttons = document.getElementsByClassName("themable")
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].style.backgroundColor = applyButtonsColor;
             }
         }
         updateColors()
-    }, [boardColor, buttonsColor])
+    }, [boards, activeBoard])
 
     useEffect(() => {
         loadPathsFromLocalStorage()
@@ -958,8 +979,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
-        // setSelectedRectId(rectId)
-        // requestAnimationFrame(() => {
         if (rectId) {
             handleRectPointerMove(e, rectId)
         }
@@ -1004,7 +1023,6 @@ export default function MoodboardProvider({ children }) {
                 )
             } else if (item.type === "imageUrl") {
                 let newImage = document.createElement("img")
-                // const imageSource = itemRef.current.href.baseVal
                 const imageSource = item.imageUrl
                 newImage.src = imageSource
 
@@ -1016,7 +1034,6 @@ export default function MoodboardProvider({ children }) {
                 const newAngle = Math.atan2(centerY - clientY, centerX - clientX);
                 const angleDiff = newAngle - angleOffset.x;
                 const newRotation = (angleDiff * 180) / Math.PI;
-                console.log(angleDiff)
                 setItems(prevItems =>
                     prevItems.map(item => {
                         if (item.id === selectedRectId) {
@@ -1066,7 +1083,6 @@ export default function MoodboardProvider({ children }) {
             const transformedPoint = svgPoint.matrixTransform(svgRef.current.getScreenCTM().inverse())
             setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
         }
-        // })
     }
 
     const handleSvgPointerUp = () => {
@@ -1143,7 +1159,6 @@ export default function MoodboardProvider({ children }) {
 
             } else if (rectType === "imageUrl") {
                 let newImage = document.createElement("img")
-                // const imageSource = itemRef.current.href.baseVal
                 const imageSource = rectItem.imageUrl
                 newImage.src = imageSource
                 setIsRotating(true)
@@ -1183,9 +1198,6 @@ export default function MoodboardProvider({ children }) {
             ...prevOffsets,
             [rectId]: rectOffset,
         }))
-
-        // const rectIndex = items.findIndex(el => el.id === rectId)
-        // setInitialIndex(rectIndex)
     }
 
     const handleRectPointerMove = (e, rectId) => {
@@ -1198,11 +1210,9 @@ export default function MoodboardProvider({ children }) {
             const newY = Math.floor(clientY) - rectOffset.y
             const updatedRectangles = [...items]
             const updatedRect = { ...updatedRectangles[rectIndex], x: newX, y: newY }
-            // updatedRectangles[rectIndex] = updatedRect
             updatedRectangles[updatedRectangles.length] = updatedRect
             updatedRectangles.splice(rectIndex, 1)
             setItems([...updatedRectangles])
-            // setHasMoved(true)
         }
     }
 
@@ -1219,30 +1229,6 @@ export default function MoodboardProvider({ children }) {
             return restOffsets
         })
 
-
-        // if (initialIndex !== 0) {
-        //     const tempItems = [...items]
-        //     const firstPart = [...tempItems.slice(0, initialIndex)]
-        //     const thirdPart = [...tempItems.slice(initialIndex)]
-        //     const movedItem = thirdPart.pop()
-        //     const updatedRectangles = [...firstPart, movedItem, ...thirdPart]
-        //     if (hasMoved) {
-        //         setItems(updatedRectangles)
-        //     }
-        //     return
-        // }
-        // if (initialIndex === 0) {
-        //     const tempItems = [...items]
-        //     const movedItem = tempItems.pop()
-        //     const secondPart = [...tempItems.slice(0)]
-        //     const updatedRectangles = [movedItem, ...secondPart]
-        //     if (hasMoved) {
-        //         setItems(updatedRectangles)
-        //     }
-        //     return
-        // }
-        // setHasMoved(false)
-        // setInitialIndex(null)
         setSelectedRectId(null)
         setIsDraggingRect(false)
     }
@@ -1328,7 +1314,6 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handlePathSelect = (e, index, id) => {
-        // e.preventDefault()
         if (isDraggingRect || isDrawing || isEditingBoard || editingItem) { return }
         if (isErasing && dragErasing) {
             handleDeletePath(id)
@@ -2110,13 +2095,10 @@ export default function MoodboardProvider({ children }) {
                 boards,
                 activeBoard,
                 boardIndex,
-                boardColor,
-                buttonsColor,
                 showBoards,
                 clipBoard,
                 imageUploadValue,
                 pdfUploadValue,
-                backgroundPattern,
                 // Methods
                 handleShowBoards,
                 handleBoardColorChange,

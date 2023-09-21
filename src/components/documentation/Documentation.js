@@ -4,12 +4,13 @@ import Accordion from "./components/Accordion";
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Documentation = () => {
-  const { buttonsColor, getTextColor } = React.useContext(MoodboardContext)
+  const { getTextColor, activeBoard } = React.useContext(MoodboardContext)
 
   const [documentationShow, setDocumentationShow] = useState(false)
   const handleDocumentationToggle = () => {
     setDocumentationShow(documentationShow => !documentationShow)
   }
+  const buttonsColor = activeBoard.buttonsColor
   return (
     <>
       <div className={` documentation ${documentationShow ? "documentation-show" : "documentation-hide"}`}>

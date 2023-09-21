@@ -9,7 +9,7 @@ import DownloadUploadData from "../utils/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, boardColor, buttonsColor, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, backgroundPattern, boards, activeBoard } = React.useContext(MoodboardContext);
+    const { divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, activeBoard } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -36,6 +36,10 @@ const RightSidebard = () => {
     }
     const backgroundOptions = [
         {
+            value: "plainColour",
+            label: "Plain colour"
+        },
+        {
             value: "cork",
             label: "Cork"
         },
@@ -59,14 +63,14 @@ const RightSidebard = () => {
                     <input
                         type="color"
                         className='board-color'
-                        value={boardColor}
+                        value={activeBoard.boardColor}
                         onChange={(e) => handleBoardColorChange(e)}
                     />
                     <label>Buttons color: </label>
                     <input
                         type="color"
                         className='theme-color'
-                        value={buttonsColor}
+                        value={activeBoard.buttonsColor}
                         onChange={(e) => handleButtonsColorChange(e)}
                     />
                 </div>
@@ -89,14 +93,11 @@ const RightSidebard = () => {
                         name="backgrounds"
                         id="backgrounds"
                         className='box-form-top-select'
-                        value={boards.find(board => board.id === activeBoard.id).backgrounds}
+                        //value={boards.find(board => board.id === activeBoard.id).boardBackground}
+                        value={activeBoard.boardBackground}
                         onChange={(e) => handleShowBackgroundPattern(e, activeBoard.id)}
+                    // defaultValue="plainColour"
                     >
-                        <option
-                            className='box-form-top-select-option'
-                            value="null">
-                            Plain colour
-                        </option>
                         {backgroundOptions.map((option) => (
                             <option
                                 className='box-form-top-select-option'
@@ -286,7 +287,7 @@ const RightSidebard = () => {
             </div>
             <Calculator />
             <Calendar />
-        </div>
+        </div >
     )
 }
 

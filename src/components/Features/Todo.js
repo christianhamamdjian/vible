@@ -4,7 +4,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Todo = () => {
-    const { handleTodosToggle, todosShow, handleTodoAddToBoard, buttonsColor, getTextColor } = React.useContext(MoodboardContext)
+    const { handleTodosToggle, todosShow, handleTodoAddToBoard, getTextColor, activeBoard } = React.useContext(MoodboardContext)
 
     const [todos, setTodos] = useLocalStorage("todos", [])
     const [inputValue, setInputValue] = useState('')
@@ -16,7 +16,7 @@ const Todo = () => {
     const todoRef = useRef()
 
     const windowSize = useRef([window.innerWidth, window.innerHeight])
-
+    const buttonsColor = activeBoard.buttonsColor
     function dragStart(e, index, text, completed) {
         if (e.button === 2 || editingTodoId || editingTodoText) return
         setIsDragging(index)

@@ -3,8 +3,8 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, buttonsColor, getTextColor } = React.useContext(MoodboardContext);
-
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, getTextColor } = React.useContext(MoodboardContext);
+    const buttonsColor = activeBoard.buttonsColor
     return (
         <>
             <div className='top-buttons'>
