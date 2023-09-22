@@ -196,9 +196,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleBoardColorChange = (e) => {
-
         const newColor = e.target.value
-
         setBoards(prevBoards =>
             prevBoards.map(board => {
                 if (board.id === activeBoard.id) {
@@ -223,7 +221,6 @@ export default function MoodboardProvider({ children }) {
             })
         )
         setActiveBoard({ ...activeBoard, buttonsColor: newColor })
-
         let buttons = document.getElementsByClassName("themable")
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].style.backgroundColor = newColor;
@@ -231,8 +228,14 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleColorReset = () => {
-        const updateBoard = boards.find(board => board.id === activeBoard.id)
-        setBoards(prevBoards => [...prevBoards, { ...updateBoard, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "" }])
+        setBoards(prevBoards =>
+            prevBoards.map(board => {
+                if (board.id === activeBoard.id) {
+                    return { ...board, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "plainColour" }
+                }
+                return board
+            })
+        )
         setActiveBoard({ ...activeBoard, boardColor: "#ffffff", buttonsColor: "#ffffff", boardBackground: "" })
     }
 
@@ -263,44 +266,39 @@ export default function MoodboardProvider({ children }) {
         setSelectedStars(0)
     }
 
-    useEffect(() => {
-        setItems(savedItems)
-    }, [])
-
-    useEffect(() => {
-        setSavedItems(items)
-    }, [items])
-
-    useEffect(() => {
-        const updateColors = () => {
-
-            const applyBoardColor = boards.find(el => (el.id === activeBoard.id)["boardColor"])
-            let board = document.getElementById("board-svg")
-            if (board) {
-                board.style.backgroundColor = applyBoardColor
-            }
-
-            const applyButtonsColor = boards.find(el => (el.id === activeBoard.id)["buttonsColor"])
-            let buttons = document.getElementsByClassName("themable")
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].style.backgroundColor = applyButtonsColor;
-            }
+    const updateColors = () => {
+        const applyBoardColor = boards.find(el => el.id === activeBoard.id)
+        let board = document.getElementById("board-svg")
+        if (board) {
+            board.style.backgroundColor = applyBoardColor["boardColor"]
         }
-        updateColors()
-    }, [boards, activeBoard])
+        const applyButtonsColor = boards.find(el => el.id === activeBoard.id)
+        let buttons = document.getElementsByClassName("themable")
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.backgroundColor = applyButtonsColor["buttonsColor"]
+        }
+    }
 
     useEffect(() => {
         loadPathsFromLocalStorage()
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
+        setItems(savedItems)
+
+        updateColors()
     }, [])
 
     useEffect(() => {
+        setSavedItems(items)
         setPdfId(Date.now())
     }, [items])
 
     useEffect(() => {
         savePathsToLocalStorage()
     }, [paths])
+
+    useEffect(() => {
+        updateColors()
+    }, [boards, activeBoard])
 
     function savePathsToLocalStorage() {
         const savingPaths = paths.map((path) => {
