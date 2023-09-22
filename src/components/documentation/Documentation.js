@@ -356,8 +356,11 @@ const Documentation = () => {
             </Accordion> */}
 
           </div>
+          <p className="copyright" >&copy; Christian Hamamdjian 2023</p>
         </div>}
+
       </div>
+
     </>
   );
 };

@@ -916,12 +916,12 @@ button,
 
 .documentation-logo {
   border-radius: 2rem;
-  width: 120px;
+  width: 160px;
 }
 
 .docu-title {
   color: #d1d1d1;
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   line-height: 1;
 }
 
@@ -1010,7 +1010,6 @@ button,
   margin-top: 0;
 }
 
-
 .documentation h2,
 .documentation p,
 .documentation span,
@@ -1026,12 +1025,6 @@ button,
   list-style-position: outside;
 }
 
-/* .documentation button {
-   
-background-color: hsl(240, 26%, 93%);
-color: #000000;
-}*/
-
 .documentation button:hover {
   /* background-color: #007bff; */
   background-color: hsl(240, 6%, 87%);
@@ -1039,6 +1032,10 @@ color: #000000;
 
 .documentation .accordion-container {
   overflow-y: auto;
+}
+
+.documentation .copyright {
+  font-size: .8rem;
 }
 
 /* Download Upload */
