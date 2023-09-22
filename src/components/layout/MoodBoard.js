@@ -48,7 +48,8 @@ const MoodBoard = () => {
     }, [items, paths])
 
 
-    const backgroundPattern = activeBoard.boardBackground
+    const backgroundPattern = activeBoard.boardBackground === "plainColour" ? null : activeBoard.boardBackground
+
     return (
         <>
             <BoardDrop>

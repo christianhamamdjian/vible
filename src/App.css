@@ -158,7 +158,6 @@ textarea {
 
 input[type="color"] {
   min-width: 3rem;
-  color: #f4b416;
   padding: 0;
 }
 
@@ -175,10 +174,14 @@ input[type="color"] {
 
 input[type="color"]::-webkit-color-swatch {
   border-radius: 1.5rem;
+  border: 1px solid #dddddd;
+  border-radius: 1rem;
 }
 
 input[type="color"]::-moz-color-swatch {
   border-radius: 50%;
+  border: 1px solid #dddddd;
+  border-radius: 1rem;
 }
 
 input[type="number"] {
@@ -600,7 +603,7 @@ button,
 }
 
 .board-body {
-  background-color: #f4f2f1;
+  background-color: #ffffff;
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
