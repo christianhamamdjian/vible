@@ -23,7 +23,8 @@ const TopBoardsSlider = () => {
     const chunk = (<div>
         {chunkButtons() && chunkButtons().map((el, i) => {
             return (<button
-                className={`${boardIndex === 0 ? "active-board" : ""}`}
+                // className={`${boardIndex === 0 ? "active-board-button" : "board-button"}`}
+                className="board-button"
                 style={{ backgroundColor: el.id === activeBoard.id ? "red" : "" }}
                 key={i}
                 onClick={() => handleChangeBoard(el.id)}
@@ -59,10 +60,7 @@ const TopBoardsSlider = () => {
             <div
                 className='inputs-boards_objects'
             >
-                {onShow &&
-                    <div className='inputs-boards_objects'>
-                        <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} />
-                    </div>}
+
                 <label>Boards:</label>
                 <button
                     style={{
@@ -96,7 +94,11 @@ const TopBoardsSlider = () => {
                 >&gt;</button>
 
             </div>
-
+            {onShow &&
+                // <div className='inputs-boards_objects'>
+                <Confirm confirmCancel={confirmCancel} item={item} confirmClear={confirmClear} position="board-slider" />
+                // </div>
+            }
         </>
     )
 }

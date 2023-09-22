@@ -549,6 +549,7 @@ button,
 }
 
 .inputs-boards_objects-button {
+  width: 3.5rem;
   background-color: #ffffff;
   color: #cccccc;
   font-weight: bold;
@@ -705,6 +706,18 @@ button,
   background-color: purple;
   transition: all .3s ease-in-out;
   transform: translatex(12rem) scale(1);
+}
+
+.confirm-container-top {
+  width: 20%;
+  margin: 0 auto;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  background-color: purple;
+  transition: all .3s ease-in-out;
+  border-radius: 1rem;
+  /* transform: translatex(12rem) scale(1); */
 }
 
 .confirm-box-control {
@@ -1940,39 +1953,6 @@ input[type="range"]:focus::-moz-range-thumb {
 /********** End of Color Input Styles **********/
 
 
-
-@media only screen and (max-width: 600px) {
-  .top-buttons {
-    width: 60vw;
-    margin: 0 auto;
-    border-radius: 0 0 12px 12px;
-    gap: 0;
-  }
-
-  .itemForms-top {
-    flex-direction: column;
-  }
-
-  .top-buttons button {
-    flex-basis: 0;
-    font-size: .7rem;
-  }
-
-  .inputs-top_draw {
-    width: auto;
-  }
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-  }
-
-  .documentation-container {
-    width: 70%;
-  }
-}
-
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
     overflow: hidden;
@@ -1997,20 +1977,48 @@ input[type="range"]:focus::-moz-range-thumb {
   .inputs-boards_objects {
     padding: 0.2rem 0.6rem;
     overflow: hidden;
-    margin-top: 1.6rem;
+    margin-top: 1.8rem;
     width: auto;
     grid-template-columns: 1fr 6rem;
   }
 
   .inputs-boards_objects button {
     font-size: 1rem;
-    padding: 0rem 0.6rem 0.2rem;
+    /* padding: 0rem 0.6rem 0.2rem; */
     margin: 0.2rem 0.2rem;
     border-radius: .6rem;
   }
 
   .inputs-boards_objects .active-board {
     padding: .5rem .8rem;
+  }
+
+  .board-button {
+    background-color: hsl(240, 32%, 90%);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 0.05rem 0.1rem;
+    border-radius: 0.4rem;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    opacity: .6;
+  }
+
+  .active-board-button {
+    background-color: hsl(0, 87%, 63%);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 0.05rem 0.1rem;
+    border-radius: 0.4rem;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    opacity: .6;
   }
 
   .itemForms-top {
@@ -2049,5 +2057,53 @@ input[type="range"]:focus::-moz-range-thumb {
 
   .documentation-show {
     z-index: 1003;
+  }
+
+  .confirm-container-top {
+    width: 30%;
+  }
+
+  .todo {
+    height: 20rem;
+  }
+
+  .todo-hide {
+    height: 30rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .top-buttons {
+    width: 60vw;
+    margin: 0 auto;
+    border-radius: 0 0 12px 12px;
+    gap: 0;
+  }
+
+  .itemForms-top {
+    flex-direction: column;
+  }
+
+  .top-buttons button {
+    flex-basis: 0;
+    font-size: .7rem;
+  }
+
+  .inputs-top_draw {
+    width: auto;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+  }
+
+  .documentation-container {
+    width: 70%;
+  }
+
+  .confirm-container-top {
+    width: 60%;
   }
 }

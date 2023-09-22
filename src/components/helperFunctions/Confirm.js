@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Confirm = ({ confirmClear, confirmCancel, item }) => {
+const Confirm = ({ confirmClear, confirmCancel, item, position }) => {
 
     return (
         <div
-            className='confirm-container'
+            className={`${position === "board-slider" ? "confirm-container-top" : "confirm-container"}`}
         >
             <>
                 <div
@@ -55,7 +55,7 @@ const Confirm = ({ confirmClear, confirmCancel, item }) => {
                     </svg>
                 </div>
             </>
-        </div>
+        </div >
     )
 }
 
