@@ -129,7 +129,9 @@ const RightSidebard = () => {
                     tipLeft="50%"
                     text="Click to download a pdf copy!"
                 >
-                    <button className='toggler' onClick={() => printPdf(divRef.current)}>
+                    <button
+                        title="Click to download a pdf copy"
+                        className='toggler' onClick={() => printPdf(divRef.current)}>
                         <div className="print-board">
                             <svg
                                 width="24"
@@ -162,7 +164,9 @@ const RightSidebard = () => {
                     tipLeft="50%"
                     text="Click to clear all items!"
                 >
-                    <button className='toggler' onClick={() => showConfirm("board items")}>
+                    <button
+                        title="Click to clear all items"
+                        className='toggler' onClick={() => showConfirm("board items")}>
                         <div className="clear-board">
                             <svg
                                 width="24"
@@ -200,7 +204,9 @@ const RightSidebard = () => {
                     tipLeft="70%"
                     text="Click to clear all lines!"
                 >
-                    <button className='toggler' onClick={() => showConfirm("board lines")}>
+                    <button
+                        title="Click to clear all lines"
+                        className='toggler' onClick={() => showConfirm("board lines")}>
                         <div className="clear-lines">
                             <svg
                                 width="30"

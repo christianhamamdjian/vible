@@ -241,7 +241,6 @@ export default function MoodboardProvider({ children }) {
 
     const handleShowBackgroundPattern = (e) => {
         const newBackground = e.target.value
-        console.log(e.target.value)
         setBoards(prevBoards =>
             prevBoards.map(board => {
                 if (board.id === activeBoard.id) {
