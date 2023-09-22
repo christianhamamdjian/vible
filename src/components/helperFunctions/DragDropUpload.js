@@ -37,21 +37,20 @@ function DragDropFile({ children }) {
 
     return (
         <form
-            id="form-file-upload"
+            className="form-file-upload"
             onDragEnter={handleDrag}
             onSubmit={(e) => e.preventDefault()}
         >
             <input
                 ref={inputRef}
                 type="file"
-                id="input-file-upload"
+                className="input-file-upload"
                 multiple={true}
                 onChange={handleChange}
             />
             <label
-                id="label-file-upload"
                 htmlFor="input-file-upload"
-                className={dragActive ? "drag-active" : ""}
+                className={`label-file-upload ${dragActive ? "drag-active" : ""}`}
             >
                 <div>
                     <p>Drag and drop your file here or</p>
@@ -65,7 +64,7 @@ function DragDropFile({ children }) {
             </label>
             {/* {dragActive &&  */}
             <div
-                id="drag-file-element"
+                className="drag-file-element"
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}

@@ -35,20 +35,19 @@ function BoardDrop({ children }) {
 
     return (
         <form
-            id="board-form-file-upload"
+            className="board-form-file-upload"
             onDragEnter={handleDrag}
             onSubmit={(e) => e.preventDefault()}
         >
             <input
                 ref={inputRef}
                 type="file"
-                id="board-input-file-upload"
+                className="board-input-file-upload"
                 multiple={true}
                 onChange={handleChange}
             />
             <div
-                id="drag-file-element"
-                className='drag-file-element'
+                className="drag-file-element"
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}

@@ -157,7 +157,7 @@ const Gallery = () => {
                         {galleryType === 'color' &&
                             <>
                                 <input
-                                    id="color-style"
+                                    className="color-style"
                                     type="color"
                                     value={galleryContent}
                                     onChange={handleGalleryContentChange}

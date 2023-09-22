@@ -22,7 +22,7 @@ const ColorList = ({ colors, buttons }) => {
         <ColorListItem color={color} colors={colors} button={buttons[i]} key={i} />
     ));
 
-    return <ul id="switcher">{colorItems}</ul>;
+    return <ul className="switcher">{colorItems}</ul>;
 };
 
 const ThemeSwitcher = () => {
