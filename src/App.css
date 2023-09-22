@@ -200,7 +200,7 @@ button,
   border-radius: .4rem;
   user-select: none;
   cursor: pointer;
-  opacity: .6;
+  /* opacity: .6; */
 }
 
 ::file-selector-button {

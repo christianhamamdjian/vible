@@ -42,12 +42,12 @@ const ButtonsTop = () => {
                     height="3.7rem"
                     top="-3rem"
                     bottom="90%"
-                    left="-1.5rem"
+                    left="-2.8rem"
                     right=""
                     marginRight=""
                     marginLeft=""
                     tipTop="-.7rem"
-                    tipLeft="50%"
+                    tipLeft="70%"
                     text="Click to start drawing"
                 />
                 <button
@@ -85,12 +85,12 @@ const ButtonsTop = () => {
                     height="4.5rem"
                     top="-3rem"
                     bottom="90%"
-                    left="-1.2rem"
+                    left="-2.4rem"
                     right=""
                     marginRight=""
                     marginLeft=""
                     tipTop="-.7rem"
-                    tipLeft="40%"
+                    tipLeft="50%"
                     text="Click to add a text box"
                 />
                 {paths.length > 0 && (
@@ -123,12 +123,12 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.9rem"
+                            left="-2rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="30%"
+                            tipLeft="50%"
                             text="Click to erase lines" />
                     </>
                 )}
@@ -159,12 +159,12 @@ const ButtonsTop = () => {
                             height="4.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.6rem"
+                            left="-1.6rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="30%"
+                            tipLeft="40%"
                             text="Click to partially erase lines" />
                     </>
                 )}
@@ -195,7 +195,7 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.3rem"
+                            left="-1.2rem"
                             right=""
                             marginRight=""
                             marginLeft=""
@@ -236,7 +236,7 @@ const ButtonsTop = () => {
                             height="3.8rem"
                             top="-3rem"
                             bottom="90%"
-                            left="0rem"
+                            left="-.8rem"
                             right=""
                             marginRight=""
                             marginLeft=""
@@ -279,7 +279,7 @@ const ButtonsTop = () => {
                         height="3.8rem"
                         top="-3rem"
                         bottom="90%"
-                        left="-.1rem"
+                        left="-.4rem"
                         right=""
                         marginRight=""
                         marginLeft=""
