@@ -528,8 +528,9 @@ button,
   justify-content: center;
   align-items: center;
   gap: .3rem;
-  padding: .2rem .3rem .3rem 1rem;
-  background: rgba(255, 255, 255, 0.6);
+  padding: .4rem .3rem .3rem 1rem;
+  /* background: rgba(255, 255, 255, 0.6); */
+  background: rgb(255, 255, 255);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
@@ -549,12 +550,16 @@ button,
 }
 
 .inputs-boards_objects-button {
-  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
   background-color: #ffffff;
   color: #cccccc;
   font-weight: bold;
-  font-size: 2rem;
-  border-radius: 2rem;
+  font-size: 1.4rem;
+  border-radius: 1rem;
 }
 
 .inputs-boards_objects button:hover {
@@ -566,6 +571,7 @@ button,
 }
 
 .top-buttons-slider-prev {
+  padding-top: .6rem;
   color: #ffffff;
   font-weight: bold;
   font-size: 1.4rem;
@@ -578,6 +584,7 @@ button,
 }
 
 .top-buttons-slider-next {
+  padding-top: .6rem;
   color: #ffffff;
   font-weight: bold;
   font-size: 1.4rem;
@@ -1434,10 +1441,10 @@ button,
 }
 
 /* Sidebars */
-.right-sidebar-buttons {
+/* .right-sidebar-buttons {
   padding: .5rem;
   margin-top: -.5rem;
-}
+} */
 
 .right-sidebar-buttons button {
   margin: 0 auto;
@@ -1492,7 +1499,9 @@ button,
   display: flex;
   flex-direction: row;
   justify-content: center;
+  justify-content: center;
   gap: .8rem;
+  padding: 0 .5rem;
 }
 
 .drawerContents-container-left {
@@ -1702,6 +1711,10 @@ button,
 
 .board-upload-button {
   background-color: azure;
+}
+
+.board-button {
+  background-color: hsl(240, 8%, 56%);
 }
 
 .drag-file-element {
@@ -1957,7 +1970,7 @@ input[type="range"]:focus::-moz-range-thumb {
   .inputs-top_objects {
     overflow: hidden;
     margin-top: 1.6rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.3rem 0.3rem;
     width: auto;
     grid-template-columns: 1fr 6rem;
   }
@@ -1994,7 +2007,7 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .board-button {
-    background-color: hsl(240, 32%, 90%);
+    background-color: hsl(240, 8%, 56%);
     outline: none;
     border: none;
     color: white;
@@ -2004,7 +2017,7 @@ input[type="range"]:focus::-moz-range-thumb {
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
-    opacity: .6;
+    /* opacity: .6; */
   }
 
   .active-board-button {
@@ -2018,7 +2031,7 @@ input[type="range"]:focus::-moz-range-thumb {
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
-    opacity: .6;
+    /* opacity: .6; */
   }
 
   .itemForms-top {
