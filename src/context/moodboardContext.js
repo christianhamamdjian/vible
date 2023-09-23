@@ -409,42 +409,6 @@ export default function MoodboardProvider({ children }) {
         setItemColor('#f4b416')
     }
 
-    const handleAddBoxOnSpot = (e) => {
-        e.preventDefault()
-        const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
-        const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: clientX,
-            y: clientY,
-            text: itemText,
-            color: itemColor,
-            // textColor: getTextColor(itemColor),
-            textColor: "#000000",
-            link: itemLink,
-            url: itemUrl,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: false,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
-        setItems((prevItems) => [...prevItems, newItem])
-        setItemText('Text')
-        setItemColor('#f4b416')
-    }
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now()
         const newItem = {
@@ -641,6 +605,31 @@ export default function MoodboardProvider({ children }) {
         let youtubeCode = newText.replace(youtubeUrlStart, "")
         const urlEnd = youtubeCode.indexOf("=")
         let youtubeCodeFinal = urlEnd > -1 ? youtubeCode.slice(0, urlEnd + 1) : youtubeCode
+        if (text && isUrl) {
+            const itemId = Date.now()
+            const newItem = {
+                id: itemId,
+                board: activeBoard.id,
+                x: 200,
+                y: 200,
+                text: text,
+                color: "#ffffff",
+                textColor: getTextColor(itemColor),
+                link: "Web link",
+                url: text,
+                width: 140,
+                height: 140,
+                angle: 0,
+                type: "box",
+                font: "Roboto",
+                textAlignCenter: "",
+                textAlignLeft: "",
+                borderWidth: "",
+                borderColor: "",
+                backgroundOpacity: "1"
+            }
+            setItems((prevItems) => [...prevItems, newItem])
+        }
         if (isUrl && isUrl.includes(youtubeUrlStart)) {
             handleDropVideo(youtubeCodeFinal)
         }
@@ -2152,7 +2141,6 @@ export default function MoodboardProvider({ children }) {
                 handleRectPointerDown,
                 handleRectPointerMove,
                 handleRectPointerUp,
-                handleAddBoxOnSpot,
                 handleMoveToFront,
                 handleMoveToBack,
                 handleMoveForward,
