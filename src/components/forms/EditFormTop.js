@@ -7,7 +7,7 @@ import ImageLinkFormTop from "./ImageLinkFormTop"
 import VideoFormTop from "./VideoFormTop"
 import MapFormTop from "./MapFormTop"
 import PdfFormTop from "./PdfFormTop"
-import TopBoardsSlider from "../helperFunctions/TopBoardsSlider"
+import TopBoardsSlider from "../helperComponents/TopBoardsSlider"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const EditFormTop = () => {

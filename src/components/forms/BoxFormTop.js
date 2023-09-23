@@ -1,6 +1,7 @@
 import React from 'react'
-import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
+import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
 import { fontOptions } from "../helperFunctions/fontOptions"
+import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
@@ -193,29 +194,13 @@ const BoxFormTop = () => {
                             />
                         </>}
                         {tool === "order" && <>
-                            <div className='inputs-top_objects-form'>
-                                <label>Order:</label>
-                                <button
-                                    onClick={() => handleMoveItemToBack(editingText.id)}>
-                                    <div className='move-item'
-                                    >&gt;&gt;</div>
-                                </button>
-                                <button
-                                    onClick={() => handleMoveItemToFront(editingText.id)}>
-                                    <div className='move-item'
-                                    >&lt;&lt;</div>
-                                </button>
-                                <button
-                                    onClick={() => handleMoveItemBackward(editingText.id)}>
-                                    <div className='move-item'
-                                    >&gt;</div>
-                                </button>
-                                <button
-                                    onClick={() => handleMoveItemForward(editingText.id)}>
-                                    <div className='move-item'
-                                    >&lt;</div>
-                                </button>
-                            </div>
+                            <Order
+                                id={editingText.id}
+                                handleMoveToFront={handleMoveItemToFront}
+                                handleMoveToBack={handleMoveItemToBack}
+                                handleMoveForward={handleMoveItemForward}
+                                handleMoveBackward={handleMoveItemBackward}
+                            />
                         </>}
                         {tool === "duplicate" && <div className='inputs-top_objects-form'>
                             <label>Duplicate:</label>

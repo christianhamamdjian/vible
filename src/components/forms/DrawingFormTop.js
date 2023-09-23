@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import Circle from "../helperFunctions/CircleCursor"
-import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
+import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
+import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
@@ -23,7 +24,7 @@ const DrawingFormTop = () => {
         order: "Order",
         duplicate: "Duplicate",
         delete: "Delete",
-        done: "Done",
+        // done: "Done",
     }
     const groupToolButtons = {
         linesWidth: "Width",
@@ -126,8 +127,12 @@ const DrawingFormTop = () => {
                                 value={paths.find(path => path.id === isEditingPath.id).line}
                                 onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} /> */}
                             <span>{paths.find(path => path.id === isEditingPath.id).line}</span>
-                            <button onClick={e => handleLineWidthChange(e, isEditingPath.id, "decrease")}>&lt;</button>
-                            <button onClick={e => handleLineWidthChange(e, isEditingPath.id, "increase")}>&gt;</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleLineWidthChange(e, isEditingPath.id, "decrease")}>&lt;</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleLineWidthChange(e, isEditingPath.id, "increase")}>&gt;</button>
                         </>}
 
                         {tool === "fillColor" && <>
@@ -208,8 +213,12 @@ const DrawingFormTop = () => {
                                 onChange={(e) => handleRotation(e)}
                                 onPointerUp={handleRotationReset}
                             />
-                            <button onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
-                            <button onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                         </div>}
 
                         {tool === "scale" && <div className='path-edit-form'>
@@ -224,42 +233,28 @@ const DrawingFormTop = () => {
                                 onChange={(e) => handleScale(e)}
                                 onPointerUp={handleScaleReset}
                             />
-                            <button onClick={e => handleScaleChange(e, "decrease")}>-</button>
-                            <button onClick={e => handleScaleChange(e, "increase")}>+</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleScaleChange(e, "decrease")}>-</button>
+                            <button
+                                className='path-edit-form-button'
+                                onClick={e => handleScaleChange(e, "increase")}>+</button>
                         </div>}
 
                         {/* </>
                         )}
                        */}
 
-                        {tool === "order" && <div className='path-edit-form'>
-                            <label>Order: </label>
-                            <button
-                                onClick={() => handleMoveToBack(isEditingPath.id)}>
-                                <div className='move-item'
-                                >&gt;&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveToFront(isEditingPath.id)}>
-                                <div className='move-item'
-                                >&lt;&lt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveBackward(isEditingPath.id)}>
-                                <div className='move-item'
-                                >&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveForward(isEditingPath.id)}>
-                                <div className='move-item'
-                                >&lt;</div>
-                            </button>
-                        </div>}
+                        {tool === "order" &&
 
+                            <Order id={isEditingPath.id} handleMoveToFront={handleMoveToFront} handleMoveToBack={handleMoveToBack} handleMoveForward={handleMoveForward} handleMoveBackward={handleMoveBackward} />
 
+                        }
                         {tool === "duplicate" && <div className='path-edit-form'>
                             <label>Duplicate: </label>
                             <button
+                                title="Duplicate"
+                                className='path-edit-form-button'
                                 onClick={() => handleDuplicatePath(isEditingPath.id)}>
                                 <svg
                                     width="24"
@@ -275,30 +270,49 @@ const DrawingFormTop = () => {
                         </div>}
 
 
-                        {tool === "delete" && <button
-                            onClick={() => handleDeletePath(isEditingPath.id)}>
-                            &times;
-                        </button>}
+                        {tool === "delete" && <div className='path-edit-form'>
+                            <label>Delete: </label>
+                            <button
+                                title="Delete"
+                                className='path-edit-form-button'
+                                onClick={() => handleDeletePath(isEditingPath.id)}>
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </button>
+                        </div>}
 
-                        {tool === "done" && <button
-                            className='path-edit-form-button'
-                            onClick={stopLineEditing}>
-                            <svg
-                                x="0"
-                                y="0"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 18 18"
-                                fill="transparent"
-                                className='path-edit-form-svg'
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z"
-                                    fill="#ffffff"
-                                />
-                            </svg>
-                        </button>}
+                        {/* {tool === "done" &&
+                            <div className='path-edit-form'>
+                                <label>Delete: </label>
+                                <button
+                                    title="Done"
+                                    className='path-edit-form-button'
+                                    onClick={stopLineEditing}>
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="transparent"
+                                        className='path-edit-form-svg'
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z"
+                                            fill="#ffffff"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>} */}
 
                     </div>}
 

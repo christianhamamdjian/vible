@@ -1,5 +1,6 @@
 import React from 'react'
-import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
+import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
+import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const VideoFormTop = () => {
@@ -69,29 +70,17 @@ const VideoFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingVideo.id, "opacity")}
                             />
                         </>}
-                        {tool === "order" && <>
-                            <label>Order:</label>
-                            <button
-                                onClick={() => handleMoveItemToBack(editingVideo.id)}>
-                                <div className='move-item'
-                                >&gt;&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemToFront(editingVideo.id)}>
-                                <div className='move-item'
-                                >&lt;&lt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemBackward(editingVideo.id)}>
-                                <div className='move-item'
-                                >&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemForward(editingVideo.id)}>
-                                <div className='move-item'
-                                >&lt;</div>
-                            </button>
-                        </>}
+                        {tool === "order" &&
+                            <>
+                                <Order
+                                    id={editingVideo.id}
+                                    handleMoveToFront={handleMoveItemToFront}
+                                    handleMoveToBack={handleMoveItemToBack}
+                                    handleMoveForward={handleMoveItemForward}
+                                    handleMoveBackward={handleMoveItemBackward}
+                                />
+                            </>
+                        }
                     </div>}
                 </>
             )

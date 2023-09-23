@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import Gallery from "../Features/Gallery"
+import Gallery from "./Gallery"
 import Box from "../Features/Box"
 import Image from "../Features/Image"
 import Video from "../Features/Video"
@@ -7,8 +7,8 @@ import Map from "../Features/Map"
 import Pdf from "../Features/Pdf"
 import ImageLink from "../Features/ImageLink"
 import Drawing from "../Features/Drawing"
-import Todo from "../Features/Todo"
-import BoardDrop from "../helperFunctions/BoardDrop"
+import Todo from "./Todo"
+import BoardDrop from "../helperComponents/BoardDrop"
 import Documentation from '../documentation/Documentation'
 import corkPattern from '../../assets/background_pattern.jpg';
 

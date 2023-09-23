@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import ThemeSwitcher from './ThemeSwitcher'
+import ThemeSwitcher from '../helperComponents/ThemeSwitcher'
 import { printPdf } from '../utils/printPdf'
 import Calculator from "../calculator/Calculator"
 import Calendar from "../calendar/Calendar"
 import Tooltips from '../tooltips/Tooltips'
-import Confirm from "../helperFunctions/Confirm"
-import DownloadUploadData from "../utils/DownloadUploadData"
+import Confirm from "../helperComponents/Confirm"
+import DownloadUploadData from "../helperComponents/DownloadUploadData"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {

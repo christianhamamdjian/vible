@@ -1,5 +1,6 @@
 import React from 'react'
-import TopButtonsSlider from "../helperFunctions/TopButtonsSlider"
+import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
+import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageFormTop = () => {
@@ -94,29 +95,17 @@ const ImageFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingImage.id, "roundCorners")}
                             />
                         </>}
-                        {tool === "order" && <>
-                            <label>Order:</label>
-                            <button
-                                onClick={() => handleMoveItemToBack(editingImage.id)}>
-                                <div className='move-item'
-                                >&gt;&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemToFront(editingImage.id)}>
-                                <div className='move-item'
-                                >&lt;&lt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemBackward(editingImage.id)}>
-                                <div className='move-item'
-                                >&gt;</div>
-                            </button>
-                            <button
-                                onClick={() => handleMoveItemForward(editingImage.id)}>
-                                <div className='move-item'
-                                >&lt;</div>
-                            </button>
-                        </>}
+                        {tool === "order" &&
+                            <>
+                                <Order
+                                    id={editingImage.id}
+                                    handleMoveToFront={handleMoveItemToFront}
+                                    handleMoveToBack={handleMoveItemToBack}
+                                    handleMoveForward={handleMoveItemForward}
+                                    handleMoveBackward={handleMoveItemBackward}
+                                />
+                            </>
+                        }
                     </div>}
                 </>
             } </>

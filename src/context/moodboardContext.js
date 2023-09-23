@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef, createContext } from "react"
 import { useLocalStorage } from "../components/hooks/useLocalStorage"
 import getTextColor from "../components/utils/getTextColor"
 import partialErase from "../components/helperFunctions/partialErase"
-import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/utils/pathOperations"
-import { handlePdfDelete } from "../components/utils/itemsOperations"
+import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/helperFunctions/pathOperations"
+import { handlePdfDelete } from "../components/helperFunctions/itemsOperations"
+import box from "../models/box-model"
 
 const MoodboardContext = createContext()
 
@@ -402,34 +403,7 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: 200,
-            y: 200,
-            text: itemText,
-            color: itemColor,
-            // textColor: getTextColor(itemColor),
-            textColor: "#000000",
-            link: itemLink,
-            url: itemUrl,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: false,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
+        const newItem = box(itemId, activeBoard.id, itemText, itemColor, itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')

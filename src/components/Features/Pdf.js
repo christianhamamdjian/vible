@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isSafari } from "../utils/browserDetector"
-import TopControls from "../helperFunctions/TopControls"
+import TopControls from "../helperComponents/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Pdf = ({ item }) => {

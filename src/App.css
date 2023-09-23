@@ -254,21 +254,22 @@ button,
 }
 
 .path-edit-form-button {
-  padding: .3rem .6rem;
+  background-color: #afb1c8e6;
+  /* padding: .3rem .6rem; */
 }
 
 .path-edit-form-svg {
   cursor: pointer;
-  margin-left: -.2rem;
+  /* margin-left: -.2rem; */
 }
 
-.move-item,
+/* .move-item,
 .move-item-toback,
 .move-item-tofront,
 .move-item-backward,
 .move-item-forward {
-  transform: rotate(90deg);
-}
+  transform: rotate(0deg);
+} */
 
 .buttons-top-activeboard {
   width: 1rem;
@@ -2086,6 +2087,19 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 @media only screen and (max-width: 600px) {
+  .documentation-container {
+    width: 80%;
+  }
+
+  .docu-header {
+    display: block;
+    height: auto;
+  }
+
+  .accordion__section button {
+    text-align: left;
+  }
+
   .top-buttons {
     width: 60vw;
     margin: 0 auto;
@@ -2110,10 +2124,6 @@ input[type="range"]:focus::-moz-range-thumb {
     display: flex;
     flex-direction: column;
     gap: .2rem;
-  }
-
-  .documentation-container {
-    width: 70%;
   }
 
   .confirm-container-top {

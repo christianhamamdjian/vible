@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { MoodboardContext } from "../../context/moodboardContext";
-import { loadPathsFromLocalStorage } from "./pathOperations"
-import { useLocalStorage } from "../../components/hooks/useLocalStorage"
+import { loadPathsFromLocalStorage } from "../helperFunctions/pathOperations"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 import Tooltips from '../tooltips/Tooltips'
 const DownloadUploadData = () => {
 
