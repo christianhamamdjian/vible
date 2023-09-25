@@ -367,15 +367,10 @@ const DrawingFormTop = () => {
                             <input
                                 type="color"
                                 value={pathColor}
-                                onChange={(event) => handleGroupColorChange(event, isEditingPath.id)} />
+                                onChange={(event) => handleGroupColorChange(event)} />
                         </>}
                         {tool === "linesWidth" && <>
                             <label>Lines width: </label>
-                            {/* <input
-                                type="number"
-                                className='input-line-width'
-                                value={pathLine >= 2 && pathLine}
-                                onChange={(event) => handleGroupLineChange(event, isEditingPath.id)} />*/}
                             <span>{pathLine}</span>
                             <button onClick={e => handleGroupLineChange(e, "decrease")}>&lt;</button>
                             <button onClick={e => handleGroupLineChange(e, "increase")}>&gt;</button>

@@ -1,5 +1,6 @@
 const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
-    return {
+    return ({
+        type: "box",
         id: itemId,
         board: activeBoardId,
         x: 200,
@@ -12,7 +13,6 @@ const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
         width: 140,
         height: 140,
         angle: 0,
-        type: "box",
         font: "Roboto",
         fontStyle: false,
         fontSize: "10",
@@ -25,7 +25,7 @@ const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
         borderWidth: "",
         borderColor: "",
         backgroundOpacity: "1"
-    }
+    })
 }
 
 export default box

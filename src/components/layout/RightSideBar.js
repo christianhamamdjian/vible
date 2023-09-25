@@ -55,7 +55,7 @@ const RightSidebard = () => {
     return (
         <div className='right-sidebar'>
             <ThemeSwitcher />
-            <div>
+            <div className='board-style'>
                 <div
                     className='right-sidebar-buttons'
                 >

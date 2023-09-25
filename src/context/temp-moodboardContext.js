@@ -134,7 +134,7 @@ export default function MoodboardProvider({ children }) {
         setEditingItem(null)
         setEditingText(null)
         setIsEditingPath(null)
-        setIsEditingPaths(false)
+        setIsEditingPaths(null)
         setSelectedPath(null)
         setEditingImage(null)
         setEditingImageLink(null)
@@ -888,7 +888,7 @@ export default function MoodboardProvider({ children }) {
         if (selectedPath || isEditingPath) {
             setTool("")
             setSelectedPath(null)
-            setIsEditingPath(null)
+            setIsEditingPath(false)
         }
         if (isErasing) {
             setDragErasing(true)
@@ -1396,12 +1396,12 @@ export default function MoodboardProvider({ children }) {
         if (isGrouping) {
             resetPathsGroup()
             setSelectedPath(null)
-            setIsEditingPath(null)
+            setIsEditingPath(false)
             setPathLine(1)
         }
         setIsGrouping(isGrouping => !isGrouping)
         setSelectedPath(null)
-        setIsEditingPath(null)
+        setIsEditingPath(false)
         setIsDrawing(false)
         setIsEditingBoard(false)
         setIsErasing(false)
@@ -1543,7 +1543,7 @@ export default function MoodboardProvider({ children }) {
 
     const handleEditPaths = () => {
         setIsEditingPaths(isEditingPaths => !isEditingPaths)
-        setIsEditingPath(null)
+        setIsEditingPath(false)
         setIsDrawing(false)
         setIsErasing(false)
         setIsPartialErasing(false)
@@ -1577,7 +1577,7 @@ export default function MoodboardProvider({ children }) {
         if (editingItem) return
         if (isDrawing || isEditingPath) {
             setSelectedPath(null)
-            setIsEditingPath(null)
+            setIsEditingPath(false)
             setPathColor("#000000")
             setPathLine(2)
         }
@@ -1586,7 +1586,7 @@ export default function MoodboardProvider({ children }) {
         setPathLine(3)
         setIsErasing(false)
         setIsPartialErasing(false)
-        setIsEditingPath(null)
+        setIsEditingPath(false)
         setIsEditingPaths(false)
         setIsGrouping(false)
         setDragGrouping(false)
@@ -1600,7 +1600,7 @@ export default function MoodboardProvider({ children }) {
         setIsErasing(isErasing => !isErasing)
         setIsDrawing(false)
         setSelectedPath(null)
-        setIsEditingPath(null)
+        setIsEditingPath(false)
         setIsEditingPaths(false)
         setIsGrouping(false)
         setDragGrouping(false)
@@ -1614,7 +1614,7 @@ export default function MoodboardProvider({ children }) {
         setIsPartialErasing(isPartialErasing => !isPartialErasing)
         setIsDrawing(false)
         setSelectedPath(null)
-        setIsEditingPath(null)
+        setIsEditingPath(false)
         setIsEditingPaths(false)
         setIsGrouping(false)
         setDragGrouping(false)
@@ -1882,7 +1882,7 @@ export default function MoodboardProvider({ children }) {
             setEditingText(null)
             setIsEditingBoard(false)
             setIsEditingPath(null)
-            setIsEditingPaths(false)
+            setIsEditingPaths(null)
             setEditingImage(null)
             setEditingImageLink(null)
             setEditingVideo(null)
@@ -1977,7 +1977,7 @@ export default function MoodboardProvider({ children }) {
         setEditingItem(null)
         setEditingText(null)
         setIsEditingPath(null)
-        setIsEditingPaths(false)
+        setIsEditingPaths(null)
         setSelectedPath(null)
         setEditingImage(null)
         setEditingImageLink(null)
