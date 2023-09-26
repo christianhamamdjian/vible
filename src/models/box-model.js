@@ -1,4 +1,4 @@
-const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
+const boxModel = (itemId, activeBoardId, itemText, itemColor, textColor, itemLink, itemUrl) => {
     return ({
         type: "box",
         id: itemId,
@@ -7,7 +7,7 @@ const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
         y: 200,
         text: itemText,
         color: itemColor,
-        textColor: "#000000",
+        textColor: textColor || "#ffffff",
         link: itemLink,
         url: itemUrl,
         width: 140,
@@ -28,4 +28,4 @@ const box = (itemId, activeBoardId, itemText, itemColor, itemLink, itemUrl) => {
     })
 }
 
-export default box
+export default boxModel

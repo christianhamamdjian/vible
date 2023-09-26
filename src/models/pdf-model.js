@@ -1,4 +1,4 @@
-const pdf = (id, activeBoardId) => {
+const pdfModel = (id, activeBoardId) => {
     return ({
         type: "pdf",
         id: id,
@@ -8,8 +8,7 @@ const pdf = (id, activeBoardId) => {
         angle: 0,
         width: "100",
         height: "160",
-
     })
 }
 
-export default pdf
+export default pdfModel

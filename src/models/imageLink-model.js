@@ -1,4 +1,4 @@
-const imageLink = (id, activeBoardId, url) => {
+const imageLinkModel = (id, activeBoardId, url) => {
     return ({
         type: "imageUrl",
         id: id,
@@ -7,6 +7,7 @@ const imageLink = (id, activeBoardId, url) => {
         x: 100,
         y: 100,
         width: 100,
+        height: "auto",
         angle: 0,
         opacity: 1,
         cropHeight: 0,
@@ -15,4 +16,4 @@ const imageLink = (id, activeBoardId, url) => {
     })
 }
 
-export default imageLink
+export default imageLinkModel

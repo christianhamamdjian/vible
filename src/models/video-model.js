@@ -1,4 +1,4 @@
-const video = (id, activeBoardId, url) => {
+const videoModel = (id, activeBoardId, url) => {
     return ({
         id: id,
         board: activeBoardId,
@@ -12,4 +12,4 @@ const video = (id, activeBoardId, url) => {
     })
 }
 
-export default video
+export default videoModel

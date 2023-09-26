@@ -5,7 +5,7 @@ import { MoodboardContext } from "../../context/moodboardContext"
 const Gallery = () => {
     const { galleryItems, deleteGalleryItem, addGalleryItem, handleAddGalleryBox, handleAddGalleryImage, handleAddGalleryLink, getTextColor, activeBoard } = React.useContext(MoodboardContext);
     const [galleryType, setGalleryType] = useState('color')
-    const [galleryContent, setGalleryContent] = useState("#000000")
+    const [galleryContent, setGalleryContent] = useState("")
     const [galleryLink, seGalleryLink] = useState('')
     const [galleryError, setGalleryError] = useState('')
     const [galleryShow, setGalleryShow] = useState(false)
@@ -176,13 +176,13 @@ const Gallery = () => {
                                 type="text"
                                 value={galleryContent}
                                 onChange={(e) => handleGalleryContentChange(e)}
-                                placeholder="Add content"
+                                placeholder="Link title"
                             />
                             <input
                                 type="text"
                                 value={galleryLink}
                                 onChange={(e) => handleGalleryLinkChange(e)}
-                                placeholder="Add link" />
+                                placeholder="Link url" />
                         </>}
                         <button type="submit">+</button>
                         {galleryError && <div className="error">{galleryError}</div>}
@@ -196,7 +196,11 @@ const Gallery = () => {
                                     <li
                                         key={index}
                                         className="gallery-box"
-                                        style={{ backgroundColor: item.content }}>
+                                        style={{
+                                            backgroundColor: item.content,
+                                            // color: getTextColor(item.content),
+                                            color: "#ffffff"
+                                        }}>
                                         {item.content}
                                         <div className="gallery-buttons">
                                             <button className='gallery-button'

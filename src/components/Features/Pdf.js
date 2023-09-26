@@ -50,7 +50,7 @@ const Pdf = ({ item }) => {
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                         onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
                         onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
-                        onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
+                        onTouchStart={(e) => handleSvgPointerDown(e, item.id)}
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditItem(e, item.id)}

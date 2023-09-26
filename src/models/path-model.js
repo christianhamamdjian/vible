@@ -1,4 +1,4 @@
-const path = (id, activeBoardId) => {
+const pathModel = (id, activeBoardId) => {
     return ({
         id: id,
         board: activeBoardId,
@@ -14,4 +14,4 @@ const path = (id, activeBoardId) => {
     })
 }
 
-export default path
+export default pathModel

@@ -1,4 +1,4 @@
-const image = (id, activeBoardId, src) => {
+const imageModel = (id, activeBoardId, src) => {
     return ({
         type: "image",
         id: id,
@@ -17,4 +17,4 @@ const image = (id, activeBoardId, src) => {
     })
 }
 
-export default image
+export default imageModel

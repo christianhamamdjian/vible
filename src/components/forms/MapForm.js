@@ -10,7 +10,10 @@ const MapForm = () => {
             <form className='inputs' onSubmit={handleAddMap}>
                 <div className='inputs'>
                     <input type="text" name="mapurl" value={itemMapUrl} onChange={handleItemMapUrl} />
-                    <button type="submit">Add map</button>
+                    <button
+                        className={`${!itemMapUrl && "disabled"}`}
+                        disabled={!itemMapUrl}
+                        type="submit">Add map</button>
                 </div>
             </form>
         </div>

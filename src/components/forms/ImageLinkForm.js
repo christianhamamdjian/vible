@@ -10,7 +10,10 @@ const ImageLinkForm = () => {
             <form className='inputs' onSubmit={handleAddImage}>
                 <div className='inputs'>
                     <input type="text" name="imageurl" value={itemImageUrl} onChange={handleItemImageUrl} />
-                    <button type="submit">Add image</button>
+                    <button
+                        className={`${!itemImageUrl && "disabled"}`}
+                        disabled={!itemImageUrl}
+                        type="submit">Add image</button>
                 </div>
             </form>
         </div>

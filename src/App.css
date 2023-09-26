@@ -213,6 +213,15 @@ button,
   margin-bottom: .3rem;
 }
 
+.disabled {
+  background-color: hsl(0, 0%, 92%) !important;
+}
+
+.disabled:hover {
+  background-color: hsl(0, 0%, 92%) !important;
+  cursor: not-allowed;
+}
+
 @media (hover: hover) {
 
   button:hover,
@@ -1389,7 +1398,7 @@ button,
   width: 10rem;
   max-width: 10rem;
   list-style: none;
-  color: #9da6b2;
+  /* color: #ffffff; */
   border: 1px solid rgb(221, 221, 221);
   border-radius: 1rem;
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));

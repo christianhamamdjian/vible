@@ -12,7 +12,10 @@ const VideoForm = () => {
             <div className='inputs'>
                 <label>Add a Youtube video code like: Dwvi_hjAS50 </label>
                 <input type="text" name="videourl" value={itemVideoUrl} onChange={handleItemVideoUrl} />
-                <button type="submit">Add video</button>
+                <button
+                    className={`${!itemVideoUrl && "disabled"}`}
+                    disabled={!itemVideoUrl}
+                    type="submit">Add video</button>
             </div>
         </form>
     </div>)

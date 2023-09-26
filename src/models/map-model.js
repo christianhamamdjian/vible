@@ -1,4 +1,4 @@
-const map = (id, activeBoardId, coordinates) => {
+const mapModel = (id, activeBoardId, coordinates) => {
     return ({
         type: "mapUrl",
         id: id,
@@ -12,4 +12,4 @@ const map = (id, activeBoardId, coordinates) => {
     })
 }
 
-export default map
+export default mapModel

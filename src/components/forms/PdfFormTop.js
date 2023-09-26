@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
 import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext"
@@ -10,7 +10,6 @@ const PdfFormTop = () => {
         width: "Width",
         height: "Height",
         angle: "Angle",
-        opacity: "Opacity",
         order: "Order"
     }
 
@@ -57,18 +56,6 @@ const PdfFormTop = () => {
                                 value={editingPdf && items.find(item => item.id === editingPdf.id).angle}
                                 onChange={(event) => handleItemChange(event, editingPdf.id, "angle")
                                 } />
-                        </>}
-                        {tool === "opacity" && <>
-                            <label>Change Opacity:</label>
-                            <input
-                                type="range"
-                                min="0.1"
-                                max="1"
-                                step="0.1"
-                                name="opacity"
-                                value={editingPdf && items.find(item => item.id === editingPdf.id).opacity}
-                                onChange={(e) => handleItemChange(e, editingPdf.id, "opacity")}
-                            />
                         </>}
                         {tool === "order" &&
                             <>

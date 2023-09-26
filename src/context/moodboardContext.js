@@ -4,7 +4,12 @@ import getTextColor from "../components/utils/getTextColor"
 import partialErase from "../components/helperFunctions/partialErase"
 import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from "../components/helperFunctions/pathOperations"
 import { handlePdfDelete } from "../components/helperFunctions/itemsOperations"
-import box from "../models/box-model"
+import boxModel from "../models/box-model"
+import imageModel from "../models/image-model"
+import imageLinkModel from "../models/imageLink-model"
+import videoModel from "../models/video-model"
+import mapModel from "../models/map-model"
+import pdfModel from "../models/pdf-model"
 
 const MoodboardContext = createContext()
 
@@ -113,7 +118,7 @@ export default function MoodboardProvider({ children }) {
 
     useEffect(() => {
         setSavedItems(items)
-        // setPdfId(Date.now())
+        setPdfId(Date.now())
     }, [items])
 
     useEffect(() => {
@@ -403,7 +408,7 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newItem = box(itemId, activeBoard.id, itemText, itemColor, itemLink, itemUrl)
+        const newItem = boxModel(itemId, activeBoard.id, itemText, itemColor, "#ffffff", itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
@@ -411,102 +416,23 @@ export default function MoodboardProvider({ children }) {
 
     const handleAddGalleryBox = (color) => {
         const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: 200,
-            y: 200,
-            text: color,
-            color: color,
-            textColor: "#dddddd",
-            link: itemLink,
-            url: itemUrl,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: false,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
+        const newItem = boxModel(itemId, activeBoard.id, color, color, getTextColor(itemColor), itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
     }
     const handleAddTodoBox = (text, completed) => {
         const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: 200,
-            y: 200,
-            text: `${text} ${completed ? "(Completed)" : ""}`,
-            //color: itemColor,
-            color: "#940019",
-            // textColor: getTextColor(itemColor),
-            textColor: "#ffffff",
-            link: itemLink,
-            url: itemUrl,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: false,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
+        const itemText = `${text} ${completed ? "(Completed)" : ""}`
+        const newItem = boxModel(itemId, activeBoard.id, itemText, "#940019", getTextColor(itemColor), itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
     }
     const handleAddDateBox = (text) => {
         const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: 200,
-            y: 200,
-            text: `New event on ${text.toLocaleDateString('en-GB')} \n\nDetails:`,
-            // color: itemColor,
-            color: "#a057c1",
-            textColor: "#ffffff",
-            link: itemLink,
-            url: itemUrl,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: true,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
+        const itemText = `New event on ${text.toLocaleDateString('en-GB')} \n\nDetails:`
+        const newItem = boxModel(itemId, activeBoard.id, itemText, "#a057c1", getTextColor(itemColor), itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
@@ -516,33 +442,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleAddGalleryLink = (link) => {
         const itemId = Date.now()
-        const newItem = {
-            id: itemId,
-            board: activeBoard.id,
-            x: 0,
-            y: 0,
-            text: link.content,
-            color: itemColor,
-            textColor: getTextColor(itemColor),
-            link: link.content,
-            url: link.link,
-            width: 140,
-            height: 140,
-            angle: 0,
-            type: "box",
-            font: "Roboto",
-            fontStyle: false,
-            fontSize: "10",
-            rating: 0,
-            showRating: "",
-            showBorder: "",
-            roundedCorners: "6",
-            textAlignCenter: "",
-            textAlignLeft: "",
-            borderWidth: "",
-            borderColor: "",
-            backgroundOpacity: "1"
-        }
+        const newItem = boxModel(itemId, activeBoard.id, link.content, itemColor, getTextColor(itemColor), link.content, link.link)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
@@ -551,22 +451,7 @@ export default function MoodboardProvider({ children }) {
         const file = e.target.files[0]
         const reader = new FileReader()
         reader.onload = (e) => {
-            const newItem = {
-                id: Date.now(),
-                board: activeBoard.id,
-                src: e.target.result,
-                x: 100,
-                y: 100,
-                width: 100,
-                angle: 0,
-                height: "auto",
-                opacity: 1,
-                angle: 0,
-                type: "image",
-                cropHeight: 0,
-                cropWidth: 0,
-                roundCorners: 0,
-            }
+            const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
             setItems((prevItems) => [...prevItems, newItem])
         }
         reader.readAsDataURL(file)
@@ -576,22 +461,7 @@ export default function MoodboardProvider({ children }) {
         const file = e
         const reader = new FileReader()
         reader.onload = (e) => {
-            const newItem = {
-                id: Date.now(),
-                board: activeBoard.id,
-                src: e.target.result,
-                x: 100,
-                y: 100,
-                width: 100,
-                angle: 0,
-                opacity: 1,
-                angle: 0,
-                height: "auto",
-                type: "image",
-                cropHeight: 0,
-                cropWidth: 0,
-                roundCorners: 0,
-            }
+            const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
             setItems((prevItems) => [...prevItems, newItem])
         }
         reader.readAsDataURL(file)
@@ -605,35 +475,15 @@ export default function MoodboardProvider({ children }) {
         let youtubeCode = newText.replace(youtubeUrlStart, "")
         const urlEnd = youtubeCode.indexOf("=")
         let youtubeCodeFinal = urlEnd > -1 ? youtubeCode.slice(0, urlEnd + 1) : youtubeCode
-        if (text && isUrl) {
+        if (text && isUrl && !googleMapUrlStart && !youtubeUrlStart) {
             const itemId = Date.now()
-            const newItem = {
-                id: itemId,
-                board: activeBoard.id,
-                x: 200,
-                y: 200,
-                text: text,
-                color: "#ffffff",
-                textColor: getTextColor(itemColor),
-                link: "Web link",
-                url: text,
-                width: 140,
-                height: 140,
-                angle: 0,
-                type: "box",
-                font: "Roboto",
-                textAlignCenter: "",
-                textAlignLeft: "",
-                borderWidth: "",
-                borderColor: "",
-                backgroundOpacity: "1"
-            }
+            const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
             setItems((prevItems) => [...prevItems, newItem])
         }
         if (isUrl && isUrl.includes(youtubeUrlStart)) {
             handleDropVideo(youtubeCodeFinal)
         }
-        if (text && (text.startsWith(googleMapUrlStart))) {
+        if (isUrl && (text.startsWith(googleMapUrlStart))) {
             function extractword(str, start, end) {
                 let startindex = str.indexOf(start) + 1;
                 let endindex = str.indexOf(end, startindex);
@@ -641,17 +491,7 @@ export default function MoodboardProvider({ children }) {
                     return str.substring(startindex, endindex)
             }
             const googleCoordinates = () => extractword(text, "@", "z")
-            const newItem = {
-                id: Date.now(),
-                board: activeBoard.id,
-                mapUrl: googleCoordinates(),
-                x: 100,
-                y: 200,
-                angle: 0,
-                width: 300,
-                height: 250,
-                type: "mapUrl"
-            }
+            const newItem = mapModel(Date.now(), activeBoard.id, googleCoordinates())
             setItems((prevItems) => [...prevItems, newItem])
         }
         if (text
@@ -683,77 +523,17 @@ export default function MoodboardProvider({ children }) {
         if (text && !isUrl && (text.startsWith('http') || text.startsWith('https'))) {
             console.log(text)
             const itemId = Date.now()
-            const newItem = {
-                id: itemId,
-                board: activeBoard.id,
-                x: 200,
-                y: 200,
-                text: text,
-                color: "#ffffff",
-                textColor: getTextColor(itemColor),
-                link: "Web link",
-                url: text,
-                width: 140,
-                height: 140,
-                angle: 0,
-                type: "box",
-                font: "Roboto",
-                textAlignCenter: "",
-                textAlignLeft: "",
-                borderWidth: "",
-                borderColor: "",
-                backgroundOpacity: "1"
-            }
+            const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
             setItems((prevItems) => [...prevItems, newItem])
         }
         if (text && !isUrl && (!text.startsWith('http') || !text.startsWith('https'))) {
             const itemId = Date.now()
-            const newItem = {
-                id: itemId,
-                board: activeBoard.id,
-                x: 200,
-                y: 200,
-                text: text,
-                color: "#ffffff",
-                textColor: getTextColor(itemColor),
-                link: "",
-                url: "",
-                width: 140,
-                height: 140,
-                angle: 0,
-                type: "box",
-                font: "Roboto",
-                textAlignCenter: "",
-                textAlignLeft: "",
-                borderWidth: "",
-                borderColor: "",
-                backgroundOpacity: "1"
-            }
+            const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor))
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (isUrl && !youtubeUrlStart && (text.startsWith('http') || text.startsWith('https'))) {
+        if (isUrl && !googleMapUrlStart && !youtubeUrlStart && (text.startsWith('http') || text.startsWith('https'))) {
             const itemId = Date.now()
-            const newItem = {
-                id: itemId,
-                board: activeBoard.id,
-                x: 200,
-                y: 200,
-                text: text,
-                color: "#ffffff",
-                textColor: getTextColor(itemColor),
-                link: "",
-                url: "",
-                width: 140,
-                height: 140,
-                angle: 0,
-                type: "box",
-                font: "Roboto",
-                textAlignCenter: "",
-                textAlignLeft: "",
-                borderWidth: "",
-                borderColor: "",
-                backgroundOpacity: "1"
-            }
+            const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
             setItems((prevItems) => [...prevItems, newItem])
         }
     }
@@ -764,16 +544,7 @@ export default function MoodboardProvider({ children }) {
             reader.onload = function () {
                 const arrayBuffer = reader.result;
                 uploadToIndexedDB(arrayBuffer);
-                const newItem = {
-                    id: pdfId,
-                    board: activeBoard.id,
-                    x: 100,
-                    y: 200,
-                    angle: 0,
-                    width: "100",
-                    height: "160",
-                    type: "pdf"
-                };
+                const newItem = pdfModel(pdfId, activeBoard.id)
                 setItems((prevItems) => [...prevItems, newItem]);
             };
             reader.readAsArrayBuffer(file);
@@ -809,17 +580,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleAddVideo = (e) => {
         e.preventDefault()
-        const newItem = {
-            id: Date.now(),
-            board: activeBoard.id,
-            videoUrl: itemVideoUrl,
-            x: 100,
-            y: 200,
-            width: 300,
-            height: 250,
-            angle: 0,
-            type: "video"
-        }
+        const newItem = videoModel(Date.now(), activeBoard.id, itemVideoUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemVideoUrl('')
     }
@@ -860,17 +621,7 @@ export default function MoodboardProvider({ children }) {
     }
     const handleAddMap = (e) => {
         e.preventDefault()
-        const newItem = {
-            id: Date.now(),
-            board: activeBoard.id,
-            mapUrl: itemMapUrl,
-            x: 100,
-            y: 200,
-            width: 300,
-            height: 250,
-            angle: 0,
-            type: "mapUrl"
-        }
+        const newItem = mapModel(Date.now(), activeBoard.id, itemMapUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemMapUrl("")
     }
@@ -912,7 +663,6 @@ export default function MoodboardProvider({ children }) {
         }
         // Start drawing
         if (isDrawing && !isErasing && !isPartialErasing) {
-            // e.preventDefault()
             if (e.targetTouches && e.targetTouches.length > 1) return
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const svgPoint = svgRef.current.createSVGPoint()
@@ -939,6 +689,7 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
+        const item = items.find(el => el.id === selectedRectId)
         if (rectId) {
             handleRectPointerMove(e, rectId)
         }
@@ -949,18 +700,19 @@ export default function MoodboardProvider({ children }) {
             const dx = currentPoints.x - mousedownPoints.x;
             const dy = currentPoints.y - mousedownPoints.y;
 
-            setRectangleSize(() => ({
-                width: rectangleSize.width + dx,
-                height: rectangleSize.height + dy,
-            }))
+            if (item.type !== "pdf" || item.type !== "imageUrl") {
+                setRectangleSize(() => ({
+                    width: rectangleSize.width + dx,
+                    height: rectangleSize.height + dy,
+                }))
+            }
             handleResize(e, selectedRectId)
             setMousedownPoints(currentPoints)
             updateResizeIcon(dx, dy)
-
         }
 
         if (isRotating) {
-            const item = items.find(el => el.id === selectedRectId)
+
             if (item.type === "image") {
                 let newImage = document.createElement("img")
                 newImage.src = item.src
@@ -1093,9 +845,11 @@ export default function MoodboardProvider({ children }) {
             setIsDraggingRect(false)
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             setMousedownPoints({ x: clientX, y: clientY })
-            updateResizeIcon(clientX, clientY)
 
-            if (rectType !== "pdf" || rectType !== "imageUrl") {
+            if (rectType === "imageUrl") {
+                updateResizeIcon(clientX, clientY)
+            }
+            if (rectType === "box" || rectType === "image" || rectType === "video" || rectType === "mapUrl") {
                 setRectangleSize(() => ({
                     width: rectItem.width,
                     height: rectItem.height,
