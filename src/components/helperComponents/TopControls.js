@@ -125,67 +125,38 @@ const TopControls = ({ item }) => {
                         x="60"
                         // y="-22"
                         y={`${safariBrowser() ? "-52" : "-22"}`}
-                        height="20"
-                        width="24"
-                        rx="6"
+                        height="15"
+                        width="20"
+                        rx="4"
                         fill="red"
                         className='box-control'
                         onClick={() => showConfirm(item.id)}
                     />
-                    <text
-                        x="68"
-                        // y="-9"
-                        y={`${safariBrowser() ? "-39" : "-9"}`}
-                        width="24"
-                        height="20"
-                        fill="white"
-                        className="box-control-sign"
-                        onClick={() => showConfirm(item.id)}
-                    >&times;</text>
                 </>
                 }
                 <rect
                     x="10"
                     // y="-22"
                     y={`${safariBrowser() ? "-52" : "-22"}`}
-                    height="20"
-                    width="24"
-                    rx="6"
+                    height="15"
+                    width="20"
+                    rx="4"
                     fill="green"
                     className='box-control'
                     onClick={(e) => handleEditItem(e, item.id)}
                 />
-                <text
-                    x="18"
-                    // y="-9"
-                    y={`${safariBrowser() ? "-39" : "-9"}`}
-                    width="24"
-                    height="20"
-                    fill="white"
-                    className="box-control-sign"
-                    onClick={(e) => handleEditItem(e, item.id)}
-                >+</text>
 
                 {editingItem && editingItem.id === item.id && <>
                     <rect
                         x="35"
                         y={`${safariBrowser() ? "-52" : "-22"}`}
-                        height="20"
-                        width="24"
-                        rx="6"
+                        height="15"
+                        width="20"
+                        rx="4"
                         fill="orange"
                         className='box-control'
                         onClick={handleStopEditItem}
                     />
-                    <text
-                        x="43"
-                        y={`${safariBrowser() ? "-39" : "-9"}`}
-                        width="24"
-                        height="20"
-                        fill="white"
-                        className="box-control-sign"
-                        onClick={handleStopEditItem}
-                    >-</text>
                 </>
                 }
             </>
