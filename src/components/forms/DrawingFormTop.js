@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import Circle from "../helperFunctions/CircleCursor"
 import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
 import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -24,7 +23,6 @@ const DrawingFormTop = () => {
         order: "Order",
         duplicate: "Duplicate",
         delete: "Delete",
-        // done: "Done",
     }
     const groupToolButtons = {
         linesWidth: "Width",
@@ -112,7 +110,7 @@ const DrawingFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_draw-form'>
+                    {tool !== "" && <div className='inputs-top_draw'>
                         {tool === "lineColor" && <>
                             <label>Line color: </label>
                             <input
@@ -121,17 +119,10 @@ const DrawingFormTop = () => {
                                 onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         </>}
                         {tool === "lineWidth" && <><label>Line width: </label>
-                            {/* <input
-                                type="number"
-                                className='input-line-width'
-                                value={paths.find(path => path.id === isEditingPath.id).line}
-                                onChange={(event) => handleLineWidthChange(event, isEditingPath.id)} /> */}
                             <span>{paths.find(path => path.id === isEditingPath.id).line}</span>
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleLineWidthChange(e, isEditingPath.id, "decrease")}>&lt;</button>
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleLineWidthChange(e, isEditingPath.id, "increase")}>&gt;</button>
                         </>}
 
@@ -214,10 +205,8 @@ const DrawingFormTop = () => {
                                 onPointerUp={handleRotationReset}
                             />
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleRotateChange(e, "decrease")}>&lt;</button>
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleRotateChange(e, "increase")}>&gt;</button>
                         </div>}
 
@@ -234,16 +223,10 @@ const DrawingFormTop = () => {
                                 onPointerUp={handleScaleReset}
                             />
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleScaleChange(e, "decrease")}>-</button>
                             <button
-                                className='path-edit-form-button'
                                 onClick={e => handleScaleChange(e, "increase")}>+</button>
                         </div>}
-
-                        {/* </>
-                        )}
-                       */}
 
                         {tool === "order" &&
 
@@ -291,29 +274,6 @@ const DrawingFormTop = () => {
                             </button>
                         </div>}
 
-                        {/* {tool === "done" &&
-                            <div className='path-edit-form'>
-                                <label>Delete: </label>
-                                <button
-                                    title="Done"
-                                    className='path-edit-form-button'
-                                    onClick={stopLineEditing}>
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="transparent"
-                                        className='path-edit-form-svg'
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M10.2426 16.3137L6 12.071L7.41421 10.6568L10.2426 13.4853L15.8995 7.8284L17.3137 9.24262L10.2426 16.3137Z"
-                                            fill="#ffffff"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>} */}
-
                     </div>}
 
                 </>
@@ -358,7 +318,13 @@ const DrawingFormTop = () => {
                 <>
                     <div className='inputs-top_objects' >
                         {Object.entries(groupToolButtons).map((el, i) => {
-                            return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
+                            return (<button
+                                key={i}
+                                className={`${tool === el[0] ? "active-tool" : ""}`}
+                                onClick={() => changeTool(el[0])}
+                            >
+                                {el[1]}
+                            </button>)
                         })}
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { MoodboardContext } from "../../context/moodboardContext";
 
 const TopButtonsSlider = ({ toolButtons, changeTool }) => {
-
+    const { tool } = React.useContext(MoodboardContext);
     const allButtons = Object.entries(toolButtons)
     const [buttons, setButtons] = useState(allButtons);
     const [index, setIndex] = useState(0);
@@ -21,11 +22,21 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
             ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)]
             : [arr];
 
-    const chunk = (<div>
-        {chunkArray(buttons, width > breakpoint ? 5 : 2)[index].map((el, i) => {
-            return (<button key={i} onClick={() => changeTool(el[0])}>{el[1]}</button>)
-        })}
-    </div>)
+    const chunk = (
+        <div>
+            {chunkArray(buttons, width > breakpoint ? 5 : 2)[index].map((el, i) => {
+                return (
+                    <button
+                        key={i}
+                        className={`${tool === el[0] ? "active-tool" : ""}`}
+                        onClick={() => changeTool(el[0])}
+                    >
+                        {el[1]}
+                    </button>
+                )
+            })}
+        </div>
+    )
 
     const maxIndex = chunkArray(buttons, width > breakpoint ? 5 : 2).length - 1
 

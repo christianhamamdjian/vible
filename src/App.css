@@ -240,8 +240,6 @@ button,
   background-color: rgb(130, 70, 186);
 }
 
-
-
 /* Top forms */
 .box-form-top-select {
   font-size: 1rem;
@@ -451,7 +449,7 @@ button,
 
 .inputs-top_draw button {
   background: rgba(175, 177, 200, 0.9);
-  font-size: .7rem;
+  font-size: 1.2rem;
   border-radius: 3rem;
 }
 
@@ -532,6 +530,10 @@ button,
   margin-right: .5rem;
 }
 
+.inputs-top_objects .active-tool {
+  background-color: rgb(130, 70, 186);
+}
+
 .inputs-boards_objects {
   margin: 0 auto;
   display: flex;
@@ -608,6 +610,8 @@ button,
   font-size: 1.4rem;
   border-radius: 2rem
 }
+
+
 
 /* Board */
 .board-frame {
