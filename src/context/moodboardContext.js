@@ -6,7 +6,7 @@ import { loadPathsFromLocalStorage, getCenterPoint, rotatePath, scalePath } from
 import { handlePdfDelete } from "../components/helperFunctions/itemsOperations"
 import boxModel from "../models/box-model"
 import imageModel from "../models/image-model"
-import imageLinkModel from "../models/imageLink-model"
+//import imageLinkModel from "../models/imageLink-model"
 import videoModel from "../models/video-model"
 import mapModel from "../models/map-model"
 import pdfModel from "../models/pdf-model"

@@ -1,16 +1,16 @@
-const pathModel = (id, activeBoardId) => {
+const pathModel = (id, activeBoardId, pathColor, pathLine, pathOpacity, pathArray, pathClosed, pathDashed, pathArrowStart, pathArrowEnd) => {
     return ({
         id: id,
         board: activeBoardId,
         group: "noGroup",
-        color: targetPath.color,
-        line: +targetPath.line,
-        opacity: targetPath.opacity,
-        path: newPaths[1],
-        closed: targetPath.closed,
-        dashed: targetPath.dashed,
-        arrowStart: targetPath.arrowStart,
-        arrowEnd: targetPath.arrowEnd
+        color: pathColor,
+        line: pathLine,
+        opacity: pathOpacity,
+        path: pathArray,
+        closed: pathClosed,
+        dashed: pathDashed,
+        arrowStart: pathArrowStart,
+        arrowEnd: pathArrowEnd
     })
 }
 

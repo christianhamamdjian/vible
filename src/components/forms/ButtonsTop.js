@@ -52,6 +52,7 @@ const ButtonsTop = () => {
                 />
                 <button
                     className="themable"
+                    style={{ backgroundColor: buttonsColor }}
                     onClick={handleAddBox}
                     title="Add a text box"
                 >
@@ -353,7 +354,7 @@ const ButtonsTop = () => {
                         </button>
                     </button>
                 </>}
-            </div>
+            </div >
         </>
     )
 }
