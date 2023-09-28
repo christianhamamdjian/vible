@@ -494,7 +494,7 @@ export default function MoodboardProvider({ children }) {
             const newItem = mapModel(Date.now(), activeBoard.id, googleCoordinates())
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (text
+        if (text && !isUrl
             && ((text.startsWith('http')
                 || text.startsWith('https'))
                 && (text.endsWith('jpg')
@@ -508,8 +508,8 @@ export default function MoodboardProvider({ children }) {
                 id: Date.now(),
                 board: activeBoard.id,
                 imageUrl: text,
-                x: 100,
-                y: 100,
+                x: 250,
+                y: 300,
                 width: 100,
                 angle: 0,
                 type: "imageUrl",
@@ -589,8 +589,8 @@ export default function MoodboardProvider({ children }) {
             id: Date.now(),
             board: activeBoard.id,
             videoUrl: e,
-            x: 100,
-            y: 200,
+            x: 250,
+            y: 300,
             width: 300,
             height: 250,
             angle: 0,
@@ -605,8 +605,8 @@ export default function MoodboardProvider({ children }) {
             id: Date.now(),
             board: activeBoard.id,
             imageUrl: itemImageUrl,
-            x: 100,
-            y: 100,
+            x: 250,
+            y: 300,
             width: 100,
             height: "auto",
             angle: 0,
