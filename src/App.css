@@ -2017,7 +2017,7 @@ input[type="range"]:focus::-moz-range-thumb {
     font-size: 1rem;
     /* padding: 0rem 0.6rem 0.2rem; */
     margin: 0.2rem 0.2rem;
-    border-radius: .6rem;
+    border-radius: 3rem;
   }
 
   .inputs-boards_objects .active-board {
