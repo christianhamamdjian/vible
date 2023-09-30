@@ -40,7 +40,7 @@ const Documentation = () => {
                 <li>On <strong>mobile devices</strong> you can add multiple <strong>Vible</strong> instances to the<strong> homescreen</strong> and use it as one of you apps. </li>
               </ul>
             </Accordion>
-            <Accordion title="Use cases">
+            <Accordion title="Use Cases">
               <ul>
                 <li>Drag images from your desktop to the board.</li>
                 <li>Resize, crop, rotate, reorder or give them round corners.</li>
@@ -65,7 +65,7 @@ const Documentation = () => {
                 <li>Make the line dashed and activate the arrow head.</li>
               </ul>
             </Accordion>
-            <h2>The Left Add Items panel</h2>
+            <h2>The Left Add Items Panel</h2>
             <Accordion title="Adding Items Using Drag And Drop, Upload Or Embed">
               <ul>
                 <li>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf files</li>
@@ -159,7 +159,7 @@ const Documentation = () => {
               </ul>
             </Accordion>
 
-            <Accordion title="Activating Editing">
+            <Accordion title="Activating Items Editing">
               <ul>
                 <li>The top edit button will activate editing on all items on the boards. </li>
                 <li>Clicking <strong> the green button</strong> on top of an item will target the selected item and show its editing form at the top.</li>
@@ -179,7 +179,7 @@ const Documentation = () => {
             <Accordion title="The Board Colours">
               <ul>
                 {/* <li>Set the <strong>board</strong> and <strong>buttons</strong> <strong>colors</strong> or choose from <strong> suggested colors</strong>. </li> */}
-                <li>Set the <strong>board colors</strong>.Can be reset to original.</li>
+                <li>Set the <strong>board background colour</strong> and <strong>the buttons colour</strong>. Colours can be reset to original.</li>
               </ul>
             </Accordion>
 
@@ -218,7 +218,7 @@ const Documentation = () => {
             </Accordion>
 
             <h2>The Todo Panel</h2>
-            <Accordion title="Todo">
+            <Accordion title="Using Todos">
               <ul>
                 <li><strong>Click the todo button at the bottom right to reveal the todo pane</strong></li>
                 <li>Write <strong>todos</strong>, <strong>drag</strong> them to <strong>reorder</strong> them. Edit them, or mark
@@ -230,7 +230,7 @@ const Documentation = () => {
 
 
             <h2>The Gallery Panel</h2>
-            <Accordion title="Gallery">
+            <Accordion title="Using The Gallery">
               <ul>
                 <li><strong>Click the gallery button at the bottom left to reveal the gallery pane</strong></li>
                 <li><strong>In the gallery you can add color boxes that show the color code, web links and upload images.</strong></li>
@@ -267,14 +267,14 @@ const Documentation = () => {
               </ul>
             </Accordion>
 
-            <Accordion title="Tool tips">
+            <Accordion title="Tool Tips">
               <ul>
                 <li>Clicking the <strong>(i) button</strong> at the top will show <strong>tool tips</strong> next to the buttons. Click the button again to hide them.</li>
                 <li>You will also get an information popup when you hover over a button and wait.</li>
               </ul>
             </Accordion>
 
-            <Accordion title="Editing items">
+            <Accordion title="Editing Items">
               <ul>
                 <li>When you click the <strong>edit board button</strong> at the top or <strong>double click </strong>a box or an <strong> image</strong> or the <strong>top bar</strong> or the other <strong>objects</strong> you will see a <strong> rotation handle</strong> on the left side and a <strong>resize handle</strong> at the bottom right that you can use to <strong>directly modify</strong> the selected item. </li>
 
