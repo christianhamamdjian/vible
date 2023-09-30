@@ -10,6 +10,7 @@ import imageModel from "../models/image-model"
 import videoModel from "../models/video-model"
 import mapModel from "../models/map-model"
 import pdfModel from "../models/pdf-model"
+import { quotes } from "../quotes_data.js"
 
 const MoodboardContext = createContext()
 
@@ -42,7 +43,7 @@ export default function MoodboardProvider({ children }) {
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
 
-    const [itemText, setItemText] = useState('Text')
+    const [itemText, setItemText] = useState('Text ...')
     const [itemColor, setItemColor] = useState('#f4b416')
     const [itemLink, setItemLink] = useState('')
     const [itemUrl, setItemUrl] = useState('')
@@ -154,6 +155,11 @@ export default function MoodboardProvider({ children }) {
         setVideo(false)
         setMap(false)
         setPdf(false)
+    }
+
+    function getRandomQuote() {
+        const randomQuote = Math.floor(Math.random() * quotes.length)
+        return quotes[randomQuote]["quote"]
     }
 
     function savePathsToLocalStorage() {
@@ -408,7 +414,8 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newItem = boxModel(itemId, activeBoard.id, itemText, itemColor, "#ffffff", itemLink, itemUrl)
+        // const newItem = boxModel(itemId, activeBoard.id, itemText, itemColor, "#ffffff", itemLink, itemUrl)
+        const newItem = boxModel(itemId, activeBoard.id, getRandomQuote(), itemColor, "#ffffff", itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
