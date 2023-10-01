@@ -10,7 +10,7 @@ import imageModel from "../models/image-model"
 import videoModel from "../models/video-model"
 import mapModel from "../models/map-model"
 import pdfModel from "../models/pdf-model"
-import { quotes } from "../quotes_data.js"
+import { quotes } from "../data/quotes_data.js"
 
 const MoodboardContext = createContext()
 
