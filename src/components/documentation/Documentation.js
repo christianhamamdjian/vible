@@ -36,6 +36,7 @@ const Documentation = () => {
               <ul>
                 <li><strong>Vible</strong> stores anything you <strong>drop</strong> on it in your browser's memory, no external database is accessed so your board data lives only in the memory of the browser you use it on and will remain there as long as you don't erase it.</li>
                 <li><strong>Warning!!!</strong> Do not type in this version of Vible any private or sensitive information like passwords, bank card numbers or personal details.</li>
+                <li><strong>Vible</strong> can be useful when brainstorming ideas, comparing images from various sources, colours and typography when designing a layout, for rough illustration, doodles and handwriting, for planning a trip or as a tool for learning.</li>
                 <li>Mix <strong>vector freeform drawings</strong> and <strong>handwriting</strong> with <strong>typed text</strong>, <strong>uploaded images</strong>, <strong>linked images</strong>, <strong>Youtube videos</strong>, <strong>Google maps</strong> and <strong>Pdf files</strong>.</li>
                 <li>Everything you add to the board is <strong>automatically saved</strong> and all changes are applied and saved instantly.</li>
                 <li>On <strong>mobile devices</strong> you can add multiple <strong>Vible</strong> instances to the<strong> homescreen</strong> and use it as one of you apps. </li>
