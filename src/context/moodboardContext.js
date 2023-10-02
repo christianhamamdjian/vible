@@ -1636,8 +1636,13 @@ export default function MoodboardProvider({ children }) {
             setTool("")
         }
     }
-
+    const handleStartEditItem = () => {
+        document.body.style.position = "fixed"
+    }
     const handleStopEditItem = () => {
+        if (editingText) {
+            document.body.style.position = "static"
+        }
         if (editingText || isEditingPath || editingImage || editingImageLink || editingVideo || editingMap || editingPdf || isEditingBoard || editingItem || tool !== "") {
             setEditingItem(null)
             setEditingText(null)
@@ -1856,6 +1861,7 @@ export default function MoodboardProvider({ children }) {
                 handleItemMapUrl,
                 handleEditItem,
                 handleStopEditItem,
+                handleStartEditItem,
                 handleItemChange,
                 handleDrawing,
                 handleEraser,
