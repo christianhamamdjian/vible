@@ -483,7 +483,7 @@ export default function MoodboardProvider({ children }) {
         let youtubeCode = newText.replace(youtubeUrlStart, "")
         const urlEnd = youtubeCode.indexOf("=")
         let youtubeCodeFinal = urlEnd > -1 ? youtubeCode.slice(0, urlEnd + 1) : youtubeCode
-        if (text && isUrl && !googleMapUrlStart && !youtubeUrlStart) {
+        if (text && isUrl && !text.startsWith(googleMapUrlStart) && !text.startsWith(youtubeUrlStart)) {
             const itemId = Date.now()
             const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
             setItems((prevItems) => [...prevItems, newItem])
@@ -529,7 +529,6 @@ export default function MoodboardProvider({ children }) {
             setItems((prevItems) => [...prevItems, newItem])
         }
         if (text && !isUrl && (text.startsWith('http') || text.startsWith('https'))) {
-            console.log(text)
             const itemId = Date.now()
             const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
             setItems((prevItems) => [...prevItems, newItem])
