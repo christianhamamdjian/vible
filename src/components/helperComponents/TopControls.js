@@ -50,7 +50,7 @@ const TopControls = ({ item }) => {
                     height="20"
                     fill="white"
                     className="box-control-sign"
-                >Really?</text>
+                >Delete?</text>
                 <svg
                     x="68"
                     // y="-57"
