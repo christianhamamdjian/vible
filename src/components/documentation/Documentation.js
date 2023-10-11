@@ -207,15 +207,13 @@ const Documentation = () => {
 
             <Accordion title="The Calculator">
               <ul>
-                <li><strong>Calculator:</strong></li>
                 <li>There is also a <strong>calculator</strong> that can come in handy. You can select the result and drag it to the board.</li>
               </ul>
             </Accordion>
 
             <Accordion title="The Calendar">
               <ul>
-                <li><strong>Calendar</strong>:</li>
-                <li>Clicking a date creates a new text box with the date</li>
+                <li>Clicking a date creates a new text box with that date in it.</li>
               </ul>
             </Accordion>
 
