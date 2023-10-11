@@ -70,25 +70,25 @@ const Documentation = () => {
             <h2>The Left Add Items Panel</h2>
             <Accordion title="Adding Items Using Drag And Drop, Upload Or Embed">
               <ul>
-                <li>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf files</li>
+                <li>The left-side <strong>add items</strong> panel shows forms to upload or embed images, videos, maps and pdf files.</li>
 
                 <li>Select <strong>text from web pages</strong> or applications windows an drag it to the board.</li>
 
-                <li>Drag the link from the address bar to the board to add a <strong>link</strong> to the web page</li>
+                <li>Drag the link from the address bar to the board to add a <strong>link</strong> to the web page.</li>
 
                 <li>Select and drag a <strong>Youtube</strong> or a <strong>Google maps</strong> (<a href="https://www.google.com/maps/">https://www.google.com/maps/</a>...) <strong>link from the address bar</strong> and drop it anywhere on the board to embed the video.</li>
 
                 <li>Select and drag an image <strong>from a web page </strong>and it should show on the board. Note that not all images can be linked to.</li>
 
-                <li><strong>Click the add item button at the top left to reveal the Upload Or Embed options</strong></li>
+                <li><strong>Click the add item button at the top left to reveal the Upload Or Embed options</strong>.</li>
 
                 <li>Image file <strong>upload</strong> or drop-upload from desktop on <strong>drop zone</strong> or <strong>on board</strong>.</li>
 
-                <li><strong>Drag a todo</strong> to the board to add it as a text box</li>
+                <li><strong>Drag a todo</strong> to the board to add it as a text box.</li>
 
-                <li><strong>Youtube video link</strong> just using the link code to embed the video on the board</li>
+                <li><strong>Youtube video link</strong> just using the link code to embed the video on the board.</li>
 
-                <li>Add a <strong>Google map</strong> using the location coordinates</li>
+                <li>Add a <strong>Google map</strong> using the location coordinates.</li>
 
                 <li>Upload a <strong>pdf</strong> file.</li>
               </ul>
@@ -232,10 +232,10 @@ const Documentation = () => {
             <h2>The Gallery Panel</h2>
             <Accordion title="Using The Gallery">
               <ul>
-                <li><strong>Click the gallery button at the bottom left to reveal the gallery pane</strong></li>
+                <li><strong>Click the gallery button at the bottom left to reveal the gallery pane.</strong></li>
                 <li><strong>In the gallery you can add color boxes that show the color code, web links and upload images.</strong></li>
                 <li>Select the type you want to add from the dropdown menu they will remain there.</li>
-                <li>Later you can add these items to the board (add options to drag items to and from the gallery and add more types to the selection</li>
+                <li>Later you can add these items to the board (add options to drag items to and from the gallery and add more types to the selection.</li>
               </ul>
             </Accordion>
 
@@ -246,12 +246,12 @@ const Documentation = () => {
             <h2>Working With The Board</h2>
             <Accordion title="Interactions">
               <ul>
-                <li>Hovering over a line selects it</li>
-                <li>You can straight away click or touch it and move it around or edit it</li>
-                <li>Click and drag around any text box, image</li>
-                <li>Double click to activate editing</li>
-                <li>Click and drag around any video, map or pdf from its top bar</li>
-                <li>Double click bar to activate editing</li>
+                <li>Hovering over a line selects it.</li>
+                <li>You can straight away click or touch it and move it around or edit it.</li>
+                <li>Click and drag around any text box, image.</li>
+                <li>Double click to activate editing.</li>
+                <li>Click and drag around any video, map or pdf from its top bar.</li>
+                <li>Double click bar to activate editing.</li>
               </ul>
             </Accordion>
 
