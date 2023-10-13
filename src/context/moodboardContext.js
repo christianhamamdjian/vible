@@ -466,6 +466,7 @@ export default function MoodboardProvider({ children }) {
         setImageUploadValue("")
     }
     const handleImageDropUpload = (e) => {
+        console.log(e)
         const file = e
         const reader = new FileReader()
         reader.onload = (e) => {
@@ -538,9 +539,10 @@ export default function MoodboardProvider({ children }) {
             const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor))
             setItems((prevItems) => [...prevItems, newItem])
         }
-        if (isUrl && !googleMapUrlStart && !youtubeUrlStart && (text.startsWith('http') || text.startsWith('https'))) {
+
+        if (isUrl && !isUrl.startsWith(googleMapUrlStart) && !isUrl.startsWith(youtubeUrlStart) && (isUrl.startsWith('http') || isUrl.startsWith('https'))) {
             const itemId = Date.now()
-            const newItem = boxModel(itemId, activeBoard.id, text, "#ffffff", getTextColor(itemColor), "Web link", text)
+            const newItem = boxModel(itemId, activeBoard.id, isUrl, "#ffffff", getTextColor(itemColor), "Web link", isUrl)
             setItems((prevItems) => [...prevItems, newItem])
         }
     }

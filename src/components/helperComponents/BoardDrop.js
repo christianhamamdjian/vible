@@ -19,7 +19,9 @@ function BoardDrop({ children }) {
         e.preventDefault()
         e.stopPropagation()
         setDragActive(false)
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        const imageTypes = ['image/png', 'image/gif', 'image/bmp', 'image/jpeg', 'image/svg+xml', 'image/webp']
+        const fileType = e.dataTransfer.files && e.dataTransfer.files[0] && e.dataTransfer.files[0].type
+        if (e.dataTransfer.files && e.dataTransfer.files[0] && fileType && imageTypes.includes(fileType)) {
             handleImageDropUpload(e.dataTransfer.files[0])
         } else {
             handleTextDropUpload(e)
