@@ -3,7 +3,7 @@ import DragDropUpload from "../helperComponents/DragDropUpload"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageForm = () => {
-    const { items, handleImageUpload, editingImage, handleItemChange, handleImageDropUpload, imageUploadValue } = React.useContext(MoodboardContext);
+    const { handleImageUpload, handleImageDropUpload, imageUploadValue, errorMessage } = React.useContext(MoodboardContext);
     return (
         <div className='itemForms'>
             <h2>Upload an image:</h2>
@@ -15,18 +15,7 @@ const ImageForm = () => {
                         value={imageUploadValue}
                         onChange={handleImageUpload} />
                 </label>
-                {/* {items.length > 0 && editingImage && (
-                    <label>
-                        Change image width:
-                        <input
-                            type="number"
-                            min="10"
-                            max="100"
-                            value={items.find(item => item.id === editingImage.id).width}
-                            onChange={(event) => handleItemChange(event, editingImage.id, "width")}
-                        />
-                    </label>)
-                } */}
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <DragDropUpload handleImageDropUpload={handleImageDropUpload} />
             </div>
         </div>

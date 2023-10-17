@@ -99,6 +99,8 @@ export default function MoodboardProvider({ children }) {
 
     const [selectedStars, setSelectedStars] = useState(0)
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const [historyErase, setHistoryErase] = useState([])
     const [positionErase, setPositionErase] = useState(0);
 
@@ -457,16 +459,25 @@ export default function MoodboardProvider({ children }) {
     }
     const handleImageUpload = (e) => {
         const file = e.target.files[0]
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
-            setItems((prevItems) => [...prevItems, newItem])
+
+        if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                setErrorMessage('File size exceeds the limit (2 MB). Please select a smaller file.');
+            } else {
+                setErrorMessage('')
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader()
+                    reader.onload = (e) => {
+                        const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
+                        setItems((prevItems) => [...prevItems, newItem])
+                    }
+                    reader.readAsDataURL(file)
+                    setImageUploadValue("")
+                }
+            }
         }
-        reader.readAsDataURL(file)
-        setImageUploadValue("")
     }
     const handleImageDropUpload = (e) => {
-        console.log(e)
         const file = e
         const reader = new FileReader()
         reader.onload = (e) => {
@@ -1827,6 +1838,7 @@ export default function MoodboardProvider({ children }) {
                 clipBoard,
                 imageUploadValue,
                 pdfUploadValue,
+                errorMessage,
                 // Methods
                 handleShowBoards,
                 handleBoardColorChange,
