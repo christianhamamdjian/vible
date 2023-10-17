@@ -459,7 +459,6 @@ export default function MoodboardProvider({ children }) {
     }
     const handleImageUpload = (e) => {
         const file = e.target.files[0]
-
         if (file) {
             if (file.size > 2 * 1024 * 1024) {
                 setErrorMessage('File size exceeds the limit (2 MB). Please select a smaller file.');
@@ -479,12 +478,21 @@ export default function MoodboardProvider({ children }) {
     }
     const handleImageDropUpload = (e) => {
         const file = e
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
-            setItems((prevItems) => [...prevItems, newItem])
+        if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                alert('File size exceeds the limit (2 MB). Please select a smaller file.');
+            } else {
+                setErrorMessage('')
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader()
+                    reader.onload = (e) => {
+                        const newItem = imageModel(Date.now(), activeBoard.id, e.target.result)
+                        setItems((prevItems) => [...prevItems, newItem])
+                    }
+                    reader.readAsDataURL(file)
+                }
+            }
         }
-        reader.readAsDataURL(file)
     }
     const handleTextDropUpload = (e) => {
         const text = e.dataTransfer.getData('text')
