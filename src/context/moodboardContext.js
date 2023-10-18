@@ -38,7 +38,7 @@ export default function MoodboardProvider({ children }) {
     const [groupDragging, setGroupDragging] = useState(false)
 
     const [pathColor, setPathColor] = useState('#000000')
-    const [pathLine, setPathLine] = useState(3)
+    const [pathLine, setPathLine] = useState(4)
     const [rotation, setRotation] = useState([])
     const [scaling, setScaling] = useState([])
     const [selectedPath, setSelectedPath] = useState(null)
@@ -1365,7 +1365,7 @@ export default function MoodboardProvider({ children }) {
         }
         setIsDrawing(isDrawing => !isDrawing)
         setPathColor("#000000")
-        setPathLine(3)
+        setPathLine(pathLine)
         setIsErasing(false)
         setIsPartialErasing(false)
         setIsEditingPath(null)

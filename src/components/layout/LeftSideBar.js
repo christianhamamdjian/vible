@@ -78,14 +78,14 @@ const LeftSidebard = () => {
                     className={`toggler ${video ? "selected-button" : null}`}
                     type="button" onClick={handleVideo}>
                     <svg
-                        width="40"
-                        height="40"
+                        width="24"
+                        height="24"
                         className='leftsidebar-video-svg'
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <path d="M15 12.3301L9 16.6603L9 8L15 12.3301Z" fill="currentColor" />
+                        <path d="M19.064,12.33 L4.936,22.527 L4.936,2.134 L19.064,12.33 z" fill="currentColor" />
                     </svg>
                 </button>
                 {video && <VideoForm />}

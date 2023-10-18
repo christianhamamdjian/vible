@@ -1475,7 +1475,7 @@ button,
 }
 
 .leftsidebar-video-svg {
-  margin-left: -.4rem;
+  margin-left: .4rem;
 }
 
 .left-sidebar {
@@ -1502,6 +1502,9 @@ button,
 .toggler {
   width: 4rem;
   height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
   transition: 0.4s ease;
 }

@@ -45,7 +45,7 @@ export function Calendar() {
     <div className='calendar'>
       <div className='inner-container'>
         <div className='header'>
-          <button className='button' onClick={() => setDate(new Date(year, month - 1, day))}><svg
+          <button className='button toggler' onClick={() => setDate(new Date(year, month - 1, day))}><svg
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ export function Calendar() {
           <div>
             {MONTHS[month]} {year}
           </div>
-          <button className='button' onClick={() => setDate(new Date(year, month + 1, day))}><svg
+          <button className='button toggler' onClick={() => setDate(new Date(year, month + 1, day))}><svg
             width="24"
             height="24"
             viewBox="0 0 24 24"

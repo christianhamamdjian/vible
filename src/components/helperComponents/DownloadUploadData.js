@@ -107,6 +107,7 @@ const DownloadUploadData = () => {
                 />
                 <button
                     title="Download board in JSON format."
+                    className='toggler'
                     onClick={download}>
                     <svg
                         width="24"
@@ -137,6 +138,7 @@ const DownloadUploadData = () => {
 
                 <button
                     title="Upload a board in JSON format."
+                    className='toggler'
                     onClick={upload}>
                     {/* Upload Vible board */}
                     <svg

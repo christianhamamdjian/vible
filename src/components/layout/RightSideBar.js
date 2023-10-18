@@ -131,7 +131,8 @@ const RightSidebard = () => {
                 >
                     <button
                         title="Click to download a pdf copy"
-                        className='toggler' onClick={() => printPdf(divRef.current)}>
+                        className='toggler'
+                        onClick={() => printPdf(divRef.current)}>
                         <div className="print-board">
                             <svg
                                 width="24"
@@ -166,7 +167,8 @@ const RightSidebard = () => {
                 >
                     <button
                         title="Click to clear all items"
-                        className='toggler' onClick={() => showConfirm("board items")}>
+                        className='toggler'
+                        onClick={() => showConfirm("board items")}>
                         <div className="clear-board">
                             <svg
                                 width="24"
@@ -206,7 +208,8 @@ const RightSidebard = () => {
                 >
                     <button
                         title="Click to clear all lines"
-                        className='toggler' onClick={() => showConfirm("board lines")}>
+                        className='toggler'
+                        onClick={() => showConfirm("board lines")}>
                         <div className="clear-lines">
                             <svg
                                 width="30"
@@ -229,7 +232,9 @@ const RightSidebard = () => {
             </div>
             <DownloadUploadData />
             <div className='sidebar-zoom'>
-                <button onClick={handleZoomIn}>
+                <button
+                    className='toggler'
+                    onClick={handleZoomIn}>
                     <svg
                         width="24"
                         height="24"
@@ -245,7 +250,9 @@ const RightSidebard = () => {
                         />
                     </svg>
                 </button>
-                <button onClick={handleResetZoom}>
+                <button
+                    className='toggler'
+                    onClick={handleResetZoom}>
                     <svg
                         width="24"
                         height="24"
@@ -261,7 +268,9 @@ const RightSidebard = () => {
                         />
                     </svg>
                 </button>
-                <button onClick={handleZoomOut}>
+                <button
+                    className='toggler'
+                    onClick={handleZoomOut}>
                     <svg
                         width="24"
                         height="24"
