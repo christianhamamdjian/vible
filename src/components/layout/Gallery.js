@@ -149,9 +149,9 @@ const Gallery = () => {
                         <div className="select-container">
                             <label htmlFor="custom-select"></label>
                             <select id="custom-select" className="custom-select" value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
-                                <option value="color">Color</option>
-                                <option value="image">Image</option>
-                                <option value="link">Link</option>
+                                <option value="color">Add Color</option>
+                                <option value="image">Add Image</option>
+                                <option value="link">Add Link</option>
                             </select>
                         </div>
                         {galleryType === 'color' &&
