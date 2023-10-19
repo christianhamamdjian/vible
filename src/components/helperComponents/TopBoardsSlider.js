@@ -25,7 +25,7 @@ const TopBoardsSlider = () => {
             return (<button
                 // className={`${boardIndex === 0 ? "active-board-button" : "board-button"}`}
                 className="board-button"
-                style={{ backgroundColor: el.id === activeBoard.id ? "rgb(172, 249, 102)" : "" }}
+                style={{ backgroundColor: el.id === activeBoard.id ? "rgb(152, 230, 0)" : "" }}
                 key={i}
                 onClick={() => handleChangeBoard(el.id)}
             >
