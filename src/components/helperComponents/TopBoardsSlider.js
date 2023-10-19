@@ -62,10 +62,10 @@ const TopBoardsSlider = () => {
             >
 
                 <label>Boards:</label>
-                <button
+                {boardIndex !== 0 && <button
                     style={{
-                        backgroundColor: `${boardIndex === 0 ? "transparent" : "#8e8e93"}`,
-                        color: `${boardIndex === 0 ? "transparent" : "#ffffff"}`,
+                        backgroundColor: `${boardIndex === 0 ? "transparent" : "#ffffff"}`,
+                        color: `${boardIndex === 0 ? "transparent" : "#8e8e93"}`,
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex - 1)}
                     className="inputs-boards_objects-nav"
@@ -83,7 +83,7 @@ const TopBoardsSlider = () => {
                             fill="currentColor"
                         />
                     </svg>
-                </button>
+                </button>}
                 <button
                     className='inputs-boards_objects-button'
                     title="Add new board"
@@ -96,10 +96,10 @@ const TopBoardsSlider = () => {
                     onClick={() => showConfirm("board")}
                 >-</button>
                 {chunk}
-                <button
+                {boardIndex !== maxIndex && <button
                     style={{
-                        backgroundColor: `${boardIndex === maxIndex ? "transparent" : "#8e8e93"} `,
-                        color: `${boardIndex === maxIndex ? "transparent" : "#ffffff"}`,
+                        backgroundColor: `${boardIndex === maxIndex ? "transparent" : "#ffffff"} `,
+                        color: `${boardIndex === maxIndex ? "transparent" : "#8e8e93"}`,
                     }}
                     onClick={() => handleBoardIndexUpdate(boardIndex + 1)}
                     className="inputs-boards_objects-nav"
@@ -117,7 +117,7 @@ const TopBoardsSlider = () => {
                             fill="currentColor"
                         />
                     </svg>
-                </button>
+                </button>}
 
             </div>
             {onShow &&

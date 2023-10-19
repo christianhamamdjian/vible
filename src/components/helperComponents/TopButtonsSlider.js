@@ -43,7 +43,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
     return (
         <>
 
-            <button
+            {index !== 0 && <button
                 onClick={() => setIndex(index - 1)}
                 className={`${index === 0 ? "top-buttons-slider-disabled" : "top-buttons-slider-prev"}`}
                 disabled={index === 0}
@@ -60,13 +60,13 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                         fill="currentColor"
                     />
                 </svg>
-            </button>
+            </button>}
             <div
                 className='top-buttons-slider-chunk'
             >
                 {chunk}
             </div>
-            <button
+            {index !== maxIndex && <button
                 onClick={() => setIndex(index + 1)}
                 className={`${index === maxIndex ? "top-buttons-slider-disabled" : "top-buttons-slider-next"}`}
                 disabled={index === maxIndex}
@@ -83,8 +83,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                         fill="currentColor"
                     />
                 </svg>
-            </button>
-
+            </button>}
         </>
     )
 }
