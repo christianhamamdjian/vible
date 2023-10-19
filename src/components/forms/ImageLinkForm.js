@@ -6,7 +6,7 @@ const ImageLinkForm = () => {
     return (
         <div className='itemForms'>
             <h2>Online image link:</h2>
-            <p>Example: https://www.mozilla.org/media/img/products/vpn/landing/vpn-cntwell-01-high-res.a4aaa9ab2b91.png </p>
+            <p>Example: https://www.christian-hamamdjian.com/wp-content/uploads/IMG_0679.jpg </p>
             <form className='inputs' onSubmit={handleAddImage}>
                 <div className='inputs'>
                     <input type="text" name="imageurl" value={itemImageUrl} onChange={handleItemImageUrl} />
