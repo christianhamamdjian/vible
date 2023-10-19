@@ -1741,7 +1741,8 @@ button,
 }
 
 .board-button {
-  background-color: hsl(240, 8%, 56%);
+  background-color: hsl(0, 0%, 100%);
+  color: #000000;
 }
 
 .drag-file-element {
