@@ -425,7 +425,7 @@ button,
   max-width: 3rem;
   margin-top: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 50%;
+  border-radius: 24%;
 }
 
 .inputs-top_draw {
@@ -444,7 +444,7 @@ button,
 }
 
 .inputs-top_draw label {
-  margin-bottom: 0;
+  margin-bottom: .4rem;
 }
 
 .inputs-top_draw button {
@@ -971,7 +971,7 @@ button,
   left: 12%;
   font-size: 1.5rem;
   font-weight: bold;
-  border-radius: 50%;
+  border-radius: 24%;
   padding-top: .6rem;
   padding-left: 1rem;
 }
@@ -1109,7 +1109,7 @@ button,
   top: -6rem;
   right: 1.5rem;
   /* font-size: 4rem; */
-  border-radius: 50%;
+  border-radius: 24%;
   padding-top: .7rem;
   padding-left: .7rem;
   margin-top: 0;
@@ -1312,7 +1312,7 @@ button,
   top: -6rem;
   left: 1rem;
   font-weight: bold;
-  border-radius: 50%;
+  border-radius: 24%;
   padding-top: .8rem;
   padding-left: .85rem;
 }
@@ -1493,7 +1493,7 @@ button,
 }
 
 .left-sidebar-buttons {
-  padding: 0 2rem;
+  padding: 0 .4rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1506,7 +1506,7 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 24%;
   transition: 0.4s ease;
 }
 
@@ -1568,25 +1568,29 @@ button,
 }
 
 .drawer-container-right button {
-  background-color: rgb(213, 154, 186);
+  background-color: rgb(255, 255, 255);
+  color: rgb(220, 220, 220);
 }
 
 .drawer-container-right button:hover {
-  background-color: rgb(213, 109, 166);
+  background-color: rgb(255, 255, 255);
+  color: rgb(220, 220, 220);
 }
 
 
 .drawer-container-left button {
-  background-color: rgb(181, 177, 224);
+  background-color: rgb(255, 255, 255);
+  color: rgb(220, 220, 220);
 }
 
 .drawer-container-left button:hover {
-  background-color: rgb(105, 95, 213);
+  background-color: rgb(255, 255, 255);
+  color: rgb(220, 220, 220);
 }
 
 .drawer-left-isOpen {
   background: rgba(255, 255, 255, 0.9);
-  width: 120px;
+  width: 70px;
   transition: all .5s;
   transform: translateX(0.2rem) translateY(2rem) scale(1);
   border-radius: 0 1.2rem 1.2rem 0;
@@ -1617,7 +1621,7 @@ button,
   right: 1.5rem;
   padding-top: .8rem;
   z-index: 101;
-  border-radius: 50%;
+  border-radius: 24%;
 }
 
 .drawer-toggle-right:hover {
@@ -1637,7 +1641,7 @@ button,
   left: 1rem;
   padding-top: .8rem;
   z-index: 101;
-  border-radius: 50%;
+  border-radius: 24%;
 }
 
 .sidebar-zoom {
@@ -1690,8 +1694,8 @@ button,
   border-radius: 1rem;
   border-style: dashed;
   border-color: #cbd5e1;
-  background-color: hsl(245, 52%, 57%);
-  color: #ffffff;
+  background-color: hsl(0, 0%, 100%);
+  color: #c7c7c7;
 }
 
 .label-file-upload.drag-active {

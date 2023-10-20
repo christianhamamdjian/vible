@@ -53,13 +53,14 @@ function DragDropFile({ children }) {
                 className={`label-file-upload ${dragActive ? "drag-active" : ""}`}
             >
                 <div>
-                    <p>Drag and drop your file here or</p>
-                    <button
+                    <p>Drop an image here</p>
+                    {/* <button
+                    
                         className="upload-button"
                         onClick={onButtonClick}
                     >
                         Upload a file
-                    </button>
+                    </button> */}
                 </div>
             </label>
             {/* {dragActive &&  */}

@@ -177,7 +177,7 @@ const Todo = () => {
 
                 <button
                     className="themable toggle-todo"
-                    style={{ backgroundColor: todosShow ? "rgb(130, 70, 186)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
+                    style={{ backgroundColor: todosShow ? "rgb(229, 245, 255)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
                     title="Todo list"
                     onClick={handleTodosToggle}
                 >

@@ -4,7 +4,7 @@ export const printPdf = (div) => {
     <head>   
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link href="/css/app.css" rel="stylesheet" />
+    <link href="/css/app.css" rel="stylesheet" media="all"/>
     </head>
     <body>`;
     innerHTML += div.innerHTML + "</body></html>";

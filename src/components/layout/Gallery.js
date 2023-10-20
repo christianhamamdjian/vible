@@ -111,7 +111,7 @@ const Gallery = () => {
 
                 <button
                     className="toggle-gallery themable"
-                    style={{ backgroundColor: galleryShow ? "rgb(130, 70, 186)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
+                    style={{ backgroundColor: galleryShow ? "rgb(229, 245, 255)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
                     title="The Gallery"
                     onClick={handleGalleryToggle}
                 >
