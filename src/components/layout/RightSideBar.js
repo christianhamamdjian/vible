@@ -78,6 +78,7 @@ const RightSidebard = () => {
                     className='right-sidebar-buttons'
                 >
                     <button
+                        style={{ fontWeight: "bold", border: "1px solid #dddddd" }}
                         onClick={handleColorReset}
                     >Reset Colors</button>
                     {/* <button
