@@ -1502,11 +1502,11 @@ button,
 
 .toggler {
   width: 4rem;
-  height: 4rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 24%;
+  border-radius: 12%;
   transition: 0.4s ease;
 }
 
@@ -1515,7 +1515,7 @@ button,
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  gap: .8rem;
+  gap: .4rem .8rem;
 }
 
 .right-sidebar-buttons {
