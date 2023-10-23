@@ -70,11 +70,13 @@ const DownloadUploadData = () => {
         const reader = new FileReader()
         reader.onload = (e) => {
             const newBoardId = Date.now()
-            const newBoard = { id: newBoardId, name: boards.length + 1 }
             const data = JSON.parse(e.target.result)
-
             const uploadedItems = data.vible[0]["items"]
             const uploadedPaths = data.vible[1]["paths"]
+            const uploadedBoards = data.vible[2]["boards"]
+            const boardToUpload = uploadedBoards[0]
+            const newBoard = { id: newBoardId, name: boards.length + 1, boardColor: boardToUpload.boardColor, buttonsColor: boardToUpload.buttonsColor, boardBackground: boardToUpload.boardBackground }
+
             const newItems = uploadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
             const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
 
