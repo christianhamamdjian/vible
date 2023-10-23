@@ -25,7 +25,7 @@ const DrawerButton = ({ onClick, side, isOpen, buttonsColor, getTextColor }) => 
     <button
       className={`drawer-toggle-${side} themable`}
       style={{ backgroundColor: isOpen ? "rgb(229 245 255)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
-      title={`${side === "left" ? "Add items" : "Control panel"}`}
+      title={`${side === "left" ? "Add items to board" : "Control panel"}`}
       onClick={onClick}
     >
       {side === "left" ?

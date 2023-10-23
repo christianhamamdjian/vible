@@ -21,8 +21,10 @@ const LeftSidebard = () => {
                 type="button" onClick={handleWrite}>Write</button>
             {write && <BoxForm />} */}
                 <button
+                    title="Upload an image"
                     className={`toggler ${image ? "selected-button" : null}`}
-                    type="button" onClick={handleImage}>
+                    type="button"
+                    onClick={handleImage}>
                     <svg
                         width="24"
                         height="24"
@@ -52,6 +54,7 @@ const LeftSidebard = () => {
             </button > */}
                 {image && <ImageForm />}
                 <button
+                    title="Link to an online image"
                     className={`toggler ${imageLink ? "selected-button" : null}`}
                     type="button" onClick={handleImageLink}><svg
                         width="24"
@@ -75,6 +78,7 @@ const LeftSidebard = () => {
                     </svg></button>
                 {imageLink && <ImageLinkForm />}
                 <button
+                    title="Link to a Youtube video"
                     className={`toggler ${video ? "selected-button" : null}`}
                     type="button" onClick={handleVideo}>
                     <svg
@@ -90,6 +94,7 @@ const LeftSidebard = () => {
                 </button>
                 {video && <VideoForm />}
                 <button
+                    title="Link to Google map"
                     className={`toggler ${map ? "selected-button" : null}`}
                     type="button" onClick={handleMap}>
                     <svg
@@ -109,6 +114,7 @@ const LeftSidebard = () => {
                 </button>
                 {map && <MapForm />}
                 <button
+                    title="Upload a Pdf file"
                     className={`toggler ${pdf ? "selected-button" : null}`}
                     type="button" onClick={handlePdf}>
                     <svg
