@@ -7,10 +7,11 @@ import Tooltips from '../tooltips/Tooltips'
 import Confirm from "../helperComponents/Confirm"
 import DownloadUploadData from "../helperComponents/DownloadUploadData"
 import { downloadTexts } from "../utils/downloadTexts"
+import { downloadSvg } from "../utils/downloadSvg"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const RightSidebard = () => {
-    const { items, divRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, activeBoard } = React.useContext(MoodboardContext);
+    const { items, divRef, svgRef, handleClearBoard, handleClearPaths, handleZoomIn, handleZoomOut, handleZoomSlider, handleResetZoom, zoom, handleBoardColorChange, handleButtonsColorChange, handleColorReset, handleShowBackgroundPattern, activeBoard } = React.useContext(MoodboardContext);
 
     const [onShow, setOnShow] = useState(false)
     const [item, setItem] = useState("")
@@ -265,6 +266,42 @@ const RightSidebard = () => {
                             </svg> */}
                 </div>
             </button>
+            <button
+                title="Click to download as SVG"
+                // className='toggler'
+                style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
+                onClick={() => downloadSvg(svgRef.current)}>
+                <div
+                // className="print-board"
+                >
+                    Download board as SVG
+                    {/* <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M8 4H16V6H8V4ZM18 6H22V18H18V22H6V18H2V6H6V2H18V6ZM20 16H18V14H6V16H4V8H20V16ZM8 16H16V20H8V16ZM8 10H6V12H8V10Z"
+                                    fill="currentColor"
+                                />
+                            </svg> */}
+                </div>
+            </button>
+            {/* <button
+                title="Click to download as PNG"
+                // className='toggler'
+                style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
+                onClick={(e) => downloadPng(e, svgRef.current)}>
+                <div
+                // className="print-board"
+                >
+                    Download board as PNG
+                </div>
+            </button> */}
             <DownloadUploadData />
             <div className='sidebar-zoom'>
                 <button
