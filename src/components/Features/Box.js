@@ -98,11 +98,12 @@ const Box = ({ item }) => {
                                         >
                                             <style scoped>{css}</style>
 
-                                            <p className='box-content-p'
+                                            <p
+                                                // className='box-content-p'
                                                 style={{
                                                     // color: getTextColor(item.color),
                                                     // color: item.textColor,
-                                                    height: item.link !== "" && "70%",
+                                                    height: item.link !== "" ? "70%" : "80%",
                                                     // fontFamily: item.font,
                                                     // userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     // fontSize: `${item.fontSize}pt`,
@@ -131,7 +132,6 @@ const Box = ({ item }) => {
                                             {item.showRating && <StartRating
                                                 rating={item.rating} id={item.id}
                                             />}
-
                                         </div>
                                     </>
                                 )
