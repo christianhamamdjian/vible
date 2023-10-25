@@ -10,7 +10,12 @@ const Box = ({ item }) => {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
         return color + _opacity.toString(16).toUpperCase();
     }
-
+    const css = `@media print {
+        .pre-padded {
+          padding: 1rem !important;
+          height: 100% !important;
+        }
+      }`
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -91,27 +96,42 @@ const Box = ({ item }) => {
                                         <div
                                             className="box-content"
                                         >
-                                            <pre className='box-content-pre'
-                                                style={{ height: "calc(100% - 1.5rem)" }}
+                                            <style scoped>{css}</style>
+
+                                            <p className='box-content-p'
+                                                style={{
+                                                    // color: getTextColor(item.color),
+                                                    // color: item.textColor,
+                                                    height: item.link !== "" && "70%",
+                                                    // fontFamily: item.font,
+                                                    // userSelect: editingText && isEditingBoard ? "all" : "none",
+                                                    // fontSize: `${item.fontSize}pt`,
+                                                    // fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
+                                                    // textAlign: `${item.textAlignCenter ? "center" : "left"}`
+                                                }}
                                             >
-                                                <p className='box-content-p'
+                                                <pre
+                                                    //className='box-content-pre pre-padded'
+                                                    className='pre-padded'
                                                     style={{
-                                                        // color: getTextColor(item.color),
+                                                        whiteSpace: "pre-wrap",
                                                         color: item.textColor,
-                                                        height: item.link !== "" && "70%",
+                                                        overflowX: "hidden",
+                                                        overflowY: "auto",
                                                         fontFamily: item.font,
                                                         userSelect: editingText && isEditingBoard ? "all" : "none",
                                                         fontSize: `${item.fontSize}pt`,
                                                         fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
-                                                        textAlign: `${item.textAlignCenter ? "center" : "left"}`
+                                                        textAlign: `${item.textAlignCenter ? "center" : "left"}`,
+                                                        height: "calc(100% - 1.5rem)",
                                                     }}
-                                                >
-                                                    {item.text}
-                                                </p>
-                                                {item.showRating && <StartRating
-                                                    rating={item.rating} id={item.id}
-                                                />}
-                                            </pre>
+                                                >{item.text}
+                                                </pre>
+                                            </p>
+                                            {item.showRating && <StartRating
+                                                rating={item.rating} id={item.id}
+                                            />}
+
                                         </div>
                                     </>
                                 )

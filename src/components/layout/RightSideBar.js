@@ -55,11 +55,10 @@ const RightSidebard = () => {
         },
     ]
 
-    const texts = () => {
-        const boxes = items.filter(item => item.type === "box" && item.board === activeBoard.id)
-        const textContents = boxes.map(box => box.text)
-        return textContents.join("\n\n")
-    }
+
+    const boxes = items.filter(item => item.type === "box" && item.board === activeBoard.id)
+    const textContents = boxes.map(box => box.text)
+    const texts = textContents.join("\n\n")
 
     return (
         <div className='right-sidebar'>
@@ -245,7 +244,7 @@ const RightSidebard = () => {
                 title="Click to download all texts"
                 // className='toggler'
                 style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
-                onClick={() => downloadTexts("Vible.txt", texts())}>
+                onClick={() => downloadTexts("Vible.txt", texts)}>
                 <div
                 // className="print-board"
                 >

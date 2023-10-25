@@ -82,6 +82,7 @@ const MoodBoard = () => {
                         viewBox={`0 0 ${zoom} ${zoom}`}
                         preserveAspectRatio="none"
                         cursor={isDrawing ? "crosshair" : "move"}
+                        xmlns="http://www.w3.org/2000/svg"
                     >
                         {backgroundPattern && <>
                             <defs>

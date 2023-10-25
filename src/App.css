@@ -698,6 +698,12 @@ button,
   white-space: pre-wrap;
 }
 
+/* @media print {
+  .box-content-pre {
+    padding: .5rem !important;
+  }
+} */
+
 .box-content-p {
   height: 100%;
   overflow-x: hidden;
