@@ -158,9 +158,15 @@ export default function MoodboardProvider({ children }) {
         setPdf(false)
     }
 
-    function getRandomQuote() {
+    function getRandomQuote(e) {
+        e.preventDefault()
         const randomQuote = Math.floor(Math.random() * quotes.length)
-        return quotes[randomQuote]["quote"]
+        const chosenQuote = quotes[randomQuote]["quote"]
+        const itemId = Date.now()
+        const newItem = boxModel(itemId, activeBoard.id, chosenQuote, "#E279D9", "#ffffff", itemLink, itemUrl)
+        setItems((prevItems) => [...prevItems, newItem])
+        setItemText('Text')
+        setItemColor('#f4b416')
     }
 
     function savePathsToLocalStorage() {
@@ -175,7 +181,6 @@ export default function MoodboardProvider({ children }) {
         setTool(tool)
     }
     const handleCopy = (e, id) => {
-        console.log(id)
         const copiedItem = items.find(el => el.id === id)
         console.log(copiedItem)
         setClipBoard(copiedItem)
@@ -421,8 +426,6 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        // const newItem = boxModel(itemId, activeBoard.id, itemText, itemColor, "#ffffff", itemLink, itemUrl)
-        // const newItem = boxModel(itemId, activeBoard.id, getRandomQuote(), itemColor, "#ffffff", itemLink, itemUrl)
         const newItem = boxModel(itemId, activeBoard.id, "Double-click me to edit. \nDouble-click the board to stop editing.", itemColor, "#ffffff", itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
@@ -1957,7 +1960,8 @@ export default function MoodboardProvider({ children }) {
                 handleCopy,
                 handlePaste,
                 handleClearClipBoard,
-                handleShowBackgroundPattern
+                handleShowBackgroundPattern,
+                getRandomQuote
             }}>
             {children}
         </MoodboardContext.Provider>

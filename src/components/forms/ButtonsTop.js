@@ -3,7 +3,7 @@ import Tooltips from '../tooltips/Tooltips'
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ButtonsTop = () => {
-    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, getTextColor } = React.useContext(MoodboardContext);
+    const { items, paths, isDrawing, isErasing, isPartialErasing, handlePartialEraser, isGrouping, handleGrouping, handleDrawing, handleEraser, handleEditingBoard, isEditingBoard, handleAddBox, handleInfo, handleShowBoards, info, showBoards, activeBoard, clipBoard, handlePaste, handleClearClipBoard, getTextColor, getRandomQuote } = React.useContext(MoodboardContext);
     const buttonsColor = activeBoard.buttonsColor
     return (
         <>
@@ -42,7 +42,7 @@ const ButtonsTop = () => {
                     height="3.7rem"
                     top="-3rem"
                     bottom="90%"
-                    left="-2.8rem"
+                    left="-3.8rem"
                     right=""
                     marginRight=""
                     marginLeft=""
@@ -86,12 +86,12 @@ const ButtonsTop = () => {
                     height="4.5rem"
                     top="-3rem"
                     bottom="90%"
-                    left="-2.4rem"
+                    left="-3.4rem"
                     right=""
                     marginRight=""
                     marginLeft=""
                     tipTop="-.7rem"
-                    tipLeft="50%"
+                    tipLeft="70%"
                     text="Click to add a text box"
                 />
                 {paths.length > 0 && (
@@ -124,12 +124,12 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-2rem"
+                            left="-3rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="50%"
+                            tipLeft="60%"
                             text="Click to erase lines" />
                     </>
                 )}
@@ -160,12 +160,12 @@ const ButtonsTop = () => {
                             height="4.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-1.6rem"
+                            left="-2.6rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="40%"
+                            tipLeft="55%"
                             text="Click to partially erase lines" />
                     </>
                 )}
@@ -196,12 +196,12 @@ const ButtonsTop = () => {
                             height="3.7rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-1.2rem"
+                            left="-2.2rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="30%"
+                            tipLeft="50%"
                             text="Click to group lines" />
                     </>
                 )
@@ -237,12 +237,12 @@ const ButtonsTop = () => {
                             height="3.8rem"
                             top="-3rem"
                             bottom="90%"
-                            left="-.8rem"
+                            left="-1.8rem"
                             right=""
                             marginRight=""
                             marginLeft=""
                             tipTop="-.7rem"
-                            tipLeft="25%"
+                            tipLeft="45%"
                             text="Click to edit objects"
                         />
                     </>
@@ -280,13 +280,51 @@ const ButtonsTop = () => {
                         height="3.8rem"
                         top="-3rem"
                         bottom="90%"
-                        left="-.4rem"
+                        left="-1.4rem"
                         right=""
                         marginRight=""
                         marginLeft=""
                         tipTop="-.7rem"
-                        tipLeft="25%"
+                        tipLeft="35%"
                         text="Click to edit boards"
+                    />
+                </>
+
+                <>
+                    <button
+                        className={`${info ? "selected-button" : null} themable`}
+                        style={{ backgroundColor: buttonsColor }}
+                        title="Add inspirational quote"
+                        onClick={getRandomQuote}>
+                        <div className='info-sign'>
+                            <svg
+                                width="28"
+                                height="28"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M18.571,10.286 C18.571,14.862 14.862,18.571 10.286,18.571 C5.71,18.571 2,14.862 2,10.286 C2,5.71 5.71,2 10.286,2 C14.862,2 18.571,5.71 18.571,10.286 z" fill={getTextColor(buttonsColor)} />
+                                <path d="M3.012,10.286 C3.012,6.269 6.269,3.012 10.286,3.012 C14.303,3.012 17.559,6.269 17.559,10.286 C17.559,14.303 14.303,17.559 10.286,17.559 C6.269,17.559 3.012,14.303 3.012,10.286 z" fill="#FFFFFF" />
+                                <path d="M10.286,3.012 C8.277,3.012 6.649,4.641 6.649,6.649 C6.649,8.658 8.277,10.286 10.286,10.286 L10.286,10.287 C10.307,10.286 10.328,10.286 10.349,10.286 C12.358,10.286 13.986,11.914 13.986,13.923 C13.986,15.896 12.414,17.502 10.453,17.557 C14.393,17.468 17.56,14.247 17.56,10.286 C17.56,6.3 14.354,3.063 10.38,3.013 C10.38,3.013 10.38,3.013 10.379,3.013 C10.348,3.012 10.317,3.012 10.286,3.012 z M10.286,5.605 C10.793,5.605 11.203,6.016 11.203,6.522 C11.203,7.029 10.793,7.44 10.286,7.44 C9.78,7.44 9.369,7.029 9.369,6.522 C9.369,6.016 9.78,5.605 10.286,5.605 z M10.286,17.559 L10.286,17.559 C10.3,17.559 10.314,17.559 10.328,17.559 C10.314,17.559 10.3,17.559 10.286,17.559 z" fill={getTextColor(buttonsColor)} />
+                                <path d="M11.79,14.154 C11.79,14.923 11.167,15.546 10.399,15.546 C9.63,15.546 9.007,14.923 9.007,14.154 C9.007,13.386 9.63,12.763 10.399,12.763 C11.167,12.763 11.79,13.386 11.79,14.154 z" fill={getTextColor(buttonsColor)} />
+                                <path d="M10.286,17.559 C12.294,17.559 13.923,15.931 13.923,13.923 C13.923,11.914 12.294,10.286 10.286,10.286 L10.286,10.285 C10.265,10.286 10.244,10.286 10.223,10.286 C8.214,10.286 6.586,8.658 6.586,6.649 C6.586,4.675 8.158,3.07 10.118,3.014 C6.178,3.104 3.012,6.325 3.012,10.286 C3.012,14.272 6.218,17.508 10.191,17.559 C10.192,17.559 10.192,17.559 10.192,17.559 C10.223,17.56 10.254,17.559 10.286,17.559 z M10.286,14.967 C9.779,14.967 9.369,14.556 9.369,14.049 C9.369,13.543 9.779,13.132 10.286,13.132 C10.792,13.132 11.203,13.543 11.203,14.049 C11.203,14.556 10.792,14.967 10.286,14.967 z M10.286,3.013 L10.286,3.012 C10.271,3.012 10.257,3.012 10.243,3.012 C10.257,3.012 10.271,3.013 10.286,3.013 z" fill="#FFFFFF" />
+                            </svg>
+                        </div>
+                    </button>
+                    <Tooltips
+                        position="bottom"
+                        width="4.8rem"
+                        height="4.8rem"
+                        top="-3rem"
+                        bottom="90%"
+                        left="-1rem"
+                        right=""
+                        marginRight=""
+                        marginLeft=""
+                        tipTop="-.7rem"
+                        tipLeft="18%"
+                        text="Click to add inspirational quote"
                     />
                 </>
                 <>
@@ -360,3 +398,5 @@ const ButtonsTop = () => {
 }
 
 export default ButtonsTop
+
+
