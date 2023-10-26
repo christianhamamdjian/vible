@@ -98,7 +98,7 @@ const Box = ({ item }) => {
                                         >
                                             <style scoped>{css}</style>
 
-                                            <p
+                                            <div
                                                 // className='box-content-p'
                                                 style={{
                                                     // color: getTextColor(item.color),
@@ -128,7 +128,7 @@ const Box = ({ item }) => {
                                                     }}
                                                 >{item.text}
                                                 </pre>
-                                            </p>
+                                            </div>
                                             {item.showRating && <StartRating
                                                 rating={item.rating} id={item.id}
                                             />}
