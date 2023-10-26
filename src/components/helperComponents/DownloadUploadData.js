@@ -96,7 +96,7 @@ const DownloadUploadData = () => {
                 <Tooltips
                     position="bottom"
                     width="4.3rem"
-                    height="2rem"
+                    height="4rem"
                     top="-5rem"
                     bottom="90%"
                     left="3rem"
@@ -105,7 +105,7 @@ const DownloadUploadData = () => {
                     marginLeft=""
                     tipTop="-.7rem"
                     tipLeft="50%"
-                    text="Download board"
+                    text="Download board as JSON"
                 />
                 <button
                     title="Download board in JSON format."
@@ -165,7 +165,7 @@ const DownloadUploadData = () => {
                 <Tooltips
                     position="bottom"
                     width="3.5rem"
-                    height="2rem"
+                    height="4rem"
                     top="-5rem"
                     bottom="90%"
                     left="-2.5rem"
@@ -174,7 +174,7 @@ const DownloadUploadData = () => {
                     marginLeft=""
                     tipTop="-.7rem"
                     tipLeft="50%"
-                    text="Upload a board"
+                    text="Upload a JSON board"
                 />
                 <input
                     id="upload"

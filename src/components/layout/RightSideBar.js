@@ -200,7 +200,6 @@ const RightSidebard = () => {
                             </svg>
                         </div>
                     </button>
-
                 </Tooltips>
                 <Tooltips
                     position="top"
@@ -240,56 +239,145 @@ const RightSidebard = () => {
                     </button>
                 </Tooltips>
             </div>
-            <button
-                title="Click to download all texts"
-                // className='toggler'
-                style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
-                onClick={() => downloadTexts("Vible.txt", texts)}>
-                <div
-                // className="print-board"
+            <div className='right-sidebar-buttons'>
+                <Tooltips
+                    position="bottom"
+                    width="4.3rem"
+                    height="4rem"
+                    top="-6rem"
+                    bottom="90%"
+                    left="-4rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="-.7rem"
+                    tipLeft="50%"
+                    text="Download board as text"
                 >
-                    Download board texts
-                    {/* <svg
+                    <button
+                        title="Click to download all texts"
+                        className='toggler'
+                        // style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
+                        onClick={() => downloadTexts("Vible.txt", texts)}>
+                        <div
+                        // className="print-board"
+                        >
+                            <svg
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M8 4H16V6H8V4ZM18 6H22V18H18V22H6V18H2V6H6V2H18V6ZM20 16H18V14H6V16H4V8H20V16ZM8 16H16V20H8V16ZM8 10H6V12H8V10Z"
-                                    fill="currentColor"
-                                />
-                            </svg> */}
-                </div>
-            </button>
-            <button
-                title="Click to download as SVG"
-                // className='toggler'
-                style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
-                onClick={() => downloadSvg(svgRef.current)}>
-                <div
-                // className="print-board"
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <path d="M5.417,2.5L2.5,2.5L2.5,5.417L3.333,5.417L3.333,3.333L5.417,3.333L5.417,2.5Z" fill="currentColor" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="7.083" y="2.5" width="2.083" height="0.833" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="10.833" y="2.5" width="2.083" height="0.833" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <path d="M14.583,2.5L14.583,3.333L16.667,3.333L16.667,5.417L17.5,5.417L17.5,2.5L14.583,2.5Z" fill="currentColor" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="16.667" y="7.083" width="0.833" height="2.083" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="16.667" y="10.833" width="0.833" height="2.083" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="2.5" y="10.833" width="0.833" height="2.083" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <rect x="2.5" y="7.083" width="0.833" height="2.083" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <path d="M9.167,7.917L5.833,7.917L5.833,6.25L14.167,6.25L14.167,7.917L10.833,7.917L10.833,11.037L9.167,11.037L9.167,7.917Z" fill="currentColor" />
+                                </g>
+                                <g transform="matrix(1.23569,0,0,1.23569,-2.35778,-2.3553)">
+                                    <path d="M10.833,13.424L12.426,11.831L13.244,12.649L9.972,15.921L6.701,12.649L7.519,11.831L9.167,13.479L9.167,11.645L10.833,11.645L10.833,13.424Z"
+                                        fill="currentColor" />
+                                </g>
+                                <g transform="matrix(1.15727,0,0,0.714616,-3.86914,4.96045)">
+                                    <path d="M4,14L4.856,14L4.856,18.538L19.068,18.538L19.068,14L20,14L20,18C20,19.105 19.105,20 18,20L6,20C4.895,20 4,19.105 4,18L4,14Z" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </div>
+                    </button>
+                </Tooltips>
+                <Tooltips
+                    position="bottom"
+                    width="4.3rem"
+                    height="4rem"
+                    top="-6rem"
+                    bottom="90%"
+                    left="-4rem"
+                    right=""
+                    marginRight=""
+                    marginLeft=""
+                    tipTop="-.7rem"
+                    tipLeft="50%"
+                    text="Download board as SVG"
                 >
-                    Download board as SVG
-                    {/* <svg
+                    <button
+                        title="Click to download as SVG"
+                        className='toggler'
+                        // style={{ border: "1px solid #dddddd", color: "#3c3c3c" }}
+                        onClick={() => downloadSvg(svgRef.current)}>
+                        <div
+                        // className="print-board"
+                        >
+                            <svg
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
+                                <g transform="matrix(1,0,0,1,0,1.36381)">
+                                    <path
+                                        fillRule="evenodd"
+                                        clipRule="evenodd"
+                                        d="M11,8.953L13,8.953L13,12.158L16.243,8.915L17.657,10.329L12,15.986L6.343,10.329L7.757,8.915L11,12.158L11,8.953Z"
+                                        fill="currentColor" />
+                                </g>
                                 <path
                                     fillRule="evenodd"
                                     clipRule="evenodd"
-                                    d="M8 4H16V6H8V4ZM18 6H22V18H18V22H6V18H2V6H6V2H18V6ZM20 16H18V14H6V16H4V8H20V16ZM8 16H16V20H8V16ZM8 10H6V12H8V10Z"
-                                    fill="currentColor"
-                                />
-                            </svg> */}
-                </div>
-            </button>
+                                    d="M4,14L6,14L6,18L18,18L18,14L20,14L20,18C20,19.105 19.105,20 18,20L6,20C4.895,20 4,19.105 4,18L4,14Z"
+                                    fill="currentColor" />
+                                <g transform="matrix(1.64424,0,0,1.37727,-7.74214,-3.28137)">
+                                    <g>
+                                        <g transform="matrix(1.05311,0,0,1.05311,-0.8072,1.07489)">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M10.306,4.653L9.16,4.653L9.16,4.302C9.16,4.138 9.146,4.033 9.116,3.988C9.087,3.943 9.038,3.921 8.97,3.921C8.896,3.921 8.84,3.951 8.801,4.012C8.763,4.072 8.744,4.164 8.744,4.287C8.744,4.445 8.766,4.564 8.809,4.644C8.85,4.724 8.966,4.821 9.157,4.934C9.706,5.261 10.052,5.528 10.195,5.737C10.337,5.946 10.408,6.283 10.408,6.748C10.408,7.086 10.369,7.335 10.29,7.495C10.211,7.655 10.058,7.789 9.831,7.898C9.605,8.006 9.341,8.06 9.04,8.06C8.71,8.06 8.428,7.998 8.195,7.873C7.962,7.748 7.809,7.589 7.737,7.395C7.664,7.202 7.628,6.928 7.628,6.572L7.628,6.262L8.774,6.262L8.774,6.839C8.774,7.016 8.79,7.131 8.822,7.181C8.854,7.232 8.911,7.258 8.993,7.258C9.075,7.258 9.136,7.225 9.176,7.161C9.217,7.097 9.237,7.001 9.237,6.874C9.237,6.595 9.198,6.412 9.122,6.326C9.044,6.24 8.852,6.097 8.545,5.895C8.238,5.692 8.035,5.545 7.936,5.453C7.836,5.361 7.754,5.234 7.688,5.072C7.623,4.91 7.59,4.703 7.59,4.451C7.59,4.088 7.636,3.822 7.729,3.654C7.822,3.486 7.972,3.355 8.179,3.26C8.386,3.165 8.636,3.118 8.929,3.118C9.249,3.118 9.522,3.17 9.748,3.273C9.973,3.377 10.123,3.507 10.196,3.664C10.269,3.822 10.306,4.089 10.306,4.466L10.306,4.653Z"
+                                                fill="currentColor" />
+                                        </g>
+                                        <g transform="matrix(1.05311,0,0,1.05311,-0.8072,1.07489)">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M13.725,3.218L13.098,7.961L11.226,7.961L10.514,3.218L11.815,3.218C11.965,4.524 12.072,5.629 12.137,6.531C12.201,5.619 12.269,4.808 12.339,4.099L12.424,3.218L13.725,3.218Z"
+                                                fill="currentColor" />
+                                        </g>
+                                        <g transform="matrix(1.05311,0,0,1.05311,-0.8072,1.07489)">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M16.766,4.964L15.532,4.964L15.532,4.533C15.532,4.262 15.521,4.092 15.497,4.023C15.474,3.955 15.418,3.921 15.33,3.921C15.254,3.921 15.202,3.95 15.175,4.009C15.148,4.067 15.134,4.218 15.134,4.46L15.134,6.736C15.134,6.949 15.148,7.089 15.175,7.157C15.202,7.224 15.257,7.258 15.339,7.258C15.429,7.258 15.49,7.22 15.522,7.143C15.554,7.067 15.571,6.919 15.571,6.698L15.571,6.136L15.321,6.136L15.321,5.415L16.766,5.415L16.766,7.961L15.989,7.961L15.875,7.621C15.791,7.767 15.685,7.877 15.557,7.951C15.429,8.024 15.279,8.06 15.105,8.06C14.898,8.06 14.704,8.01 14.523,7.909C14.342,7.809 14.205,7.684 14.112,7.536C14.018,7.388 13.959,7.232 13.936,7.069C13.912,6.906 13.901,6.661 13.901,6.335L13.901,4.926C13.901,4.472 13.925,4.143 13.974,3.938C14.023,3.733 14.163,3.545 14.394,3.374C14.626,3.203 14.925,3.118 15.292,3.118C15.654,3.118 15.953,3.192 16.192,3.341C16.43,3.489 16.585,3.665 16.657,3.869C16.73,4.074 16.766,4.37 16.766,4.759L16.766,4.964Z"
+                                                fill="currentColor" />
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </button>
+                </Tooltips>
+            </div>
             {/* <button
                 title="Click to download as PNG"
                 // className='toggler'
