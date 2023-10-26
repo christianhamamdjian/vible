@@ -103,7 +103,8 @@ const Box = ({ item }) => {
                                                 style={{
                                                     // color: getTextColor(item.color),
                                                     // color: item.textColor,
-                                                    height: item.link !== "" ? "70%" : "80%",
+                                                    // height: item.link !== "" ? "70%" : "80%",
+                                                    height: item.link !== "" ? "calc(100% - 3rem)" : "calc(100% - 1.5rem)",
                                                     // fontFamily: item.font,
                                                     // userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     // fontSize: `${item.fontSize}pt`,
