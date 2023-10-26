@@ -126,7 +126,7 @@ const Box = ({ item }) => {
                                                         fontSize: `${item.fontSize}pt`,
                                                         fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                                         textAlign: `${item.textAlignCenter ? "center" : "left"}`,
-                                                        height: "calc(100% - 1.5rem)",
+                                                        height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
                                                     }}
                                                 >{item.text}
                                                 </pre>
