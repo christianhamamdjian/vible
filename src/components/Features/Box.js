@@ -83,7 +83,8 @@ const Box = ({ item }) => {
                                             fontFamily: item.font,
                                             fontSize: `${item.fontSize}pt`,
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
-                                            textAlign: `${item.textAlignCenter ? "center" : "left"}`
+                                            textAlign: `${item.textAlignCenter ? "center" : "left"}`,
+                                            borderRadius: `${item.roundedCorners}px`,
                                         }}
                                         cols="10"
                                         rows="2"

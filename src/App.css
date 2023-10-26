@@ -652,7 +652,7 @@ button,
   cursor: move;
   user-select: none;
   text-align: left;
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 
 .box-container {
@@ -660,7 +660,7 @@ button,
   user-select: none;
   text-align: left;
   padding: 1rem;
-  border-radius: 6px;
+  /* border-radius: 6px; */
   width: 100%;
   height: 100%;
 }
