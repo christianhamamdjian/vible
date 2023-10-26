@@ -1577,7 +1577,7 @@ button,
 
 .drawer-container-right button {
   background-color: rgb(255, 255, 255);
-  color: rgb(220, 220, 220);
+  color: rgb(156, 156, 156);
 }
 
 .drawer-container-right button:hover {
@@ -1588,12 +1588,12 @@ button,
 
 .drawer-container-left button {
   background-color: rgb(255, 255, 255);
-  color: rgb(220, 220, 220);
+  color: rgb(156, 156, 156);
 }
 
 .drawer-container-left button:hover {
   background-color: rgb(255, 255, 255);
-  color: rgb(220, 220, 220);
+  color: rgb(180, 183, 198);
 }
 
 .drawer-left-isOpen {
