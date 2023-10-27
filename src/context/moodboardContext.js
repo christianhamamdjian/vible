@@ -1187,7 +1187,7 @@ export default function MoodboardProvider({ children }) {
             resetPathsGroup()
             setSelectedPath(null)
             setIsEditingPath(null)
-            setPathLine(1)
+            setPathLine(pathLine)
         }
         setIsGrouping(isGrouping => !isGrouping)
         setSelectedPath(null)
@@ -1298,7 +1298,7 @@ export default function MoodboardProvider({ children }) {
         setPaths([...notGouped, ...updatedPaths])
     }
     const handleGroupLineChange = (e, op) => {
-        setPathLine(1)
+        setPathLine(pathLine)
         const pathGroup = paths.filter(path => path.group === "activeGroup")
         const notGouped = paths.filter(path => path.group === "noGroup")
         const updatedPaths = pathGroup.map((path) => {
@@ -1309,7 +1309,7 @@ export default function MoodboardProvider({ children }) {
                     ...path, line: line
                 })
             } else {
-                setPathLine(1)
+                setPathLine(pathLine)
                 return ({
                     ...path, line: 1
                 })
@@ -1369,7 +1369,7 @@ export default function MoodboardProvider({ children }) {
             setSelectedPath(null)
             setIsEditingPath(null)
             setPathColor("#000000")
-            setPathLine(2)
+            setPathLine(pathLine)
         }
         setIsDrawing(isDrawing => !isDrawing)
         setPathColor("#000000")
@@ -1419,7 +1419,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
-        setPathLine(2)
+        setPathLine(pathLine)
     }
     const handleChangeErase = (newPaths) => {
         setPaths(newPaths);
@@ -1535,7 +1535,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
-        setPathLine(2)
+        setPathLine(pathLine)
     }
 
     // Gallery
