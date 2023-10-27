@@ -295,6 +295,8 @@ button,
 }
 
 .clipboard-button {
+  background-color: #ca4a57;
+  color: hsl(240, 7%, 47%);
   position: relative;
 }
 
@@ -303,18 +305,18 @@ button,
 }
 
 .clear-clipboard {
-  width: .5rem;
-  height: 1rem;
-  background-color: #ffffff;
-  border-radius: 50%;
-  color: hsl(240, 11%, 66%);
+  width: 0rem !important;
+  height: 1.2rem !important;
+  background-color: #f3f2f2;
+  border-radius: 30% !important;
+  color: hsl(240, 6%, 45%);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: -.1rem;
-  right: -.6rem;
-  padding: .6rem;
+  position: relative;
+  top: 2rem;
+  left: -1.5rem;
+  padding: .1rem;
 }
 
 .drawing-done {

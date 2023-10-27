@@ -373,8 +373,8 @@ const ButtonsTop = () => {
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
                                 d="M3 19V1H17V5H21V23H7V19H3ZM15  "
                                 fill={getTextColor(buttonsColor)}
                             />
@@ -383,13 +383,14 @@ const ButtonsTop = () => {
                                 fill="#ddddee"
                             />
                         </svg>
-                        <button
-                            title="Clear the clipboard"
-                            onClick={handleClearClipBoard}
-                            className='clear-clipboard'
-                        >
-                            &times;
-                        </button>
+
+                    </button>
+                    <button
+                        title="Clear the clipboard"
+                        onClick={handleClearClipBoard}
+                        className='clear-clipboard'
+                    >
+                        &times;
                     </button>
                 </>}
             </div >

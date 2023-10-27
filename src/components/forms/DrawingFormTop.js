@@ -4,7 +4,7 @@ import Order from "../helperComponents/Order"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const DrawingFormTop = () => {
-    const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange } = React.useContext(MoodboardContext);
+    const { paths, tool, changeTool, stopLineEditing, isEditingPath, isDrawing, isErasing, pathColor, handleLineColor, pathLine, handleLineWidth, handleLineColorChange, handleLineWidthChange, handleRotateChange, handleScaleChange, handleDeletePath, handleLineFillChange, handleLineClosedChange, handleLineOpacityChange, handleMoveToFront, handleMoveToBack, handleMoveForward, handleMoveBackward, handleDuplicatePath, handleUndoErase, handleRedoErase, canUndoErase, canRedoErase, isGrouping, handleGroupRotateChange, handleGroupScaleChange, handleLineDashedChange, handleLineArrowStartChange, handleLineArrowEndChange, handleGroupColorChange, handleGroupLineChange, handleCopy } = React.useContext(MoodboardContext);
 
     const [rotating, setRotating] = useState(180)
     const [scaling, setScaling] = useState(20)
@@ -29,6 +29,7 @@ const DrawingFormTop = () => {
         linesColor: "Color",
         linesRotate: "Rotate",
         linesScale: "Scale",
+        copy: "Copy"
     }
 
     const handleRotation = (e) => {
@@ -374,6 +375,13 @@ const DrawingFormTop = () => {
                                 <button onClick={e => handleGroupScaleChange(e, "decrease")}>-</button>
                                 <button onClick={e => handleGroupScaleChange(e, "increase")}>+</button>
                             </div>
+                        </>}
+                        {tool === "copy" && <>
+                            <button
+                                onClick={e => handleCopy(e)}
+                            >
+                                Copy
+                            </button>
                         </>}
                     </div>}
                 </>

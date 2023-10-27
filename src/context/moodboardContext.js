@@ -181,11 +181,21 @@ export default function MoodboardProvider({ children }) {
         setTool(tool)
     }
     const handleCopy = (e, id) => {
-        const copiedItem = items.find(el => el.id === id)
-        console.log(copiedItem)
-        setClipBoard(copiedItem)
+        if (!id) {
+            const pathGroup = paths.filter(path => path.group === "activeGroup")
+            const newPathGroup = pathGroup.map(path => ({ ...path, id: path.id + 1 }))
+            setClipBoard(newPathGroup)
+        }
+        if (id) {
+            const copiedItem = items.find(el => el.id === id)
+            setClipBoard(copiedItem)
+        }
     }
     const handlePaste = () => {
+        if (clipBoard.length) {
+            const newPaths = clipBoard.map(path => ({ ...path, board: activeBoard.id }))
+            setPaths(prevPaths => [...prevPaths, ...newPaths])
+        }
         const pastedItem = {
             ...clipBoard,
             id: Date.now(),

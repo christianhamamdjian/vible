@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Tooltips from '../tooltips/Tooltips'
+import LoadTemplate from "../helperComponents/LoadTemplate"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
@@ -111,7 +112,7 @@ const Gallery = () => {
 
                 <button
                     className="toggle-gallery themable"
-                    style={{ backgroundColor: galleryShow ? "rgb(229, 245, 255)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
+                    style={{ backgroundColor: galleryShow ? "rgb(238, 238, 238)" : buttonsColor, color: `${getTextColor(buttonsColor)}` }}
                     title="The Gallery"
                     onClick={handleGalleryToggle}
                 >
@@ -186,8 +187,9 @@ const Gallery = () => {
                         </>}
                         <button type="submit">+</button>
                         {galleryError && <div className="error">{galleryError}</div>}
-                    </form>
 
+                    </form>
+                    {/* <LoadTemplate /> */}
 
                     <ul className='gallery-list'>
                         {galleryItems.map((item, index) => {
