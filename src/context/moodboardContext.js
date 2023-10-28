@@ -243,9 +243,15 @@ export default function MoodboardProvider({ children }) {
             handleAddNewBoard()
             setActiveBoard(boards[0])
         }
+        if (boards.length > 1 && boardIndex === 0) {
+            setActiveBoard(boards[1])
+        }
+        if (boards.length > 1 && boardIndex !== 0) {
+            setActiveBoard(boards[0])
+        }
         const reorderedBoards = newBoards.map((el, index) => ({ ...el, name: index + 1 }))
         setBoards(reorderedBoards)
-        setActiveBoard(boards[0])
+
         setHistoryErase([])
         setPositionErase(0)
         setHistoryErase((prevHistory) => [...prevHistory, { paths: paths }])
