@@ -1841,7 +1841,6 @@ export default function MoodboardProvider({ children }) {
                 image,
                 imageLink,
                 video,
-                imageLink,
                 map,
                 pdf,
                 draw,

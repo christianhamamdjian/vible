@@ -10,16 +10,19 @@ const DrawingFormTop = () => {
     const [scaling, setScaling] = useState(20)
 
     const toolButtons = {
-        lineColor: "Line Color",
-        lineWidth: "Line width",
-        fillColor: "Fill color",
-        shapeLine: "Shape/Line",
-        dashedLine: "Dashed line",
-        arrowStart: "Arrow Start",
-        arrowEnd: "Arrow End",
-        changeOpacity: "Change Opacity",
+        // lineColor: "Line Color",
+        // lineWidth: "Line width",
+        line: "Line",
+        // fillColor: "Fill color",
+        // shapeLine: "Shape/Line",
+        closedShape: "Shape",
+        // dashedLine: "Dashed line",
+        // arrowStart: "Arrow Start",
+        // arrowEnd: "Arrow End",
+        arrowLine: "Arrow",
         rotate: "Rotate",
         scale: "Scale",
+        changeOpacity: "Opacity",
         order: "Order",
         duplicate: "Duplicate",
         delete: "Delete",
@@ -112,14 +115,17 @@ const DrawingFormTop = () => {
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_draw'>
-                        {tool === "lineColor" && <>
+                        {/* {tool === "lineColor" && <> */}
+                        {tool === "line" && <>
                             <label>Line color: </label>
                             <input
                                 type="color"
                                 value={paths.find(path => path.id === isEditingPath.id).color}
                                 onChange={(event) => handleLineColorChange(event, isEditingPath.id)} />
                         </>}
-                        {tool === "lineWidth" && <><label>Line width: </label>
+                        {/* {tool === "lineWidth" && <>*/}
+                        {tool === "line" && <>
+                            <label>Line width: </label>
                             <span>{paths.find(path => path.id === isEditingPath.id).line}</span>
                             <button
                                 onClick={e => handleLineWidthChange(e, isEditingPath.id, "decrease")}>&lt;</button>
@@ -127,7 +133,24 @@ const DrawingFormTop = () => {
                                 onClick={e => handleLineWidthChange(e, isEditingPath.id, "increase")}>&gt;</button>
                         </>}
 
-                        {tool === "fillColor" && <>
+                        {/* {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line */}
+                        {tool === "closedShape" && <>
+                            <div style={{ height: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0rem 1rem" }}>
+                                <div>Closed Shape</div>
+                                <label className='checkbox-container' style={{ marginTop: "-1rem", }}>
+                                    <input
+                                        type="checkbox"
+                                        className='input-line-closed'
+                                        value={paths.find(path => path.id === isEditingPath.id).closed}
+                                        checked={paths.find(path => path.id === isEditingPath.id).closed}
+                                        onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
+                                    <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </>}
+
+                        {/* {tool === "fillColor" && <> */}
+                        {tool === "closedShape" && <>
                             <label>Fill color: </label>
                             <input
                                 type="color"
@@ -137,19 +160,8 @@ const DrawingFormTop = () => {
                         </>
                         }
 
-
-                        {tool === "shapeLine" && <label className='checkbox-container'>Shape/Line
-                            <input
-                                type="checkbox"
-                                className='input-line-closed'
-                                value={paths.find(path => path.id === isEditingPath.id).closed}
-                                checked={paths.find(path => path.id === isEditingPath.id).closed}
-                                onChange={(event) => handleLineClosedChange(event, isEditingPath.id)} />
-                            <span className="checkmark"></span>
-                        </label>}
-
-
-                        {tool === "dashedLine" && <label className='checkbox-container'>Dashed line
+                        {/* {tool === "dashedLine" &&  */}
+                        {tool === "arrowLine" && <label className='checkbox-container'>Dashed line
                             <input
                                 type="checkbox"
                                 className='input-line-dashed'
@@ -160,29 +172,33 @@ const DrawingFormTop = () => {
                         </label>}
 
 
-                        {tool === "arrowStart" && <label className='checkbox-container'>Arrow Start
-                            <input
-                                type="checkbox"
-                                className='input-line-arrowstart'
-                                value={paths.find(path => path.id === isEditingPath.id).arrowStart}
-                                checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
-                                onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
-                            <span className="checkmark"></span>
-                        </label>}
+                        {/* {tool === "arrowStart" &&  */}
+                        {tool === "arrowLine" &&
+                            <label className='checkbox-container'>Arrow Start
+                                <input
+                                    type="checkbox"
+                                    className='input-line-arrowstart'
+                                    value={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                                    checked={paths.find(path => path.id === isEditingPath.id).arrowStart}
+                                    onChange={(event) => handleLineArrowStartChange(event, isEditingPath.id)} />
+                                <span className="checkmark"></span>
+                            </label>}
 
 
-                        {tool === "arrowEnd" && <label className='checkbox-container'>Arrow End
-                            <input
-                                type="checkbox"
-                                className='input-line-arrowend'
-                                value={paths.find(path => path.id === isEditingPath.id).arrowEnd}
-                                checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
-                                onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
-                            <span className="checkmark"></span>
-                        </label>}
+                        {/* {tool === "arrowEnd" &&  */}
+                        {tool === "arrowLine" &&
+                            <label className='checkbox-container'>Arrow End
+                                <input
+                                    type="checkbox"
+                                    className='input-line-arrowend'
+                                    value={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                                    checked={paths.find(path => path.id === isEditingPath.id).arrowEnd}
+                                    onChange={(event) => handleLineArrowEndChange(event, isEditingPath.id)} />
+                                <span className="checkmark"></span>
+                            </label>}
 
 
-                        {tool === "changeOpacity" && <> <label>Change Opacity: </label>
+                        {tool === "changeOpacity" && <> <label>Opacity: </label>
                             <input
                                 type="range"
                                 min="0.1"
