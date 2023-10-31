@@ -497,6 +497,7 @@ button,
   z-index: 10;
   margin: 0 auto;
   border-radius: 5rem;
+  gap: .2rem .8rem;
 }
 
 .inputs-top_objects-form button {

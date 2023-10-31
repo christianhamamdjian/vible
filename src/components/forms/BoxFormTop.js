@@ -8,29 +8,44 @@ const BoxFormTop = () => {
     const { items, editingText, tool, changeTool, write, isEditingBoard, handleItemChange, handleMoveItemToFront, handleMoveItemToBack, handleMoveItemForward, handleMoveItemBackward, handleDuplicateBox, handleCopy } = React.useContext(MoodboardContext);
 
     const toolButtons = {
-        text: "Text",
-        BoxColor: "Box color",
-        textColor: "Text Color", // color
-        // textAlignLeft: "Text align left", // boolean
-        textAlignCenter: "Text align center", // boolean
-        linktitle: "Link Title",
-        linkurl: "Link Url",
-        width: "Width",
-        height: "Height",
-        angle: "Angle",
-        font: "Font",
-        fontSize: "Font size",
-        fontStyle: "Font style",
+        // Box
+        boxStyle: "Style",
+        // BoxColor: "Box color",
+        // backgroundOpacity: "Background opacity", // range
+        // rating: "Rating",
+
+        boxBorder: "Border",
+        // borderColor: "Border color",
+        // borderWidth: "Border width",
+        // roundedCorners: "Rounded corners",
+
+        // Text
+        boxText: "Text",
+        // text: "Text",
+        // textColor: "Text Color",
+        // textAlignCenter: "Align center",
+
+        // Font
+        boxFont: "Font",
+        // font: "Font",
+        // fontSize: "Font size",
+        // fontStyle: "Font style",
+
+        //Link
+        boxLink: "Link",
+        // linktitle: "Link Title",
+        // linkurl: "Link Url",
+
+        // Shape
+        boxShape: "Shape",
+        // width: "Width",
+        // height: "Height",
+        // angle: "Angle",
+
+        // Misc
         order: "Order",
+        copy: "Copy",
         duplicate: "Duplicate",
-        rating: "Rating",
-        // border: "Border",
-        // borderWidth 0 replaces border
-        borderWidth: "Border width", // range
-        borderColor: "Border color", // color
-        backgroundOpacity: "Background opacity", // range
-        roundedCorners: "Rounded corners",
-        copy: "Copy"
     }
 
     const findItem = (term) => {
@@ -45,14 +60,16 @@ const BoxFormTop = () => {
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
                     {tool !== "" && <div className='inputs-top_objects-form' >
-                        {tool === "text" && <>
+                        {/* </div> {tool === "text" && <> */}
+                        {tool === "boxText" && <>
                             <label>Text:</label>
                             <textarea
                                 value={findItem("text")}
                                 onChange={(e) => handleItemChange(e, editingText.id, "text")}
                             />
                         </>}
-                        {tool === "BoxColor" && <>
+                        {/* {tool === "BoxColor" && <> */}
+                        {tool === "boxStyle" && <>
                             <label>Box color:</label>
                             <input
                                 type="color"
@@ -61,7 +78,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "color")}
                             />
                         </>}
-                        {tool === "textColor" && <>
+                        {/* {tool === "textColor" && <> */}
+                        {tool === "boxText" && <>
                             <label>Text Color:</label>
                             <input
                                 type="color"
@@ -70,7 +88,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "textColor")}
                             />
                         </>}
-                        {tool === "linktitle" && <>
+                        {/* {tool === "linktitle" && <> */}
+                        {tool === "boxLink" && <>
                             <label>Link:</label>
                             <input
                                 type="text"
@@ -79,7 +98,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "link")}
                             />
                         </>}
-                        {tool === "linkurl" && <>
+                        {/* {tool === "linkurl" && <> */}
+                        {tool === "boxLink" && <>
                             <label>Url:</label>
                             <input
                                 type="text"
@@ -88,7 +108,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "url")}
                             />
                         </>}
-                        {tool === "width" && <>
+                        {/* {tool === "width" && <> */}
+                        {tool === "boxShape" && <>
                             <label>Width:</label>
                             <input
                                 type="range"
@@ -100,7 +121,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "width")}
                             />
                         </>}
-                        {tool === "height" && <>
+                        {/* {tool === "height" && <> */}
+                        {tool === "boxShape" && <>
                             <label>Height:</label>
                             <input
                                 type="range"
@@ -112,7 +134,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "height")}
                             />
                         </>}
-                        {tool === "angle" && <>
+                        {/* {tool === "angle" && <> */}
+                        {tool === "boxShape" && <>
                             <label>Angle:</label>
                             <input
                                 type="range"
@@ -124,32 +147,35 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "angle")}
                             />
                         </>}
-                        {tool === "font" && <><div>
-                            <label htmlFor="fonts">Choose a font:</label>
-                            <select
-                                name="fonts"
-                                id="fonts"
-                                className='box-form-top-select'
-                                value={items.find(item => item.id === editingText.id).font}
-                                onChange={(e) => handleItemChange(e, editingText.id, "font")}
-                            >
-                                {fontOptions.map((option) => (
-                                    <option
-                                        className='box-form-top-select-option'
-                                        style={{ fontFamily: `${option.value}` }}
-                                        key={option.value}
-                                        value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                            <span
-                                className='box-form-top-span'
-                                style={{ fontFamily: `${items.find(item => item.id === editingText.id).font}` }}
-                            > {items.find(item => item.id === editingText.id).font}</span>
-                        </div>
+                        {/* {tool === "font" && <> */}
+                        {tool === "boxFont" && <>
+                            <div>
+                                <label htmlFor="fonts">Choose a font:</label>
+                                <select
+                                    name="fonts"
+                                    id="fonts"
+                                    className='box-form-top-select'
+                                    value={items.find(item => item.id === editingText.id).font}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "font")}
+                                >
+                                    {fontOptions.map((option) => (
+                                        <option
+                                            className='box-form-top-select-option'
+                                            style={{ fontFamily: `${option.value}` }}
+                                            key={option.value}
+                                            value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                <span
+                                    className='box-form-top-span'
+                                    style={{ fontFamily: `${items.find(item => item.id === editingText.id).font}` }}
+                                > {items.find(item => item.id === editingText.id).font}</span>
+                            </div>
                         </>}
-                        {tool === "fontSize" && <>
+                        {/* {tool === "fontSize" && <> */}
+                        {tool === "boxFont" && <>
                             <label>Font size:</label>
                             <input
                                 type="range"
@@ -161,7 +187,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "fontSize")}
                             />
                         </>}
-                        {tool === "fontStyle" &&
+                        {/* {tool === "fontStyle" && */}
+                        {tool === "boxFont" &&
                             <label className='checkbox-container'>Font Bold
                                 <input
                                     type="checkbox"
@@ -171,7 +198,8 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {tool === "textAlignCenter" &&
+                        {/* {tool === "textAlignCenter" && */}
+                        {tool === "boxText" &&
                             <label className='checkbox-container'>Text align center
                                 <input
                                     type="checkbox"
@@ -181,7 +209,8 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "textAlignCenter")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {tool === "roundedCorners" && <>
+                        {/* {tool === "roundedCorners" && <> */}
+                        {tool === "boxBorder" && <>
                             <label>Rounded corners:</label>
                             <input
                                 type="range"
@@ -193,6 +222,7 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "roundedCorners")}
                             />
                         </>}
+                        {/* {tool === "order" && <> */}
                         {tool === "order" && <>
                             <Order
                                 id={editingText.id}
@@ -202,23 +232,26 @@ const BoxFormTop = () => {
                                 handleMoveBackward={handleMoveItemBackward}
                             />
                         </>}
-                        {tool === "duplicate" && <div className='inputs-top_objects-form'>
-                            <label>Duplicate:</label>
-                            <button
-                                onClick={() => handleDuplicateBox(editingText.id)}>
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path d="M5 5H15V8H8V15H5V5Z" fill="currentColor" />
-                                    <path d="M19 9H9V19H19V9Z" fill="currentColor" />
-                                </svg>
-                            </button>
-                        </div>}
-                        {tool === "rating" &&
+                        {/* {tool === "duplicate" &&  */}
+                        {tool === "duplicate" &&
+                            <div className='inputs-top_objects-form'>
+                                <label>Duplicate:</label>
+                                <button
+                                    onClick={() => handleDuplicateBox(editingText.id)}>
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M5 5H15V8H8V15H5V5Z" fill="currentColor" />
+                                        <path d="M19 9H9V19H19V9Z" fill="currentColor" />
+                                    </svg>
+                                </button>
+                            </div>}
+                        {/* {tool === "rating" && */}
+                        {tool === "boxStyle" &&
                             <label className='checkbox-container'>Rating
                                 <input
                                     type="checkbox"
@@ -228,7 +261,8 @@ const BoxFormTop = () => {
                                     onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
                                 <span className="checkmark"></span>
                             </label>}
-                        {tool === "borderWidth" && <>
+                        {/* {tool === "borderWidth" && <> */}
+                        {tool === "boxBorder" && <>
                             <label>Border width:</label>
                             <input
                                 type="range"
@@ -240,7 +274,8 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "borderWidth")}
                             />
                         </>}
-                        {tool === "borderColor" && <>
+                        {/* {tool === "borderColor" && <> */}
+                        {tool === "boxBorder" && <>
                             <label>Border color:</label>
                             <input
                                 type="color"
@@ -249,6 +284,7 @@ const BoxFormTop = () => {
                                 onChange={(e) => handleItemChange(e, editingText.id, "borderColor")}
                             />
                         </>}
+                        {/* {tool === "copy" && <> */}
                         {tool === "copy" && <>
                             <button
                                 onClick={e => handleCopy(e, editingText.id)}
@@ -257,7 +293,8 @@ const BoxFormTop = () => {
                             </button>
                         </>}
 
-                        {tool === "backgroundOpacity" && <>
+                        {/* {tool === "backgroundOpacity" && <> */}
+                        {tool === "boxStyle" && <>
                             <label>Background opacity:</label>
                             <input
                                 type="range"
