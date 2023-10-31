@@ -143,7 +143,7 @@ const Box = ({ item }) => {
 
                         {isEditingBoard && <TopControls item={item} />}
 
-                        {(editingText || isEditingBoard) && (
+                        {(editingText || isEditingBoard) && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"

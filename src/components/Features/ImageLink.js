@@ -3,7 +3,7 @@ import TopControls from "../helperComponents/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const ImageLink = ({ item }) => {
-    const { activeBoard, itemRef, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId, editingItem } = React.useContext(MoodboardContext);
 
     const [loadedImage, setLoadedImage] = useState(null)
 
@@ -45,7 +45,7 @@ const ImageLink = ({ item }) => {
                                 opacity: item.opacity,
                             }}
                         />
-                        {isEditingBoard && (
+                        {isEditingBoard && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"

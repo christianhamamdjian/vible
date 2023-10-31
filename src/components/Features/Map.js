@@ -4,7 +4,7 @@ import TopControls from "../helperComponents/TopControls"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Map = ({ item }) => {
-    const { activeBoard, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, isEditingBoard, isDraggingRect, selectedRectId, editingItem } = React.useContext(MoodboardContext);
 
     const getUrl = () => {
         let url = ""
@@ -34,7 +34,7 @@ const Map = ({ item }) => {
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditItem(e, item.id)}
                     >
-                        {isEditingBoard && (
+                        {isEditingBoard && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"
