@@ -46,7 +46,7 @@ const Image = ({ item }) => {
                             }}
                         />
                         {isEditingBoard && <TopControls item={item} />}
-                        {isEditingBoard && editingItem.id === item.id && (
+                        {isEditingBoard && editingItem && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"

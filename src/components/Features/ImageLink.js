@@ -45,7 +45,7 @@ const ImageLink = ({ item }) => {
                                 opacity: item.opacity,
                             }}
                         />
-                        {isEditingBoard && editingItem.id === item.id && (
+                        {isEditingBoard && editingItem && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"
