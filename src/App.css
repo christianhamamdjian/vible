@@ -2087,9 +2087,12 @@ input[type="range"]:focus::-moz-range-thumb {
     overflow-y: hidden;
     overflow-x: hidden;
     /* margin-top: 1.6rem; */
-    padding: 1.5rem .5rem;
+    /* padding: 1.5rem .5rem; */
     gap: 1rem;
     width: auto;
+    padding: .8rem;
+    border-radius: .6rem;
+    border: 1px solid rgba(221, 221, 221, 0.388)
   }
 
   .inputs-top_draw button {
@@ -2151,6 +2154,7 @@ input[type="range"]:focus::-moz-range-thumb {
 @media only screen and (max-width: 600px) {
 
   .inputs-top_objects-form {
+    display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
@@ -2158,9 +2162,10 @@ input[type="range"]:focus::-moz-range-thumb {
     max-width: 80%;
     height: auto;
     gap: .8rem;
-    padding: .4rem;
+    padding: .8rem;
     border-radius: .6rem;
-    /* background-color: #dddddd; */
+    border: 1px solid rgba(221, 221, 221, 0.388)
+      /* background-color: #dddddd; */
   }
 
 
