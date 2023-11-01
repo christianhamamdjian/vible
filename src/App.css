@@ -2099,7 +2099,7 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .toggle-documentation {
-    top: 16rem;
+    top: 22rem;
     left: 1.2rem;
   }
 
@@ -2129,6 +2129,19 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 @media only screen and (max-width: 600px) {
+
+  .inputs-top_objects-form {
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+    height: auto;
+    gap: .5rem;
+    padding: .5rem
+  }
+
+
   .documentation-container {
     width: 80%;
   }

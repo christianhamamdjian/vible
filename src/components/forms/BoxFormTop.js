@@ -62,90 +62,90 @@ const BoxFormTop = () => {
                     {tool !== "" && <div className='inputs-top_objects-form' >
                         {/* </div> {tool === "text" && <> */}
                         {tool === "boxText" && <>
-                            <label>Text:</label>
-                            <textarea
-                                value={findItem("text")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "text")}
-                            />
+                            <div> <label>Text:</label>
+                                <textarea
+                                    value={findItem("text")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "text")}
+                                /></div>
                         </>}
                         {/* {tool === "BoxColor" && <> */}
                         {tool === "boxStyle" && <>
-                            <label>Box color:</label>
-                            <input
-                                type="color"
-                                name="color"
-                                value={findItem("color")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "color")}
-                            />
+                            <div><label>Box color:</label>
+                                <input
+                                    type="color"
+                                    name="color"
+                                    value={findItem("color")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "color")}
+                                /></div>
                         </>}
                         {/* {tool === "textColor" && <> */}
                         {tool === "boxText" && <>
-                            <label>Text Color:</label>
-                            <input
-                                type="color"
-                                name="color"
-                                value={findItem("textColor")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "textColor")}
-                            />
+                            <div><label>Text Color:</label>
+                                <input
+                                    type="color"
+                                    name="color"
+                                    value={findItem("textColor")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "textColor")}
+                                /></div>
                         </>}
                         {/* {tool === "linktitle" && <> */}
                         {tool === "boxLink" && <>
-                            <label>Link:</label>
-                            <input
-                                type="text"
-                                name="link"
-                                value={findItem("link")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "link")}
-                            />
+                            <div><label>Link:</label>
+                                <input
+                                    type="text"
+                                    name="link"
+                                    value={findItem("link")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "link")}
+                                /></div>
                         </>}
                         {/* {tool === "linkurl" && <> */}
                         {tool === "boxLink" && <>
-                            <label>Url:</label>
-                            <input
-                                type="text"
-                                name="url"
-                                value={findItem("url")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "url")}
-                            />
+                            <div> <label>Url:</label>
+                                <input
+                                    type="text"
+                                    name="url"
+                                    value={findItem("url")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "url")}
+                                /></div>
                         </>}
                         {/* {tool === "width" && <> */}
                         {tool === "boxShape" && <>
-                            <label>Width:</label>
-                            <input
-                                type="range"
-                                min="100"
-                                max="600"
-                                step="10"
-                                name="width"
-                                value={items.find(item => item.id === editingText.id).width}
-                                onChange={(e) => handleItemChange(e, editingText.id, "width")}
-                            />
+                            <div><label>Width:</label>
+                                <input
+                                    type="range"
+                                    min="100"
+                                    max="600"
+                                    step="10"
+                                    name="width"
+                                    value={items.find(item => item.id === editingText.id).width}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "width")}
+                                /></div>
                         </>}
                         {/* {tool === "height" && <> */}
                         {tool === "boxShape" && <>
-                            <label>Height:</label>
-                            <input
-                                type="range"
-                                min="60"
-                                max="600"
-                                step="10"
-                                name="height"
-                                value={items.find(item => item.id === editingText.id).height}
-                                onChange={(e) => handleItemChange(e, editingText.id, "height")}
-                            />
+                            <div><label>Height:</label>
+                                <input
+                                    type="range"
+                                    min="60"
+                                    max="600"
+                                    step="10"
+                                    name="height"
+                                    value={items.find(item => item.id === editingText.id).height}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "height")}
+                                /></div>
                         </>}
                         {/* {tool === "angle" && <> */}
                         {tool === "boxShape" && <>
-                            <label>Angle:</label>
-                            <input
-                                type="range"
-                                min="-180"
-                                max="180"
-                                step="1"
-                                name="angle"
-                                value={items.find(item => item.id === editingText.id).angle}
-                                onChange={(e) => handleItemChange(e, editingText.id, "angle")}
-                            />
+                            <div><label>Angle:</label>
+                                <input
+                                    type="range"
+                                    min="-180"
+                                    max="180"
+                                    step="1"
+                                    name="angle"
+                                    value={items.find(item => item.id === editingText.id).angle}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "angle")}
+                                /></div>
                         </>}
                         {/* {tool === "font" && <> */}
                         {tool === "boxFont" && <>
@@ -176,20 +176,20 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "fontSize" && <> */}
                         {tool === "boxFont" && <>
-                            <label>Font size:</label>
-                            <input
-                                type="range"
-                                min="8"
-                                max="72"
-                                step="4"
-                                name="fontSize"
-                                value={items.find(item => item.id === editingText.id).fontSize}
-                                onChange={(e) => handleItemChange(e, editingText.id, "fontSize")}
-                            />
+                            <div><label>Font size:</label>
+                                <input
+                                    type="range"
+                                    min="8"
+                                    max="72"
+                                    step="4"
+                                    name="fontSize"
+                                    value={items.find(item => item.id === editingText.id).fontSize}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "fontSize")}
+                                /></div>
                         </>}
                         {/* {tool === "fontStyle" && */}
                         {tool === "boxFont" &&
-                            <label className='checkbox-container'>Font Bold
+                            <div><label className='checkbox-container'>Font Bold
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -197,10 +197,10 @@ const BoxFormTop = () => {
                                     checked={items.find(item => item.id === editingText.id).fontStyle}
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
                                 <span className="checkmark"></span>
-                            </label>}
+                            </label></div>}
                         {/* {tool === "textAlignCenter" && */}
                         {tool === "boxText" &&
-                            <label className='checkbox-container'>Text align center
+                            <div><label className='checkbox-container'>Text align center
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -208,19 +208,20 @@ const BoxFormTop = () => {
                                     checked={items.find(item => item.id === editingText.id).textAlignCenter}
                                     onChange={(e) => handleItemChange(e, editingText.id, "textAlignCenter")} />
                                 <span className="checkmark"></span>
-                            </label>}
+                            </label></div>}
                         {/* {tool === "roundedCorners" && <> */}
                         {tool === "boxBorder" && <>
-                            <label>Rounded corners:</label>
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                step="1"
-                                name="roundedCorners"
-                                value={items.find(item => item.id === editingText.id).roundedCorners}
-                                onChange={(e) => handleItemChange(e, editingText.id, "roundedCorners")}
-                            />
+                            <div>
+                                <label>Rounded corners:</label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    name="roundedCorners"
+                                    value={items.find(item => item.id === editingText.id).roundedCorners}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "roundedCorners")}
+                                /></div>
                         </>}
                         {/* {tool === "order" && <> */}
                         {tool === "order" && <>
@@ -252,59 +253,63 @@ const BoxFormTop = () => {
                             </div>}
                         {/* {tool === "rating" && */}
                         {tool === "boxStyle" &&
-                            <label className='checkbox-container'>Rating
-                                <input
-                                    type="checkbox"
-                                    className='input-line-closed'
-                                    value={items.find(item => item.id === editingText.id).showRating}
-                                    checked={items.find(item => item.id === editingText.id).showRating}
-                                    onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
-                                <span className="checkmark"></span>
-                            </label>}
+                            <div>
+                                <label className='checkbox-container'>Rating
+                                    <input
+                                        type="checkbox"
+                                        className='input-line-closed'
+                                        value={items.find(item => item.id === editingText.id).showRating}
+                                        checked={items.find(item => item.id === editingText.id).showRating}
+                                        onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
+                                    <span className="checkmark"></span>
+                                </label></div>}
                         {/* {tool === "borderWidth" && <> */}
                         {tool === "boxBorder" && <>
-                            <label>Border width:</label>
-                            <input
-                                type="range"
-                                min="0"
-                                max="55"
-                                step="1"
-                                name="borderWidth"
-                                value={items.find(item => item.id === editingText.id).borderWidth}
-                                onChange={(e) => handleItemChange(e, editingText.id, "borderWidth")}
-                            />
+                            <div><label>Border width:</label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="55"
+                                    step="1"
+                                    name="borderWidth"
+                                    value={items.find(item => item.id === editingText.id).borderWidth}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "borderWidth")}
+                                /></div>
                         </>}
                         {/* {tool === "borderColor" && <> */}
                         {tool === "boxBorder" && <>
-                            <label>Border color:</label>
-                            <input
-                                type="color"
-                                name="color"
-                                value={findItem("borderColor")}
-                                onChange={(e) => handleItemChange(e, editingText.id, "borderColor")}
-                            />
+                            <div>
+                                <label>Border color:</label>
+                                <input
+                                    type="color"
+                                    name="color"
+                                    value={findItem("borderColor")}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "borderColor")}
+                                /></div>
                         </>}
                         {/* {tool === "copy" && <> */}
                         {tool === "copy" && <>
-                            <button
-                                onClick={e => handleCopy(e, editingText.id)}
-                            >
-                                Copy
-                            </button>
+                            <div>
+                                <button
+                                    onClick={e => handleCopy(e, editingText.id)}
+                                >
+                                    Copy
+                                </button></div>
                         </>}
 
                         {/* {tool === "backgroundOpacity" && <> */}
                         {tool === "boxStyle" && <>
-                            <label>Background opacity:</label>
-                            <input
-                                type="range"
-                                min="0.1"
-                                max="1"
-                                step="0.1"
-                                name="backgroundOpacity"
-                                value={items.find(item => item.id === editingText.id).backgroundOpacity}
-                                onChange={(e) => handleItemChange(e, editingText.id, "backgroundOpacity")}
-                            />
+                            <div>
+                                <label>Box opacity:</label>
+                                <input
+                                    type="range"
+                                    min="0.1"
+                                    max="1"
+                                    step="0.1"
+                                    name="backgroundOpacity"
+                                    value={items.find(item => item.id === editingText.id).backgroundOpacity}
+                                    onChange={(e) => handleItemChange(e, editingText.id, "backgroundOpacity")}
+                                /></div>
                         </>}
                     </div>}
                 </>)
