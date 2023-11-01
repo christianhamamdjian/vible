@@ -2012,7 +2012,7 @@ input[type="range"]:focus::-moz-range-thumb {
 @media only screen and (max-width: 800px) {
   .inputs-top_objects {
     overflow: hidden;
-    margin-top: 1.6rem;
+    /* margin-top: 1.6rem; */
     padding: 0.3rem 0.3rem;
     width: auto;
     grid-template-columns: 1fr 6rem;
@@ -2042,7 +2042,7 @@ input[type="range"]:focus::-moz-range-thumb {
     font-size: 1rem;
     /* padding: 0rem 0.6rem 0.2rem; */
     margin: 0.2rem 0.2rem;
-    border-radius: 3rem;
+    border-radius: .6rem;
   }
 
   .inputs-boards_objects .active-board {
@@ -2082,20 +2082,40 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .inputs-top_draw {
+    display: flex;
     height: 3rem;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin-top: 1.6rem;
+    /* margin-top: 1.6rem; */
     padding: 1.5rem .5rem;
     gap: 1rem;
     width: auto;
   }
 
   .inputs-top_draw button {
-    font-size: 1rem;
+    /* font-size: 1rem;
     padding: .3rem;
     margin: 0;
     border-radius: 2rem;
+     */
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: .4rem .8rem;
+    border-radius: .6rem;
+  }
+
+  .path-edit-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .path-edit-form button {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: .4rem .8rem;
+    border-radius: .6rem;
   }
 
   .toggle-documentation {
@@ -2137,8 +2157,10 @@ input[type="range"]:focus::-moz-range-thumb {
     align-items: center;
     max-width: 80%;
     height: auto;
-    gap: .5rem;
-    padding: .5rem
+    gap: .8rem;
+    padding: .4rem;
+    border-radius: .6rem;
+    /* background-color: #dddddd; */
   }
 
 
