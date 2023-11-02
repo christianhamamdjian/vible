@@ -10,6 +10,7 @@ import Drawing from "../Features/Drawing"
 import Todo from "./Todo"
 import BoardDrop from "../helperComponents/BoardDrop"
 import Documentation from '../documentation/Documentation'
+// import ContextMenu from '../contextMenu/ContextMenu'
 import corkPattern from '../../assets/background_pattern.jpg';
 
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -20,6 +21,7 @@ const MoodBoard = () => {
     const renderBoardItems = useMemo(() => {
         return (
             <>
+                {/* <ContextMenu /> */}
                 {items.map(item => (
                     <g key={item.id}
                         transform={`translate(${item.x},${item.y})`}

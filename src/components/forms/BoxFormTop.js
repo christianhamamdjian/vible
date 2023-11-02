@@ -294,7 +294,8 @@ const BoxFormTop = () => {
                                     onClick={e => handleCopy(e, editingText.id)}
                                 >
                                     Copy
-                                </button></div>
+                                </button>
+                            </div>
                         </>}
 
                         {/* {tool === "backgroundOpacity" && <> */}
