@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { MoodboardContext } from "../../context/moodboardContext"
 import { loadPathsFromLocalStorage } from "../helperFunctions/pathOperations"
-import template from "../../templates/vible-1.json"
+import template from "../../templates/vible-demo.json"
 
 const LoadTemplate = () => {
     const { items, galleryItems, boards, activeBoard } = React.useContext(MoodboardContext);

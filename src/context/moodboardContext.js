@@ -848,7 +848,9 @@ export default function MoodboardProvider({ children }) {
             setTempPath(prevPath => ({ ...prevPath, path: [...tempPath["path"], transformedPoint] }))
         }
     }
-
+    const handleSvgPointerLeave = (e) => {
+        setDraggingSvg(false)
+    }
     const handleSvgPointerUp = () => {
 
         handleRectPointerUp()
@@ -1950,6 +1952,7 @@ export default function MoodboardProvider({ children }) {
                 handleTodoAddToBoard,
                 handleSvgPointerDown,
                 handleSvgPointerUp,
+                handleSvgPointerLeave,
                 handleRectPointerDown,
                 handleRectPointerMove,
                 handleRectPointerUp,
