@@ -1387,11 +1387,11 @@ export default function MoodboardProvider({ children }) {
             setSelectedPath(null)
             setIsEditingPath(null)
             setPathColor("#000000")
-            setPathLine(pathLine)
+            setPathLine(4)
         }
         setIsDrawing(isDrawing => !isDrawing)
         setPathColor("#000000")
-        setPathLine(pathLine)
+        setPathLine(4)
         setIsErasing(false)
         setIsPartialErasing(false)
         setIsEditingPath(null)
@@ -1553,7 +1553,7 @@ export default function MoodboardProvider({ children }) {
         setIsEditingPath(null)
         setSelectedPath(null)
         setPathColor("#000000")
-        setPathLine(pathLine)
+        setPathLine(4)
     }
 
     // Gallery
@@ -1805,6 +1805,7 @@ export default function MoodboardProvider({ children }) {
         setVideo(false)
         setMap(false)
         setPdf(false)
+        setPathLine(4)
     }
 
 
