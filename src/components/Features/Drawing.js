@@ -5,7 +5,7 @@ import renderPath from '../helperFunctions/pathSmooth';
 
 const Drawing = () => {
     const { activeBoard, paths, pathRef, selectedPath, handlePathDrag, handlePathSelect, handlePathGroupDrag, tempPath } = React.useContext(MoodboardContext);
-
+    const firstGroupPath = paths.filter(el => el.group === "activeGroup")
     return (
         <>
             {tempPath && <path
@@ -70,6 +70,42 @@ const Drawing = () => {
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             cursor="grabbing"
                         />
+                        {path.group === "activeGroup" && path.id === firstGroupPath[0].id &&
+                            <>
+                                <circle
+                                    id="move"
+                                    fill="#cccccc"
+                                    cx={path?.["path"][0]["x"]}
+                                    cy={path?.["path"][0]["y"]}
+                                    style={{ opacity: ".8" }}
+                                    r="30"
+                                    onPointerDown={(e) => handlePathGroupDrag(e)}
+                                    onTouchStart={(e) => handlePathGroupDrag(e)}
+                                />
+                                <circle
+                                    id="move"
+                                    fill="#ffffff"
+                                    cx={path?.["path"][0]["x"]}
+                                    cy={path?.["path"][0]["y"]}
+                                    style={{ opacity: ".6" }}
+                                    r="25"
+                                    onPointerDown={(e) => handlePathGroupDrag(e)}
+                                    onTouchStart={(e) => handlePathGroupDrag(e)}
+                                />
+                                {/* <rect
+                                    id="move"
+                                    fill="#ffffff"
+                                    x={path?.["path"][0]["x"] - 20}
+                                    y={path?.["path"][0]["y"] - 20}
+                                    width="40"
+                                    height="40"
+                                    style={{ opacity: ".6" }}
+                                    rx="12"
+                                    onPointerDown={(e) => handlePathGroupDrag(e)}
+                                    onTouchStart={(e) => handlePathGroupDrag(e)}
+                                /> */}
+                            </>
+                        }
                     </>
                     } </g>
             ))}
