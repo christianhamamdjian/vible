@@ -58,7 +58,6 @@ const MoodBoard = () => {
                     style={{
                         width: `${window.innerWidth}`,
                         height: `${window.innerHeight}`,
-                        // overflow: `${(isDrawing || selectedRectId || isEditingPath || isErasing) ? "hidden" : "visible"}`,
                     }}
                 >
                     <svg

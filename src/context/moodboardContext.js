@@ -741,6 +741,9 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleSvgPointerMove = (e, rectId) => {
+        if (e.target.hasPointerCapture(e.pointerId)) {
+            e.target.releasePointerCapture(e.pointerId);
+        }
         const item = items.find(el => el.id === selectedRectId)
         if (rectId) {
             handleRectPointerMove(e, rectId)
@@ -1980,7 +1983,8 @@ export default function MoodboardProvider({ children }) {
                 handlePaste,
                 handleClearClipBoard,
                 handleShowBackgroundPattern,
-                getRandomQuote
+                getRandomQuote,
+                setPaths
             }}>
             {children}
         </MoodboardContext.Provider>
