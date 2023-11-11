@@ -70,7 +70,7 @@ const Drawing = () => {
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             cursor="grabbing"
                         />
-                        {path.group === "activeGroup" && path.id === firstGroupPath[0].id &&
+                        {(index === selectedPath || (path.group === "activeGroup" && path.id === firstGroupPath[0].id)) &&
                             <>
                                 <circle
                                     id="move"
@@ -79,8 +79,8 @@ const Drawing = () => {
                                     cy={path?.["path"][0]["y"]}
                                     style={{ opacity: ".8" }}
                                     r="30"
-                                    onPointerDown={(e) => handlePathGroupDrag(e)}
-                                    onTouchStart={(e) => handlePathGroupDrag(e)}
+                                    onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                                    onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                                 />
                                 <circle
                                     id="move"
@@ -89,8 +89,8 @@ const Drawing = () => {
                                     cy={path?.["path"][0]["y"]}
                                     style={{ opacity: ".6" }}
                                     r="25"
-                                    onPointerDown={(e) => handlePathGroupDrag(e)}
-                                    onTouchStart={(e) => handlePathGroupDrag(e)}
+                                    onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                                    onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                                 />
                                 {/* <rect
                                     id="move"
