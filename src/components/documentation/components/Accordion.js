@@ -22,11 +22,11 @@ const Accordion = ({ title, children }) => {
     );
   };
 
-  useOnClickOutside(sensitive, () => {
-    setActive("");
-    setHeight("0px");
-    setRotation("accordion__icon");
-  });
+  // useOnClickOutside(sensitive, () => {
+  //   setActive("");
+  //   setHeight("0px");
+  //   setRotation("accordion__icon");
+  // });
 
   return (
     <div className="accordion__section" ref={sensitive}>
