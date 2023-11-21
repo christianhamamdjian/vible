@@ -14,7 +14,8 @@ import corkPattern from '../../assets/background_pattern.jpg';
 
 import { MoodboardContext } from "../../context/moodboardContext";
 const MoodBoard = () => {
-    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleSvgPointerLeave, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, activeBoard
+    const { isDrawing, svgRef, items, paths, zoom, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleSvgPointerLeave, svgPosition, divRef, selectedRectId, handleStopEditItem, isEditingPath, isErasing, activeBoard, handleTouchStart, handleTouchMove,
+        handleTouchEnd
     } = React.useContext(MoodboardContext);
 
     const renderBoardItems = useMemo(() => {
@@ -67,11 +68,14 @@ const MoodBoard = () => {
                         id="board-svg"
                         className='board-body'
                         onPointerDown={handleSvgPointerDown}
-                        onTouchStart={handleSvgPointerDown}
+                        //onTouchStart={handleSvgPointerDown}
                         onPointerMove={handleSvgPointerMove}
                         onPointerUp={handleSvgPointerUp}
                         onDoubleClick={handleStopEditItem}
                         onPointerLeave={handleSvgPointerLeave}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
                         // onContextMenu={handleAddBoxOnSpot}
                         style={{
                             backgroundColor: activeBoard.boardColor,

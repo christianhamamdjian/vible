@@ -83,6 +83,8 @@ export default function MoodboardProvider({ children }) {
     const [selectedRectId, setSelectedRectId] = useState(null)
     const [rectOffsets, setRectOffsets] = useState({})
 
+    const [initialDistance, setInitialDistance] = useState(null);
+
     const [isResizing, setIsResizing] = useState(false)
     const [mousedownPoints, setMousedownPoints] = useState({ x: 0, y: 0 })
     const [rectangleSize, setRectangleSize] = useState({ width: 100, height: 100 })
@@ -681,7 +683,6 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e, rectId) => {
-
         if (rectId) {
             handleRectPointerDown(e, rectId)
         }
@@ -739,6 +740,42 @@ export default function MoodboardProvider({ children }) {
             setTempPath(() => ({ ...newPath }))
         }
     }
+    const handleTouchStart = (e) => {
+        if (e.touches.length === 2) {
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+
+            const initialDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+
+            setInitialDistance(initialDistance);
+        }
+    };
+    const handleTouchMove = (e) => {
+        if (e.touches.length === 2) {
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+
+            const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+
+            if (initialDistance !== null) {
+                const scaleFactor = currentDistance / initialDistance;
+
+                if (currentDistance > initialDistance) {
+                    handleZoomIn()
+                }
+                if (currentDistance < initialDistance) {
+                    handleZoomOut()
+                }
+
+                // svgRef.current.style.transform = `scale(${scaleFactor})`;
+                // svgRef.current.style.transformOrigin = '0 0'
+            }
+        }
+    };
+
+    const handleTouchEnd = () => {
+        setInitialDistance(null);
+    };
 
     const handleSvgPointerMove = (e, rectId) => {
         if (e.target.hasPointerCapture(e.pointerId)) {
@@ -1763,13 +1800,13 @@ export default function MoodboardProvider({ children }) {
         setPaths(currentBoardPaths)
     }
     const handleZoomIn = () => {
-        setZoom(zoom => zoom -= 400)
+        setZoom(zoom => zoom -= 100)
     }
     const handleResetZoom = () => {
         setZoom(10000)
     }
     const handleZoomOut = () => {
-        setZoom(zoom => zoom += 400)
+        setZoom(zoom => zoom += 100)
     }
     const handleZoomSlider = (e) => {
         setZoom(e.target.value)
@@ -1984,7 +2021,10 @@ export default function MoodboardProvider({ children }) {
                 handleClearClipBoard,
                 handleShowBackgroundPattern,
                 getRandomQuote,
-                setPaths
+                setPaths,
+                handleTouchStart,
+                handleTouchMove,
+                handleTouchEnd
             }}>
             {children}
         </MoodboardContext.Provider>
