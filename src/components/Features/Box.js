@@ -16,6 +16,18 @@ const Box = ({ item }) => {
           height: 100% !important;
         }
       }`
+    const handleBoxTextHeight = () => {
+
+        if (item.link !== "" && item.showRating) {
+            return "calc(100% - 3rem)"
+        }
+        if ((item.link !== "" && !item.showRating) || (item.link === "" && item.showRating)) {
+            return "calc(100% - 1.5rem)"
+        }
+        if (item.link === "" && !item.showRating) {
+            return "calc(100%)"
+        }
+    }
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -105,7 +117,8 @@ const Box = ({ item }) => {
                                                     // color: getTextColor(item.color),
                                                     // color: item.textColor,
                                                     // height: item.link !== "" ? "70%" : "80%",
-                                                    height: item.link !== "" ? "calc(100% - 3rem)" : "calc(100% - 1.5rem)",
+                                                    // height: item.link !== "" ? "calc(100% - 3rem)" : "calc(100% - 1.5rem)",
+                                                    height: handleBoxTextHeight(),
                                                     // fontFamily: item.font,
                                                     // userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     // fontSize: `${item.fontSize}pt`,
@@ -126,7 +139,8 @@ const Box = ({ item }) => {
                                                         fontSize: `${item.fontSize}pt`,
                                                         fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                                         textAlign: `${item.textAlignCenter ? "center" : "left"}`,
-                                                        height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
+                                                        // height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
+                                                        height: "100%",
                                                     }}
                                                 >{item.text}
                                                 </pre>

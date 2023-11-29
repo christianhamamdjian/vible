@@ -77,7 +77,7 @@ const Drawing = () => {
                                     fill="#cccccc"
                                     cx={path?.["path"][0]["x"]}
                                     cy={path?.["path"][0]["y"]}
-                                    style={{ opacity: ".8" }}
+                                    style={{ opacity: ".8", cursor: "grabbing" }}
                                     r="30"
                                     onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                                     onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
@@ -87,7 +87,7 @@ const Drawing = () => {
                                     fill="#ffffff"
                                     cx={path?.["path"][0]["x"]}
                                     cy={path?.["path"][0]["y"]}
-                                    style={{ opacity: ".6" }}
+                                    style={{ opacity: ".6", cursor: "grabbing" }}
                                     r="25"
                                     onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
                                     onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
