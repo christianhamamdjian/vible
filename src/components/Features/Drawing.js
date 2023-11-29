@@ -70,6 +70,7 @@ const Drawing = () => {
                             onTouchMove={(e) => handlePathSelect(e, index, path.id)}
                             cursor="grabbing"
                         />
+                        {/* {(path.group === "activeGroup" && path.id === firstGroupPath[0].id) && */}
                         {(index === selectedPath || (path.group === "activeGroup" && path.id === firstGroupPath[0].id)) &&
                             <>
                                 <circle
@@ -79,8 +80,8 @@ const Drawing = () => {
                                     cy={path?.["path"][0]["y"]}
                                     style={{ opacity: ".8", cursor: "grabbing" }}
                                     r="30"
-                                    onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
-                                    onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                                    onPointerDown={(e) => index !== selectedPath ? handlePathGroupDrag(e) : handlePathDrag(e, index, path.id)}
+                                    onTouchStart={(e) => index !== selectedPath ? handlePathGroupDrag(e) : handlePathDrag(e, index, path.id)}
                                 />
                                 <circle
                                     id="move"
@@ -89,8 +90,8 @@ const Drawing = () => {
                                     cy={path?.["path"][0]["y"]}
                                     style={{ opacity: ".6", cursor: "grabbing" }}
                                     r="25"
-                                    onPointerDown={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
-                                    onTouchStart={(e) => selectedPath ? handlePathDrag(e, index, path.id) : handlePathGroupDrag(e)}
+                                    onPointerDown={(e) => index !== selectedPath ? handlePathGroupDrag(e) : handlePathDrag(e, index, path.id)}
+                                    onTouchStart={(e) => index !== selectedPath ? handlePathGroupDrag(e) : handlePathDrag(e, index, path.id)}
                                 />
                                 {/* <rect
                                     id="move"
