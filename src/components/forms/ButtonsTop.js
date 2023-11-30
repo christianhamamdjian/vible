@@ -314,7 +314,7 @@ const ButtonsTop = () => {
                     </button>
                     <Tooltips
                         position="bottom"
-                        width="4.8rem"
+                        width="5rem"
                         height="4.8rem"
                         top="-3rem"
                         bottom="90%"
