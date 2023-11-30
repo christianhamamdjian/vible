@@ -70,6 +70,7 @@ const Box = ({ item }) => {
                                     width: "100%",
                                     position: `{if ${isSafari} ? "fixed":"unset"}`
                                 }}
+                                xmlns="w3.org/1999/xhtml"
                             >
                                 <p
                                     fill={getTextColor(item.color)}
