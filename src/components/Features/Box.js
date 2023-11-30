@@ -47,7 +47,7 @@ const Box = ({ item }) => {
                             height={`${item.height || 160}`}
                             className="box-frame"
                             style={{
-                                opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1
+                                opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             }}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -63,7 +63,8 @@ const Box = ({ item }) => {
                                     backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                     border: `${item.borderWidth}px solid ${item.borderColor}`,
                                     borderRadius: `${item.roundedCorners}px`,
-                                    position: "relative"
+                                    height: "100%",
+                                    width: "100%"
                                 }}
                             >
                                 <p
@@ -71,7 +72,6 @@ const Box = ({ item }) => {
                                     className="box-frame-link-p"
                                     style={{
                                         color: getTextColor(item.color),
-                                        position: "relative"
                                     }}
                                 >
                                     <a
@@ -99,7 +99,8 @@ const Box = ({ item }) => {
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
-                                            position: "relative"
+                                            height: "90%",
+                                            width: "100%"
                                         }}
                                         cols="10"
                                         rows="2"
@@ -113,7 +114,6 @@ const Box = ({ item }) => {
                                             className="box-content"
                                         >
                                             <style scoped>{css}</style>
-
                                             <div
                                                 // className='box-content-p'
                                                 style={{
