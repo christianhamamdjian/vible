@@ -49,6 +49,8 @@ const Box = ({ item }) => {
                             className="box-frame"
                             style={{
                                 opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
+                                position: `{if ${isSafari} ? "fixed":"unset"}`
+
                             }}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -66,6 +68,7 @@ const Box = ({ item }) => {
                                     borderRadius: `${item.roundedCorners}px`,
                                     height: "100%",
                                     width: "100%",
+                                    position: `{if ${isSafari} ? "fixed":"unset"}`
                                 }}
                             >
                                 <p
@@ -101,7 +104,8 @@ const Box = ({ item }) => {
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
                                             height: "85%",
-                                            width: "100%"
+                                            width: "100%",
+                                            position: `{if ${isSafari} ? "fixed":"unset"}`
                                         }}
                                         cols="10"
                                         rows="2"
