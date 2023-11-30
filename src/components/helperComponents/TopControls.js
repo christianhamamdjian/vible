@@ -121,33 +121,49 @@ const TopControls = ({ item }) => {
             </>}
             {isEditingBoard && <>
                 {editingItem && editingItem.id === item.id && <>
+                    <g>
+                        <rect
+                            x="60"
+                            // y="-22"
+                            y={`${safariBrowser() ? "-52" : "-22"}`}
+                            height="15"
+                            width="20"
+                            rx="4"
+                            fill="red"
+                            className='box-control'
+                            onClick={() => showConfirm(item.id)}
+                        />
+                        <title>Delete box</title>
+                        <text
+                            x="66"
+                            y="-11"
+                            width="24"
+                            height="20"
+                            fill="pink"
+                            className="box-control-sign"
+                            onClick={() => showConfirm(item.id)}
+                            style={{ userSelect: "none", fontWeight: "bold" }}
+                        >&times;</text>
+                    </g>
+                </>
+                }
+                <g>
                     <rect
-                        x="60"
+                        x="10"
                         // y="-22"
                         y={`${safariBrowser() ? "-52" : "-22"}`}
                         height="15"
                         width="20"
                         rx="4"
-                        fill="red"
+                        fill="green"
                         className='box-control'
-                        onClick={() => showConfirm(item.id)}
+                        onClick={(e) => handleEditItem(e, item.id)}
                     />
-                </>
-                }
-                <rect
-                    x="10"
-                    // y="-22"
-                    y={`${safariBrowser() ? "-52" : "-22"}`}
-                    height="15"
-                    width="20"
-                    rx="4"
-                    fill="green"
-                    className='box-control'
-                    onClick={(e) => handleEditItem(e, item.id)}
-                />
+                </g>
 
+                <title>Activate editing</title>
                 {editingItem && editingItem.id === item.id && <>
-                    <rect
+                    <g>  <rect
                         x="35"
                         y={`${safariBrowser() ? "-52" : "-22"}`}
                         height="15"
@@ -157,8 +173,11 @@ const TopControls = ({ item }) => {
                         className='box-control'
                         onClick={handleStopEditItem}
                     />
+                        <title>Deactivate editing</title>
+                    </g>
                 </>
                 }
+
             </>
             }
         </>
