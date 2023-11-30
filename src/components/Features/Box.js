@@ -63,6 +63,7 @@ const Box = ({ item }) => {
                                     backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                     border: `${item.borderWidth}px solid ${item.borderColor}`,
                                     borderRadius: `${item.roundedCorners}px`,
+                                    position: "relative"
                                 }}
                             >
                                 <p
@@ -70,6 +71,7 @@ const Box = ({ item }) => {
                                     className="box-frame-link-p"
                                     style={{
                                         color: getTextColor(item.color),
+                                        position: "relative"
                                     }}
                                 >
                                     <a
@@ -97,6 +99,7 @@ const Box = ({ item }) => {
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
+                                            position: "relative"
                                         }}
                                         cols="10"
                                         rows="2"
