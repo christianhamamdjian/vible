@@ -1,6 +1,7 @@
 import React from 'react';
 import StartRating from "../rating/StarRating"
 import TopControls from "../helperComponents/TopControls"
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
@@ -64,7 +65,7 @@ const Box = ({ item }) => {
                                     border: `${item.borderWidth}px solid ${item.borderColor}`,
                                     borderRadius: `${item.roundedCorners}px`,
                                     height: "100%",
-                                    width: "100%"
+                                    width: "100%",
                                 }}
                             >
                                 <p
@@ -99,7 +100,7 @@ const Box = ({ item }) => {
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
-                                            height: "90%",
+                                            height: "85%",
                                             width: "100%"
                                         }}
                                         cols="10"
