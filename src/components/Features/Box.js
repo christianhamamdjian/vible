@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import StartRating from "../rating/StarRating"
 import TopControls from "../helperComponents/TopControls"
 //import { isSafari } from "../utils/browserDetector"
@@ -26,9 +26,17 @@ const Box = ({ item }) => {
             return "calc(100% - 1.5rem)"
         }
         if (item.link === "" && !item.showRating) {
-            return "calc(100%)"
+            return "calc(100% - .5rem)"
         }
     }
+    // useEffect(() => {
+    //     const textarea = itemRef.current;
+    //     if (textarea) {
+    //         // Adjust the height of the foreignObject based on the content size of the textarea
+    //         const newHeight = textarea.scrollHeight + 10; // 10 is added for padding
+    //         textarea.parentElement.parentElement.setAttribute('height', newHeight);
+    //     }
+    // }, [itemRef]);
 
     const isSafari =
         /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
@@ -108,8 +116,8 @@ const Box = ({ item }) => {
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
-                                            height: "85%",
-                                            maxHeight: "85%",
+                                            height: "80%",
+                                            minHeight: "80%",
                                             width: "100%",
                                             boxSizing: 'border-box',
                                             resize: "none",
@@ -135,6 +143,7 @@ const Box = ({ item }) => {
                                                     // height: item.link !== "" ? "70%" : "80%",
                                                     // height: item.link !== "" ? "calc(100% - 3rem)" : "calc(100% - 1.5rem)",
                                                     height: handleBoxTextHeight(),
+                                                    minHeight: handleBoxTextHeight(),
                                                     // fontFamily: item.font,
                                                     // userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     // fontSize: `${item.fontSize}pt`,
@@ -159,7 +168,7 @@ const Box = ({ item }) => {
                                                         overflowY: !isSafari ? 'auto' : 'hidden',
                                                         // height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
                                                         height: "100%",
-                                                        maxHeight: "100%",
+                                                        minHeight: "100%",
                                                     }}
                                                 >{item.text}
                                                 </pre>
