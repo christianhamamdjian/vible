@@ -50,7 +50,6 @@ const Box = ({ item }) => {
                             style={{
                                 opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                                 position: `{if ${isSafari} ? "fixed":"unset"}`
-
                             }}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -104,9 +103,12 @@ const Box = ({ item }) => {
                                             fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
-                                            height: "85%",
-                                            width: "100%",
-                                            position: `{if ${isSafari} ? "fixed":"unset"}`
+                                            // height: "85%",
+                                            // width: "100%",
+                                            width: item.width - 30,
+                                            height: item.height - 35,
+                                            //position: `{if ${isSafari} ? "fixed":"unset"}`
+                                            position: "fixed"
                                         }}
                                         cols="10"
                                         rows="2"
@@ -149,7 +151,10 @@ const Box = ({ item }) => {
                                                         fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                                         textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                                         // height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
-                                                        height: "100%",
+                                                        // height: "100%",
+                                                        width: item.width - 30,
+                                                        height: item.height - 35,
+                                                        position: "fixed"
                                                     }}
                                                 >{item.text}
                                                 </pre>
