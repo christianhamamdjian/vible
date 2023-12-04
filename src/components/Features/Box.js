@@ -1,7 +1,7 @@
 import React from 'react';
 import StartRating from "../rating/StarRating"
 import TopControls from "../helperComponents/TopControls"
-import { isSafari } from "../utils/browserDetector"
+//import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
@@ -29,6 +29,12 @@ const Box = ({ item }) => {
             return "calc(100%)"
         }
     }
+
+    const isSafari =
+        /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+        (navigator.vendor && navigator.vendor.indexOf('Apple') > -1) ||
+        (window.CSS && CSS.supports && CSS.supports('-webkit-overflow-scrolling: touch'));
+
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -49,8 +55,6 @@ const Box = ({ item }) => {
                             className="box-frame"
                             style={{
                                 opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
-                                position: `{if ${isSafari} ? "fixed":"unset"}`
-
                             }}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -67,8 +71,8 @@ const Box = ({ item }) => {
                                     border: `${item.borderWidth}px solid ${item.borderColor}`,
                                     borderRadius: `${item.roundedCorners}px`,
                                     height: "100%",
+                                    maxHeight: "85%",
                                     width: "100%",
-                                    position: `{if ${isSafari} ? "fixed":"unset"}`
                                 }}
                                 xmlns="w3.org/1999/xhtml"
                             >
@@ -105,8 +109,11 @@ const Box = ({ item }) => {
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
                                             height: "85%",
+                                            maxHeight: "85%",
                                             width: "100%",
-                                            position: `{if ${isSafari} ? "fixed":"unset"}`
+                                            boxSizing: 'border-box',
+                                            resize: "none",
+                                            overflowY: !isSafari ? 'auto' : 'hidden',
                                         }}
                                         cols="10"
                                         rows="2"
@@ -142,14 +149,17 @@ const Box = ({ item }) => {
                                                         whiteSpace: "pre-wrap",
                                                         color: item.textColor,
                                                         overflowX: "hidden",
-                                                        overflowY: "auto",
                                                         fontFamily: item.font,
                                                         userSelect: editingText && isEditingBoard ? "all" : "none",
                                                         fontSize: `${item.fontSize}pt`,
                                                         fontWeight: `${item.fontStyle ? "bold" : "normal"}`,
                                                         textAlign: `${item.textAlignCenter ? "center" : "left"}`,
+                                                        boxSizing: 'border-box',
+                                                        resize: "none",
+                                                        overflowY: !isSafari ? 'auto' : 'hidden',
                                                         // height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
                                                         height: "100%",
+                                                        maxHeight: "100%",
                                                     }}
                                                 >{item.text}
                                                 </pre>
