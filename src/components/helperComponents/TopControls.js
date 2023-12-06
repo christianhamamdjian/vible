@@ -33,9 +33,9 @@ const TopControls = ({ item }) => {
         <>
             {onShow && isEditingBoard && editingItem.id === item.id && <>
                 <rect
-                    x="10"
+                    x={item.type === "box" ? item.x + 10 : "10"}
                     // y="-64"
-                    y={`${safariBrowser() ? "-94" : "-64"}`}
+                    y={item.type === "box" ? `${safariBrowser() ? item.y - 94 : item.y - 64}` : `${safariBrowser() ? - 94 : - 64}`}
                     height="40"
                     width="124"
                     rx="6"
@@ -43,9 +43,9 @@ const TopControls = ({ item }) => {
                     className="box-control"
                 />
                 <text
-                    x="18"
+                    x={item.type === "box" ? item.x + 18 : "18"}
                     // y="-42"
-                    y={`${safariBrowser() ? "-72" : "-42"}`}
+                    y={item.type === "box" ? `${safariBrowser() ? item.y - 72 : item.y - 42}` : `${safariBrowser() ? - 72 : - 42}`}
                     width="24"
                     height="20"
                     fill="white"
@@ -53,9 +53,9 @@ const TopControls = ({ item }) => {
                 >Delete?</text>
                 <g>
                     <svg
-                        x="68"
+                        x={item.type === "box" ? item.x + 68 : "68"}
                         // y="-57"
-                        y={`${safariBrowser() ? "-87" : "-57"}`}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 87 : item.y - 57}` : `${safariBrowser() ? - 87 : - 57}`}
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -76,9 +76,9 @@ const TopControls = ({ item }) => {
                         />
                     </svg>
                     <rect
-                        x="68"
+                        x={item.type === "box" ? item.x + 68 : "68"}
                         // y="-57"
-                        y={`${safariBrowser() ? "-87" : "-57"}`}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 87 : item.y - 57}` : `${safariBrowser() ? - 87 : - 57}`}
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -90,9 +90,9 @@ const TopControls = ({ item }) => {
                 </g>
                 <g>
                     <svg
-                        x="104"
+                        x={item.type === "box" ? item.x + 104 : "104"}
                         // y="-57"
-                        y={`${safariBrowser() ? "-87" : "-57"}`}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 87 : item.y - 57}` : `${safariBrowser() ? - 87 : - 57}`}
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -113,9 +113,9 @@ const TopControls = ({ item }) => {
                         />
                     </svg>
                     <rect
-                        x="104"
+                        x={item.type === "box" ? item.x + 104 : "104"}
                         // y="-57"
-                        y={`${safariBrowser() ? "-87" : "-57"}`}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 87 : item.y - 57}` : `${safariBrowser() ? - 87 : - 57}`}
                         width="24"
                         height="24"
                         fill="transparent"
@@ -129,9 +129,9 @@ const TopControls = ({ item }) => {
                 {editingItem && editingItem.id === item.id && <>
                     <g>
                         <rect
-                            x="60"
+                            x={item.type === "box" ? item.x + 60 : "60"}
                             // y="-22"
-                            y={`${safariBrowser() ? "-52" : "-22"}`}
+                            y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
                             height="15"
                             width="20"
                             rx="4"
@@ -141,8 +141,8 @@ const TopControls = ({ item }) => {
                         />
                         <title>Delete box</title>
                         <text
-                            x="66"
-                            y="-11"
+                            x={item.type === "box" ? item.x + 66 : "66"}
+                            y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
                             width="24"
                             height="20"
                             fill="pink"
@@ -155,9 +155,9 @@ const TopControls = ({ item }) => {
                 }
                 <g>
                     <rect
-                        x="10"
+                        x={item.type === "box" ? item.x + 10 : "10"}
                         // y="-22"
-                        y={`${safariBrowser() ? "-52" : "-22"}`}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
                         height="15"
                         width="20"
                         rx="4"
@@ -170,8 +170,8 @@ const TopControls = ({ item }) => {
                 <title>Activate editing</title>
                 {editingItem && editingItem.id === item.id && <>
                     <g>  <rect
-                        x="35"
-                        y={`${safariBrowser() ? "-52" : "-22"}`}
+                        x={item.type === "box" ? item.x + 35 : "35"}
+                        y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
                         height="15"
                         width="20"
                         rx="4"

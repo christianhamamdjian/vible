@@ -22,16 +22,18 @@ const MoodBoard = () => {
         return (
             <>
                 {items.map(item => (
-                    <g key={item.id}
-                        transform={`translate(${item.x},${item.y})`}
-                    >
+                    // <g key={item.id}
+                    // // transform={`translate(${item.x},${item.y})`}
+                    // >
+                    <>
                         <Pdf item={item} />
                         <Video item={item} />
                         <Map item={item} />
                         <ImageLink item={item} />
                         <Image item={item} />
                         <Box item={item} />
-                    </g>
+                    </>
+                    // </g>
                 ))}
                 <Drawing />
             </>

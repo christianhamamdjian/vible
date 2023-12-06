@@ -189,6 +189,10 @@ input[type="number"] {
   border-radius: .2rem;
 }
 
+::placeholder {
+  color: #eeeeee;
+}
+
 button,
 ::file-selector-button {
   background-color: hsl(240, 32%, 90%);
@@ -697,9 +701,10 @@ button,
   z-index: 100;
 }
 
-.box-content-pre {
+/* .box-content-pre {
   white-space: pre-wrap;
-}
+  padding-right: 1rem;
+} */
 
 /* @media print {
   .box-content-pre {
@@ -2004,6 +2009,41 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .color-style::-moz-color-swatch {
   border-radius: 50%;
+}
+
+
+.scroll-container {
+  /* width: 300px;
+  height: 200px;
+  overflow: auto; */
+  /* border: 1px solid #ccc; */
+  /* Set the scrollbar width and color */
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: #948f8f #eee;
+  /* Firefox */
+}
+
+/* Webkit (Chrome, Safari) scrollbar styling */
+.scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #948f8f;
+  border-radius: 10px;
+  /* Scrollbar thumb color */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #eee;
+  border-radius: 10px;
+  /* Scrollbar track color */
+}
+
+/* Optional: Hover effects on the thumb */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #635b5b;
 }
 
 /********** End of Color Input Styles **********/
