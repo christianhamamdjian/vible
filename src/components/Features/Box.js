@@ -10,8 +10,6 @@ const Box = ({ item }) => {
     function addAlpha(color, opacity) {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
         const changedColor = color + _opacity.toString(16).toUpperCase();
-        console.log("Opacity:", opacity)
-        console.log("changed Color:", changedColor)
         return opacity > 0.1 ? changedColor : "transparent"
     }
     const css = `@media print {
