@@ -197,15 +197,15 @@ const Todo = () => {
                     </svg>
                     <Tooltips
                         position="top"
-                        width="4rem"
-                        height="7rem"
-                        top="-11.2rem"
+                        width="5rem"
+                        height="5rem"
+                        top="-9.2rem"
                         bottom="90%"
-                        left="-2rem"
+                        left="-3rem"
                         right=""
                         marginRight=""
                         marginLeft=""
-                        tipTop="7rem"
+                        tipTop="5rem"
                         tipLeft="50%"
                         text="Add todos then drop them on the board"
                     />
