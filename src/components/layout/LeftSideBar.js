@@ -4,6 +4,7 @@ import ImageForm from "../forms/ImageForm"
 import VideoForm from "../forms/VideoForm"
 import MapForm from "../forms/MapForm"
 import PdfForm from "../forms/PdfForm"
+import { isSafari } from "../utils/browserDetector"
 import ImageLinkForm from "../forms/ImageLinkForm"
 
 import { MoodboardContext } from "../../context/moodboardContext";
@@ -113,7 +114,7 @@ const LeftSidebard = () => {
                     </svg>
                 </button>
                 {map && <MapForm />}
-                <button
+                {!isSafari && <button
                     title="Upload a Pdf file"
                     className={`toggler ${pdf ? "selected-button" : null}`}
                     type="button" onClick={handlePdf}>
@@ -134,7 +135,7 @@ const LeftSidebard = () => {
                             fill="currentColor"
                         />
                     </svg>
-                </button>
+                </button>}
                 {pdf && <PdfForm />}
             </div>
         </div>
