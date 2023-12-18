@@ -5,7 +5,7 @@ import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleRectPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, editingText, handleStartEditItem, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleRectPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, editingText, handleStartEditItem, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedPath, selectedRectId } = React.useContext(MoodboardContext);
 
     function addAlpha(color, opacity) {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
@@ -35,9 +35,21 @@ const Box = ({ item }) => {
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
                 <>
+                    <rect
+                        x={item.x - 40}
+                        y={item.y - 40}
+                        width={`${item.width + 70 || 160}`}
+                        height={`${item.height + 70 || 160}`}
+                        transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        fill="transparent"
+                        onPointerOut={(e) => handleStopEditItem(e, item.id)}
+                    // style={{
+                    //     backgroundColor: "blue",
+                    // }}
+                    />
                     <foreignObject
                         x={item.x}
-                        y={item.y - 20}
+                        y={editingText ? item.y - 20 : item.y}
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
@@ -55,7 +67,7 @@ const Box = ({ item }) => {
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditItem(e, item.id)}
-                        onPointerOver={(e) => handleEditItem(e, item.id)}
+                        onPointerOver={(e) => !selectedPath && handleEditItem(e, item.id)}
                     //onPointerOut={(e) => handleStopEditItem(e, item.id)}
                     >
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
@@ -84,6 +96,7 @@ const Box = ({ item }) => {
                                 // position: 'relative',
                                 overflow: 'hidden',
                                 boxSizing: 'border-box',
+                                padding: editingText && editingItem.id === item.id ? ".3rem" : "1rem"
                                 // opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             }}
                             xmlns="w3.org/1999/xhtml"
@@ -238,6 +251,7 @@ const Box = ({ item }) => {
                                     height="20"
                                     r='12'
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                    onPointerOver={(e) => handleEditItem(e, item.id)}
                                 />
                                 <rect
                                     id="resize"
@@ -248,6 +262,7 @@ const Box = ({ item }) => {
                                     height="20"
                                     rx="4"
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                    onPointerOver={(e) => handleEditItem(e, item.id)}
                                 />
 
 
