@@ -8,17 +8,11 @@ const TopControls = ({ item }) => {
 
     const confirmDelete = (id) => {
         handleDeleteItem(id);
-        hideConfirm()
+        setOnShow(false)
     }
-    const confirmCancel = () => {
-        hideConfirm()
-        return
-    }
+
     const showConfirm = () => {
         setOnShow(true)
-    }
-    const hideConfirm = () => {
-        setOnShow(false)
     }
 
     const safariBrowser = () => {
@@ -63,7 +57,7 @@ const TopControls = ({ item }) => {
                         viewBox="0 0 24 24"
                         fill="transparent"
                         className='box-control-cursor'
-                        onClick={confirmCancel}
+                        onClick={() => confirmDelete(item.id)}
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
@@ -98,9 +92,6 @@ const TopControls = ({ item }) => {
                         className='box-control-cursor'
                         onClick={() => confirmDelete(item.id)}
                     />
-                    <title>Confirm Delete</title>
-                    //     onClick={confirmCancel}
-                    // <title>Cancel Delete</title>
                 </g>
                 {/* <g>
                     <svg
