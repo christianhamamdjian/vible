@@ -684,8 +684,6 @@ export default function MoodboardProvider({ children }) {
     }
     const handleSvgPointerDown = (e, rectId) => {
         if (e.target.id === 'move' && editingText) {
-            console.log("Moving")
-            console.log(rectId, selectedRectId)
             setIsDraggingRect(true)
             setSelectedRectId(rectId)
         }
@@ -1733,7 +1731,6 @@ export default function MoodboardProvider({ children }) {
     }
     const handleStartEditItem = (e) => {
         if (e.target.id === "box-text") {
-            console.log("Is Text")
             setIsDraggingRect(false)
             document.body.style.position = "fixed"
         }
