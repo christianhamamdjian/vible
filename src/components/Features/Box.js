@@ -123,7 +123,7 @@ const Box = ({ item }) => {
                                         // ref={itemRef}
                                         // name=""
                                         // id=""
-                                        draggable="false"
+                                        // draggable="true"
                                         value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
                                         onChange={(event) => handleItemChange(event, editingText.id, "text")}
                                         className="box-textarea scroll-container"
@@ -143,8 +143,9 @@ const Box = ({ item }) => {
                                             resize: 'none',
                                             overflow: 'auto',
                                         }}
-                                        onPointerOver={handleStartEditItem}
-                                        onPointerOut={handleStopEditItem}
+                                        onMouseOver={handleStartEditItem}
+                                        onTouchStart={handleStartEditItem}
+                                        onMouseOut={handleStopEditItem}
                                         onFocus={handleStartEditItem}
                                         onBlur={handleStopEditItem}
                                     >
