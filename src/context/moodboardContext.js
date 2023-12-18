@@ -1015,11 +1015,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        // console.log("draggingSvg", draggingSvg, "rectId !== selectedRectId", rectId !== selectedRectId, "isResizing", isResizing, "isRotating", isRotating)
-        console.log(rectId, selectedRectId)
 
         if (isDraggingRect) {
-            console.log("Dragging")
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex(el => el.id === rectId)
