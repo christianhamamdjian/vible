@@ -29,7 +29,7 @@ const Documentation = () => {
                 className="documentation-logo"
                 //style={{ width: "80px" }} 
                 src={vibleLlogo} alt="" />
-              <h1 className="docu-title">A moodboard and more</h1>
+              <h1 className="docu-title">Take notes to the next level.</h1>
             </header>
             <h2>The Board</h2>
             <Accordion title="What Is Vible And Why You Would Use It?">
