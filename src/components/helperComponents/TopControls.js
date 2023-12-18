@@ -129,8 +129,10 @@ const TopControls = ({ item }) => {
                 {editingItem && editingItem.id === item.id && <>
                     <g>
                         <rect
-                            x={item.type === "box" ? item.x + 60 : "60"}
-                            // y="-22"
+                            // x={item.type === "box" ? item.x + 60 : "60"}
+                            // // y="-22"
+                            // y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
+                            x={item.type === "box" ? item.x + 10 : "10"}
                             y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
                             height="15"
                             width="20"
@@ -141,8 +143,10 @@ const TopControls = ({ item }) => {
                         />
                         <title>Delete box</title>
                         <text
-                            x={item.type === "box" ? item.x + 66 : "66"}
-                            y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
+                            // x={item.type === "box" ? item.x + 66 : "66"}
+                            // y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
+                            x={item.type === "box" ? item.x + 16 : "16"}
+                            y={item.type === "box" ? `${safariBrowser() ? item.y - 31 : item.y - 11}` : `${safariBrowser() ? - 31 : item.y - 11}`}
                             width="24"
                             height="20"
                             fill="pink"
@@ -153,7 +157,7 @@ const TopControls = ({ item }) => {
                     </g>
                 </>
                 }
-                <g>
+                {/* <g>
                     <rect
                         x={item.type === "box" ? item.x + 10 : "10"}
                         // y="-22"
@@ -181,7 +185,7 @@ const TopControls = ({ item }) => {
                     />
                         <title>Deactivate editing</title>
                     </g>
-                </>
+                </> */}
                 }
 
             </>

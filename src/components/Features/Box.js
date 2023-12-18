@@ -5,7 +5,7 @@ import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
-    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, editingText, handleStartEditItem, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
+    const { activeBoard, itemRef, items, handleItemChange, handleSvgPointerDown, handleRectPointerDown, handleSvgPointerMove, handleSvgPointerUp, handleEditItem, editingItem, editingText, handleStartEditItem, handleStopEditItem, getTextColor, isEditingBoard, isDraggingRect, selectedRectId } = React.useContext(MoodboardContext);
 
     function addAlpha(color, opacity) {
         let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
@@ -37,12 +37,12 @@ const Box = ({ item }) => {
                 <>
                     <foreignObject
                         x={item.x}
-                        y={item.y}
+                        y={item.y - 20}
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         width={`${item.width || 160}`}
-                        height={`${item.height || 160}`}
+                        height={`${item.height + 20 || 160}`}
                         className="box-frame"
                         // style={{
                         //     //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
@@ -55,7 +55,23 @@ const Box = ({ item }) => {
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         onDoubleClick={(e) => handleEditItem(e, item.id)}
+                        onPointerOver={(e) => handleEditItem(e, item.id)}
+                    //onPointerOut={(e) => handleStopEditItem(e, item.id)}
                     >
+                        {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
+                            <div
+                                style={{
+                                    backgroundColor: "transparent",
+                                    width: "4rem",
+                                    height: "4rem",
+                                    border: `10px solid ${addAlpha(item.color, item.backgroundOpacity)}`,
+                                    borderRadius: "50%",
+                                    marginRight: "0rem",
+                                    marginLeft: "auto",
+                                    marginBottom: "-2rem"
+                                }}
+                            ></div>
+                        )}
                         <div
                             className="box-container"
                             style={{
@@ -178,6 +194,8 @@ const Box = ({ item }) => {
                             )
                             }
                         </div>
+
+
                     </foreignObject >
                     <g
                         transform={`rotate(${item?.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
@@ -185,10 +203,31 @@ const Box = ({ item }) => {
                             transform: `translate(${item.x},${item.y})`
                         }}
                     >
+
                         {isEditingBoard && <TopControls item={item} />}
 
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
                             <>
+                                {/* <circle
+                                    id="move"
+                                    fill="#cccccc"
+                                    cx={item.x + item.width + 25}
+                                    cy={item.y - 25}
+                                    style={{ opacity: ".8", cursor: "grabbing" }}
+                                    r="30"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onTouchStart={(e) => handleRectPointerDown(e, item.id)}
+                                />
+                                <circle
+                                    id="move"
+                                    fill="#ffffff"
+                                    cx={item.x + item.width + 25}
+                                    cy={item.y - 25}
+                                    style={{ opacity: ".6", cursor: "grabbing" }}
+                                    r="25"
+                                    onPointerDown={(e) => handleRectPointerDown(e, item.id)}
+                                    onTouchStart={(e) => handleRectPointerDown(e, item.id)}
+                                /> */}
                                 <circle
                                     id="rotate"
                                     fill="#cccccc"
@@ -203,12 +242,15 @@ const Box = ({ item }) => {
                                     id="resize"
                                     fill="#cccccc"
                                     x={item.x + item.width}
-                                    y={item.y + item.height - 20}
+                                    y={item.y + item.height}
                                     width="20"
                                     height="20"
                                     rx="4"
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                 />
+
+
+
                             </>)}
                     </g>
                 </>)

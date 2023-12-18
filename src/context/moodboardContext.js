@@ -683,6 +683,12 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e, rectId) => {
+        if (e.target.id === 'move' && editingText) {
+            console.log("Moving")
+            console.log(rectId, selectedRectId)
+            setIsDraggingRect(true)
+            setSelectedRectId(rectId)
+        }
         if (rectId) {
             handleRectPointerDown(e, rectId)
         }
@@ -1009,8 +1015,11 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) return
+        // console.log("draggingSvg", draggingSvg, "rectId !== selectedRectId", rectId !== selectedRectId, "isResizing", isResizing, "isRotating", isRotating)
+        console.log(rectId, selectedRectId)
+
         if (isDraggingRect) {
+            console.log("Dragging")
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex(el => el.id === rectId)
@@ -1021,6 +1030,9 @@ export default function MoodboardProvider({ children }) {
             updatedRectangles[updatedRectangles.length] = updatedRect
             updatedRectangles.splice(rectIndex, 1)
             setItems([...updatedRectangles])
+        }
+        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) {
+            return
         }
     }
 
