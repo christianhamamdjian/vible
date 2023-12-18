@@ -145,7 +145,7 @@ const Box = ({ item }) => {
                                         }}
                                         onMouseDown={e => handleStartEditItem(e)}
                                         onTouchStart={e => handleStartEditItem(e)}
-                                        onMouseOut={e => handleStopEditItem(e)}
+                                        // onMouseOut={e => handleStopEditItem(e)}
                                         onFocus={e => handleStartEditItem(e)}
                                         onBlur={e => handleStopEditItem(e)}
                                     >
