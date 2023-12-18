@@ -1662,7 +1662,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     // Editing functions
-
     const handleEditItem = (e, id) => {
         // setSelectedRectId(id)
         if (isDrawing) return
@@ -1732,9 +1731,12 @@ export default function MoodboardProvider({ children }) {
             setTool("")
         }
     }
-    const handleStartEditItem = () => {
-        setIsDraggingRect(false)
-        document.body.style.position = "fixed"
+    const handleStartEditItem = (e) => {
+        if (e.target.id === "box-text") {
+            console.log("Is Text")
+            setIsDraggingRect(false)
+            document.body.style.position = "fixed"
+        }
     }
     const handleStopEditItem = () => {
         if (editingText) {

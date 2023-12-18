@@ -122,7 +122,7 @@ const Box = ({ item }) => {
                                     <textarea
                                         // ref={itemRef}
                                         // name=""
-                                        // id=""
+                                        id="box-text"
                                         // draggable="true"
                                         value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
                                         onChange={(event) => handleItemChange(event, editingText.id, "text")}
@@ -143,11 +143,11 @@ const Box = ({ item }) => {
                                             resize: 'none',
                                             overflow: 'auto',
                                         }}
-                                        onMouseOver={handleStartEditItem}
-                                        onTouchStart={handleStartEditItem}
-                                        onMouseOut={handleStopEditItem}
-                                        onFocus={handleStartEditItem}
-                                        onBlur={handleStopEditItem}
+                                        onMouseDown={e => handleStartEditItem(e)}
+                                        onTouchStart={e => handleStartEditItem(e)}
+                                        onMouseOut={e => handleStopEditItem(e)}
+                                        onFocus={e => handleStartEditItem(e)}
+                                        onBlur={e => handleStopEditItem(e)}
                                     >
                                     </textarea>
 
