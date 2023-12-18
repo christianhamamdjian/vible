@@ -126,7 +126,7 @@ const Box = ({ item }) => {
                                         draggable="false"
                                         value={(item.id === editingText.id) ? items.find(item => item.id === editingText.id).text : ""}
                                         onChange={(event) => handleItemChange(event, editingText.id, "text")}
-                                        className="box-textarea"
+                                        className="box-textarea scroll-container"
                                         style={{
                                             //color: getTextColor(item.color),
                                             color: item.textColor,
@@ -136,9 +136,9 @@ const Box = ({ item }) => {
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
                                             // minHeight: "80%",
-                                            maxHeight: "90%",
+                                            maxHeight: "88%",
                                             width: '100%',
-                                            height: '100%',
+                                            height: '88%',
                                             boxSizing: 'border-box',
                                             resize: 'none',
                                             overflow: 'auto',
