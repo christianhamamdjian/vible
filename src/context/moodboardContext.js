@@ -1733,6 +1733,7 @@ export default function MoodboardProvider({ children }) {
         }
     }
     const handleStartEditItem = () => {
+        setIsDraggingRect(false)
         document.body.style.position = "fixed"
     }
     const handleStopEditItem = () => {
