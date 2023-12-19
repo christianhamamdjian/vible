@@ -37,7 +37,7 @@ const BoxFormTop = () => {
         // linkurl: "Link Url",
 
         // Shape
-        boxShape: "Shape",
+        // boxShape: "Shape",
         // width: "Width",
         // height: "Height",
         // angle: "Angle",
@@ -109,7 +109,7 @@ const BoxFormTop = () => {
                                 /></div>
                         </>}
                         {/* {tool === "width" && <> */}
-                        {tool === "boxShape" && <>
+                        {/* {tool === "boxShape" && <>
                             <div><label>Width:</label>
                                 <input
                                     type="range"
@@ -120,9 +120,9 @@ const BoxFormTop = () => {
                                     value={items.find(item => item.id === editingText.id).width}
                                     onChange={(e) => handleItemChange(e, editingText.id, "width")}
                                 /></div>
-                        </>}
+                        </>} */}
                         {/* {tool === "height" && <> */}
-                        {tool === "boxShape" && <>
+                        {/* {tool === "boxShape" && <>
                             <div><label>Height:</label>
                                 <input
                                     type="range"
@@ -133,9 +133,9 @@ const BoxFormTop = () => {
                                     value={items.find(item => item.id === editingText.id).height}
                                     onChange={(e) => handleItemChange(e, editingText.id, "height")}
                                 /></div>
-                        </>}
+                        </>} */}
                         {/* {tool === "angle" && <> */}
-                        {tool === "boxShape" && <>
+                        {/* {tool === "boxShape" && <>
                             <div><label>Angle:</label>
                                 <input
                                     type="range"
@@ -146,7 +146,7 @@ const BoxFormTop = () => {
                                     value={items.find(item => item.id === editingText.id).angle}
                                     onChange={(e) => handleItemChange(e, editingText.id, "angle")}
                                 /></div>
-                        </>}
+                        </>} */}
                         {/* {tool === "font" && <> */}
                         {tool === "boxFont" && <>
                             <div>

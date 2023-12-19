@@ -35,7 +35,7 @@ const Box = ({ item }) => {
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
                 <>
-                    <rect
+                    {/* <rect
                         x={item.x - 40}
                         y={item.y - 40}
                         width={`${item.width + 70 || 160}`}
@@ -46,28 +46,30 @@ const Box = ({ item }) => {
                     // style={{
                     //     backgroundColor: "blue",
                     // }}
-                    />
+                    /> */}
                     <foreignObject
                         x={item.x}
                         y={editingText ? item.y - 20 : item.y}
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
-                        width={`${item.width || 160}`}
-                        height={`${item.height + 20 || 160}`}
+                        // width={`${item.width}`}
+                        // height={`${item.height}`}
                         className="box-frame"
-                        // style={{
-                        //     //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
-                        //     //transform: `rotate(${item.angle || 0}, ${item.x + (item.width / 2)}, ${item.y + (item.height / 2)}`
-                        // }}
+                        style={{
+                            //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
+                            //transform: `rotate(${item.angle || 0}, ${item.x + (item.width / 2)}, ${item.y + (item.height / 2)}`
+                            width: `${item.width}`,
+                            height: `${item.height}`
+                        }}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                         onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
                         onPointerUp={() => handleSvgPointerUp(item.id)}
                         onTouchStart={e => handleSvgPointerDown(e, item.id)}
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
-                        onDoubleClick={(e) => handleEditItem(e, item.id)}
-                        onPointerOver={(e) => !selectedPath && handleEditItem(e, item.id)}
+                        onClick={(e) => handleEditItem(e, item.id)}
+                    //onPointerOver={(e) => !selectedPath && handleEditItem(e, item.id)}
                     //onPointerOut={(e) => handleStopEditItem(e, item.id)}
                     >
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
@@ -78,16 +80,16 @@ const Box = ({ item }) => {
                                     height: "3rem",
                                     fontSize: "2.5rem",
                                     textAlign: "center",
-                                    color: "rgba(255,255,255,.6)",
-                                    lineHeight: "0.7",
+                                    color: "rgba(155,155,155,.6)",
+                                    lineHeight: "0.8",
                                     // border: `20px solid ${addAlpha(item.color, item.backgroundOpacity)}`,
                                     backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                     borderRadius: "30%",
                                     marginRight: "0",
                                     marginLeft: "auto",
-                                    marginBottom: "-1.5rem"
+                                    marginBottom: "-1.2rem"
                                 }}
-                            >&#8801; </div>
+                            >&#8801;</div>
                         )}
                         <div
                             className="box-container"
@@ -96,7 +98,7 @@ const Box = ({ item }) => {
                                 border: `${item.borderWidth}px solid ${item.borderColor}`,
                                 borderRadius: `${item.roundedCorners}px`,
                                 height: "100%",
-                                maxHeight: "85%",
+                                maxHeight: "100%",
                                 width: '100%',
                                 // position: 'relative',
                                 overflow: 'hidden',
@@ -141,9 +143,9 @@ const Box = ({ item }) => {
                                             textAlign: `${item.textAlignCenter ? "center" : "left"}`,
                                             borderRadius: `${item.roundedCorners}px`,
                                             // minHeight: "80%",
-                                            maxHeight: "88%",
+                                            // maxHeight: "100%",
                                             width: '100%',
-                                            height: '88%',
+                                            height: `${isSafari ? '70%' : '80%'}`,
                                             boxSizing: 'border-box',
                                             resize: 'none',
                                             overflow: 'auto',

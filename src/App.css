@@ -471,7 +471,7 @@ button,
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
-  border-radius: 5rem;
+  border-radius: .5rem;
 }
 
 .inputs-top_objects button {
@@ -479,7 +479,7 @@ button,
   background: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
   font-weight: bold;
-  border-radius: 3rem;
+  border-radius: .5rem;
 }
 
 .inputs-top_objects input[type="text"],
@@ -556,7 +556,7 @@ button,
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
-  border-radius: 5rem;
+  border-radius: .5rem;
 }
 
 .inputs-boards_objects label {
@@ -1622,6 +1622,8 @@ button,
   border-radius: 1.2rem 0 0 1.2rem;
   z-index: 999;
   max-height: 75vh;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
 }
 
 .drawer-left-isMoreOpen {
@@ -2062,7 +2064,7 @@ input[type="range"]:focus::-moz-range-thumb {
     font-size: 1rem;
     padding: 0.6rem 0.8rem;
     margin: 0.05rem 0.1rem;
-    border-radius: 5rem;
+    border-radius: .5rem;
   }
 
   .inputs-top_objects .next,
@@ -2162,8 +2164,10 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 
   .toggle-documentation {
+    width: 40px;
+    height: 40px;
     top: 22rem;
-    left: 1.2rem;
+    left: .8rem;
   }
 
   .documentation-container {
@@ -2203,7 +2207,7 @@ input[type="range"]:focus::-moz-range-thumb {
     height: auto;
     gap: .8rem;
     padding: .8rem;
-    border-radius: .6rem;
+    border-radius: .5rem;
     border: 1px solid rgba(221, 221, 221, 0.388)
       /* background-color: #dddddd; */
   }
