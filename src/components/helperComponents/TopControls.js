@@ -158,7 +158,7 @@ const TopControls = ({ item }) => {
                             // x={item.type === "box" ? item.x + 66 : "66"}
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
                             x={item.type === "box" ? item.x + 16 : "16"}
-                            y={item.type === "box" ? `${safariBrowser() ? item.y - 31 : item.y - 11}` : `${safariBrowser() ? - 31 : item.y - 11}`}
+                            y={item.type === "box" ? `${safariBrowser() ? item.y - 31 : item.y - 11}` : `${safariBrowser() ? 31 : -11}`}
                             width="24"
                             height="20"
                             fill="pink"

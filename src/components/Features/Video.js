@@ -26,7 +26,8 @@ const Video = ({ item }) => {
                             onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
                             onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                             onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
-                            onDoubleClick={(e) => handleEditItem(e, item.id)}
+                            // onDoubleClick={(e) => handleEditItem(e, item.id)}
+                            onClick={(e) => handleEditItem(e, item.id)}
                         >
                             {isEditingBoard && editingItem && editingItem.id === item.id && (
                                 <>

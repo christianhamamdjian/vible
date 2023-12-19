@@ -444,7 +444,7 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newItem = boxModel(itemId, activeBoard.id, "Click me to edit. \nDouble-click the board to stop editing.", itemColor, "#ffffff", itemLink, itemUrl)
+        const newItem = boxModel(itemId, activeBoard.id, "Click me to edit. \nClick the board to stop editing.", itemColor, "#ffffff", itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')
@@ -683,21 +683,31 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e, rectId) => {
-        if (e.target.id !== 'box-text'
-            && e.target.id !== 'box-handel'
-            && e.target.id !== 'box-container'
-            && e.target.id !== 'box-object'
-            && e.target.id !== 'resize'
-            && e.target.id !== 'rotate'
-            && e.target.id !== 'delete-button'
-            && e.target.id !== 'delete-text'
-            && e.target.id !== 'delete-confirm'
-            && e.target.id !== 'delete-confirmation'
-            && e.target.id !== "rating-star"
-            && e.target.id !== "box-rating"
-            && editingText && !selectedRectId) {
-            handleStopEditItem()
-        }
+        console.log(rectId)
+        // const item = items.find(el => el.id === rectId)
+        // if ((
+        //     //e.target.id !== 'box-text'
+        //     item.type === 'box'
+        //     || item.type === 'image'
+        //     || item.type === 'imageUrl'
+        //     || item.type === 'video'
+        //     || item.type === 'mapUrl'
+        //     || item.type === 'pdf'
+        //     && e.target.id !== 'box-handel'
+        //     && e.target.id !== 'box-container'
+        //     && e.target.id !== 'box-object'
+        //     && e.target.id !== 'resize'
+        //     && e.target.id !== 'rotate'
+        //     && e.target.id !== 'delete-button'
+        //     && e.target.id !== 'delete-text'
+        //     && e.target.id !== 'delete-confirm'
+        //     && e.target.id !== 'delete-confirmation'
+        //     && e.target.id !== "rating-star"
+        //     && e.target.id !== "box-rating"
+        //     && editingText && !selectedRectId)
+        // ) {
+        //     handleStopEditItem()
+        // }
         if (e.target.id === 'move' && editingText) {
             setIsDraggingRect(true)
             setSelectedRectId(rectId)
@@ -705,7 +715,9 @@ export default function MoodboardProvider({ children }) {
         if (rectId) {
             handleRectPointerDown(e, rectId)
         }
-
+        if (!rectId) {
+            handleStopEditItem()
+        }
         resetPathsGroup()
 
         if (selectedPath || isEditingPath) {
@@ -971,11 +983,11 @@ export default function MoodboardProvider({ children }) {
         }
 
         if (e.target.id === 'rotate') {
+            setIsDraggingRect(false)
             if (rectType === "image") {
                 let newImage = document.createElement("img")
                 newImage.src = rectItem.src
                 setIsRotating(true)
-                setIsDraggingRect(false)
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((item) => item.id === rectId)
                 const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
@@ -989,7 +1001,6 @@ export default function MoodboardProvider({ children }) {
                 const imageSource = rectItem.imageUrl
                 newImage.src = imageSource
                 setIsRotating(true)
-                setIsDraggingRect(false)
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((item) => item.id === rectId)
                 const calculatedHeight = newImage && ((newImage.naturalHeight / newImage.naturalWidth) * rect.width)
@@ -999,7 +1010,6 @@ export default function MoodboardProvider({ children }) {
                 setAngleOffset({ x: Math.floor(Math.abs(angle)) })
             } else {
                 setIsRotating(true)
-                setIsDraggingRect(false)
                 const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
                 const rect = items.find((item) => item.id === rectId)
                 const centerX = rect.x + rect.width / 2
@@ -1007,9 +1017,9 @@ export default function MoodboardProvider({ children }) {
                 const angle = Math.atan2(centerY - clientY, centerX - clientX)
                 setAngleOffset({ x: Math.floor(Math.abs(angle)) })
             }
-            if (rectType === "box" && editingText) {
-                setIsDraggingRect(false)
-            }
+            // if (rectType === "box" && editingText) {
+            //     setIsDraggingRect(false)
+            // }
         }
 
         setSelectedRectId(rectId)
@@ -1756,6 +1766,7 @@ export default function MoodboardProvider({ children }) {
         document.body.style.position = "fixed"
     }
     const handleStopEditItem = () => {
+        console.log("Should stop editing")
         if (editingText) {
             document.body.style.position = "static"
         }
