@@ -100,8 +100,8 @@ const Box = ({ item }) => {
                                 backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
                                 border: `${item.borderWidth}px solid ${item.borderColor}`,
                                 borderRadius: `${item.roundedCorners}px`,
-                                height: "100%",
-                                maxHeight: "100%",
+                                height: "80%",
+                                maxHeight: "80%",
                                 width: '100%',
                                 // position: 'relative',
                                 overflow: 'hidden',
@@ -263,7 +263,7 @@ const Box = ({ item }) => {
                                     id="rotate"
                                     fill="#cccccc"
                                     cx={`${item.x - 20}`}
-                                    cy={`${item.y + (item.height / 2)}`}
+                                    cy={`${item.y + (item.height / 2) - 20}`}
                                     width="20"
                                     height="20"
                                     r='12'
@@ -274,7 +274,7 @@ const Box = ({ item }) => {
                                     id="resize"
                                     fill="#cccccc"
                                     x={item.x + item.width}
-                                    y={item.y + item.height}
+                                    y={item.y + item.height - 30}
                                     width="20"
                                     height="20"
                                     rx="4"
