@@ -53,14 +53,14 @@ const Box = ({ item }) => {
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
-                        // width={`${item.width}`}
-                        // height={`${item.height}`}
+                        width={`${item.width}`}
+                        height={`${item.height}`}
                         className="box-frame"
                         style={{
                             //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             //transform: `rotate(${item.angle || 0}, ${item.x + (item.width / 2)}, ${item.y + (item.height / 2)}`
-                            width: `${item.width}`,
-                            height: `${item.height}`
+                            // width: `${item.width}`,
+                            // height: `${item.height}`
                         }}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                         onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -145,7 +145,10 @@ const Box = ({ item }) => {
                                             // minHeight: "80%",
                                             // maxHeight: "100%",
                                             width: '100%',
-                                            height: `${isSafari ? '70%' : '80%'}`,
+                                            height: `${isSafari ? '70%' : '75%'}`,
+                                            // maxHeight: "88%",
+                                            // width: '100%',
+                                            // height: '88%',
                                             boxSizing: 'border-box',
                                             resize: 'none',
                                             overflow: 'auto',
