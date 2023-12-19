@@ -48,6 +48,7 @@ const Box = ({ item }) => {
                     // }}
                     /> */}
                     <foreignObject
+                        id='box-object'
                         x={item.x}
                         y={editingText ? item.y - 20 : item.y}
                         draggable="true"
@@ -74,6 +75,7 @@ const Box = ({ item }) => {
                     >
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
                             <div
+                                id="box-handel"
                                 style={{
                                     backgroundColor: "transparent",
                                     width: "3rem",
@@ -92,6 +94,7 @@ const Box = ({ item }) => {
                             >&#8801;</div>
                         )}
                         <div
+                            id="box-container"
                             className="box-container"
                             style={{
                                 backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
@@ -153,10 +156,10 @@ const Box = ({ item }) => {
                                             resize: 'none',
                                             overflow: 'auto',
                                         }}
-                                        onMouseDown={e => handleStartEditItem(e)}
-                                        onTouchStart={e => handleStartEditItem(e)}
+                                        onMouseDown={e => handleStartEditItem(e, item.id)}
+                                        onTouchStart={e => handleStartEditItem(e, item.id)}
                                         // onMouseOut={e => handleStopEditItem(e)}
-                                        onFocus={e => handleStartEditItem(e)}
+                                        onFocus={e => handleStartEditItem(e, item.id)}
                                     //onBlur={e => handleStopEditItem(e)}
                                     >
                                     </textarea>

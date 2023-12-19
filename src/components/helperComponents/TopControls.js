@@ -27,6 +27,7 @@ const TopControls = ({ item }) => {
         <>
             {onShow && isEditingBoard && editingItem.id === item.id && <>
                 <rect
+                    id="delete-confirmation"
                     x={item.type === "box" ? item.x : "0"}
                     // y="-64"
                     y={item.type === "box" ? `${safariBrowser() ? item.y - 74 : item.y - 44}` : `${safariBrowser() ? - 74 : - 44}`}
@@ -49,6 +50,7 @@ const TopControls = ({ item }) => {
                 >Delete?</text>
                 <g>
                     <svg
+
                         x={item.type === "box" ? item.x + 78 : "78"}
                         // y="-57"
                         y={item.type === "box" ? `${safariBrowser() ? item.y - 62 : item.y - 32}` : `${safariBrowser() ? - 62 : - 32}`}
@@ -82,6 +84,7 @@ const TopControls = ({ item }) => {
                         /> */}
                     </svg>
                     <rect
+                        id="delete-confirm"
                         x={item.type === "box" ? item.x + 78 : "78"}
                         // y="-57"
                         y={item.type === "box" ? `${safariBrowser() ? item.y - 62 : item.y - 32}` : `${safariBrowser() ? - 62 : - 32}`}
@@ -143,6 +146,7 @@ const TopControls = ({ item }) => {
                             width="20"
                             rx="4"
                             fill="red"
+                            id="delete-button"
                             className='box-control'
                             onClick={() => showConfirm(item.id)}
                             onPointerOver={(e) => handleEditItem(e, item.id)}
@@ -150,6 +154,7 @@ const TopControls = ({ item }) => {
                         />
                         <title>Delete box</title>
                         <text
+                            id="delete-text"
                             // x={item.type === "box" ? item.x + 66 : "66"}
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
                             x={item.type === "box" ? item.x + 16 : "16"}

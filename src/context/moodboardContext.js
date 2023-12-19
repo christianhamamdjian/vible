@@ -683,6 +683,19 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e, rectId) => {
+        if (e.target.id !== 'box-text'
+            && e.target.id !== 'box-handel'
+            && e.target.id !== 'box-container'
+            && e.target.id !== 'box-object'
+            && e.target.id !== 'resize'
+            && e.target.id !== 'rotate'
+            && e.target.id !== 'delete-button'
+            && e.target.id !== 'delete-text'
+            && e.target.id !== 'delete-confirm'
+            && e.target.id !== 'delete-confirmation'
+            && editingText && !selectedRectId) {
+            handleStopEditItem()
+        }
         if (e.target.id === 'move' && editingText) {
             setIsDraggingRect(true)
             setSelectedRectId(rectId)
@@ -1729,11 +1742,16 @@ export default function MoodboardProvider({ children }) {
             setTool("")
         }
     }
-    const handleStartEditItem = (e) => {
+    const handleStartEditItem = (e, id) => {
         if (e.target.id === "box-text") {
             setIsDraggingRect(false)
+            setEditingText({ status: true, id: id })
+            setIsEditingBoard(true)
+            handleWrite()
             document.body.style.position = "fixed"
         }
+        setIsDraggingRect(false)
+        document.body.style.position = "fixed"
     }
     const handleStopEditItem = () => {
         if (editingText) {
