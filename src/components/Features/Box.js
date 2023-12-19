@@ -74,15 +74,20 @@ const Box = ({ item }) => {
                             <div
                                 style={{
                                     backgroundColor: "transparent",
-                                    width: "4rem",
-                                    height: "4rem",
-                                    border: `10px solid ${addAlpha(item.color, item.backgroundOpacity)}`,
-                                    borderRadius: "50%",
-                                    marginRight: "0rem",
+                                    width: "3rem",
+                                    height: "3rem",
+                                    fontSize: "2.5rem",
+                                    textAlign: "center",
+                                    color: "rgba(255,255,255,.6)",
+                                    lineHeight: "0.7",
+                                    // border: `20px solid ${addAlpha(item.color, item.backgroundOpacity)}`,
+                                    backgroundColor: `${addAlpha(item.color, item.backgroundOpacity)}`,
+                                    borderRadius: "30%",
+                                    marginRight: "0",
                                     marginLeft: "auto",
-                                    marginBottom: "-2rem"
+                                    marginBottom: "-1.5rem"
                                 }}
-                            ></div>
+                            >&#8801; </div>
                         )}
                         <div
                             className="box-container"
