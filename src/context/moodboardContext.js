@@ -444,7 +444,7 @@ export default function MoodboardProvider({ children }) {
     const handleAddBox = (e) => {
         e.preventDefault()
         const itemId = Date.now()
-        const newItem = boxModel(itemId, activeBoard.id, "Double-click me to edit. \nDouble-click the board to stop editing.", itemColor, "#ffffff", itemLink, itemUrl)
+        const newItem = boxModel(itemId, activeBoard.id, "Click me to edit. \nDouble-click the board to stop editing.", itemColor, "#ffffff", itemLink, itemUrl)
         setItems((prevItems) => [...prevItems, newItem])
         setItemText('Text')
         setItemColor('#f4b416')

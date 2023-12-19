@@ -42,7 +42,7 @@ const Box = ({ item }) => {
                         height={`${item.height + 70 || 160}`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         fill="transparent"
-                        onPointerOut={(e) => handleStopEditItem(e, item.id)}
+                    //onPointerOut={(e) => handleStopEditItem(e, item.id)}
                     // style={{
                     //     backgroundColor: "blue",
                     // }}
@@ -147,7 +147,7 @@ const Box = ({ item }) => {
                                         onTouchStart={e => handleStartEditItem(e)}
                                         // onMouseOut={e => handleStopEditItem(e)}
                                         onFocus={e => handleStartEditItem(e)}
-                                        onBlur={e => handleStopEditItem(e)}
+                                    //onBlur={e => handleStopEditItem(e)}
                                     >
                                     </textarea>
 
