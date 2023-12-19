@@ -30,7 +30,18 @@ const Box = ({ item }) => {
             return "calc(100% - .5rem)"
         }
     }
+    const handleTextareaHeight = () => {
 
+        if (item.link !== "" && item.showRating) {
+            return "calc(100% - 4rem)"
+        }
+        if ((item.link !== "" && !item.showRating) || (item.link === "" && item.showRating)) {
+            return "calc(100% - 2.5rem)"
+        }
+        if (item.link === "" && !item.showRating) {
+            return "calc(100% - .5rem)"
+        }
+    }
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -148,7 +159,8 @@ const Box = ({ item }) => {
                                             // minHeight: "80%",
                                             // maxHeight: "100%",
                                             width: '100%',
-                                            height: `${isSafari ? '70%' : '75%'}`,
+                                            // height: `${isSafari ? '60%' : '60%'}`,
+                                            height: handleTextareaHeight(),
                                             // maxHeight: "88%",
                                             // width: '100%',
                                             // height: '88%',
@@ -163,7 +175,9 @@ const Box = ({ item }) => {
                                     //onBlur={e => handleStopEditItem(e)}
                                     >
                                     </textarea>
-
+                                    {item.showRating && <StartRating
+                                        rating={item.rating} id={item.id}
+                                    />}
                                 </>
                             ) : (
                                 <>

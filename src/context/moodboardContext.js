@@ -693,6 +693,8 @@ export default function MoodboardProvider({ children }) {
             && e.target.id !== 'delete-text'
             && e.target.id !== 'delete-confirm'
             && e.target.id !== 'delete-confirmation'
+            && e.target.id !== "rating-star"
+            && e.target.id !== "box-rating"
             && editingText && !selectedRectId) {
             handleStopEditItem()
         }

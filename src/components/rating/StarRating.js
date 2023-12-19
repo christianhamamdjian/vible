@@ -7,7 +7,7 @@ const StarRating = ({ style = {}, rating, id, totalStars = 5, ...props }) => {
   const { handleRating } = React.useContext(MoodboardContext);
 
   return (
-    <div className="box-rating" {...props}>
+    <div id="box-rating" className="box-rating" {...props}>
       {createArray(totalStars).map((n, i) => (
         <Star
           key={i}

@@ -3,6 +3,7 @@ import React from "react"
 export default function Star({ selected = false, onSelect }) {
   return (
     <div
+      id="rating-star"
       className="rating-star"
       style={{
         backgroundColor: `${selected ? 'gold' : 'transparent'}`,
