@@ -683,31 +683,22 @@ export default function MoodboardProvider({ children }) {
         setPaths(prevPaths => prevPaths.map(el => ({ ...el, group: "noGroup" })))
     }
     const handleSvgPointerDown = (e, rectId) => {
-        console.log(rectId)
-        // const item = items.find(el => el.id === rectId)
-        // if ((
-        //     //e.target.id !== 'box-text'
-        //     item.type === 'box'
-        //     || item.type === 'image'
-        //     || item.type === 'imageUrl'
-        //     || item.type === 'video'
-        //     || item.type === 'mapUrl'
-        //     || item.type === 'pdf'
-        //     && e.target.id !== 'box-handel'
-        //     && e.target.id !== 'box-container'
-        //     && e.target.id !== 'box-object'
-        //     && e.target.id !== 'resize'
-        //     && e.target.id !== 'rotate'
-        //     && e.target.id !== 'delete-button'
-        //     && e.target.id !== 'delete-text'
-        //     && e.target.id !== 'delete-confirm'
-        //     && e.target.id !== 'delete-confirmation'
-        //     && e.target.id !== "rating-star"
-        //     && e.target.id !== "box-rating"
-        //     && editingText && !selectedRectId)
-        // ) {
-        //     handleStopEditItem()
-        // }
+
+        if (e.target.id !== 'box-handel'
+            && e.target.id !== 'video'
+            && e.target.id !== 'box-container'
+            && e.target.id !== 'box-object'
+            && e.target.id !== 'resize'
+            && e.target.id !== 'rotate'
+            && e.target.id !== 'delete-button'
+            && e.target.id !== 'delete-text'
+            && e.target.id !== 'delete-confirm'
+            && e.target.id !== 'delete-confirmation'
+            && e.target.id !== "rating-star"
+            && e.target.id !== "box-rating") {
+            handleStopEditItem()
+        }
+
         if (e.target.id === 'move' && editingText) {
             setIsDraggingRect(true)
             setSelectedRectId(rectId)
@@ -715,9 +706,9 @@ export default function MoodboardProvider({ children }) {
         if (rectId) {
             handleRectPointerDown(e, rectId)
         }
-        if (!rectId) {
-            handleStopEditItem()
-        }
+        // if (!rectId) {
+        //     handleStopEditItem()
+        // }
         resetPathsGroup()
 
         if (selectedPath || isEditingPath) {
@@ -1766,7 +1757,6 @@ export default function MoodboardProvider({ children }) {
         document.body.style.position = "fixed"
     }
     const handleStopEditItem = () => {
-        console.log("Should stop editing")
         if (editingText) {
             document.body.style.position = "static"
         }

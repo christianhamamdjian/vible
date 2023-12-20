@@ -62,6 +62,7 @@ const Video = ({ item }) => {
                             />
                             }
                             <foreignObject
+                                id="video"
                                 x="0"
                                 y="0"
                                 width={item.width}
