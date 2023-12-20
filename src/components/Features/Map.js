@@ -76,6 +76,7 @@ const Map = ({ item }) => {
                                 width={item.width}
                                 height={item.height}
                                 draggable="true"
+                                id="map-url"
                                 className='map-fobject'
                             >
                                 {!isSafari && <div

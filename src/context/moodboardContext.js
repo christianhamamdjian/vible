@@ -686,6 +686,10 @@ export default function MoodboardProvider({ children }) {
 
         if (e.target.id !== 'box-handel'
             && e.target.id !== 'video'
+            && e.target.id !== 'image'
+            && e.target.id !== 'image-url'
+            && e.target.id !== 'map-url'
+            && e.target.id !== 'pdf'
             && e.target.id !== 'box-container'
             && e.target.id !== 'box-object'
             && e.target.id !== 'resize'
@@ -698,7 +702,6 @@ export default function MoodboardProvider({ children }) {
             && e.target.id !== "box-rating") {
             handleStopEditItem()
         }
-
         if (e.target.id === 'move' && editingText) {
             setIsDraggingRect(true)
             setSelectedRectId(rectId)
@@ -946,6 +949,24 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
+        if (e.target.id === 'box-handel'
+            || e.target.id === 'video'
+            || e.target.id === 'image'
+            || e.target.id === 'image-url'
+            || e.target.id === 'map-url'
+            || e.target.id === 'pdf'
+            || e.target.id === 'box-container'
+            || e.target.id === 'box-object'
+            || e.target.id === 'resize'
+            || e.target.id === 'rotate'
+            || e.target.id === 'delete-button'
+            || e.target.id === 'delete-text'
+            || e.target.id === 'delete-confirm'
+            || e.target.id === 'delete-confirmation'
+            || e.target.id === "rating-star"
+            || e.target.id === "box-rating") {
+            handleEditItem(e, rectId)
+        }
         if (isDrawing) return
         if (isErasing || isPartialErasing || isGrouping) {
             setIsErasing(false)

@@ -97,6 +97,7 @@ const Pdf = ({ item }) => {
                                 width={item.width}
                                 height={item.height}
                                 draggable="true"
+                                id="pdf"
                                 className='pdf-object'
                             >
                                 {!isSafari && <div
