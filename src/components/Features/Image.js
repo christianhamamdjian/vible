@@ -21,61 +21,63 @@ const Image = ({ item }) => {
         <>
             {item.type === "image" && item.board === activeBoard.id &&
                 <>
-                    <g key={item.id}
-                        transform={`translate(${item.x},${item.y})`}
+                    <image
+                        key={item.id}
+                        ref={itemRef}
+                        href={item.src}
+                        x={item.x}
+                        y={item.y}
+                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                        clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
+                        width={item.width}
+                        height={calculatedHeight}
+                        onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                        onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
+                        onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
+                        onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
+                        onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
+                        onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
+                        // onDoubleClick={(e) => handleEditItem(e, item.id)}
+                        onClick={(e) => handleEditItem(e, item.id)}
+                        id="image"
+                        className='image-media'
+                        style={{
+                            opacity: item.opacity,
+                        }}
+                    />
+                    <g
+
+                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                        style={{
+                            //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 ,
+                            transform: `translate(${item.x},${item.y})`
+                        }}
                     >
-                        <g
-                            transform={`rotate(${item.angle || 0}, ${item.width / 2}, ${calculatedHeight / 2})`}
-                            style={{ opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 }}
-                        >
-                            <image
-                                ref={itemRef}
-                                href={item.src}
-                                x="0"
-                                y="0"
-                                clipPath={`inset(${item.cropHeight}% ${item.cropWidth}% round ${item.roundCorners}px)`}
-                                width={item.width}
-                                height={calculatedHeight}
-                                onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
-                                onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
-                                onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
-                                onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
-                                onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
-                                onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
-                                // onDoubleClick={(e) => handleEditItem(e, item.id)}
-                                onClick={(e) => handleEditItem(e, item.id)}
-                                id="image"
-                                className='image-media'
-                                style={{
-                                    opacity: item.opacity,
-                                }}
-                            />
-                            {isEditingBoard && <TopControls item={item} />}
-                            {isEditingBoard && editingItem && editingItem.id === item.id && (
-                                <>
-                                    <circle
-                                        id="rotate"
-                                        fill="#cccccc"
-                                        cx="-20"
-                                        cy={calculatedHeight / 2}
-                                        width="20"
-                                        height="20"
-                                        r='12'
-                                        onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
-                                    />
-                                    <rect
-                                        id="resize"
-                                        fill="#cccccc"
-                                        x={item.width}
-                                        y={calculatedHeight}
-                                        width="20"
-                                        height="20"
-                                        rx="4"
-                                        onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
-                                    />
-                                </>)}
-                        </g >
-                    </g>
+                        {isEditingBoard && <TopControls item={item} />}
+                        {isEditingBoard && editingItem && editingItem.id === item.id && (
+                            <>
+                                <circle
+                                    id="rotate"
+                                    fill="#cccccc"
+                                    cx={item.x - 20}
+                                    cy={`${item.y + (calculatedHeight / 2)}`}
+                                    width="20"
+                                    height="20"
+                                    r='12'
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                />
+                                <rect
+                                    id="resize"
+                                    fill="#cccccc"
+                                    x={`${item.x + item.width}`}
+                                    y={`${item.y + calculatedHeight}`}
+                                    width="20"
+                                    height="20"
+                                    rx="4"
+                                    onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
+                                />
+                            </>)}
+                    </g >
                 </>
             }
         </>

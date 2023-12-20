@@ -28,9 +28,9 @@ const TopControls = ({ item }) => {
             {onShow && isEditingBoard && editingItem.id === item.id && <>
                 <rect
                     id="delete-confirmation"
-                    x={item.type === "box" ? item.x : "0"}
+                    x={item.x}
                     // y="-64"
-                    y={item.type === "box" ? `${safariBrowser() ? item.y - 74 : item.y - 44}` : `${safariBrowser() ? - 74 : - 44}`}
+                    y={`${safariBrowser() ? item.y - 74 : item.y - 44}`}
                     height="50"
                     width="124"
                     rx="6"
@@ -40,9 +40,9 @@ const TopControls = ({ item }) => {
                     className="box-control"
                 />
                 <text
-                    x={item.type === "box" ? item.x + 18 : "18"}
+                    x={item.x + 18}
                     // y="-42"
-                    y={item.type === "box" ? `${safariBrowser() ? item.y - 47 : item.y - 17}` : `${safariBrowser() ? - 47 : - 17}`}
+                    y={`${safariBrowser() ? item.y - 47 : item.y - 17}`}
                     width="24"
                     height="20"
                     fill="white"
@@ -51,9 +51,9 @@ const TopControls = ({ item }) => {
                 <g>
                     <svg
 
-                        x={item.type === "box" ? item.x + 78 : "78"}
+                        x={item.x + 78}
                         // y="-57"
-                        y={item.type === "box" ? `${safariBrowser() ? item.y - 62 : item.y - 32}` : `${safariBrowser() ? - 62 : - 32}`}
+                        y={`${safariBrowser() ? item.y - 62 : item.y - 32}`}
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -85,9 +85,9 @@ const TopControls = ({ item }) => {
                     </svg>
                     <rect
                         id="delete-confirm"
-                        x={item.type === "box" ? item.x + 78 : "78"}
+                        x={item.x + 78}
                         // y="-57"
-                        y={item.type === "box" ? `${safariBrowser() ? item.y - 62 : item.y - 32}` : `${safariBrowser() ? - 62 : - 32}`}
+                        y={`${safariBrowser() ? item.y - 62 : item.y - 32}`}
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -140,8 +140,8 @@ const TopControls = ({ item }) => {
                             // x={item.type === "box" ? item.x + 60 : "60"}
                             // // y="-22"
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
-                            x={item.type === "box" ? item.x + 10 : "10"}
-                            y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
+                            x={item.x + 10}
+                            y={`${safariBrowser() ? item.y - 52 : item.y - 22}`}
                             height="15"
                             width="20"
                             rx="4"
@@ -157,8 +157,8 @@ const TopControls = ({ item }) => {
                             id="delete-text"
                             // x={item.type === "box" ? item.x + 66 : "66"}
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
-                            x={item.type === "box" ? item.x + 16 : "16"}
-                            y={item.type === "box" ? `${safariBrowser() ? item.y - 31 : item.y - 11}` : `${safariBrowser() ? 31 : -11}`}
+                            x={item.x + 16}
+                            y={`${safariBrowser() ? item.y - 31 : item.y - 11}`}
                             width="24"
                             height="20"
                             fill="pink"
