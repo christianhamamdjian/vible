@@ -28,6 +28,9 @@ const Map = ({ item }) => {
                         height={item.height}
                         rx="16"
                         transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        style={{
+                            opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
+                        }}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                         onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
                         onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
@@ -94,7 +97,8 @@ const Map = ({ item }) => {
                             transform: `translate(${item.x},${item.y})`
                         }}
                     >
-                        {isEditingBoard && < TopControls item={item} />}{isEditingBoard && editingItem && editingItem.id === item.id && (
+                        {isEditingBoard && < TopControls item={item} />}
+                        {isEditingBoard && editingItem && editingItem.id === item.id && (
                             <>
                                 <circle
                                     id="rotate"

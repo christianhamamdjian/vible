@@ -6,8 +6,8 @@ const pdfModel = (id, activeBoardId) => {
         x: 250,
         y: 300,
         angle: 0,
-        width: "100",
-        height: "160",
+        width: "200",
+        height: "260",
     })
 }
 

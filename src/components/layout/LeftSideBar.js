@@ -114,7 +114,8 @@ const LeftSidebard = () => {
                     </svg>
                 </button>
                 {map && <MapForm />}
-                {!isSafari && <button
+                {/* {!isSafari && */}
+                <button
                     title="Upload a Pdf file"
                     className={`toggler ${pdf ? "selected-button" : null}`}
                     type="button" onClick={handlePdf}>
@@ -135,7 +136,8 @@ const LeftSidebard = () => {
                             fill="currentColor"
                         />
                     </svg>
-                </button>}
+                </button>
+                {/*  } */}
                 {pdf && <PdfForm />}
             </div>
         </div>
