@@ -141,7 +141,7 @@ const Box = ({ item }) => {
                             {editingText && isEditingBoard && (item.id === editingText.id) ? (
                                 <>
                                     <textarea
-                                        // ref={itemRef}
+                                        ref={itemRef}
                                         // name=""
                                         id="box-text"
                                         // draggable="true"

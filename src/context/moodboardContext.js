@@ -684,7 +684,8 @@ export default function MoodboardProvider({ children }) {
     }
     const handleSvgPointerDown = (e, rectId) => {
 
-        if (e.target.id !== 'box-handel'
+        if (e.target.id !== 'box-text'
+            && e.target.id !== 'box-handel'
             && e.target.id !== 'video'
             && e.target.id !== 'image'
             && e.target.id !== 'image-url'
@@ -949,7 +950,8 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerDown = (e, rectId) => {
-        if (e.target.id === 'box-handel'
+        if (e.target.id === 'box-text'
+            || e.target.id === 'box-handel'
             || e.target.id === 'video'
             || e.target.id === 'image'
             || e.target.id === 'image-url'
