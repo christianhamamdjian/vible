@@ -10,8 +10,10 @@ const imageLinkModel = (id, activeBoardId, url) => {
         height: "auto",
         angle: 0,
         opacity: 1,
-        cropHeight: 0,
-        cropWidth: 0,
+        cropTop: 0,
+        cropRight: 0,
+        cropBottom: 0,
+        cropLeft: 0,
         roundCorners: 0,
     })
 }

@@ -9,9 +9,10 @@ const ImageLinkFormTop = () => {
     const toolButtons = {
         width: "Width",
         angle: "Angle",
+        cropWidth: "Crop Width",
+        cropHeight: "Crop Height",
         opacity: "Opacity",
         order: "Order",
-        crop: "Crop",
         roundCorners: "Round corners"
     }
 
@@ -81,6 +82,54 @@ const ImageLinkFormTop = () => {
                                 name="cropHeight"
                                 value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropHeight}
                                 onChange={(e) => handleItemChange(e, editingImageLink.id, "cropHeight")}
+                            />
+                        </>}
+                        {tool === "cropHeight" && <>
+                            <label>Crop Top:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropTop"
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropTop}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropTop")}
+                            />
+                        </>}
+                        {tool === "cropWidth" && <>
+                            <label>Crop Right:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropRight"
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropRight}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropRight")}
+                            />
+                        </>}
+                        {tool === "cropHeight" && <>
+                            <label>Crop Bottom:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropBottom"
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropBottom}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropBottom")}
+                            />
+                        </>}
+                        {tool === "cropWidth" && <>
+                            <label>Crop Left:</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                name="cropLeft"
+                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropLeft}
+                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropLeft")}
                             />
                         </>}
                         {tool === "roundCorners" && <>
