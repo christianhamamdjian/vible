@@ -811,7 +811,6 @@ export default function MoodboardProvider({ children }) {
         if (rectId) {
             handleRectPointerMove(e, rectId)
         }
-
         if (isResizing) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const currentPoints = { x: clientX, y: clientY };
@@ -1052,6 +1051,13 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
+        console.log("Rect move")
+
+        if (isResizing || isRotating) {
+            // e.stopPropagation()
+            // e.preventDefault()
+            return
+        }
 
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
@@ -1065,9 +1071,7 @@ export default function MoodboardProvider({ children }) {
             updatedRectangles.splice(rectIndex, 1)
             setItems([...updatedRectangles])
         }
-        if (!draggingSvg || rectId !== selectedRectId || isResizing || isRotating) {
-            return
-        }
+
     }
 
     const handleRectPointerUp = (rectId) => {

@@ -81,8 +81,10 @@ const Box = ({ item }) => {
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         onClick={(e) => handleEditItem(e, item.id)}
-                    //onPointerOver={(e) => !selectedPath && handleEditItem(e, item.id)}
-                    //onPointerOut={(e) => handleStopEditItem(e, item.id)}
+                    // onPointerEnter={(e) => e.stopPropagation()}
+                    // onPointerOver={(e) => e.stopPropagation()}
+                    // onPointerLeave={(e) => e.stopPropagation()}
+                    // onPointerOut={(e) => e.stopPropagation()}
                     >
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
                             <div

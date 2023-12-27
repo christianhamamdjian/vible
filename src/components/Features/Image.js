@@ -28,13 +28,13 @@ const Image = ({ item }) => {
                         x={item.x}
                         y={item.y}
                         transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
-                        clipPath={`inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}%  round ${item.roundCorners}px)`}
+                        clipPath={`inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}% round ${item.roundCorners}px)`}
                         width={item.width}
                         height={calculatedHeight}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                         onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
                         onPointerUp={(e) => handleSvgPointerUp(e, item.id)}
-                        onTouchStart={e => { handleSvgPointerDown(e, item.id) }}
+                        onTouchStart={(e) => handleSvgPointerDown(e, item.id)}
                         onTouchMove={(e) => handleSvgPointerMove(e, item.id)}
                         onTouchEnd={(e) => handleSvgPointerUp(e, item.id)}
                         // onDoubleClick={(e) => handleEditItem(e, item.id)}
@@ -43,10 +43,12 @@ const Image = ({ item }) => {
                         className='image-media'
                         style={{
                             opacity: item.opacity,
+                            // clipPath: `inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}% round ${item.roundCorners}px)`,
+                            // transform: `rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`,
+                            // transition: 'transform 0.3s ease',
                         }}
                     />
                     <g
-
                         transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
                         style={{
                             //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 ,

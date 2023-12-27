@@ -1,6 +1,7 @@
 import React from 'react'
 import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
 import Order from "../helperComponents/Order"
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const ImageFormTop = () => {
@@ -9,8 +10,8 @@ const ImageFormTop = () => {
     const toolButtons = {
         width: "Width",
         angle: "Angle",
-        cropWidth: "Crop Width",
-        cropHeight: "Crop Height",
+        cropWidth: `${!isSafari && "Crop Width"}`,
+        cropHeight: `${!isSafari && "Crop Height"}`,
         opacity: "Opacity",
         order: "Order",
         roundCorners: "Round corners"
