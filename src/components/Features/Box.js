@@ -42,6 +42,7 @@ const Box = ({ item }) => {
             return "calc(100% - .5rem)"
         }
     }
+
     return (
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
@@ -210,12 +211,13 @@ const Box = ({ item }) => {
                                             }}
                                         >
                                             <pre
+                                                ref={itemRef}
                                                 className='box-content-pre pre-padded scroll-container'
                                                 style={{
                                                     whiteSpace: "pre-wrap",
                                                     color: item.textColor,
                                                     overflowX: "hidden",
-                                                    paddingRight: "1rem",
+                                                    // paddingRight: "1rem",
                                                     fontFamily: item.font,
                                                     userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     fontSize: `${item.fontSize + "pt"}`,
