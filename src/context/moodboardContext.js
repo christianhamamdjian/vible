@@ -246,7 +246,7 @@ export default function MoodboardProvider({ children }) {
             setActiveBoard(boards[0])
         }
         if (boards.length > 1 && boardIndex === 0) {
-            setActiveBoard(boards[1])
+            setActiveBoard(boards[0])
         }
         if (boards.length > 1 && boardIndex !== 0) {
             setActiveBoard(boards[0])

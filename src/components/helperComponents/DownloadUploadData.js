@@ -83,6 +83,7 @@ const DownloadUploadData = () => {
             localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
             localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
             localStorage.setItem('boards', JSON.stringify([...boards, newBoard]))
+            localStorage.setItem('activeBoard', JSON.stringify({ ...newBoard }))
             refresh()
         }
         reader.readAsText(fileObj)
