@@ -1058,7 +1058,9 @@ export default function MoodboardProvider({ children }) {
             // e.preventDefault()
             return
         }
-
+        if (e.target.id === 'box-text') {
+            return
+        }
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const rectOffset = rectOffsets[rectId]

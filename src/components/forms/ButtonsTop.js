@@ -207,7 +207,7 @@ const ButtonsTop = () => {
                 )
                 }
 
-                {items.length > 0 && (
+                {/* {items.length > 0 && (
                     <>
                         <button
                             className={`${isEditingBoard ? "selected-button" : null} themable`}
@@ -247,7 +247,7 @@ const ButtonsTop = () => {
                         />
                     </>
                 )
-                }
+                } */}
                 <>
                     <button
                         className={`${showBoards ? "selected-button" : null} themable`}
