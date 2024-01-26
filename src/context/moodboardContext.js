@@ -340,11 +340,11 @@ export default function MoodboardProvider({ children }) {
         //let board = document.getElementById("board-svg")
         let board = svgRef.current
         if (board) {
-            board.style.backgroundColor = actionBoard["boardColor"]
+            board.style.backgroundColor = actionBoard && actionBoard["boardColor"]
         }
         let buttons = document.getElementsByClassName("themable")
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].style.backgroundColor = actionBoard["buttonsColor"]
+            buttons[i].style.backgroundColor = actionBoard && actionBoard["buttonsColor"]
         }
     }
 
@@ -1051,7 +1051,6 @@ export default function MoodboardProvider({ children }) {
     }
 
     const handleRectPointerMove = (e, rectId) => {
-        console.log("Rect move")
 
         if (isResizing || isRotating) {
             // e.stopPropagation()

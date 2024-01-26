@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Tooltips from '../tooltips/Tooltips'
-//import LoadTemplate from "../helperComponents/LoadTemplate"
+import LoadTemplate from "../helperComponents/LoadTemplate"
 import { MoodboardContext } from "../../context/moodboardContext"
 
 const Gallery = () => {
@@ -189,7 +189,7 @@ const Gallery = () => {
                         {galleryError && <div className="error">{galleryError}</div>}
 
                     </form>
-                    {/* <LoadTemplate /> */}
+                    <LoadTemplate />
 
                     <ul className='gallery-list'>
                         {galleryItems.map((item, index) => {

@@ -25,8 +25,8 @@ const LoadTemplate = () => {
         const boardToUpload = loadedBoards[0]
         const newBoard = { id: newBoardId, name: boards.length + 1, boardColor: boardToUpload.boardColor, buttonsColor: boardToUpload.buttonsColor, boardBackground: boardToUpload.boardBackground }
 
-        const newItems = loadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
-        const newPaths = loadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
+        const newItems = loadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 1000), board: newBoardId }))
+        const newPaths = loadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 1000), board: newBoardId }))
 
         localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
         localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
@@ -40,6 +40,7 @@ const LoadTemplate = () => {
                 <button
                     title="Load Demo Board"
                     className='toggler'
+                    style={{ color: "#999999", fontSize: ".9rem" }}
                     onClick={loadFile}>
                     Demo Board
                 </button>

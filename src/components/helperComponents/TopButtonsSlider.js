@@ -24,23 +24,28 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
             : [arr];
 
     const chunk = (
-        <div>
+        <>
             {chunkArray(buttons, width > breakpoint ? 5 : 2)[index].map((el, i) => {
-                return (
-                    <>
-                        {isSafari && (el[1] === "Crop Width" || el[1] === "Crop Height") ? null :
-                            <button
-                                key={i}
-                                className={`${tool === el[0] ? "active-tool" : ""}`}
-                                onClick={() => changeTool(el[0])}
-                            >
-                                {el[1]}
-                            </button>
-                        }
-                    </>
-                )
+
+                if (isSafari && (el[1] === "Crop Width" || el[1] === "Crop Height")) {
+                    return (<button
+                        key={i}
+                        style={{ display: "none" }}
+                    >
+                        {""}
+                    </button>)
+                }
+                else {
+                    return (<button
+                        key={i}
+                        className={`${tool === el[0] ? "active-tool" : ""}`}
+                        onClick={() => changeTool(el[0])}
+                    >
+                        {el[1]}
+                    </button>)
+                }
             })}
-        </div>
+        </>
     )
 
     const maxIndex = chunkArray(buttons, width > breakpoint ? 5 : 2).length - 1

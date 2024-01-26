@@ -77,8 +77,8 @@ const DownloadUploadData = () => {
             const boardToUpload = uploadedBoards[0]
             const newBoard = { id: newBoardId, name: boards.length + 1, boardColor: boardToUpload.boardColor, buttonsColor: boardToUpload.buttonsColor, boardBackground: boardToUpload.boardBackground }
 
-            const newItems = uploadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
-            const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 100), board: newBoardId }))
+            const newItems = uploadedItems.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 1000), board: newBoardId }))
+            const newPaths = uploadedPaths.map(el => ({ ...el, id: el.id + Math.floor(Math.random() * 1000), board: newBoardId }))
 
             localStorage.setItem('items', JSON.stringify([...items, ...newItems]))
             localStorage.setItem('paths', JSON.stringify([...savePathsToLocalStorage(), ...newPaths]))
