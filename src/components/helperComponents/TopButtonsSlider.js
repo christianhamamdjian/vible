@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isSafari } from "../utils/browserDetector"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const TopButtonsSlider = ({ toolButtons, changeTool }) => {
@@ -26,13 +27,17 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
         <div>
             {chunkArray(buttons, width > breakpoint ? 5 : 2)[index].map((el, i) => {
                 return (
-                    <button
-                        key={i}
-                        className={`${tool === el[0] ? "active-tool" : ""}`}
-                        onClick={() => changeTool(el[0])}
-                    >
-                        {el[1]}
-                    </button>
+                    <>
+                        {isSafari && (el[1] === "Crop Width" || el[1] === "Crop Height") ? null :
+                            <button
+                                key={i}
+                                className={`${tool === el[0] ? "active-tool" : ""}`}
+                                onClick={() => changeTool(el[0])}
+                            >
+                                {el[1]}
+                            </button>
+                        }
+                    </>
                 )
             })}
         </div>

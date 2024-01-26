@@ -10,8 +10,8 @@ const ImageFormTop = () => {
     const toolButtons = {
         width: "Width",
         angle: "Angle",
-        cropWidth: `${!isSafari && "Crop Width"}`,
-        cropHeight: `${!isSafari && "Crop Height"}`,
+        cropWidth: "Crop Width",
+        cropHeight: "Crop Height",
         opacity: "Opacity",
         order: "Order",
         roundCorners: "Round corners"
