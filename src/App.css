@@ -448,7 +448,7 @@ button,
   background: rgba(255, 255, 255, 0.4);
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
-  border-radius: 3rem;
+  border-radius: .5rem;
 }
 
 .inputs-top_draw label {
@@ -456,9 +456,11 @@ button,
 }
 
 .inputs-top_draw button {
-  background: rgba(175, 177, 200, 0.9);
-  font-size: 1.2rem;
-  border-radius: 3rem;
+  color: rgba(175, 177, 200, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: .5rem;
 }
 
 .inputs-top_objects {
@@ -500,15 +502,16 @@ button,
   background-image: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
   z-index: 10;
   margin: 0 auto;
-  border-radius: 5rem;
+  border-radius: .5rem;
   gap: .2rem .8rem;
 }
 
 .inputs-top_objects-form button {
-  background: rgba(138, 142, 184, 0.9);
-  font-size: .8rem;
+  color: rgba(175, 177, 200, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
   font-weight: bold;
-  border-radius: 3rem;
+  border-radius: .5rem;
 }
 
 .inputs-top_draw-form {
@@ -557,6 +560,12 @@ button,
   z-index: 10;
   margin: 0 auto;
   border-radius: .5rem;
+}
+
+.inputs-top_objects-form .field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .inputs-boards_objects label {

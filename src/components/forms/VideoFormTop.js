@@ -21,7 +21,7 @@ const VideoFormTop = () => {
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_objects' >
+                    {tool !== "" && <div className='inputs-top_objects-form' >
                         {tool === "width" && <>
                             <label>Change width:</label>
                             <input

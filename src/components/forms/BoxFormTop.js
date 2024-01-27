@@ -62,7 +62,7 @@ const BoxFormTop = () => {
                     {tool !== "" && <div className='inputs-top_objects-form' >
                         {/* </div> {tool === "text" && <> */}
                         {tool === "boxText" && <>
-                            <div> <label>Text:</label>
+                            <div className='field'> <label>Text:</label>
                                 <textarea
                                     value={findItem("text")}
                                     onChange={(e) => handleItemChange(e, editingText.id, "text")}
@@ -70,7 +70,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "BoxColor" && <> */}
                         {tool === "boxStyle" && <>
-                            <div><label>Box color:</label>
+                            <div className='field'><label>Box color:</label>
                                 <input
                                     type="color"
                                     name="color"
@@ -80,7 +80,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "textColor" && <> */}
                         {tool === "boxText" && <>
-                            <div><label>Text Color:</label>
+                            <div className='field'><label>Text Color:</label>
                                 <input
                                     type="color"
                                     name="color"
@@ -90,7 +90,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "linktitle" && <> */}
                         {tool === "boxLink" && <>
-                            <div><label>Link:</label>
+                            <div className='field'><label>Link:</label>
                                 <input
                                     type="text"
                                     name="link"
@@ -100,7 +100,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "linkurl" && <> */}
                         {tool === "boxLink" && <>
-                            <div> <label>Url:</label>
+                            <div className='field'> <label>Url:</label>
                                 <input
                                     type="text"
                                     name="url"
@@ -149,7 +149,7 @@ const BoxFormTop = () => {
                         </>} */}
                         {/* {tool === "font" && <> */}
                         {tool === "boxFont" && <>
-                            <div>
+                            <div className='field'>
                                 <label htmlFor="fonts">Choose a font:</label>
                                 <select
                                     name="fonts"
@@ -176,7 +176,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "fontSize" && <> */}
                         {tool === "boxFont" && <>
-                            <div><label>Font size:</label>
+                            <div className='field'><label>Font size:</label>
                                 <input
                                     type="range"
                                     min="8"
@@ -189,7 +189,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "fontStyle" && */}
                         {tool === "boxFont" &&
-                            <div><label className='checkbox-container'>Font Bold
+                            <div className='field'><label className='checkbox-container'>Font Bold
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -200,7 +200,7 @@ const BoxFormTop = () => {
                             </label></div>}
                         {/* {tool === "textAlignCenter" && */}
                         {tool === "boxText" &&
-                            <div><label className='checkbox-container'>Text align center
+                            <div className='field'><label className='checkbox-container'>Text align center
                                 <input
                                     type="checkbox"
                                     className='input-line-closed'
@@ -211,7 +211,7 @@ const BoxFormTop = () => {
                             </label></div>}
                         {/* {tool === "roundedCorners" && <> */}
                         {tool === "boxBorder" && <>
-                            <div>
+                            <div className='field'>
                                 <label>Rounded corners:</label>
                                 <input
                                     type="range"
@@ -253,8 +253,8 @@ const BoxFormTop = () => {
                             </div>}
                         {/* {tool === "rating" && */}
                         {tool === "boxStyle" &&
-                            <div>
-                                <label className='checkbox-container'>Rating
+                            <div className='field'>
+                                <label style={{ marginTop: "-.5rem" }} className='checkbox-container'>Rating
                                     <input
                                         type="checkbox"
                                         className='input-line-closed'
@@ -265,7 +265,7 @@ const BoxFormTop = () => {
                                 </label></div>}
                         {/* {tool === "borderWidth" && <> */}
                         {tool === "boxBorder" && <>
-                            <div><label>Border width:</label>
+                            <div className='field'><label>Border width:</label>
                                 <input
                                     type="range"
                                     min="0"
@@ -278,7 +278,7 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "borderColor" && <> */}
                         {tool === "boxBorder" && <>
-                            <div>
+                            <div className='field'>
                                 <label>Border color:</label>
                                 <input
                                     type="color"
@@ -300,7 +300,7 @@ const BoxFormTop = () => {
 
                         {/* {tool === "backgroundOpacity" && <> */}
                         {tool === "boxStyle" && <>
-                            <div>
+                            <div className='field'>
                                 <label>Box opacity:</label>
                                 <input
                                     type="range"
