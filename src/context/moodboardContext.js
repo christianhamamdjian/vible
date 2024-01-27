@@ -1060,10 +1060,14 @@ export default function MoodboardProvider({ children }) {
         if (e.target.id === 'box-text') {
             return
         }
+        if (rectId !== selectedRectId) {
+            return
+        }
         if (isDraggingRect) {
             const { clientX, clientY } = e.touches ? e.touches[0] || e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] : e
             const rectOffset = rectOffsets[rectId]
             const rectIndex = items.findIndex(el => el.id === rectId)
+
             const newX = Math.floor(clientX) - rectOffset.x
             const newY = Math.floor(clientY) - rectOffset.y
             const updatedRectangles = [...items]
