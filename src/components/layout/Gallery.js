@@ -147,6 +147,7 @@ const Gallery = () => {
                 </button >
                 {galleryShow && <> <div className='gallery-container'>
                     <form onSubmit={handleGallerySubmit}>
+                        <LoadTemplate />
                         <div className="select-container">
                             <label htmlFor="custom-select"></label>
                             <select id="custom-select" className="custom-select" value={galleryType} onChange={(e) => handleGalleryTypeChange(e)}>
@@ -189,7 +190,7 @@ const Gallery = () => {
                         {galleryError && <div className="error">{galleryError}</div>}
 
                     </form>
-                    <LoadTemplate />
+
 
                     <ul className='gallery-list'>
                         {galleryItems.map((item, index) => {
