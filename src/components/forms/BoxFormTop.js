@@ -2,6 +2,8 @@ import React from 'react'
 import TopButtonsSlider from "../helperComponents/TopButtonsSlider"
 import { fontOptions } from "../helperFunctions/fontOptions"
 import Order from "../helperComponents/Order"
+import MarkdownEditor from "../markdown-editor/MarkdownEditor"
+
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const BoxFormTop = () => {
@@ -51,7 +53,18 @@ const BoxFormTop = () => {
     const findItem = (term) => {
         return items.find(item => item.id === editingText.id)[`${term}`]
     }
-
+    const handleStyleClick = (id, tag) => {
+        const start = document.getElementById(id).selectionStart;
+        const end = document.getElementById(id).selectionEnd;
+        const newText =
+            findItem("text").substring(0, start) +
+            `${tag}${findItem("text").substring(start, end)}${tag}` +
+            findItem("text").substring(end);
+        let e = { target: { value: newText } }
+        handleItemChange(e, editingText.id, "text")
+        // setProfile({ ...profile, about: newText })
+        // ctx.setCurrentCvProfile({ ...profile, about: newText })
+    };
     return (
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
@@ -66,7 +79,16 @@ const BoxFormTop = () => {
                                 <textarea
                                     value={findItem("text")}
                                     onChange={(e) => handleItemChange(e, editingText.id, "text")}
-                                /></div>
+                                />
+                                {/* <MarkdownEditor
+                                    id={editingText.id}
+                                    parent={'text'}
+                                    //index={index}
+                                    markdown={findItem("text")}
+                                    onInputChange={(e) => handleItemChange(e, editingText.id, "text")}
+                                    onStyleClick={handleStyleClick}
+                                /> */}
+                            </div>
                         </>}
                         {/* {tool === "BoxColor" && <> */}
                         {tool === "boxStyle" && <>

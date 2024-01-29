@@ -2,6 +2,7 @@ import React from 'react';
 import StartRating from "../rating/StarRating"
 import TopControls from "../helperComponents/TopControls"
 import { isSafari } from "../utils/browserDetector"
+import MarkdownPreview from "../markdown-editor/MarkdownPreview"
 import { MoodboardContext } from "../../context/moodboardContext";
 
 const Box = ({ item }) => {
@@ -232,6 +233,14 @@ const Box = ({ item }) => {
                                                 }}
                                             >{item.text}
                                             </pre>
+                                            {/* <MarkdownPreview
+                                                markdown={item.text}
+                                                item={item}
+                                                editingText={editingText}
+                                                isEditingBoard={isEditingBoard}
+                                                isDraggingRect={isDraggingRect}
+                                                isSafari={isSafari}
+                                            /> */}
                                         </div>
                                         {item.showRating && <StartRating
                                             rating={item.rating} id={item.id}
