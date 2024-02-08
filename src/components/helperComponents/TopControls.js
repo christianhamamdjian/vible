@@ -141,7 +141,7 @@ const TopControls = ({ item }) => {
                             // // y="-22"
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 52 : item.y - 22}` : `${safariBrowser() ? - 52 : - 22}`}
                             x={item.x + 10}
-                            y={`${safariBrowser() ? item.y - 52 : item.y - 22}`}
+                            y={`${safariBrowser() ? item.y - 52 : item.y - 8}`}
                             height="15"
                             width="20"
                             rx="4"
@@ -158,7 +158,7 @@ const TopControls = ({ item }) => {
                             // x={item.type === "box" ? item.x + 66 : "66"}
                             // y={item.type === "box" ? `${safariBrowser() ? item.y - 11 : item.y - 11}` : `${safariBrowser() ? - 41 : - 11}`}
                             x={item.x + 16}
-                            y={`${safariBrowser() ? item.y - 41 : item.y - 11}`}
+                            y={`${safariBrowser() ? item.y - 41 : item.y + 3}`}
                             width="24"
                             height="20"
                             fill="pink"

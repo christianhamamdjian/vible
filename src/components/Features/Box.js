@@ -20,7 +20,6 @@ const Box = ({ item }) => {
         }
       }`
     const handleBoxTextHeight = () => {
-
         if (item.link !== "" && item.showRating) {
             return "calc(100% - 3rem)"
         }
@@ -32,7 +31,6 @@ const Box = ({ item }) => {
         }
     }
     const handleTextareaHeight = () => {
-
         if (item.link !== "" && item.showRating) {
             return "calc(100% - 4rem)"
         }
@@ -63,7 +61,8 @@ const Box = ({ item }) => {
                     <foreignObject
                         id='box-object'
                         x={item.x}
-                        y={editingText ? item.y - 20 : item.y}
+                        // y={editingText ? item.y - 20 : item.y}
+                        y={item.y}
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
@@ -290,7 +289,7 @@ const Box = ({ item }) => {
                                     id="rotate"
                                     fill="#cccccc"
                                     cx={`${item.x - 20}`}
-                                    cy={`${item.y + (item.height / 2) - 20}`}
+                                    cy={`${editingText ? item.y + (item.height / 2) : item.y + (item.height / 2) - 20}`}
                                     width="20"
                                     height="20"
                                     r='12'
@@ -301,7 +300,8 @@ const Box = ({ item }) => {
                                     id="resize"
                                     fill="#cccccc"
                                     x={item.x + item.width}
-                                    y={item.y + item.height - 30}
+                                    //y={item.y + item.height - 30}
+                                    y={`${editingText ? item.y + item.height : item.y + item.height - 30}`}
                                     width="20"
                                     height="20"
                                     rx="4"
