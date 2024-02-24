@@ -38,7 +38,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 else {
                     return (<button
                         key={i}
-                        className={`${tool === el[0] ? "active-tool" : ""}`}
+                        className={`box-editor ${tool === el[0] ? "active-tool" : ""}`}
                         onClick={() => changeTool(el[0])}
                     >
                         {el[1]}
@@ -59,6 +59,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 disabled={index === 0}
             >
                 <svg
+                    className='box-editor'
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -72,7 +73,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 </svg>
             </button>}
             <div
-                className='top-buttons-slider-chunk'
+                className='box-editor top-buttons-slider-chunk'
             >
                 {chunk}
             </div>
@@ -82,6 +83,7 @@ const TopButtonsSlider = ({ toolButtons, changeTool }) => {
                 disabled={index === maxIndex}
             >
                 <svg
+                    className='box-editor'
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"

@@ -69,14 +69,15 @@ const BoxFormTop = () => {
         <>
             {items.length > 0 && editingText && editingText.id && isEditingBoard && write && (
                 <>
-                    <div className='inputs-top_objects' >
+                    <div className='box-editor inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
                     </div>
-                    {tool !== "" && <div className='inputs-top_objects-form' >
+                    {tool !== "" && <div className='box-editor inputs-top_objects-form' >
                         {/* </div> {tool === "text" && <> */}
                         {tool === "boxText" && <>
-                            <div className='field'> <label>Text:</label>
+                            <div className='box-editor field'> <label>Text:</label>
                                 <textarea
+                                    className='box-editor'
                                     value={findItem("text")}
                                     onChange={(e) => handleItemChange(e, editingText.id, "text")}
                                 />
@@ -92,8 +93,9 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "BoxColor" && <> */}
                         {tool === "boxStyle" && <>
-                            <div className='field'><label>Box color:</label>
+                            <div className='box-editor field'><label>Box color:</label>
                                 <input
+                                    className='box-editor'
                                     type="color"
                                     name="color"
                                     value={findItem("color")}
@@ -102,8 +104,9 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "textColor" && <> */}
                         {tool === "boxText" && <>
-                            <div className='field'><label>Text Color:</label>
+                            <div className='box-editor field'><label>Text Color:</label>
                                 <input
+                                    className='box-editor'
                                     type="color"
                                     name="color"
                                     value={findItem("textColor")}
@@ -112,8 +115,9 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "linktitle" && <> */}
                         {tool === "boxLink" && <>
-                            <div className='field'><label>Link:</label>
+                            <div className='box-editor field'><label>Link:</label>
                                 <input
+                                    className='box-editor'
                                     type="text"
                                     name="link"
                                     value={findItem("link")}
@@ -122,8 +126,9 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "linkurl" && <> */}
                         {tool === "boxLink" && <>
-                            <div className='field'> <label>Url:</label>
+                            <div className='box-editor field'> <label>Url:</label>
                                 <input
+                                    className='box-editor'
                                     type="text"
                                     name="url"
                                     value={findItem("url")}
@@ -171,18 +176,18 @@ const BoxFormTop = () => {
                         </>} */}
                         {/* {tool === "font" && <> */}
                         {tool === "boxFont" && <>
-                            <div className='field'>
+                            <div className='box-editor field'>
                                 <label htmlFor="fonts">Choose a font:</label>
                                 <select
                                     name="fonts"
                                     id="fonts"
-                                    className='box-form-top-select'
+                                    className='box-editor box-form-top-select'
                                     value={items.find(item => item.id === editingText.id).font}
                                     onChange={(e) => handleItemChange(e, editingText.id, "font")}
                                 >
                                     {fontOptions.map((option) => (
                                         <option
-                                            className='box-form-top-select-option'
+                                            className='box-editor box-form-top-select-option'
                                             style={{ fontFamily: `${option.value}` }}
                                             key={option.value}
                                             value={option.value}>
@@ -191,15 +196,16 @@ const BoxFormTop = () => {
                                     ))}
                                 </select>
                                 <span
-                                    className='box-form-top-span'
+                                    className='box-editor box-form-top-span'
                                     style={{ fontFamily: `${items.find(item => item.id === editingText.id).font}` }}
                                 > {items.find(item => item.id === editingText.id).font}</span>
                             </div>
                         </>}
                         {/* {tool === "fontSize" && <> */}
                         {tool === "boxFont" && <>
-                            <div className='field'><label>Font size:</label>
+                            <div className='box-editor field'><label>Font size:</label>
                                 <input
+                                    className='box-editor'
                                     type="range"
                                     min="8"
                                     max="72"
@@ -211,31 +217,32 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "fontStyle" && */}
                         {tool === "boxFont" &&
-                            <div className='field'><label className='checkbox-container'>Font Bold
+                            <div className='box-editor field'><label className='box-editor checkbox-container'>Font Bold
                                 <input
                                     type="checkbox"
-                                    className='input-line-closed'
+                                    className='box-editor input-line-closed'
                                     value={items.find(item => item.id === editingText.id).fontStyle}
                                     checked={items.find(item => item.id === editingText.id).fontStyle}
                                     onChange={(e) => handleItemChange(e, editingText.id, "fontStyle")} />
-                                <span className="checkmark"></span>
+                                <span className="box-editor checkmark"></span>
                             </label></div>}
                         {/* {tool === "textAlignCenter" && */}
                         {tool === "boxText" &&
-                            <div className='field'><label className='checkbox-container'>Text align center
+                            <div className='box-editor field'><label className='box-editor checkbox-container'>Text align center
                                 <input
                                     type="checkbox"
-                                    className='input-line-closed'
+                                    className='box-editor input-line-closed'
                                     value={items.find(item => item.id === editingText.id).textAlignCenter}
                                     checked={items.find(item => item.id === editingText.id).textAlignCenter}
                                     onChange={(e) => handleItemChange(e, editingText.id, "textAlignCenter")} />
-                                <span className="checkmark"></span>
+                                <span className="box-editor checkmark"></span>
                             </label></div>}
                         {/* {tool === "roundedCorners" && <> */}
                         {tool === "boxBorder" && <>
-                            <div className='field'>
+                            <div className='box-editor field'>
                                 <label>Rounded corners:</label>
                                 <input
+                                    className='box-editor'
                                     type="range"
                                     min="0"
                                     max="100"
@@ -257,9 +264,10 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "duplicate" &&  */}
                         {tool === "duplicate" &&
-                            <div className='inputs-top_objects-form'>
+                            <div className='box-editor inputs-top_objects-form'>
                                 <label>Duplicate:</label>
                                 <button
+                                    className='box-editor'
                                     onClick={() => handleDuplicateBox(editingText.id)}>
                                     <svg
                                         width="24"
@@ -275,20 +283,21 @@ const BoxFormTop = () => {
                             </div>}
                         {/* {tool === "rating" && */}
                         {tool === "boxStyle" &&
-                            <div className='field'>
-                                <label style={{ marginTop: "-.5rem" }} className='checkbox-container'>Rating
+                            <div className='box-editor field'>
+                                <label style={{ marginTop: "-.5rem" }} className='box-editor checkbox-container'>Rating
                                     <input
                                         type="checkbox"
-                                        className='input-line-closed'
+                                        className='box-editor input-line-closed'
                                         value={items.find(item => item.id === editingText.id).showRating}
                                         checked={items.find(item => item.id === editingText.id).showRating}
                                         onChange={(e) => handleItemChange(e, editingText.id, "showRating")} />
-                                    <span className="checkmark"></span>
+                                    <span className="box-editor checkmark"></span>
                                 </label></div>}
                         {/* {tool === "borderWidth" && <> */}
                         {tool === "boxBorder" && <>
-                            <div className='field'><label>Border width:</label>
+                            <div className='box-editor field'><label>Border width:</label>
                                 <input
+                                    className='box-editor'
                                     type="range"
                                     min="0"
                                     max="55"
@@ -300,9 +309,10 @@ const BoxFormTop = () => {
                         </>}
                         {/* {tool === "borderColor" && <> */}
                         {tool === "boxBorder" && <>
-                            <div className='field'>
+                            <div className='box-editor field'>
                                 <label>Border color:</label>
                                 <input
+                                    className='box-editor'
                                     type="color"
                                     name="color"
                                     value={findItem("borderColor")}
@@ -313,6 +323,7 @@ const BoxFormTop = () => {
                         {tool === "copy" && <>
                             <div>
                                 <button
+                                    className='box-editor'
                                     onClick={e => handleCopy(e, editingText.id)}
                                 >
                                     Copy
@@ -322,9 +333,10 @@ const BoxFormTop = () => {
 
                         {/* {tool === "backgroundOpacity" && <> */}
                         {tool === "boxStyle" && <>
-                            <div className='field'>
+                            <div className='box-editor field'>
                                 <label>Box opacity:</label>
                                 <input
+                                    className='box-editor'
                                     type="range"
                                     min="0.1"
                                     max="1"

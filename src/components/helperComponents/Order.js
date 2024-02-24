@@ -5,14 +5,15 @@ const Order = ({ id, handleMoveToFront, handleMoveToBack, handleMoveForward, han
         <div className='path-edit-form'>
             <div className='field'>
                 <label>Order: </label>
-                <div>
+                <div className='box-editor'>
                     <button
                         title="Move to back"
-                        className='path-edit-form-button'
+                        className='box-editor path-edit-form-button'
                         onClick={() => handleMoveToBack(id)}>
-                        <div className='move-item'
+                        <div className='box-editor move-item'
                         >
                             <svg
+                                className='box-editor'
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -32,11 +33,12 @@ const Order = ({ id, handleMoveToFront, handleMoveToBack, handleMoveForward, han
                     </button>
                     <button
                         title="Move to front"
-                        className='path-edit-form-button'
+                        className='box-editor path-edit-form-button'
                         onClick={() => handleMoveToFront(id)}>
-                        <div className='move-item'
+                        <div className='box-editor move-item'
                         >
                             <svg
+                                className='box-editor'
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -56,10 +58,11 @@ const Order = ({ id, handleMoveToFront, handleMoveToBack, handleMoveForward, han
                     </button>
                     <button
                         title="Move backward"
-                        className='path-edit-form-button'
+                        className='box-editor path-edit-form-button'
                         onClick={() => handleMoveBackward(id)}>
-                        <div className='move-item'
+                        <div className='box-editor move-item'
                         ><svg
+                            className='box-editor'
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"
@@ -74,10 +77,11 @@ const Order = ({ id, handleMoveToFront, handleMoveToBack, handleMoveForward, han
                     </button>
                     <button
                         title="Move forward"
-                        className='path-edit-form-button'
+                        className='box-editor path-edit-form-button'
                         onClick={() => handleMoveForward(id)}>
-                        <div className='move-item'
+                        <div className='box-editor move-item'
                         ><svg
+                            className='box-editor'
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"

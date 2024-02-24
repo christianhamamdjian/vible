@@ -700,7 +700,10 @@ export default function MoodboardProvider({ children }) {
             && e.target.id !== 'delete-confirm'
             && e.target.id !== 'delete-confirmation'
             && e.target.id !== "rating-star"
-            && e.target.id !== "box-rating") {
+            && e.target.id !== "box-rating"
+            && !e.target.classList.contains('box-editor')
+            && !e.target.classList.contains('field')
+        ) {
             handleStopEditItem()
         }
         if (e.target.id === 'move' && editingText) {
@@ -965,7 +968,10 @@ export default function MoodboardProvider({ children }) {
             || e.target.id === 'delete-confirm'
             || e.target.id === 'delete-confirmation'
             || e.target.id === "rating-star"
-            || e.target.id === "box-rating") {
+            || e.target.id === "box-rating"
+            || e.target.classList.contains('box-editor')
+            || e.target.classList.contains('field')
+        ) {
             handleEditItem(e, rectId)
         }
         if (isDrawing) return

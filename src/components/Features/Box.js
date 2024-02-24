@@ -2,6 +2,7 @@ import React from 'react';
 import StartRating from "../rating/StarRating"
 import TopControls from "../helperComponents/TopControls"
 import { isSafari } from "../utils/browserDetector"
+import BoxFormTop from "../forms/BoxFormTop"
 import MarkdownPreview from "../markdown-editor/MarkdownPreview"
 import { MoodboardContext } from "../../context/moodboardContext";
 
@@ -46,18 +47,6 @@ const Box = ({ item }) => {
         <>
             {item && item.type === "box" && item.board === activeBoard.id && (
                 <>
-                    {/* <rect
-                        x={item.x - 40}
-                        y={item.y - 40}
-                        width={`${item.width + 70 || 160}`}
-                        height={`${item.height + 70 || 160}`}
-                        transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
-                        fill="transparent"
-                    //onPointerOut={(e) => handleStopEditItem(e, item.id)}
-                    // style={{
-                    //     backgroundColor: "blue",
-                    // }}
-                    /> */}
                     <foreignObject
                         id='box-object'
                         x={item.x}
@@ -308,12 +297,35 @@ const Box = ({ item }) => {
                                     onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                                     onPointerOver={(e) => handleEditItem(e, item.id)}
                                 />
+                            </>
+                        )
+                        }
+                    </g>
+                    <g
+                        transform={`rotate(${item?.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        style={{
+                            transform: `translate(${item.x},${item.y})`
+                        }}
+                    >
+
+                        {isEditingBoard && <TopControls item={item} />}
 
 
-
-                            </>)}
                     </g>
                 </>)
+            }
+            {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
+                <>
+                    <foreignObject
+                        x={item.x - 200}
+                        y={`${editingText ? item.y + item.height : item.y + item.height - 30}`}
+                        width="600"
+                        height="120"
+                    >
+                        <BoxFormTop />
+                    </foreignObject >
+                </>
+            )
             }
         </>
     )
