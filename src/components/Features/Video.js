@@ -119,8 +119,8 @@ const Video = ({ item }) => {
                                 <rect
                                     id="resize"
                                     fill="#cccccc"
-                                    x={item.x + item.width}
-                                    y={item.y + item.height + 30}
+                                    x={`${item.x + item.width}`}
+                                    y={`${item.y + item.height + 30}`}
                                     width="20"
                                     height="20"
                                     rx="4"

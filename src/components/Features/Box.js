@@ -314,7 +314,7 @@ const Box = ({ item }) => {
                     </g>
                 </>)
             }
-            {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
+            {/* {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
                 <>
                     <foreignObject
                         x={item.x - 200}
@@ -326,7 +326,7 @@ const Box = ({ item }) => {
                     </foreignObject >
                 </>
             )
-            }
+            } */}
         </>
     )
 }
