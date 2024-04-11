@@ -5,7 +5,7 @@
 [Online Demo](https://vible.netlify.app)
 ![alt text](src/assets/screenshot.png)
 
-### Build with React
+### Built with React
 
 ### `npm install`
 
