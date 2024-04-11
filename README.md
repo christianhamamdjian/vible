@@ -1,8 +1,9 @@
 # Vible
 
-## A note taking app to you grow and organise your ideas
+## A note taking app where you can grow and organise your ideas
 
 [Online Demo](https://vible.netlify.app)
+![alt text](src/assets/screenshot.png)
 
 ### Build with React
 
