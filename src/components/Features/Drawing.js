@@ -38,7 +38,7 @@ const Drawing = () => {
                         </pattern>
 
                         <pattern id="texture_diagonal" x="0" y="0" width="6%" height="2%" patternUnits="objectBoundingBox">
-                            <path d="M 0 0 l 12 22" style={{ strokeWidth: ".1rem", stroke: "black", fill: "none" }} />
+                            <path d="M 0 0 l 12 22" style={{ strokeWidth: ".1em", stroke: "black", fill: "none" }} />
                         </pattern> */}
 
                     </defs>

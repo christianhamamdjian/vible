@@ -16,30 +16,30 @@ const Box = ({ item }) => {
     }
     const css = `@media print {
         .pre-padded {
-          padding: 1rem !important;
+          padding: 1em !important;
           height: 100% !important;
         }
       }`
     const handleBoxTextHeight = () => {
         if (item.link !== "" && item.showRating) {
-            return "calc(100% - 3rem)"
+            return "calc(100% - 3em)"
         }
         if ((item.link !== "" && !item.showRating) || (item.link === "" && item.showRating)) {
-            return "calc(100% - 1.5rem)"
+            return "calc(100% - 1.5em)"
         }
         if (item.link === "" && !item.showRating) {
-            return "calc(100% - .5rem)"
+            return "calc(100% - .5em)"
         }
     }
     const handleTextareaHeight = () => {
         if (item.link !== "" && item.showRating) {
-            return "calc(100% - 4rem)"
+            return "calc(100% - 4em)"
         }
         if ((item.link !== "" && !item.showRating) || (item.link === "" && item.showRating)) {
-            return "calc(100% - 2.5rem)"
+            return "calc(100% - 2.5em)"
         }
         if (item.link === "" && !item.showRating) {
-            return "calc(100% - .5rem)"
+            return "calc(100% - .5em)"
         }
     }
 
@@ -80,10 +80,10 @@ const Box = ({ item }) => {
                             <div
                                 id="box-handel"
                                 style={{
-                                    backgroundColor: "transparent",
-                                    width: "3rem",
-                                    height: "3rem",
-                                    fontSize: "2.5rem",
+                                    // backgroundColor: "transparent",
+                                    width: "3em",
+                                    height: "3em",
+                                    fontSize: "2.5em",
                                     textAlign: "center",
                                     color: "rgba(155,155,155,.6)",
                                     lineHeight: "0.8",
@@ -92,7 +92,7 @@ const Box = ({ item }) => {
                                     borderRadius: "30%",
                                     marginRight: "0",
                                     marginLeft: "auto",
-                                    marginBottom: "-1.2rem"
+                                    marginBottom: "-1.2em"
                                 }}
                             >&#8801;</div>
                         )}
@@ -109,7 +109,7 @@ const Box = ({ item }) => {
                                 // position: 'relative',
                                 overflow: 'hidden',
                                 boxSizing: 'border-box',
-                                padding: editingText && editingItem.id === item.id ? ".3rem" : "1rem"
+                                padding: editingText && editingItem.id === item.id ? ".3em" : "1em"
                                 // opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             }}
                             xmlns="w3.org/1999/xhtml"
@@ -181,10 +181,10 @@ const Box = ({ item }) => {
                                         <div
                                             className='box-content-p'
                                             style={{
-                                                color: getTextColor(item.color),
+                                                // color: getTextColor(item.color),
                                                 color: item.textColor,
                                                 // height: item.link !== "" ? "70%" : "80%",
-                                                // height: item.link !== "" ? "calc(100% - 3rem)" : "calc(100% - 1.5rem)",
+                                                // height: item.link !== "" ? "calc(100% - 3em)" : "calc(100% - 1.5em)",
                                                 height: handleBoxTextHeight(),
                                                 minHeight: handleBoxTextHeight(),
                                                 fontFamily: item.font,
@@ -206,7 +206,7 @@ const Box = ({ item }) => {
                                                     whiteSpace: "pre-wrap",
                                                     color: item.textColor,
                                                     overflowX: "hidden",
-                                                    // paddingRight: "1rem",
+                                                    // paddingRight: "1em",
                                                     fontFamily: item.font,
                                                     userSelect: editingText && isEditingBoard ? "all" : "none",
                                                     fontSize: `${item.fontSize + "pt"}`,
@@ -215,7 +215,7 @@ const Box = ({ item }) => {
                                                     boxSizing: 'border-box',
                                                     resize: "none",
                                                     overflowY: isDraggingRect && isSafari ? 'hidden' : 'auto',
-                                                    // height: `${item.showRating ? "calc(100% - 1.5rem)" : "100%"}`,
+                                                    // height: `${item.showRating ? "calc(100% - 1.5em)" : "100%"}`,
                                                     height: "100%",
                                                     minHeight: "100%",
                                                 }}

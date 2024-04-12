@@ -45,7 +45,7 @@ const Video = ({ item }) => {
                     <foreignObject
                         id="video"
                         x={isSafari ? "0" : item.x}
-                        y={isSafari ? "1rem" : item.y + 20}
+                        y={isSafari ? "1em" : item.y + 20}
                         width={item.width}
                         height={item.height}
                         key={item.id}
@@ -54,7 +54,7 @@ const Video = ({ item }) => {
                         transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
-                            top: isSafari ? "1rem" : item.y,
+                            top: isSafari ? "1em" : item.y,
                             left: isSafari ? item.x : "0",
                         }}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
@@ -81,7 +81,7 @@ const Video = ({ item }) => {
                             className='video-frame'
                             style={{
                                 transform: isSafari && `rotate(${item.angle || 0}deg)`,
-                                top: isSafari ? item.y : "1rem",
+                                top: isSafari ? item.y : "1em",
                                 left: isSafari ? item.x : "0",
                             }}
                             draggable="true"
