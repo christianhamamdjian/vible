@@ -27,7 +27,7 @@ const Map = ({ item }) => {
                         width={item.width}
                         height={item.height}
                         rx="16"
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                         }}
@@ -49,7 +49,7 @@ const Map = ({ item }) => {
                         draggable="true"
                         id="map-url"
                         className='map-fobject'
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             top: isSafari ? "1em" : item.y,
@@ -84,7 +84,7 @@ const Map = ({ item }) => {
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             style={{
-                                transform: isSafari && `rotate(${item.angle || 0}deg)`,
+                                transform: isSafari && `rotate(${item.angle % 360 % 360 || 0}deg)`,
                                 top: isSafari ? item.y : "1em",
                                 left: isSafari ? item.x : "0",
                             }}

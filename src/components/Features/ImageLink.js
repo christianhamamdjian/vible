@@ -32,7 +32,7 @@ const ImageLink = ({ item }) => {
                             y={item.y}
                             width={item.width}
                             height={calculatedHeight && calculatedHeight}
-                            transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                            transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
                             clipPath={`inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}% round ${item.roundCorners}px)`}
                             onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
                             onPointerMove={(e) => handleSvgPointerMove(e, item.id)}
@@ -49,7 +49,7 @@ const ImageLink = ({ item }) => {
                             }}
                         />
                         <g key={item.id}
-                            transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                            transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
                             style={{
                                 transform: `translate(${item.x},${item.y})`
                             }}

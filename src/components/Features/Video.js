@@ -13,7 +13,7 @@ const Video = ({ item }) => {
 
                     {/* <rect
                         draggable="true"
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         className='video-group'
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1
@@ -28,7 +28,7 @@ const Video = ({ item }) => {
                         width={item.width}
                         height={item.height}
                         rx="16"
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                         }}
@@ -51,7 +51,7 @@ const Video = ({ item }) => {
                         key={item.id}
                         draggable="true"
                         className='video-object'
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1,
                             top: isSafari ? "1em" : item.y,
@@ -80,7 +80,7 @@ const Video = ({ item }) => {
                         <iframe
                             className='video-frame'
                             style={{
-                                transform: isSafari && `rotate(${item.angle || 0}deg)`,
+                                transform: isSafari && `rotate(${item.angle % 360 || 0}deg)`,
                                 top: isSafari ? item.y : "1em",
                                 left: isSafari ? item.x : "0",
                             }}
@@ -98,7 +98,7 @@ const Video = ({ item }) => {
                         />
                     </foreignObject>
                     <g
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
                         style={{
                             transform: `translate(${item.x},${item.y})`
                         }}

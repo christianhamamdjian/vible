@@ -27,7 +27,7 @@ const Image = ({ item }) => {
                         href={item.src}
                         x={item.x}
                         y={item.y}
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
                         clipPath={`inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}% round ${item.roundCorners}px)`}
                         width={item.width}
                         height={calculatedHeight}
@@ -49,7 +49,7 @@ const Image = ({ item }) => {
                         }}
                     />
                     <g
-                        transform={`rotate(${item.angle || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
+                        transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
                         style={{
                             //opacity: isDraggingRect && item.id === selectedRectId ? .8 : 1 ,
                             transform: `translate(${item.x},${item.y})`
