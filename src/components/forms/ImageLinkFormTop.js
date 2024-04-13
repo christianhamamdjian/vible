@@ -19,7 +19,7 @@ const ImageLinkFormTop = () => {
 
     return (
         <>
-            {editingImageLink && items.length > 0 && (
+            {editingImageLink && items.length > 0 &&
                 <>
                     <div className='inputs-top_objects' >
                         <TopButtonsSlider toolButtons={toolButtons} changeTool={changeTool} />
@@ -59,30 +59,6 @@ const ImageLinkFormTop = () => {
                                 name="opacity"
                                 value={editingImageLink && items.find(item => item.id === editingImageLink.id).opacity}
                                 onChange={(e) => handleItemChange(e, editingImageLink.id, "opacity")}
-                            />
-                        </>}
-                        {tool === "crop" && <>
-                            <label>Crop width:</label>
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                step="1"
-                                name="cropWidth"
-                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropWidth}
-                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropWidth")}
-                            />
-                        </>}
-                        {tool === "crop" && <>
-                            <label>Crop height:</label>
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                step="1"
-                                name="cropHeight"
-                                value={editingImageLink && items.find(item => item.id === editingImageLink.id).cropHeight}
-                                onChange={(e) => handleItemChange(e, editingImageLink.id, "cropHeight")}
                             />
                         </>}
                         {tool === "cropHeight" && <>
@@ -158,7 +134,6 @@ const ImageLinkFormTop = () => {
                         }
                     </div>}
                 </>
-            )
             }
         </>
     )
