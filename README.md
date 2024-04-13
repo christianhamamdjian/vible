@@ -3,7 +3,7 @@
 ## A note taking app where you can grow and organise your ideas
 
 [Online Demo](https://vible.netlify.app)
-![alt text](src/assets/screenshot.png)
+![interface screenshot](src/assets/screenshot.png)
 
 ### Built with React
 
@@ -14,11 +14,13 @@
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-- It is recommende to use the Chrome web browser for a better experience.
+- It is recommended to use the Chrome web browser for a better overall experience.
 
 - You get access to the documentation using the (?) button at the top.
 
-- You can load a demo board with instructions from the Gallery panel at the bottom.
+- You can load a demo board with instructions by clicking the "Demo Board" button in the "Gallery" panel at the bottom.
+
+![demo boars](src/assets/screenshot1.png)
 
 - The interface has four main panels:
 
