@@ -28,7 +28,7 @@ const Image = ({ item }) => {
                         x={item.x}
                         y={item.y}
                         transform={`rotate(${item.angle % 360 || 0}, ${item.x + item.width / 2}, ${item.y + calculatedHeight / 2})`}
-                        clipPath={`inset(${item.cropTop}% ${item.cropRight}% ${item.cropBottom}% ${item.cropLeft}% round ${item.roundCorners}px)`}
+                        clipPath={`inset(${item.cropTop || 0}% ${item.cropRight || 0}% ${item.cropBottom || 0}% ${item.cropLeft || 0}% round ${item.roundCorners || 0}px)`}
                         width={item.width}
                         height={calculatedHeight}
                         onPointerDown={(e) => handleSvgPointerDown(e, item.id)}
