@@ -50,8 +50,8 @@ const Box = ({ item }) => {
                     <foreignObject
                         id='box-object'
                         x={item.x}
-                        // y={editingText ? item.y - 20 : item.y}
-                        y={item.y}
+                        y={(editingText || isEditingBoard) && editingItem && editingItem.id === item.id ? `${item.y - 20}` : item.y}
+                        //y={item.y}
                         draggable="true"
                         //transform={`translate(${item.x},${item.y})`}
                         transform={`rotate(${item?.angle}, ${item.x + item.width / 2}, ${item.y + item.height / 2})`}
@@ -250,7 +250,7 @@ const Box = ({ item }) => {
                         }}
                     >
 
-                        {isEditingBoard && <TopControls item={item} />}
+                        {/* {isEditingBoard && <TopControls item={item} />} */}
 
                         {(editingText || isEditingBoard) && editingItem && editingItem.id === item.id && (
                             <>
@@ -278,7 +278,7 @@ const Box = ({ item }) => {
                                     id="rotate"
                                     fill="#cccccc"
                                     cx={`${item.x - 20}`}
-                                    cy={`${editingText ? item.y + (item.height / 2) : item.y + (item.height / 2) - 20}`}
+                                    cy={`${editingText ? item.y + (item.height / 2.5) : item.y + (item.height / 2) - 20}`}
                                     width="20"
                                     height="20"
                                     r='12'
@@ -290,7 +290,7 @@ const Box = ({ item }) => {
                                     fill="#cccccc"
                                     x={item.x + item.width}
                                     //y={item.y + item.height - 30}
-                                    y={`${editingText ? item.y + item.height : item.y + item.height - 30}`}
+                                    y={`${editingText ? item.y + item.height - 20 : item.y + item.height - 30}`}
                                     width="20"
                                     height="20"
                                     rx="4"
